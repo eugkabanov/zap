@@ -204,6 +204,30 @@ const tabs = [
   },
 ];
 const activeTab = ref(0);
+
+const selectedValue = ref(3);
+const options = [
+  {
+    label: "Extra Small",
+    value: 1,
+  },
+  {
+    label: "Small",
+    value: 2,
+  },
+  {
+    label: "Medium",
+    value: 3,
+  },
+  {
+    label: "Large",
+    value: 4,
+  },
+  {
+    label: "Extra Large",
+    value: 5,
+  },
+];
 </script>
 
 <template>
@@ -223,18 +247,18 @@ const activeTab = ref(0);
       <div :class="$tt('body1')">
         Body 1 paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing
         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur.
+        Ut enim <a href="">ad minim veniam</a>, quis nostrud exercitation
+        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+        nulla pariatur.
       </div>
       <div :class="$tt('body2')">
         Body 2 paragraph. Lorem ipsum dolor sit amet, consectetur adipiscing
         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur.
+        Ut enim <a href="">ad minim veniam</a>, quis nostrud exercitation
+        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+        nulla pariatur.
       </div>
 
       <div :class="$tt('button')">Button text</div>
@@ -321,19 +345,27 @@ const activeTab = ref(0);
     <ui-collapse with-icon ripple>
       <template #toggle><div :class="$tt('body1')">Misc</div></template>
 
-      <div>
-        <ui-tab-bar v-model="activeTab">
-          <ui-tab v-for="(tab, index) in tabs" :key="index" content-indicator>
-            {{ tab.text }}
-          </ui-tab>
-        </ui-tab-bar>
-      </div>
-
-      <div>
-        <ui-badge overlap :count="999">
-          <ui-icon>mail</ui-icon>
-        </ui-badge>
-      </div>
+      <ui-grid>
+        <ui-grid-cell columns="12">
+          <ui-tab-bar v-model="activeTab">
+            <ui-tab v-for="(tab, index) in tabs" :key="index" content-indicator>
+              {{ tab.text }}
+            </ui-tab>
+          </ui-tab-bar>
+        </ui-grid-cell>
+        <ui-grid-cell columns="12">
+          <ui-badge overlap :count="999">
+            <ui-icon>mail</ui-icon>
+          </ui-badge>
+        </ui-grid-cell>
+        <ui-grid-cell columns="12">
+          <ui-chips
+            v-model="selectedValue"
+            type="choice"
+            :options="options"
+          ></ui-chips>
+        </ui-grid-cell>
+      </ui-grid>
     </ui-collapse>
   </div>
 </template>
