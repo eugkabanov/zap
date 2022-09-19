@@ -1,7 +1,29 @@
 @use "./vars";
 
 @use "@material/theme/variables" with (
-  $primary: vars.$primaryColor
+  $primary: vars.$primaryColor,
+  $secondary: vars.$secondaryColor
+);
+
+@use "@material/typography/typography" with (
+  // Override styles
+  $styles-headline1: (font-weight: 700, font-size: 44px, line-height: 53.64px),
+  $styles-headline2: (font-weight: 700, font-size: 34px, line-height: 44.2px),
+  $styles-headline3: (font-weight: 600, font-size: 24px, line-height: 29.26px),
+  $styles-body1: (
+    font-family: unquote("Montserrat, sans-serif"),
+    font-size: 16px,
+    font-weight: 400,
+    line-height: 19.5px
+  ),
+  $styles-body2: (font-size: 20px, font-weight: 400, line-height: 26px),
+  $styles-button: (
+    font-size: 16px,
+    font-weight: 600,
+    line-height: 20px,
+    text-transform: unset,
+    letter-spacing: unset
+  )
 );
 
 @use "balm-ui/components/icon" with (

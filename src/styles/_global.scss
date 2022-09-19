@@ -1,0 +1,25 @@
+@use "./vars";
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+a,
+.link {
+  color: vars.$primaryColor;
+  text-decoration: none;
+
+  &:hover {
+    color: lighten($color: vars.$primaryColor, $amount: 20);
+  }
+}
+
+b,
+.bold {
+  font-weight: 600;
+}
+
+.small {
+  font-size: 14px;
+  line-height: 17px;
+}
