@@ -14,7 +14,8 @@
     font-family: unquote("Montserrat, sans-serif"),
     font-size: 16px,
     font-weight: 400,
-    line-height: 19.5px
+    line-height: 19.5px,
+    letter-spacing: unset
   ),
   $styles-body2: (font-size: 16px, font-weight: 500, line-height: 20px),
   $styles-button: (
