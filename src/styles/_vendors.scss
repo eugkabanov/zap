@@ -16,7 +16,7 @@
     font-weight: 400,
     line-height: 19.5px
   ),
-  $styles-body2: (font-size: 20px, font-weight: 400, line-height: 26px),
+  $styles-body2: (font-size: 16px, font-weight: 500, line-height: 20px),
   $styles-button: (
     font-size: 16px,
     font-weight: 600,
@@ -24,6 +24,21 @@
     text-transform: unset,
     letter-spacing: unset
   )
+);
+
+@use "@material/textfield" with (
+  $height: 52px,
+  $shape-radius: 0
+);
+@use "@material/select/select-theme" with (
+  $height: 52px,
+  $shape-radius: 0
+);
+@use "@material/button/button-shared-theme" with (
+  $height: 50px,
+  $horizontal-padding: 40px,
+  $contained-horizontal-padding: 40px,
+  $shape-radius: 0
 );
 
 @use "balm-ui/components/icon" with (

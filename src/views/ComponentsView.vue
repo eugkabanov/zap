@@ -295,6 +295,7 @@ const options = [
             </div>
           </ui-form-field>
           <ui-form-field :class="actionClass">
+            <ui-button raised class="compact">Compact</ui-button>
             <ui-button raised>Submit</ui-button>
             <ui-button outlined>Cancel</ui-button>
           </ui-form-field>
