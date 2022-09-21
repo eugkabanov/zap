@@ -1,6 +1,6 @@
 @use "./vars";
 
-@use "@material/theme/variables" with (
+@use "@material/theme/variables" as commonVariables with (
   $primary: vars.$primaryColor,
   $secondary: vars.$secondaryColor
 );
@@ -45,9 +45,25 @@
   $header-row-text-color: white,
   $shape-radius: 0
 );
+@use "@material/chips/deprecated/variables" with (
+  $fill-color-default: #f5f5f7,
+  $height: 44px,
+  $horizontal-padding: 34px,
+  $shape-radius: 0
+);
 
 @use "balm-ui/components/icon" with (
   $font-path: vars.$fontPath
 );
 
 @use "balm-ui/dist/balm-ui";
+
+.mdc-tab-indicator .mdc-tab-indicator__content--underline {
+  border-top-width: 4px;
+}
+
+.mdc-chip-set--choice .mdc-chip.mdc-chip--selected,
+.mdc-chip-set--choice .mdc-chip.mdc-chip--selected:hover {
+  background-color: black;
+  color: white;
+}

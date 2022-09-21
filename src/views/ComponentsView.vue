@@ -341,7 +341,7 @@ const options = [
       <ui-grid>
         <ui-grid-cell columns="12">
           <ui-tab-bar v-model="activeTab">
-            <ui-tab v-for="(tab, index) in tabs" :key="index" content-indicator>
+            <ui-tab v-for="(tab, index) in tabs" :key="index">
               {{ tab.text }}
             </ui-tab>
           </ui-tab-bar>
