@@ -40,6 +40,11 @@
   $contained-horizontal-padding: 40px,
   $shape-radius: 0
 );
+@use "@material/data-table/data-table-theme" with (
+  $header-row-fill-color: black,
+  $header-row-text-color: white,
+  $shape-radius: 0
+);
 
 @use "balm-ui/components/icon" with (
   $font-path: vars.$fontPath
