@@ -4,6 +4,11 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+.mdc-layout-grid {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 a,
 .link {
   color: vars.$primaryColor;
@@ -34,4 +39,8 @@ button.compact {
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.d-flex {
+  display: flex;
 }
