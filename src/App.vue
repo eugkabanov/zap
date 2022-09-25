@@ -1,44 +1,13 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import { RouterView } from "vue-router";
 import PageHeader from "./components/Page/PageHeader.vue";
+import PageFooter from "./components/Page/PageFooter.vue";
 </script>
 
 <template>
   <PageHeader />
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/components">Components</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="py-4">
+    <RouterView />
+  </div>
+  <PageFooter />
 </template>
-
-<style scoped>
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-</style>

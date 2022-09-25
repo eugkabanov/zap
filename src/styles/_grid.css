@@ -96,6 +96,11 @@
   margin-left: auto;
 }
 
+.container-fluid {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+
 @media (min-width: 576px) {
   .container-sm,
   .container {
@@ -124,6 +129,10 @@
   .container-sm,
   .container {
     max-width: 1140px;
+  }
+  .container-fluid {
+    padding-right: 3rem;
+    padding-left: 3rem;
   }
 }
 @media (min-width: 1400px) {

@@ -231,7 +231,7 @@ const options = [
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <ui-collapse with-icon ripple>
       <template #toggle><div :class="$tt('body1')">Typography</div></template>
       <h1 :class="$tt('headline1')">Headline 1</h1>

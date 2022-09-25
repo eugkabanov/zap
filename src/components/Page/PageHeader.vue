@@ -54,14 +54,30 @@ const isOpen = ref(false);
       <div class="col-auto">
         <img class="logo" alt="Logo" src="@/assets/logo-blue.svg" />
       </div>
-      <nav class="col-auto d-none d-lg-flex">
-        <RouterLink to="/">Главная</RouterLink>
-        <RouterLink to="/catalog">Каталог</RouterLink>
-        <RouterLink to="/about">О&nbsp;компании</RouterLink>
-        <RouterLink to="/work">Сотрудничество</RouterLink>
-        <RouterLink to="/help">Помощь</RouterLink>
-        <RouterLink to="/news">Новости</RouterLink>
-        <RouterLink to="/contacts">Контакты</RouterLink>
+      <nav class="col-auto d-none d-lg-block">
+        <div class="row">
+          <div class="col-auto">
+            <RouterLink to="/">Главная</RouterLink>
+          </div>
+          <div class="col-auto">
+            <RouterLink to="/catalog">Каталог</RouterLink>
+          </div>
+          <div class="col-auto">
+            <RouterLink to="/about">О&nbsp;компании</RouterLink>
+          </div>
+          <div class="col-auto">
+            <RouterLink to="/work">Сотрудничество</RouterLink>
+          </div>
+          <div class="col-auto">
+            <RouterLink to="/help">Помощь</RouterLink>
+          </div>
+          <div class="col-auto">
+            <RouterLink to="/news">Новости</RouterLink>
+          </div>
+          <div class="col-auto">
+            <RouterLink to="/contacts">Контакты</RouterLink>
+          </div>
+        </div>
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
@@ -94,7 +110,8 @@ const isOpen = ref(false);
 header#app-header {
   background-color: black;
   max-height: 100px;
-  padding: 18px 3rem;
+  padding-top: 18px;
+  padding-bottom: 18px;
 
   &,
   & a,
@@ -104,7 +121,8 @@ header#app-header {
 
   @media (max-width: vars.$desktop) {
     max-height: 70px;
-    padding: 9px 1.25rem;
+    padding-top: 9px;
+    padding-bottom: 9px;
   }
 
   .logo {
@@ -141,19 +159,6 @@ header#app-header {
   }
   .header-item span {
     margin-left: 10px;
-  }
-
-  nav a {
-    margin-left: 1.25rem;
-    margin-right: 1.25rem;
-    padding-bottom: 6px;
-  }
-  nav a:hover {
-    opacity: 0.8;
-  }
-
-  nav a.router-link-exact-active {
-    border-bottom: 3px solid #0069c8;
   }
 }
 </style>

@@ -48,3 +48,17 @@ button.compact {
   padding-left: 24px;
   padding-right: 24px;
 }
+
+header#app-header,
+footer#app-footer {
+  nav a {
+    padding-bottom: 6px;
+  }
+  nav a:hover {
+    opacity: 0.8;
+  }
+
+  nav a.router-link-exact-active {
+    border-bottom: 3px solid #0069c8;
+  }
+}
