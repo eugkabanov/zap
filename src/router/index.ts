@@ -10,19 +10,61 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/about",
-      name: "about",
+      path: "/catalog",
+      name: "catalog",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/work",
+      name: "work",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/help",
+      name: "help",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/news",
+      name: "news",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/contacts",
+      name: "contacts",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/payment",
+      name: "payment",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/sources",
+      name: "sources",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/delivery",
+      name: "delivery",
+      component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/return",
+      name: "return",
+      component: () => import("../views/PassView.vue"),
     },
     {
       path: "/components",
       name: "components",
-      // route level code-splitting
-      // this generates a separate chunk (Components.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/ComponentsView.vue"),
     },
   ],
