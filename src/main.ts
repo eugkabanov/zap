@@ -7,7 +7,7 @@ import BalmUIPlus from "balm-ui-plus";
 import App from "./App.vue";
 import router from "./router";
 
-import "./assets/main.css";
+import "./styles/_grid.css";
 import "./styles/index.scss";
 
 const app = createApp(App);
