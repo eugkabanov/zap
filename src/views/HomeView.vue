@@ -1,10 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import NewsSide from "../components/News/NewsSide.vue";
+</script>
 
 <template>
   <main>
     <section id="news" class="py-5">
       <div class="container light">
-        <div class="row g-3"></div>
+        <div class="row g-3 mb-5">
+          <div class="col-12 col-lg-6">
+            <NewsSide
+              :caption="'Скидки для&nbsp;новых клиентов!'"
+              :link="'/news'"
+              :image="'./assets/news/preview-side.jpg'"
+            />
+          </div>
+        </div>
         <div id="lead-message" class="mb-5">
           <div :class="$tt('body1')">
             При оплате заказа банковской картой, обработка платежа (включая ввод
