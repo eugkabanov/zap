@@ -6,8 +6,6 @@ import PageFooter from "./components/Page/PageFooter.vue";
 
 <template>
   <PageHeader />
-  <div class="py-4">
-    <RouterView />
-  </div>
+  <RouterView />
   <PageFooter />
 </template>
