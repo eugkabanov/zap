@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const props = defineProps<{
-  caption: string;
   image: string;
   link: string;
 }>();
@@ -12,7 +11,7 @@ const imagePath = new URL(`../../${props.image}`, import.meta.url).href;
   <article class="news-side" :style="{ backgroundImage: `url(${imagePath})` }">
     <div class="background">
       <div class="news-side__caption">
-        <h3>{{ caption }}</h3>
+        <slot name="caption" />
       </div>
 
       <router-link :to="{ path: link }"
@@ -23,18 +22,21 @@ const imagePath = new URL(`../../${props.image}`, import.meta.url).href;
 </template>
 
 <style lang="scss" scoped>
+@use "@/styles/vars";
 .news-side {
-  min-height: 340px;
   background-size: cover;
 
   &__caption {
-    width: 40%;
+    width: 70%;
     margin-bottom: 80px;
 
-    h3 {
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1.2;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: white;
+
+    @media (min-width: vars.$desktop) {
+      width: 40%;
     }
   }
 
@@ -45,8 +47,13 @@ const imagePath = new URL(`../../${props.image}`, import.meta.url).href;
 
   .background {
     background-color: #0b5290;
-    clip-path: polygon(0 0, 55% 0, 40% 100%, 0 100%);
+    clip-path: polygon(0 0, 85% 0, 65% 100%, 0 100%);
     padding: 40px;
+    min-height: 340px;
+
+    @media (min-width: vars.$desktop) {
+      clip-path: polygon(0 0, 55% 0, 40% 100%, 0 100%);
+    }
   }
 }
 </style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NewsSide from "../components/News/NewsSide.vue";
+import NewsCover from "../components/News/NewsCover.vue";
 </script>
 
 <template>
@@ -8,11 +9,22 @@ import NewsSide from "../components/News/NewsSide.vue";
       <div class="container light">
         <div class="row g-3 mb-5">
           <div class="col-12 col-lg-6">
-            <NewsSide
-              :caption="'Скидки для&nbsp;новых клиентов!'"
+            <NewsSide :link="'/news'" :image="'./assets/news/preview-side.jpg'">
+              <template v-slot:caption>
+                <div>Скидки для&nbsp;новых клиентов!</div>
+              </template>
+            </NewsSide>
+          </div>
+          <div class="col-12 col-lg-6">
+            <NewsCover
               :link="'/news'"
-              :image="'./assets/news/preview-side.jpg'"
-            />
+              :image="'./assets/news/preview-full.jpg'"
+            >
+              <template v-slot:caption>
+                <div>Otto&nbsp;Zimermann</div>
+                <div style="font-size: 60px; line-height: 140%">-20%</div>
+              </template>
+            </NewsCover>
           </div>
         </div>
         <div id="lead-message" class="mb-5">
