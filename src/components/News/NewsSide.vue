@@ -1,10 +1,15 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   image: string;
   link: string;
 }>();
 
-const imagePath = new URL(`../../${props.image}`, import.meta.url).href;
+// imagePath hardcoded because of build error
+// see more at: https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
+const imagePath = new URL(
+  "./../../assets/news/preview-side.jpg",
+  import.meta.url
+).href;
 </script>
 
 <template>
