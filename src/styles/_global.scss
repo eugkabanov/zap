@@ -50,6 +50,14 @@ b,
 
 .light {
   color: white;
+
+  & a {
+    color: white;
+  }
+}
+
+.text-center {
+  text-align: center;
 }
 
 button.compact {

@@ -53,6 +53,11 @@
   $shape-radius: 0
 );
 
+@use "@material/fab/fab-theme" with (
+  $height: 52px,
+  $shape-radius: 0
+);
+
 @use "balm-ui/components/icon" with (
   $font-path: vars.$fontPath
 );
