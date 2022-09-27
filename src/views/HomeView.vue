@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import NewsSide from "@/components/News/NewsSide.vue";
 import NewsCover from "@/components/News/NewsCover.vue";
+import BrandsSlider from "../components/BrandsSlider/BrandsSlider.vue";
 </script>
 
 <template>
@@ -64,7 +65,9 @@ import NewsCover from "@/components/News/NewsCover.vue";
             </div>
           </div>
         </div>
-        <div id="brands"></div>
+        <div id="brands">
+          <BrandsSlider />
+        </div>
       </div>
     </section>
   </main>

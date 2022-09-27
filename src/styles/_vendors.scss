@@ -68,3 +68,13 @@
   background-color: black;
   color: white;
 }
+
+.carousel__pagination-button {
+  width: 40px;
+  height: 3px;
+  background-color: rgba($color: white, $alpha: 0.6);
+
+  &--active {
+    background-color: vars.$primaryColor;
+  }
+}
