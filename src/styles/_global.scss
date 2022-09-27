@@ -35,17 +35,17 @@ a,
 
 b,
 .bold {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .small {
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 14px !important;
+  line-height: 17px !important;
 }
 
 .large {
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 20px !important;
+  line-height: 26px !important;
 }
 
 .light {

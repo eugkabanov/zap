@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import IconBox from "../components/icons/IconBox.vue";
+import IconDelivery from "../components/icons/IconDelivery.vue";
+import IconDocs from "../components/icons/IconDocs.vue";
+import IconSearch from "../components/icons/IconSearch.vue";
+import IconSettings from "../components/icons/IconSettings.vue";
+import IconWeb from "../components/icons/IconWeb.vue";
+import IconUser from "../components/icons/IconUser.vue";
+import IconOffice from "../components/icons/IconOffice.vue";
+</script>
+
 <template>
   <main>
     <section id="about-banner" class="py-5">
@@ -40,6 +51,77 @@
         </div>
       </div>
     </section>
+    <section id="about" class="py-5">
+      <div class="container light">
+        <div class="row g-4">
+          <div class="col-12 col-lg-6">
+            <div :class="$tt('body1')" class="large">
+              Высокий профессионализм наших сотрудников и индивидуальный подход
+              к каждому покупателю, позволяют предоставлять клиентам только
+              качественные запчасти и строго соблюдать обязательства по
+              логистике!
+            </div>
+            <div class="mt-4">
+              <img
+                class="parking-image"
+                src="@/assets/about-parking.jpg"
+                alt="parking"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="row align-items-center">
+              <div class="col-auto"><IconBox style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                48 000 категорий товаров
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconDelivery style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                500 поставщиков, доступные цены
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconDocs style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                220 000 карточек товара, шины, масла, автохимия
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconSearch style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                43 ОЕМ производителей, поиск по VIN и FRAME
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconSettings style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                69 000 000 оригинальных и неоригинальных автозапчастей
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconWeb style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                5300 брендов aftermarket
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconUser style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                1000 + активных пользователей
+              </div>
+            </div>
+            <div class="mt-2 row align-items-center">
+              <div class="col-auto"><IconOffice style="height: 60px" /></div>
+              <div :class="$tt('body1')" class="large col">
+                6000 пунктов СДЕК, самовывоз, доставка по Москве
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -64,6 +146,15 @@ section#about-banner {
     @media (min-width: vars.$desktop) {
       padding: 50px;
     }
+  }
+}
+
+section#about {
+  background-color: #242424;
+
+  .parking-image {
+    width: 100%;
+    height: auto;
   }
 }
 </style>
