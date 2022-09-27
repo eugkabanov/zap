@@ -7,6 +7,7 @@ import IconSettings from "../components/icons/IconSettings.vue";
 import IconWeb from "../components/icons/IconWeb.vue";
 import IconUser from "../components/icons/IconUser.vue";
 import IconOffice from "../components/icons/IconOffice.vue";
+import BrandsSlider from "../components/BrandsSlider/BrandsSlider.vue";
 </script>
 
 <template>
@@ -119,6 +120,10 @@ import IconOffice from "../components/icons/IconOffice.vue";
               </div>
             </div>
           </div>
+        </div>
+
+        <div id="brands" class="mt-5">
+          <BrandsSlider />
         </div>
       </div>
     </section>
