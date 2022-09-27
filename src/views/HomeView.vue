@@ -177,6 +177,7 @@ const submitSearch = () => {
 section#banner {
   background-image: url("@/assets/home-banner.jpg");
   background-size: cover;
+  background-position-y: center;
 
   .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
     color: white;
