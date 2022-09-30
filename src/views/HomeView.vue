@@ -67,39 +67,39 @@ const submitSearch = () => {
           </div>
         </div>
         <div class="row g-4 text-center">
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/oil">
             <IconOil style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Масла</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/wheels">
             <IconWheel style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Шины</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/rums">
             <IconDisk style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Диски</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/breaks">
             <IconBreaks style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Колодки</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/straps">
             <IconStrap style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Ремни</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/battery">
             <IconBattery style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Аккумуляторы</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/filters">
             <IconFilter style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Фильтры</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/lamps">
             <IconLamp style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Лампы</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog">
+          <RouterLink class="col-4 col-lg" to="/catalog/washers">
             <IconWasher style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Промывки</div>
           </RouterLink>
