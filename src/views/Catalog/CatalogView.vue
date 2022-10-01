@@ -26,7 +26,7 @@ const list = [1, 2, 3, 4];
                   <RouterLink class="clear" to="/catalog-choose/oil-winter">
                     <div :class="$tt('headline3')">Зимние масла</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil-SAE-0W">
+                  <RouterLink class="clear" to="/catalog-choose/oil">
                     <div :class="$tt('body1')">SAE-0W</div>
                   </RouterLink>
                   <RouterLink class="clear" to="/catalog/oil-SAE-5W">
@@ -253,7 +253,7 @@ const list = [1, 2, 3, 4];
       <div class="pb-5">
         <div class="row flex-column g-4">
           <div class="col">
-            <ProductSection title="Масло" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Масло" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -275,7 +275,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Шины" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Шины" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -297,7 +297,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Диски" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Диски" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -319,7 +319,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Колодки" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Колодки" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -341,7 +341,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Ремни" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Ремни" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -363,7 +363,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Аккумуляторы" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Аккумуляторы" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -385,7 +385,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Фильтры" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Фильтры" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -407,7 +407,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Лампы" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Лампы" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
@@ -429,7 +429,7 @@ const list = [1, 2, 3, 4];
           </div>
 
           <div class="col">
-            <ProductSection title="Промывки" href="/catalog/oil-SAE-0W">
+            <ProductSection title="Промывки" href="/catalog-choose/oil">
               <template #products>
                 <div class="row g-3">
                   <article
