@@ -4,6 +4,7 @@ import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
 import CategoryButton from "../../components/Catalog/CategoryButton.vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ViewOptions from "../../components/Catalog/ViewOptions.vue";
+import ProductListCard from "../../components/Catalog/ProductListCard.vue";
 
 const list = Array(30).fill("");
 
@@ -43,13 +44,24 @@ const setSelectedViewOption = (value: number) =>
           />
         </div>
 
-        <div class="row g-3">
+        <div v-if="selectedViewOption === 1" class="row g-3">
           <article
             v-for="item of list"
             v-bind:key="item"
             class="col-12 col-sm-6 col-md-4 col-xxl-3"
           >
             <ProductCard
+              title="Название товара"
+              image="@/assets/catalog/oil.png"
+              brand="BREND"
+              inventoryId="L03412960404"
+              price="5841"
+            />
+          </article>
+        </div>
+        <div v-else class="row g-3">
+          <article v-for="item of list" v-bind:key="item" class="col-12">
+            <ProductListCard
               title="Название товара"
               image="@/assets/catalog/oil.png"
               brand="BREND"
