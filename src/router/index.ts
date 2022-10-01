@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: "/catalog/:categoryId",
       name: "catalogCategory",
-      component: () => import("../views/PassView.vue"),
+      component: () => import("../views/Catalog/CatalogCategoryView.vue"),
     },
     {
       path: "/catalog/:categoryId/:productId",

@@ -13,7 +13,7 @@ defineProps<{
     <!-- src hardcoded because of build error see more at: https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url -->
     <img
       class="product-card__image mb-3"
-      src="@/assets/catalog/oil.png"
+      src="@/assets/catalog/wheel.png"
       alt="product image"
     />
     <div :class="$tt('body2')">{{ title }}</div>
