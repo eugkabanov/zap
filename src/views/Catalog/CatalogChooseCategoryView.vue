@@ -51,6 +51,8 @@ const setSelectedViewOption = (value: number) =>
             class="col-12 col-sm-6 col-md-4 col-xxl-3"
           >
             <ProductCard
+              productId="123"
+              productCategory="wheel"
               title="Название товара"
               image="@/assets/catalog/oil.png"
               brand="BREND"
@@ -62,6 +64,8 @@ const setSelectedViewOption = (value: number) =>
         <div v-else class="row g-3">
           <article v-for="item of list" v-bind:key="item" class="col-12">
             <ProductListCard
+              productId="123"
+              productCategory="wheel"
               title="Название товара"
               image="@/assets/catalog/oil.png"
               brand="BREND"

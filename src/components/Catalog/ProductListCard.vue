@@ -1,5 +1,7 @@
 <script setup lang="ts">
 defineProps<{
+  productId: string;
+  productCategory: string;
   title: string;
   image: string;
   brand: string;
@@ -9,7 +11,10 @@ defineProps<{
 </script>
 
 <template>
-  <div class="product-card">
+  <RouterLink
+    :to="`/catalog/${productCategory}/${productId}`"
+    class="product-card"
+  >
     <div class="row gy-4">
       <div class="col-12 col-md-6 col-xxl-2">
         <!-- src hardcoded because of build error see more at: https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url -->
@@ -82,14 +87,20 @@ defineProps<{
         </div>
       </div>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">
 @use "@/styles/vars";
 .product-card {
+  display: block;
   padding: 15px;
   background-color: white;
+
+  &,
+  &:hover {
+    color: inherit;
+  }
 
   @media (min-width: vars.$desktop) {
     padding: 30px;
