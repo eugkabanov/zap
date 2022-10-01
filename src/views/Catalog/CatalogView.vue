@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
 import CategoryButton from "../../components/Catalog/CategoryButton.vue";
+import ProductCard from "../../components/Catalog/ProductCard.vue";
+import ProductSection from "../../components/Catalog/ProductSection.vue";
+
+const list = [1, 2, 3, 4, 5];
 </script>
 
 <template>
@@ -20,13 +24,13 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Зимние масла</div>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-0W">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-0W">
                     <div :class="$tt('body1')">SAE-0W</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-5W">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-5W">
                     <div :class="$tt('body1')">SAE-5W</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-10W">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-10W">
                     <div :class="$tt('body1')">SAE-10W</div>
                   </RouterLink>
                 </div>
@@ -34,13 +38,13 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Летние масла</div>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-30">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-30">
                     <div :class="$tt('body1')">SAE-30</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-40">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-40">
                     <div :class="$tt('body1')">SAE-40</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-50">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-50">
                     <div :class="$tt('body1')">SAE-50</div>
                   </RouterLink>
                 </div>
@@ -48,22 +52,22 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Всесезонные масла</div>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-5W-40">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-5W-40">
                     <div :class="$tt('body1')">SAE-5W-40</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-5W-30">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-5W-30">
                     <div :class="$tt('body1')">SAE-5W-30</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-10W-30">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-10W-30">
                     <div :class="$tt('body1')">SAE-10W-30</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-10W-40">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-10W-40">
                     <div :class="$tt('body1')">SAE-10W-40</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-15W-40">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-15W-40">
                     <div :class="$tt('body1')">SAE-15W-40</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/oil/SAE-20W-50">
+                  <RouterLink class="clear" to="/catalog/oil-SAE-20W-50">
                     <div :class="$tt('body1')">SAE-20W-50</div>
                   </RouterLink>
                 </div>
@@ -77,19 +81,19 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Шины</div>
-                  <RouterLink class="clear" to="/catalog/wheels/passengers">
+                  <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Шины легковые</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Шины грузовые</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/industrial">
+                  <RouterLink class="clear" to="/catalog/wheels-industrial">
                     <div :class="$tt('body1')">Шины индустриальные</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/farm">
+                  <RouterLink class="clear" to="/catalog/wheels-farm">
                     <div :class="$tt('body1')">Шины сельскохозяйственные</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/quadro">
+                  <RouterLink class="clear" to="/catalog/wheels-quadro">
                     <div :class="$tt('body1')">Шины квадро</div>
                   </RouterLink>
                 </div>
@@ -99,19 +103,19 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
                   <div :class="$tt('headline3')">
                     Аксессуары для шин и дисков
                   </div>
-                  <RouterLink class="clear" to="/catalog/wheels/passengers">
+                  <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Колпаки на колеса</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Колпачки ниппелей</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Колпачки ступицы</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Кольца центровочные</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Крышки ступиц декоративные</div>
                   </RouterLink>
                 </div>
@@ -119,21 +123,21 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Ремонт шин</div>
-                  <RouterLink class="clear" to="/catalog/wheels/passengers">
+                  <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">
                       Аварийный герметик для колес
                     </div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Герметики для шин</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Грибок для ремонта шин</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Жгуты для ремонта шин</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Жидкая резина</div>
                   </RouterLink>
                 </div>
@@ -143,21 +147,21 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
                   <div :class="$tt('headline3')">
                     Автохимия для шин и дисков
                   </div>
-                  <RouterLink class="clear" to="/catalog/wheels/passengers">
+                  <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Автохимия для шин и дисков</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Герметики для шин</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">
                       Защитные покрытия для шин и дисков
                     </div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Кондиционер</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Консерватор</div>
                   </RouterLink>
                 </div>
@@ -165,19 +169,19 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Болты, гайки, секретики</div>
-                  <RouterLink class="clear" to="/catalog/wheels/passengers">
+                  <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Болты колесные</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Гайки колесные</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Болты секретики</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Гайки секретики</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Вентили для шин</div>
                   </RouterLink>
                 </div>
@@ -185,21 +189,21 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
                   <div :class="$tt('headline3')">Шиномонтаж</div>
-                  <RouterLink class="clear" to="/catalog/wheels/passengers">
+                  <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Вентили для бескамерных шин</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Грузики</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Домкраты</div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">
                       Инструмент для вентилей бескамерных шин
                     </div>
                   </RouterLink>
-                  <RouterLink class="clear" to="/catalog/wheels/truck">
+                  <RouterLink class="clear" to="/catalog/wheels-truck">
                     <div :class="$tt('body1')">Карандаши и мел для шин</div>
                   </RouterLink>
                 </div>
@@ -228,12 +232,206 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
       </div>
     </template>
     <template #main>
-      <div class="mb-4">
-        <span :class="$tt('headline1')">Шины</span>
-        <span :class="$tt('body2')" class="ms-2 hint">250 226 товаров</span>
-      </div>
-      <div>
-        <!-- main content -->
+      <div class="pb-5">
+        <div class="row flex-column g-4">
+          <div class="col">
+            <ProductSection title="Масло" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Шины" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Диски" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Колодки" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Ремни" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Аккумуляторы" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Фильтры" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Лампы" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+
+          <div class="col">
+            <ProductSection title="Промывки" href="/catalog/oil-SAE-0W">
+              <template #products>
+                <div class="row g-3">
+                  <article
+                    v-for="item of list"
+                    v-bind:key="item"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                  >
+                    <ProductCard
+                      title="Название товара"
+                      image="@/assets/catalog/oil.png"
+                      brand="BREND"
+                      inventoryId="L03412960404"
+                      price="5841"
+                    />
+                  </article>
+                </div>
+              </template>
+            </ProductSection>
+          </div>
+        </div>
       </div>
     </template>
   </CatalogLayout>
