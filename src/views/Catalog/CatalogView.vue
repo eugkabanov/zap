@@ -8,7 +8,10 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
     <template #aside>
       <div :class="$tt('headline2')" class="mb-4">Каталог</div>
       <div>
-        <CategoryButton caption="Популярные товары"></CategoryButton>
+        <CategoryButton
+          href="/catalog/popular"
+          caption="Популярные товары"
+        ></CategoryButton>
         <CategoryButton caption="Масла"></CategoryButton>
         <CategoryButton caption="Шины"></CategoryButton>
       </div>

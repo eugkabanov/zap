@@ -1,15 +1,22 @@
 <script setup lang="ts">
 defineProps<{
   caption: string;
+  href?: string;
 }>();
 </script>
 
 <template>
-  <div
-    class="row g-0 justify-content-between align-items-center category-button"
-  >
-    <div :class="$tt('body1')" class="col-auto">{{ caption }}</div>
-    <ui-icon class="col-auto">keyboard_arrow_right</ui-icon>
+  <RouterLink v-if="href" :to="href" class="category-button">
+    <div class="row g-0 justify-content-between align-items-center">
+      <div :class="$tt('body1')" class="col-auto">{{ caption }}</div>
+      <ui-icon class="col-auto">keyboard_arrow_right</ui-icon>
+    </div>
+  </RouterLink>
+  <div v-else class="category-button">
+    <div class="row g-0 justify-content-between align-items-center">
+      <div :class="$tt('body1')" class="col-auto">{{ caption }}</div>
+      <ui-icon class="col-auto">keyboard_arrow_right</ui-icon>
+    </div>
   </div>
 </template>
 
@@ -17,6 +24,8 @@ defineProps<{
 @use "@/styles/vars";
 
 .category-button {
+  display: block;
+  color: black;
   padding: 20px 0;
   @media (max-width: vars.$desktop) {
     padding: 10px 0;
