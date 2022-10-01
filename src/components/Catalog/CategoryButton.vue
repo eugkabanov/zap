@@ -13,13 +13,13 @@ const openCategoryDrawer = () => (isOpen.value = true);
 <template>
   <RouterLink v-if="href" :to="href" class="clear category-button">
     <div class="row g-0 justify-content-between align-items-center">
-      <div :class="$tt('body1')" class="col-auto">{{ caption }}</div>
+      <div :class="$tt('body1')" class="col-10">{{ caption }}</div>
       <ui-icon class="col-auto">keyboard_arrow_right</ui-icon>
     </div>
   </RouterLink>
   <div v-else @click="openCategoryDrawer" class="link clear category-button">
     <div class="row g-0 justify-content-between align-items-center">
-      <div :class="$tt('body1')" class="col-auto">{{ caption }}</div>
+      <div :class="$tt('body1')" class="col-10">{{ caption }}</div>
       <ui-icon class="col-auto">keyboard_arrow_right</ui-icon>
     </div>
   </div>
