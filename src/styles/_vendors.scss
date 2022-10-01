@@ -83,3 +83,22 @@
     background-color: vars.$primaryColor;
   }
 }
+
+.mdc-segmented-button {
+  display: block;
+
+  &__icon {
+    font-size: 22px;
+  }
+
+  &__segment {
+    border: unset;
+    border-radius: 0 !important;
+    height: 52px;
+
+    &--selected {
+      background-color: #d9d9de;
+      color: #76767a;
+    }
+  }
+}

@@ -25,14 +25,9 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@use "@/styles/vars";
 .product-card {
   padding: 20px 25px;
   background-color: white;
-
-  @media (min-width: vars.$desktop) {
-    max-width: 260px;
-  }
 
   &__image {
     width: 100%;

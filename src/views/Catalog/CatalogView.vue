@@ -4,7 +4,7 @@ import CategoryButton from "../../components/Catalog/CategoryButton.vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ProductSection from "../../components/Catalog/ProductSection.vue";
 
-const list = [1, 2, 3, 4, 5];
+const list = [1, 2, 3, 4];
 </script>
 
 <template>
@@ -259,7 +259,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -281,7 +281,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -303,7 +303,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -325,7 +325,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -347,7 +347,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -369,7 +369,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -391,7 +391,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -413,7 +413,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
@@ -435,7 +435,7 @@ const list = [1, 2, 3, 4, 5];
                   <article
                     v-for="item of list"
                     v-bind:key="item"
-                    class="col-12 col-sm-6 col-md-4 col-xxl-auto"
+                    class="col-12 col-sm-6 col-md-4 col-xxl-3"
                   >
                     <ProductCard
                       title="Название товара"
