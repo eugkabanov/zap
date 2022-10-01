@@ -45,6 +45,14 @@ const list = Array(30).fill("");
             />
           </article>
         </div>
+
+        <div class="mt-5 row justify-content-center">
+          <div class="col-auto">
+            <ui-button outlined style="color: #76767a" :class="$tt('body1')"
+              >Загрузить еще</ui-button
+            >
+          </div>
+        </div>
       </div>
     </template>
   </CatalogLayout>
