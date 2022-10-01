@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
+import CategoryButton from "../../components/Catalog/CategoryButton.vue";
 </script>
 
 <template>
   <CatalogLayout>
     <template #aside>
-      <div :class="$tt('headline2')" class="mb-5">Каталог</div>
+      <div :class="$tt('headline2')" class="mb-4">Каталог</div>
       <div>
-        <!-- aside content -->
+        <CategoryButton caption="Популярные товары"></CategoryButton>
+        <CategoryButton caption="Масла"></CategoryButton>
+        <CategoryButton caption="Шины"></CategoryButton>
       </div>
     </template>
     <template #main>
