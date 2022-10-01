@@ -27,6 +27,11 @@ a,
 .link {
   color: vars.$primaryColor;
   text-decoration: none;
+  cursor: pointer;
+
+  &.clear {
+    color: black;
+  }
 
   &:hover {
     color: lighten($color: vars.$primaryColor, $amount: 20);
