@@ -7,7 +7,7 @@ import ViewOptions from "../../components/Catalog/ViewOptions.vue";
 
 const list = Array(30).fill("");
 
-const selectedViewOption = ref(0);
+const selectedViewOption = ref(1);
 const setSelectedViewOption = (value: number) =>
   (selectedViewOption.value = value);
 </script>

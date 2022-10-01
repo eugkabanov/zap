@@ -96,9 +96,11 @@
     border-radius: 0 !important;
     height: 52px;
 
+    background-color: #d9d9de;
+    color: #76767a;
     &--selected {
-      background-color: #d9d9de;
-      color: #76767a;
+      background-color: white;
+      color: black;
     }
   }
 }

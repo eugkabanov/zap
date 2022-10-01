@@ -39,7 +39,7 @@ const viewOptions = [
     <div class="col-auto ms-auto ms-md-3">
       <ui-segmented-buttons
         :model-value="selectedViewOption"
-        @update:model-value="setSelectedViewOption('selectedIndex', $event)"
+        @update:model-value="setSelectedViewOption($event)"
         :items="viewOptions"
         single-select
       ></ui-segmented-buttons>
