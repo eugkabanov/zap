@@ -67,11 +67,11 @@ const submitSearch = () => {
           </div>
         </div>
         <div class="row g-4 text-center">
-          <RouterLink class="col-4 col-lg" to="/catalog/oil">
+          <RouterLink class="col-4 col-lg" to="/catalog-choose/oil">
             <IconOil style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Масла</div>
           </RouterLink>
-          <RouterLink class="col-4 col-lg" to="/catalog/wheels">
+          <RouterLink class="col-4 col-lg" to="/catalog-choose/wheels">
             <IconWheel style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Шины</div>
           </RouterLink>

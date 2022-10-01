@@ -24,9 +24,14 @@ const router = createRouter({
       component: () => import("../views/Catalog/CatalogView.vue"),
     },
     {
+      path: "/catalog-choose/:categoryId",
+      name: "catalogChooseCategory",
+      component: () => import("../views/Catalog/CatalogChooseCategoryView.vue"),
+    },
+    {
       path: "/catalog/:categoryId",
       name: "catalogCategory",
-      component: () => import("../views/Catalog/CatalogCategoryView.vue"),
+      component: () => import("../views/PassView.vue"),
     },
     {
       path: "/catalog/:categoryId/:productId",

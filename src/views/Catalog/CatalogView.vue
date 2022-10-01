@@ -23,7 +23,9 @@ const list = [1, 2, 3, 4, 5];
             <div class="row g-5">
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Зимние масла</div>
+                  <RouterLink class="clear" to="/catalog-choose/oil-winter">
+                    <div :class="$tt('headline3')">Зимние масла</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/oil-SAE-0W">
                     <div :class="$tt('body1')">SAE-0W</div>
                   </RouterLink>
@@ -37,7 +39,9 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Летние масла</div>
+                  <RouterLink class="clear" to="/catalog-choose/oil-summer">
+                    <div :class="$tt('headline3')">Летние масла</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/oil-SAE-30">
                     <div :class="$tt('body1')">SAE-30</div>
                   </RouterLink>
@@ -51,7 +55,9 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Всесезонные масла</div>
+                  <RouterLink class="clear" to="/catalog-choose/oil-all-season">
+                    <div :class="$tt('headline3')">Всесезонные масла</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/oil-SAE-5W-40">
                     <div :class="$tt('body1')">SAE-5W-40</div>
                   </RouterLink>
@@ -80,7 +86,9 @@ const list = [1, 2, 3, 4, 5];
             <div class="row g-5">
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Шины</div>
+                  <RouterLink class="clear" to="/catalog-choose/wheels">
+                    <div :class="$tt('headline3')">Шины</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Шины легковые</div>
                   </RouterLink>
@@ -100,9 +108,11 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">
-                    Аксессуары для шин и дисков
-                  </div>
+                  <RouterLink class="clear" to="/catalog-choose/wheels">
+                    <div :class="$tt('headline3')">
+                      Аксессуары для шин и дисков
+                    </div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Колпаки на колеса</div>
                   </RouterLink>
@@ -122,7 +132,9 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Ремонт шин</div>
+                  <RouterLink class="clear" to="/catalog-choose/wheels">
+                    <div :class="$tt('headline3')">Ремонт шин</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">
                       Аварийный герметик для колес
@@ -144,9 +156,11 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">
-                    Автохимия для шин и дисков
-                  </div>
+                  <RouterLink class="clear" to="/catalog-choose/wheels">
+                    <div :class="$tt('headline3')">
+                      Автохимия для шин и дисков
+                    </div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Автохимия для шин и дисков</div>
                   </RouterLink>
@@ -168,7 +182,9 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Болты, гайки, секретики</div>
+                  <RouterLink class="clear" to="/catalog-choose/wheels">
+                    <div :class="$tt('headline3')">Болты, гайки, секретики</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Болты колесные</div>
                   </RouterLink>
@@ -188,7 +204,9 @@ const list = [1, 2, 3, 4, 5];
               </div>
               <div class="col-12 col-lg-4">
                 <div class="row flex-column g-3">
-                  <div :class="$tt('headline3')">Шиномонтаж</div>
+                  <RouterLink class="clear" to="/catalog-choose/wheels">
+                    <div :class="$tt('headline3')">Шиномонтаж</div>
+                  </RouterLink>
                   <RouterLink class="clear" to="/catalog/wheels-passengers">
                     <div :class="$tt('body1')">Вентили для бескамерных шин</div>
                   </RouterLink>
