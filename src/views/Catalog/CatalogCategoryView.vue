@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
-import CategoryButton from "../../components/Catalog/CategoryButton.vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ViewOptions from "../../components/Catalog/ViewOptions.vue";
 import ProductListCard from "../../components/Catalog/ProductListCard.vue";
+import CustomCollapse from "../../components/CustomCollapse.vue";
 
 const list = Array(30).fill("");
 
 const selectedViewOption = ref(1);
 const setSelectedViewOption = (value: number) =>
   (selectedViewOption.value = value);
+
+const expandBrands = ref(false);
 </script>
 
 <template>
@@ -19,6 +21,63 @@ const setSelectedViewOption = (value: number) =>
       <div class="row align-items-baseline mb-4">
         <div :class="$tt('headline2')" class="col-auto">Фильтры</div>
         <div :class="$tt('body2')" class="col-auto hint ms-auto">Очистить</div>
+      </div>
+
+      <div class="row flex-column filters">
+        <CustomCollapse default-expanded label="Цена, руб">
+          <div class="row">
+            <ui-form-field class="col-6">
+              <ui-textfield outlined fullwidth />
+            </ui-form-field>
+            <ui-form-field class="col-6">
+              <ui-textfield outlined fullwidth />
+            </ui-form-field>
+          </div>
+        </CustomCollapse>
+        <CustomCollapse default-expanded label="Производитель">
+          <div class="row flex-column">
+            <ui-form-field>
+              <ui-checkbox input-id="brand-1" />
+              <label for="brand-1">ALTENZO</label>
+            </ui-form-field>
+            <ui-form-field>
+              <ui-checkbox input-id="brand-2" />
+              <label for="brand-2">AMTEL</label>
+            </ui-form-field>
+            <ui-form-field>
+              <ui-checkbox input-id="brand-3" />
+              <label for="brand-3">APLUS</label>
+            </ui-form-field>
+            <ui-form-field>
+              <ui-checkbox input-id="brand-4" />
+              <label for="brand-4">BARUM</label>
+            </ui-form-field>
+
+            <ui-collapse v-model="expandBrands">
+              <template v-if="!expandBrands" #toggle>
+                <div :class="$tt('body1')" class="link">Показать все (2)</div>
+              </template>
+              <div class="row flex-column">
+                <ui-form-field>
+                  <ui-checkbox input-id="brand-5" />
+                  <label for="brand-5">BELSHINA</label>
+                </ui-form-field>
+                <ui-form-field>
+                  <ui-checkbox input-id="brand-6" />
+                  <label for="brand-6">BF GOODRICH</label>
+                </ui-form-field>
+              </div>
+            </ui-collapse>
+          </div>
+        </CustomCollapse>
+        <CustomCollapse default-expanded label="Профиль (%)">
+          <div class="row flex-column">
+            <ui-form-field>
+              <ui-checkbox input-id="profile-1" />
+              <label for="profile-1">70</label>
+            </ui-form-field>
+          </div>
+        </CustomCollapse>
       </div>
     </template>
     <template #main>
@@ -72,3 +131,15 @@ const setSelectedViewOption = (value: number) =>
     </template>
   </CatalogLayout>
 </template>
+
+<style scoped lang="scss">
+.filters {
+  & > * {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  & > *:not(:last-child) {
+    border-bottom: 1px solid #d9d9de;
+  }
+}
+</style>

@@ -62,6 +62,10 @@
   $font-path: vars.$fontPath
 );
 
+@use "balm-ui/components/collapse" with (
+  $content-padding: 16px 0
+);
+
 @use "balm-ui/dist/balm-ui";
 
 .mdc-tab-indicator .mdc-tab-indicator__content--underline {
@@ -103,4 +107,8 @@
       color: black;
     }
   }
+}
+
+.mdc-collapse--with-icon .mdc-collapse__content {
+  padding-left: 0;
 }
