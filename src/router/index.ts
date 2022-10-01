@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: "/catalog/:categoryId/:productId",
       name: "product",
-      component: () => import("../views/PassView.vue"),
+      component: () => import("../views/Catalog/ProductView.vue"),
     },
 
     {
