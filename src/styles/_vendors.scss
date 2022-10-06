@@ -112,3 +112,7 @@
 .mdc-collapse--with-icon .mdc-collapse__content {
   padding-left: 0;
 }
+
+.mdc-dialog__title::before {
+  height: 0 !important;
+}
