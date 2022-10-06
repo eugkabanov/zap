@@ -135,7 +135,9 @@ const productsData = [
         </div>
 
         <div class="mt-4">
-          <ui-button raised>Оформить заказ (0)</ui-button>
+          <RouterLink to="/order">
+            <ui-button raised>Оформить заказ (0)</ui-button>
+          </RouterLink>
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
