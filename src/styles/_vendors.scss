@@ -116,3 +116,10 @@
 .mdc-dialog__title::before {
   height: 0 !important;
 }
+
+.dark
+  .mdc-checkbox
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate="true"])
+  ~ .mdc-checkbox__background {
+  background-color: white;
+}

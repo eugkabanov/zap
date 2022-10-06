@@ -2,6 +2,41 @@
 import { ref } from "vue";
 
 const activeTab = ref(0);
+
+const productsData = [
+  {
+    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
+    delivery: "NOKIAN",
+    time: "2 дня",
+    price: "1460",
+    quantity: 4,
+    total: "5841",
+  },
+  {
+    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
+    delivery: "NOKIAN",
+    time: "2 дня",
+    price: "1460",
+    quantity: 4,
+    total: "5841",
+  },
+  {
+    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
+    delivery: "NOKIAN",
+    time: "2 дня",
+    price: "1460",
+    quantity: 4,
+    total: "5841",
+  },
+  {
+    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
+    delivery: "NOKIAN",
+    time: "2 дня",
+    price: "1460",
+    quantity: 4,
+    total: "5841",
+  },
+];
 </script>
 
 <template>
@@ -13,6 +48,65 @@ const activeTab = ref(0);
         <ui-tab min-width content-indicator>Отложенные</ui-tab>
         <ui-tab min-width content-indicator>Удаленные</ui-tab>
       </ui-tab-bar>
+    </div>
+
+    <div class="mt-3 dark">
+      <ui-table
+        fullwidth
+        :data="productsData"
+        :thead="[
+          { value: 'Наименование' },
+          { value: 'Поставщик' },
+          {
+            slot: 'th-time',
+            columnId: 'time',
+          },
+          { value: 'Цена', align: 'center' },
+          { value: 'Количество', align: 'center' },
+          { value: 'Сумма', align: 'center' },
+          {
+            slot: 'th-select',
+            columnId: 'select',
+          },
+          'Комментарии',
+        ]"
+        :tbody="[
+          { field: 'title', align: 'center' },
+          { field: 'delivery', align: 'center' },
+          { field: 'time' },
+          { field: 'price', align: 'center' },
+          { field: 'quantity', align: 'center' },
+          { field: 'total', align: 'center' },
+          {
+            slot: 'select',
+          },
+          { field: 'comments' },
+        ]"
+      >
+        <template #th-time>
+          <ui-icon
+            style="text-align: center"
+            v-tooltip="'Время'"
+            aria-describedby="th-cell-1"
+          >
+            schedule
+          </ui-icon>
+        </template>
+
+        <template #th-select> <ui-checkbox /> Выбрать </template>
+        <template #select>
+          <ui-checkbox />
+        </template>
+      </ui-table>
+
+      <div class="mt-4 row justify-content-between justify-content-md-end">
+        <div class="col-auto">
+          <ui-button outlined>Экспорт&nbsp;(0)</ui-button>
+        </div>
+        <div class="col-auto ml-2">
+          <ui-button raised>Импорт</ui-button>
+        </div>
+      </div>
     </div>
 
     <div class="row mt-4">
