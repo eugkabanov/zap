@@ -81,11 +81,13 @@ const isOpen = ref(false);
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <div class="header-item">
-            <ui-badge overlap :count="12"
-              ><ui-icon>shopping_cart</ui-icon></ui-badge
-            ><span class="header-item__label">Корзина</span>
-          </div>
+          <RouterLink to="/cart">
+            <div class="header-item">
+              <ui-badge overlap :count="12"
+                ><ui-icon>shopping_cart</ui-icon></ui-badge
+              ><span class="header-item__label">Корзина</span>
+            </div>
+          </RouterLink>
           <div class="header-item">
             <ui-icon>star_outline</ui-icon
             ><span class="header-item__label">Избранное</span>

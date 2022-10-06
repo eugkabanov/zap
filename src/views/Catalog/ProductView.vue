@@ -209,11 +209,11 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
             >Продолжить покупки</ui-button
           >
         </div>
-        <RouterLink to="/cart">
-          <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6">
+          <RouterLink to="/cart">
             <ui-button class="w-100" raised>Перейти в корзину</ui-button>
-          </div>
-        </RouterLink>
+          </RouterLink>
+        </div>
       </div>
     </ui-dialog-content>
   </ui-dialog>
