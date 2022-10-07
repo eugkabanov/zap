@@ -2,6 +2,7 @@
 import { ref } from "vue";
 
 const registrationType = ref(0);
+const selectedCity = ref();
 
 const registrationTypes = [
   {
@@ -11,6 +12,17 @@ const registrationTypes = [
   {
     label: "Организация",
     value: 1,
+  },
+];
+
+const citiesList = [
+  {
+    label: "г. Москва",
+    value: "MSC",
+  },
+  {
+    label: "г. Санкт-Петербург",
+    value: "SPB",
   },
 ];
 </script>
@@ -26,7 +38,7 @@ const registrationTypes = [
     ></ui-chips>
 
     <div class="mt-3 row gy-4">
-      <div class="col-12 col-xl-4">
+      <div class="col-12 col-xl-3">
         <div class="large bold mb-5">Личные данные</div>
 
         <div class="mb-3">
@@ -51,9 +63,101 @@ const registrationTypes = [
 
         <ui-button class="mt-3" raised>Зарегистрироваться</ui-button>
       </div>
-      <div class="col-12 col-xl-8">
-        <div class="large bold">Офис обслуживания</div>
+      <div class="col-12 col-xl-8 ms-auto">
+        <div class="large bold mb-5">Офис обслуживания</div>
+        <div>Выберите город</div>
+
+        <div class="row gy-4 mt-1">
+          <div class="col-12 col-md-4">
+            <ui-select outlined fullwidth value :options="citiesList" />
+
+            <div class="mt-2 city-list">
+              <div class="row align-items-center city-item py-4">
+                <div class="col-auto">
+                  <ui-radio v-model="selectedCity" value="city1" />
+                </div>
+                <div class="col">
+                  <p>
+                    г. Москва, ул. Комарова, дом 6, корпус 1
+                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
+                  </p>
+                  <ui-button outlined>Показать на карте</ui-button>
+                </div>
+              </div>
+              <div class="row align-items-center city-item py-4">
+                <div class="col-auto">
+                  <ui-radio v-model="selectedCity" value="city2" />
+                </div>
+                <div class="col">
+                  <p>
+                    г. Москва, ул. Комарова, дом 6, корпус 1
+                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
+                  </p>
+                  <ui-button outlined>Показать на карте</ui-button>
+                </div>
+              </div>
+              <div class="row align-items-center city-item py-4">
+                <div class="col-auto">
+                  <ui-radio v-model="selectedCity" value="city3" />
+                </div>
+                <div class="col">
+                  <p>
+                    г. Москва, ул. Комарова, дом 6, корпус 1
+                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
+                  </p>
+                  <ui-button outlined>Показать на карте</ui-button>
+                </div>
+              </div>
+              <div class="row align-items-center city-item py-4">
+                <div class="col-auto">
+                  <ui-radio v-model="selectedCity" value="city4" />
+                </div>
+                <div class="col">
+                  <p>
+                    г. Москва, ул. Комарова, дом 6, корпус 1
+                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
+                  </p>
+                  <ui-button outlined>Показать на карте</ui-button>
+                </div>
+              </div>
+              <div class="row align-items-center city-item py-4">
+                <div class="col-auto">
+                  <ui-radio v-model="selectedCity" value="city5" />
+                </div>
+                <div class="col">
+                  <p>
+                    г. Москва, ул. Комарова, дом 6, корпус 1
+                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
+                  </p>
+                  <ui-button outlined>Показать на карте</ui-button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-8">
+            <img
+              src="@/assets/city-map.jpg"
+              alt="city map"
+              class="city-map w-100"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </main>
 </template>
+
+<style scoped lang="scss">
+.city-list {
+  max-height: 450px;
+  overflow-y: auto;
+}
+.city-item {
+  border-bottom: 1px solid #d9d9de;
+}
+.city-map {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
