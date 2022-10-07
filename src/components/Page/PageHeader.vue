@@ -4,8 +4,16 @@ import LineBreak from "../LineBreak.vue";
 
 const isNavMenuOpen = ref(false);
 const isLoginOpen = ref(false);
+const isProfileDialogOpen = ref(false);
+
+const isAuthorisedUser = ref(false);
 
 const openLogin = () => (isLoginOpen.value = true);
+const openProfileDialog = () => (isProfileDialogOpen.value = true);
+const onLoginSubmit = () => {
+  isAuthorisedUser.value = true;
+  isLoginOpen.value = false;
+};
 </script>
 
 <template>
@@ -100,7 +108,15 @@ const openLogin = () => (isLoginOpen.value = true);
             <ui-icon>receipt</ui-icon
             ><span class="header-item__label">Заказы</span>
           </div>
-          <div v-on:click="openLogin" class="header-item">
+          <div
+            v-if="isAuthorisedUser"
+            v-on:click="openProfileDialog"
+            class="header-item"
+          >
+            <ui-icon>perm_identity</ui-icon
+            ><span class="header-item__label">Сергей</span>
+          </div>
+          <div v-else v-on:click="openLogin" class="header-item">
             <ui-icon>perm_identity</ui-icon
             ><span class="header-item__label">Вход</span>
           </div>
@@ -108,6 +124,103 @@ const openLogin = () => (isLoginOpen.value = true);
       </div>
     </div>
   </header>
+
+  <ui-dialog
+    v-model="isProfileDialogOpen"
+    sheet
+    maskClosable
+    class="profile-dialog"
+  >
+    <ui-dialog-title>
+      <div :class="$tt('body1')" class="bold large">Сергей Иванов</div>
+    </ui-dialog-title>
+
+    <ui-dialog-content>
+      <div class="row flex-column py-4">
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>account_balance_wallet</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Баланс</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>notifications</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Уведомления</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>directions_car</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Гараж</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>star_outline</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Избранное</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>list_alt</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Заказы</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>contact_support</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Вопросы по заказам</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>local_shipping</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Поставщики</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center clear mb-4">
+          <div class="col-auto">
+            <ui-icon>desktop_windows</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Web-сервисы</div>
+          </div>
+        </RouterLink>
+        <LineBreak class="my-4" />
+        <RouterLink to="/" class="row align-items-center hint mb-4">
+          <div class="col-auto">
+            <ui-icon>settings</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Настройки</div>
+          </div>
+        </RouterLink>
+        <RouterLink to="/" class="row align-items-center hint">
+          <div class="col-auto">
+            <ui-icon>logout</ui-icon>
+          </div>
+          <div class="col">
+            <div :class="$tt('body1')">Выход</div>
+          </div>
+        </RouterLink>
+      </div>
+    </ui-dialog-content>
+  </ui-dialog>
 
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
     <!-- leave title for close action -->
@@ -146,7 +259,9 @@ const openLogin = () => (isLoginOpen.value = true);
         </div>
       </div>
 
-      <ui-button raised class="col-12 mt-3">Войти</ui-button>
+      <ui-button v-on:click="onLoginSubmit" raised class="col-12 mt-3"
+        >Войти</ui-button
+      >
 
       <div class="row mt-3">
         <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
@@ -259,6 +374,24 @@ header#app-header {
   .mdc-dialog__surface {
     @media (min-width: vars.$desktop) {
       max-width: 640px !important;
+    }
+  }
+}
+
+.profile-dialog {
+  .mdc-dialog__container {
+    @media (min-width: vars.$desktop) {
+      margin-left: auto;
+      margin-right: 1.5rem;
+
+      position: relative;
+
+      .mdc-dialog__surface {
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 310px;
+      }
     }
   }
 }
