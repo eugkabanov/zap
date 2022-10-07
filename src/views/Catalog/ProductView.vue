@@ -240,6 +240,15 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
     @media (min-width: vars.$desktop) {
       margin-left: auto;
       margin-right: 1.5rem;
+
+      position: relative;
+
+      .mdc-dialog__surface {
+        position: absolute;
+        top: 75px;
+        right: 0;
+        width: 530px;
+      }
     }
   }
 
