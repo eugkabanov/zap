@@ -57,7 +57,7 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      component: () => import("../views/PassView.vue"),
+      component: () => import("../views/Profile/RegistrationView.vue"),
     },
     {
       path: "/recover",
