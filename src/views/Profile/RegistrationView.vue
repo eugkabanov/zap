@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 const registrationType = ref(0);
-const selectedCity = ref();
+const selectedCity = ref("city1");
 
 const registrationTypes = [
   {
@@ -68,7 +68,7 @@ const citiesList = [
         <div>Выберите город</div>
 
         <div class="row gy-4 mt-1">
-          <div class="col-12 col-md-4">
+          <div class="col-12 col-md-5">
             <ui-select outlined fullwidth value :options="citiesList" />
 
             <div class="mt-2 city-list">
@@ -134,7 +134,7 @@ const citiesList = [
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-md-7">
             <img
               src="@/assets/city-map.jpg"
               alt="city map"
