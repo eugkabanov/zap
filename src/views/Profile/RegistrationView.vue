@@ -150,7 +150,18 @@ const citiesList = [
       <div class="row gy-3">
         <div class="col-12 col-md-6 col-xl-4">
           <div class="mb-3">
-            <label for="reg-name" class="d-block mb-2">ИНН</label>
+            <label for="reg-name" class="d-block mb-2"
+              >ИНН
+              <ui-icon
+                v-tooltip="
+                  'При заполнении ИНН остальные данные добавятся из базы ФНС автоматически '
+                "
+                aria-describedby="tooltip"
+                :dark="false"
+              >
+                contact_support
+              </ui-icon></label
+            >
             <ui-textfield id="reg-name" outlined fullwidth />
           </div>
           <div class="mb-3">
