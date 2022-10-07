@@ -14,6 +14,10 @@ const onLoginSubmit = () => {
   isAuthorisedUser.value = true;
   isLoginOpen.value = false;
 };
+const onLogout = () => {
+  isAuthorisedUser.value = false;
+  isProfileDialogOpen.value = false;
+};
 </script>
 
 <template>
@@ -210,14 +214,14 @@ const onLoginSubmit = () => {
             <div :class="$tt('body1')">Настройки</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center hint">
+        <div @click="onLogout" class="row align-items-center link hint">
           <div class="col-auto">
             <ui-icon>logout</ui-icon>
           </div>
           <div class="col">
             <div :class="$tt('body1')">Выход</div>
           </div>
-        </RouterLink>
+        </div>
       </div>
     </ui-dialog-content>
   </ui-dialog>
