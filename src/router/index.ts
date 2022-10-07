@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // landing pages
     {
       path: "/",
       name: "home",
@@ -15,6 +16,7 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
 
+    // catalog
     {
       path: "/catalog",
       name: "catalog",
@@ -39,6 +41,7 @@ const router = createRouter({
       component: () => import("../views/Catalog/ProductView.vue"),
     },
 
+    // cart
     {
       path: "/cart",
       name: "cart",
@@ -50,11 +53,18 @@ const router = createRouter({
       component: () => import("../views/Cart/OrderView.vue"),
     },
 
+    // authorisation
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("../views/PassView.vue"),
+    },
     {
       path: "/recover",
       name: "recover",
       component: () => import("../views/PassView.vue"),
     },
+
     {
       path: "/work",
       name: "work",
