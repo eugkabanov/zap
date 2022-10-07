@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import LineBreak from "../../components/LineBreak.vue";
+</script>
+
 <template>
   <main class="container-fluid py-5">
     <h1 :class="$tt('headline1')">Оформление заказа</h1>
@@ -157,7 +161,7 @@
           <div class="col-auto ms-auto" :class="$tt('body1')">0 ₽</div>
         </div>
 
-        <div class="line my-4"></div>
+        <LineBreak class="my-4" />
 
         <div class="row large mb-3">
           <div class="col-auto bold" :class="$tt('body1')">Итого к оплате</div>
@@ -190,11 +194,5 @@
 .product {
   padding: 25px;
   border: 1px solid #d9d9de;
-}
-
-.line {
-  width: 100%;
-  height: 1px;
-  background-color: #d9d9de;
 }
 </style>
