@@ -173,7 +173,11 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Уведомления</div>
           </div>
         </div>
-        <RouterLink to="/park" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/park"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>directions_car</ui-icon>
           </div>
@@ -181,7 +185,11 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Гараж</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/favourites"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>star_outline</ui-icon>
           </div>

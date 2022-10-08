@@ -75,6 +75,11 @@ const router = createRouter({
       name: "park",
       component: () => import("../views/Profile/GarageView.vue"),
     },
+    {
+      path: "/favourites",
+      name: "favourites",
+      component: () => import("../views/Profile/FavouritesView.vue"),
+    },
 
     {
       path: "/work",
