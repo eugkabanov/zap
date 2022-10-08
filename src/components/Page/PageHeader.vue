@@ -173,7 +173,7 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Уведомления</div>
           </div>
         </div>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink to="/park" class="row align-items-center clear mb-4">
           <div class="col-auto">
             <ui-icon>directions_car</ui-icon>
           </div>

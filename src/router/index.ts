@@ -70,6 +70,11 @@ const router = createRouter({
       name: "balance",
       component: () => import("../views/Profile/BalanceView.vue"),
     },
+    {
+      path: "/park",
+      name: "park",
+      component: () => import("../views/Profile/GarageView.vue"),
+    },
 
     {
       path: "/work",
