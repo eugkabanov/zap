@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import LineBreak from "../../components/LineBreak.vue";
 
 const balanceData = [
@@ -32,30 +32,43 @@ const balanceData = [
   },
 ];
 
+const isWarningOpen = ref(false);
 const isTopUpBalanceOpen = ref(false);
 const onTopUpBalanceOpen = () => (isTopUpBalanceOpen.value = true);
+
+onMounted(() => {
+  isWarningOpen.value = true;
+});
 </script>
 
 <template>
   <main class="container-fluid py-5">
-    <div class="row align-items-center col-xl-4">
-      <div class="col-auto">
-        <h1>Баланс</h1>
+    <div class="row">
+      <div class="align-items-center col-xl-4">
+        <div class="col-auto">
+          <h1>Баланс</h1>
+        </div>
+        <div class="col">
+          <ui-datepicker outlined toggle fullwidth>
+            <template #toggle><ui-icon>event</ui-icon></template>
+          </ui-datepicker>
+        </div>
+        <div class="col">
+          <ui-datepicker outlined toggle fullwidth>
+            <template #toggle><ui-icon>event</ui-icon></template>
+          </ui-datepicker>
+        </div>
       </div>
-      <div class="col">
-        <ui-datepicker outlined toggle fullwidth>
-          <template #toggle><ui-icon>event</ui-icon></template>
-        </ui-datepicker>
-      </div>
-      <div class="col">
-        <ui-datepicker outlined toggle fullwidth>
-          <template #toggle><ui-icon>event</ui-icon></template>
-        </ui-datepicker>
+
+      <div class="col-auto ms-auto">
+        <ui-alert state="error" closable
+          >Внимание! Необходимо оплатить заказ</ui-alert
+        >
       </div>
     </div>
 
     <div class="row mt-4">
-      <div class="row">
+      <div class="row gy-3">
         <div class="col-12 col-xl-4">
           <div class="row mb-3">
             <div class="col-auto">
@@ -233,6 +246,23 @@ const onTopUpBalanceOpen = () => (isTopUpBalanceOpen.value = true);
       </div>
     </ui-dialog-content>
   </ui-dialog>
+
+  <ui-dialog
+    v-model="isWarningOpen"
+    maskClosable
+    class="balance-warning-dialog"
+  >
+    <ui-dialog-content>
+      <div class="mb-2 bold text-center">ВНИМАНИЕ!</div>
+      <div class="bold text-center">Необходимо оплатить заказ</div>
+
+      <div class="mt-4 row">
+        <div class="col-auto mx-auto">
+          <ui-button raised>Перейти к заказу</ui-button>
+        </div>
+      </div>
+    </ui-dialog-content>
+  </ui-dialog>
 </template>
 
 <style lang="scss">
@@ -245,7 +275,8 @@ const onTopUpBalanceOpen = () => (isTopUpBalanceOpen.value = true);
   }
 }
 
-.topup-dialog .mdc-dialog__surface {
+.topup-dialog .mdc-dialog__surface,
+.balance-warning-dialog .mdc-dialog__surface {
   @media (min-width: vars.$desktop) {
     min-width: 480px !important;
     padding: 40px;
