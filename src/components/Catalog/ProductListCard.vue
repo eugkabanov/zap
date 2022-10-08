@@ -36,44 +36,44 @@ defineProps<{
         <div class="hint">
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Ширина</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">245</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Высота</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">60</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Диаметр</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">18</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Сезон</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">Зимняя</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Индекс нагрузки</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">109</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Индекс скорости</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">T</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">Тип конструкции</div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">R</div>
           </div>
           <div class="row mb-2">
             <div class="col-auto" :class="$tt('body2')">
               Увеличенная грузоподъемность
             </div>
-            <div class="col product-card__dots" />
+            <div class="col dotted" />
             <div class="col-auto" :class="$tt('body2')">да</div>
           </div>
         </div>
@@ -111,10 +111,6 @@ defineProps<{
     height: auto;
     max-height: 200px;
     object-fit: contain;
-  }
-
-  &__dots {
-    border-bottom: 1px dashed #d9d9de;
   }
 }
 </style>

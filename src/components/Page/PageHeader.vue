@@ -10,8 +10,9 @@ const isAuthorisedUser = ref(false);
 
 const openLogin = () => (isLoginOpen.value = true);
 const openProfileDialog = () => (isProfileDialogOpen.value = true);
+const closeProfileDialog = () => (isProfileDialogOpen.value = false);
 
-const closeProfileDialog = () => (isLoginOpen.value = false);
+const closeLoginDialog = () => (isLoginOpen.value = false);
 const onLoginSubmit = () => {
   isAuthorisedUser.value = true;
   isLoginOpen.value = false;
@@ -143,7 +144,11 @@ const onLogout = () => {
 
     <ui-dialog-content>
       <div class="row flex-column py-4">
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/balance"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>account_balance_wallet</ui-icon>
           </div>
@@ -299,7 +304,7 @@ const onLogout = () => {
         <LineBreak class="my-3" />
 
         <div class="text-center">
-          <RouterLink @click="closeProfileDialog" to="/register">
+          <RouterLink @click="closeLoginDialog" to="/register">
             <ui-button>ЗАРЕГИСТРИРОВАТЬСЯ</ui-button>
           </RouterLink>
         </div>

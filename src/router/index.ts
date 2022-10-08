@@ -66,6 +66,12 @@ const router = createRouter({
     },
 
     {
+      path: "/balance",
+      name: "balance",
+      component: () => import("../views/Profile/BalanceView.vue"),
+    },
+
+    {
       path: "/work",
       name: "work",
       component: () => import("../views/PassView.vue"),
