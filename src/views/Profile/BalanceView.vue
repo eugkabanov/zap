@@ -1,5 +1,35 @@
 <script setup lang="ts">
 import LineBreak from "../../components/LineBreak.vue";
+
+const balanceData = [
+  {
+    date: "10.08.2022",
+    reason: "Зачисление по счету",
+    debit: "10 000",
+    credit: "10 000",
+    balance: "286 000",
+    comments: "Текст комментария",
+    documents: "Документ 1",
+  },
+  {
+    date: "10.08.2022",
+    reason: "Зачисление по счету",
+    debit: "10 000",
+    credit: "10 000",
+    balance: "286 000",
+    comments: "Текст комментария",
+    documents: "Документ 1",
+  },
+  {
+    date: "10.08.2022",
+    reason: "Зачисление по счету",
+    debit: "10 000",
+    credit: "10 000",
+    balance: "286 000",
+    comments: "Текст комментария",
+    documents: "Документ 1",
+  },
+];
 </script>
 
 <template>
@@ -112,7 +142,37 @@ import LineBreak from "../../components/LineBreak.vue";
 
           <ui-button raised>Пополнить баланс</ui-button>
         </div>
-        <div class="col-12 col-xl-8"></div>
+        <div class="col-12 col-xl-8">
+          <ui-table
+            fullwidth
+            :data="balanceData"
+            :thead="[
+              { value: 'Дата' },
+              { value: 'Основание' },
+              { value: 'Дебит, ₽' },
+              { value: 'Кредит, ₽' },
+              { value: 'Баланс' },
+              { value: 'Комментарии' },
+              { value: 'Документы' },
+            ]"
+            :tbody="[
+              { field: 'date' },
+              { field: 'reason' },
+              { field: 'debit', align: 'center' },
+              { field: 'credit', align: 'center' },
+              { field: 'balance', align: 'center' },
+              { field: 'comments' },
+              { field: 'documents' },
+            ]"
+          >
+          </ui-table>
+
+          <div class="row mt-3">
+            <div class="col-auto ms-auto">
+              <ui-button raised>Экспорт (0)</ui-button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
