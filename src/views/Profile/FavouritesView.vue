@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { ref } from "vue";
+
+const isGarageDialogOpen = ref(false);
+const onGarageClick = () => {
+  isGarageDialogOpen.value = true;
+};
+</script>
+
 <template>
   <main class="container-fluid py-5">
     <h1>Избранное <span :class="$tt('body2')" class="hint">2 товара</span></h1>
@@ -42,7 +51,7 @@
                 >
                 В корзину
               </div>
-              <div class="col-auto link hint">
+              <div @click="onGarageClick" class="col-auto link hint">
                 <ui-icon style="vertical-align: middle" outlined
                   >directions_car</ui-icon
                 >
@@ -83,7 +92,7 @@
                 >
                 В корзину
               </div>
-              <div class="col-auto link hint">
+              <div @click="onGarageClick" class="col-auto link hint">
                 <ui-icon style="vertical-align: middle" outlined
                   >directions_car</ui-icon
                 >
@@ -102,6 +111,35 @@
       </div>
     </div>
   </main>
+
+  <ui-dialog v-model="isGarageDialogOpen" sheet>
+    <ui-dialog-title></ui-dialog-title>
+    <ui-dialog-content class="py-4">
+      <div class="row align-items-center">
+        <div class="col-3">Товар</div>
+        <div class="col offset-1">
+          <div class="bold">
+            Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center mt-3">
+        <div class="col-3">Автомобиль</div>
+        <div class="col offset-1">
+          <ui-select
+            outlined
+            fullwidth
+            value
+            :options="[{ value: 1, label: 'AUDI' }]"
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <ui-button raised>Добавить</ui-button>
+      </div>
+    </ui-dialog-content>
+  </ui-dialog>
 </template>
 
 <style lang="scss" scoped>
