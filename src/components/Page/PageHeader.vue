@@ -5,6 +5,7 @@ import LineBreak from "../LineBreak.vue";
 const isNavMenuOpen = ref(false);
 const isLoginOpen = ref(false);
 const isProfileDialogOpen = ref(false);
+const isNotificationOpen = ref(false);
 
 const isAuthorisedUser = ref(false);
 
@@ -20,6 +21,11 @@ const onLoginSubmit = () => {
 const onLogout = () => {
   isAuthorisedUser.value = false;
   isProfileDialogOpen.value = false;
+};
+
+const onNotificationClick = () => {
+  isNotificationOpen.value = true;
+  closeProfileDialog();
 };
 </script>
 
@@ -156,14 +162,17 @@ const onLogout = () => {
             <div :class="$tt('body1')">Баланс</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <div
+          @click="onNotificationClick"
+          class="row align-items-center link clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>notifications</ui-icon>
           </div>
           <div class="col">
             <div :class="$tt('body1')">Уведомления</div>
           </div>
-        </RouterLink>
+        </div>
         <RouterLink to="/" class="row align-items-center clear mb-4">
           <div class="col-auto">
             <ui-icon>directions_car</ui-icon>
@@ -308,6 +317,90 @@ const onLogout = () => {
             <ui-button>ЗАРЕГИСТРИРОВАТЬСЯ</ui-button>
           </RouterLink>
         </div>
+      </div>
+    </ui-dialog-content>
+  </ui-dialog>
+
+  <ui-dialog v-model="isNotificationOpen" scrollable maskClosable>
+    <ui-dialog-title>
+      <h3>
+        <ui-icon style="font-size: 34px; vertical-align: middle" type="filled"
+          >notifications</ui-icon
+        >
+        УВЕДОМЛЕНИЯ
+      </h3>
+    </ui-dialog-title>
+    <ui-dialog-content>
+      <div class="row mb-5">
+        <div class="col-auto link">Показать непрочитанные (2)</div>
+        <div class="col-auto link clear">Прочитать все</div>
+      </div>
+
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию позиции требуют определения и уточнения модели развития.
+          Равным образом ...
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию позиции требуют определения и уточнения модели развития.
+          Равным образом ...
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию.
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию.
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию..
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию.
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию.
+        </div>
+        <LineBreak class="mt-3" />
+      </div>
+      <div class="mb-4">
+        <div class="hint">20 июля 2022</div>
+        <div class="mt-2">
+          Задача организации, в особенности же начало повседневной работы по
+          формированию.
+        </div>
+        <LineBreak class="mt-3" />
       </div>
     </ui-dialog-content>
   </ui-dialog>
