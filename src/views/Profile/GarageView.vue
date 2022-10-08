@@ -116,7 +116,16 @@ const parkData = [
         </div>
       </div>
       <div class="mb-3 row align-items-center">
-        <label class="col-3">СТС</label>
+        <label class="col-3"
+          >СТС
+          <ui-icon
+            v-tooltip="'Укажите СТС и можете оплачивать штрафы'"
+            aria-describedby="tooltip"
+            :dark="false"
+          >
+            contact_support
+          </ui-icon></label
+        >
         <div class="col-8 offset-1">
           <ui-textfield outlined fullwidth />
         </div>
