@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import LineBreak from "../../components/LineBreak.vue";
 
 const balanceData = [
@@ -30,6 +31,9 @@ const balanceData = [
     documents: "Документ 1",
   },
 ];
+
+const isTopUpBalanceOpen = ref(false);
+const onTopUpBalanceOpen = () => (isTopUpBalanceOpen.value = true);
 </script>
 
 <template>
@@ -140,7 +144,9 @@ const balanceData = [
 
           <LineBreak class="my-4" />
 
-          <ui-button raised>Пополнить баланс</ui-button>
+          <ui-button v-on:click="onTopUpBalanceOpen" raised
+            >Пополнить баланс</ui-button
+          >
         </div>
         <div class="col-12 col-xl-8">
           <ui-table
@@ -176,4 +182,74 @@ const balanceData = [
       </div>
     </div>
   </main>
+
+  <ui-dialog v-model="isTopUpBalanceOpen" maskClosable class="topup-dialog">
+    <ui-dialog-content>
+      <div class="text-center bold large mb-4">Пополнить баланс</div>
+
+      <div class="mb-4">
+        <label for="topup-total" class="d-block mb-2">Сумма пополнения</label>
+        <ui-textfield id="topup-total" outlined fullwidth />
+      </div>
+
+      <div class="mb-4">Способ оплаты</div>
+
+      <ui-tab-bar>
+        <ui-tab> Банковская карта </ui-tab>
+        <ui-tab> Счет </ui-tab>
+      </ui-tab-bar>
+
+      <div class="mt-4">Выберите карту иди добавьте новую</div>
+
+      <div class="mt-2 card-item row align-items-center">
+        <div class="col-auto">
+          <ui-radio />
+        </div>
+
+        <div class="col-auto">**** 5863</div>
+
+        <div class="col-auto ms-auto">
+          <ui-icon>border_color</ui-icon>
+          <ui-icon class="ms-3">delete</ui-icon>
+        </div>
+      </div>
+      <div class="mt-2 card-item row align-items-center">
+        <div class="col-auto">
+          <ui-radio />
+        </div>
+
+        <div class="col-auto">Добавить новую</div>
+      </div>
+
+      <div class="mt-4">
+        <label for="email" class="d-block mb-2">Получить чек на e-mail</label>
+        <ui-textfield id="email" outlined fullwidth />
+      </div>
+
+      <div class="mt-4">
+        <div class="row">
+          <ui-button raised>Оплатить 10 000 ₽</ui-button>
+        </div>
+      </div>
+    </ui-dialog-content>
+  </ui-dialog>
 </template>
+
+<style lang="scss">
+@use "@/styles//vars";
+
+.topup-dialog {
+  .card-item {
+    padding: 14px 22px;
+    background-color: #f5f5f7;
+  }
+}
+
+.topup-dialog .mdc-dialog__surface {
+  @media (min-width: vars.$desktop) {
+    min-width: 480px !important;
+    padding: 40px;
+    padding-top: 0;
+  }
+}
+</style>
