@@ -1,32 +1,3 @@
-<script setup lang="ts">
-import { ref } from "vue";
-
-const registrationType = ref(0);
-const selectedCity = ref("city1");
-
-const registrationTypes = [
-  {
-    label: "Частное лицо",
-    value: 0,
-  },
-  {
-    label: "Организация",
-    value: 1,
-  },
-];
-
-const citiesList = [
-  {
-    label: "г. Москва",
-    value: "MSC",
-  },
-  {
-    label: "г. Санкт-Петербург",
-    value: "SPB",
-  },
-];
-</script>
-
 <template>
   <main class="py-5 container-fluid">
     <h1 class="mb-3">Регистрация</h1>
@@ -43,15 +14,36 @@ const citiesList = [
 
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Ф.И.О.</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield
+            required
+            v-model="userData.FIO"
+            name="full name"
+            id="reg-name"
+            outlined
+            fullwidth
+          />
         </div>
         <div class="mb-3">
           <label for="reg-phone" class="d-block mb-2">Телефон</label>
-          <ui-textfield id="reg-phone" outlined fullwidth />
+          <ui-textfield
+            required
+            v-model="userData.phone"
+            name="phone number"
+            id="reg-phone"
+            outlined
+            fullwidth
+          />
         </div>
         <div class="mb-3">
           <label for="reg-email" class="d-block mb-2">E-mail</label>
-          <ui-textfield id="reg-email" outlined fullwidth />
+          <ui-textfield
+            required
+            v-model="userData.email"
+            name="E-Mail"
+            id="reg-email"
+            outlined
+            fullwidth
+          />
         </div>
 
         <ui-form-field>
@@ -61,7 +53,9 @@ const citiesList = [
           >
         </ui-form-field>
 
-        <ui-button class="mt-3" raised>Зарегистрироваться</ui-button>
+        <ui-button class="mt-3" raised v-on:click="registrationUser()"
+          >Зарегистрироваться</ui-button
+        >
       </div>
       <div class="col-12 col-xl-8 ms-auto">
         <div class="large bold mb-5">Офис обслуживания</div>
@@ -227,6 +221,69 @@ const citiesList = [
     </div>
   </main>
 </template>
+
+<script lang="ts">
+import { ref } from "vue";
+import { defineComponent } from "vue";
+import RegistrationDataService from "@/services/RegistrationDataService";
+import type UserData from "@/types/UserData";
+import type ResponseData from "@/types/ResponseData";
+
+export default defineComponent({
+  name: "register-user",
+  data() {
+    return {
+      userData: {
+        FIO: "",
+        phone: "",
+        email: "",
+      } as UserData,
+
+      citiesList: [
+        {
+          label: "г. Москва",
+          value: "MSC",
+        },
+        {
+          label: "г. Санкт-Петербург",
+          value: "SPB",
+        },
+      ],
+
+      registrationTypes: [
+        {
+          label: "Частное лицо",
+          value: 0,
+        },
+        {
+          label: "Организация",
+          value: 1,
+        },
+      ],
+
+      registrationType: ref(0),
+      selectedCity: ref("city1"),
+    };
+  },
+  methods: {
+    registrationUser() {
+      let data = {
+        fio: this.userData.FIO,
+        phone: this.userData.phone,
+        email: this.userData.email,
+      };
+      console.log(data);
+      RegistrationDataService.registration(data)
+        .then((response: ResponseData) => {
+          console.log(response.data);
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
+    },
+  },
+});
+</script>
 
 <style scoped lang="scss">
 .city-list {
