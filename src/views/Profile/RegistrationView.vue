@@ -3,12 +3,12 @@
     <h1 class="mb-3">Регистрация</h1>
 
     <ui-chips
-      v-model="registrationType"
+      v-model="registration_type"
       type="choice"
-      :options="registrationTypes"
+      :options="registration_types"
     ></ui-chips>
 
-    <div v-if="registrationType === 0" class="mt-3 row gy-4">
+    <div v-if="registration_type === 0" class="mt-3 row gy-4">
       <div class="col-12 col-xl-3">
         <div class="large bold mb-5">Личные данные</div>
 
@@ -16,7 +16,7 @@
           <label for="reg-name" class="d-block mb-2">Ф.И.О.</label>
           <ui-textfield
             required
-            v-model="userData.FIO"
+            v-model="user_data.fio"
             name="full name"
             id="reg-name"
             outlined
@@ -27,7 +27,7 @@
           <label for="reg-phone" class="d-block mb-2">Телефон</label>
           <ui-textfield
             required
-            v-model="userData.phone"
+            v-model="user_data.phone"
             name="phone number"
             id="reg-phone"
             outlined
@@ -38,19 +38,21 @@
           <label for="reg-email" class="d-block mb-2">E-mail</label>
           <ui-textfield
             required
-            v-model="userData.email"
+            v-model="user_data.email"
             name="E-Mail"
             id="reg-email"
             outlined
-            fullwidth
-          />
+            fullwidth />
         </div>
 
         <ui-form-field>
-          <ui-checkbox value="agree" input-id="reg-agree" />
-          <label class="hint" for="reg-agree"
-            >Согласие на обработку персональных данных</label
-          >
+          <ui-checkbox
+            value="agree"
+            input-id="reg-agree"
+            required
+            @click="user_data.allow_data_processed = !user_data.allow_data_processed" />
+          <label class="hint" for="reg-agree">
+            Согласие на обработку персональных данных</label>
         </ui-form-field>
 
         <ui-button class="mt-3" raised v-on:click="registrationUser()"
@@ -63,65 +65,19 @@
 
         <div class="row gy-4 mt-1">
           <div class="col-12 col-md-5">
-            <ui-select outlined fullwidth value :options="citiesList" />
-
-            <div class="mt-2 city-list">
+            <ui-select
+              outlined fullwidth value
+              :options="service_office_list"
+              v-model="city"
+            />
+            <div v-for="item in service_office_list[city].services" class="mt-2 city-list">
               <div class="row align-items-center city-item py-4">
                 <div class="col-auto">
-                  <ui-radio v-model="selectedCity" value="city1" />
+                  <ui-radio value="city1" />
                 </div>
                 <div class="col">
-                  <p>
-                    г. Москва, ул. Комарова, дом 6, корпус 1
-                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
-                  </p>
-                  <ui-button outlined>Показать на карте</ui-button>
-                </div>
-              </div>
-              <div class="row align-items-center city-item py-4">
-                <div class="col-auto">
-                  <ui-radio v-model="selectedCity" value="city2" />
-                </div>
-                <div class="col">
-                  <p>
-                    г. Москва, ул. Комарова, дом 6, корпус 1
-                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
-                  </p>
-                  <ui-button outlined>Показать на карте</ui-button>
-                </div>
-              </div>
-              <div class="row align-items-center city-item py-4">
-                <div class="col-auto">
-                  <ui-radio v-model="selectedCity" value="city3" />
-                </div>
-                <div class="col">
-                  <p>
-                    г. Москва, ул. Комарова, дом 6, корпус 1
-                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
-                  </p>
-                  <ui-button outlined>Показать на карте</ui-button>
-                </div>
-              </div>
-              <div class="row align-items-center city-item py-4">
-                <div class="col-auto">
-                  <ui-radio v-model="selectedCity" value="city4" />
-                </div>
-                <div class="col">
-                  <p>
-                    г. Москва, ул. Комарова, дом 6, корпус 1
-                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
-                  </p>
-                  <ui-button outlined>Показать на карте</ui-button>
-                </div>
-              </div>
-              <div class="row align-items-center city-item py-4">
-                <div class="col-auto">
-                  <ui-radio v-model="selectedCity" value="city5" />
-                </div>
-                <div class="col">
-                  <p>
-                    г. Москва, ул. Комарова, дом 6, корпус 1
-                    <br />тел. 8-900-300-80-60 <br />Пн-Вс с 10:00 до 21:00
+                  <p>{{ item.address }}
+                    <br />{{ item.phone }} <br />{{ item.work_time }}
                   </p>
                   <ui-button outlined>Показать на карте</ui-button>
                 </div>
@@ -138,7 +94,7 @@
         </div>
       </div>
     </div>
-    <div v-if="registrationType === 1" class="mt-5">
+    <div v-if="registration_type === 1" class="mt-5">
       <div class="large bold mb-5">Данные организации</div>
 
       <div class="row gy-3">
@@ -228,29 +184,54 @@ import { defineComponent } from "vue";
 import RegistrationDataService from "@/services/RegistrationDataService";
 import type UserData from "@/types/UserData";
 import type ResponseData from "@/types/ResponseData";
+import type ServiceData from "@/types/ServiceData";
 
 export default defineComponent({
   name: "register-user",
   data() {
+
     return {
-      userData: {
-        FIO: "",
+      user_data: {
+        fio: "",
         phone: "",
         email: "",
+        allow_data_processed: false,
+        service_office: "",
       } as UserData,
 
-      citiesList: [
+      service_data: {
+        address: "",
+        phone: "",
+        work_time: "",
+      } as ServiceData,
+
+      city: 0,
+      service_office_list: [
         {
+          value: 0,
           label: "г. Москва",
-          value: "MSC",
+          services: [
+            {
+              address: "ул. Пушкина, дом 6",
+              phone: "8(499) 577-45-32",
+              work_time: "пн-пт 12:00 - 18:00",
+            },
+          ],
         },
         {
+          value: 1,
           label: "г. Санкт-Петербург",
-          value: "SPB",
+          services: [
+            {
+              address: "ул. Рощина, дом 6",
+              phone: "8(357) 876-23-12",
+              work_time: "пн-пт 12:00 - 18:00",
+            },
+          ],
         },
       ],
 
-      registrationTypes: [
+      registration_types: [
         {
           label: "Частное лицо",
           value: 0,
@@ -261,16 +242,25 @@ export default defineComponent({
         },
       ],
 
-      registrationType: ref(0),
-      selectedCity: ref("city1"),
+      registration_type: ref(0),
+      // service_cities: ref("city1"),
     };
   },
+
+  created: function () {
+    this.service_data.address = "dsdsdsd";
+    this.service_data.phone = "dsdsdsd";
+    this.service_data.work_time = "dsdsdsd";
+  },
+
   methods: {
     registrationUser() {
       let data = {
-        fio: this.userData.FIO,
-        phone: this.userData.phone,
-        email: this.userData.email,
+        fio: this.user_data.fio,
+        phone: this.user_data.phone,
+        email: this.user_data.email,
+        allow_data_processed: this.user_data.allow_data_processed,
+        // service_office: this.service_office_list,
       };
       console.log(data);
       RegistrationDataService.registration(data)
@@ -282,6 +272,7 @@ export default defineComponent({
         });
     },
   },
+
 });
 </script>
 

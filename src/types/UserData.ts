@@ -1,6 +1,8 @@
 export default interface UserData {
   id: null;
-  FIO: string;
+  fio: string;
   phone: string;
   email: string;
+  allow_data_processed: boolean;
+  service_office: string;
 }
