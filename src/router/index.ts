@@ -80,6 +80,11 @@ const router = createRouter({
       name: "favourites",
       component: () => import("../views/Profile/FavouritesView.vue"),
     },
+    {
+      path: "/sessions",
+      name: "sessions",
+      component: () => import("../views/Profile/WebServicesView.vue"),
+    },
 
     {
       path: "/work",

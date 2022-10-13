@@ -1,0 +1,104 @@
+<script setup lang="ts">
+import { ref } from "vue";
+
+const selectedRow = ref(0);
+const isAddCarOpen = ref(false);
+const onAddCarClick = () => {
+  isAddCarOpen.value = true;
+};
+
+const webServicesData = [
+  {
+    address: "759.462.789.82",
+    status: "Подключен",
+    data: "25.08.2022, 15-38",
+    comments: "Текст комментария",
+  },
+  {
+    address: "759.462.789.82",
+    status: "Подключен",
+    data: "25.08.2022, 15-38",
+    comments: "Текст комментария",
+  },
+  {
+    address: "759.462.789.82",
+    status: "Подключен",
+    data: "25.08.2022, 15-38",
+    comments: "Текст комментария",
+  },
+];
+</script>
+
+<template>
+  <main class="container-fluid py-5">
+    <h1>Web-сервисы</h1>
+
+    <div class="mt-4 bold large">IP-адрес</div>
+
+    <div class="mt-3 col-xl-7">
+      <ui-table
+        fullwidth
+        :data="webServicesData"
+        :thead="[
+          { value: '' },
+          { value: 'IP-адрес' },
+          { value: 'Статус' },
+          { value: 'Дата подключения' },
+          { value: 'Комментарий' },
+          { value: '' },
+        ]"
+        :tbody="[
+          { slot: 'radio' },
+          { field: 'address' },
+          { field: 'status' },
+          { field: 'data' },
+          { field: 'comments' },
+          { slot: 'actions' },
+        ]"
+      >
+        <template #actions>
+          <ui-icon class="hint">link_off</ui-icon>
+        </template>
+        <template #radio>
+          <ui-radio v-model="selectedRow" />
+        </template>
+      </ui-table>
+    </div>
+
+    <div class="mt-5">
+      <ui-button @click="onAddCarClick" raised>Добавить IP-адрес</ui-button>
+    </div>
+  </main>
+
+  <ui-dialog v-model="isAddCarOpen" maskClosable sheet class="park-add-car">
+    <ui-dialog-title class="mb-4" />
+
+    <ui-dialog-content>
+      <div class="mb-3">
+        <label class="d-block col-3">IP-адрес</label>
+        <div>
+          <ui-textfield outlined fullwidth />
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="d-block col-3">Комментарий</label>
+        <div>
+          <ui-textfield outlined fullwidth input-type="textarea" rows="4" />
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <ui-button raised>Сохранить</ui-button>
+      </div>
+    </ui-dialog-content>
+  </ui-dialog>
+</template>
+
+<style lang="scss">
+@use "@/styles//vars";
+.park-add-car .mdc-dialog__surface {
+  @media (min-width: vars.$desktop) {
+    min-width: 530px !important;
+  }
+}
+</style>
