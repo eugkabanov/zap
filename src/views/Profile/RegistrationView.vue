@@ -13,7 +13,7 @@
         <div class="large bold mb-5">Личные данные</div>
 
         <div class="mb-3">
-          <label for="reg-name" class="d-block mb-2">Ф.И.О.</label>
+          <label for="reg-name" class="d-block mb-2">Логин</label>
           <ui-textfield
             required
             v-model="user_data.fio"
@@ -24,7 +24,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="reg-phone" class="d-block mb-2">Телефон</label>
+          <label for="reg-phone" class="d-block mb-2">Пароль</label>
           <ui-textfield
             required
             v-model="user_data.phone"
@@ -34,16 +34,16 @@
             fullwidth
           />
         </div>
-        <div class="mb-3">
-          <label for="reg-email" class="d-block mb-2">E-mail</label>
-          <ui-textfield
-            required
-            v-model="user_data.email"
-            name="E-Mail"
-            id="reg-email"
-            outlined
-            fullwidth />
-        </div>
+<!--        <div class="mb-3">-->
+<!--          <label for="reg-email" class="d-block mb-2">E-mail</label>-->
+<!--          <ui-textfield-->
+<!--            required-->
+<!--            v-model="user_data.email"-->
+<!--            name="E-Mail"-->
+<!--            id="reg-email"-->
+<!--            outlined-->
+<!--            fullwidth />-->
+<!--        </div>-->
 
         <ui-form-field>
           <ui-checkbox
@@ -54,6 +54,10 @@
           <label class="hint" for="reg-agree">
             Согласие на обработку персональных данных</label>
         </ui-form-field>
+        <div class="mb-3">
+          <label for="reg-phone" class="hint mini-heading-color-red" v-if="showErrMessage">Пользователь с таким логином уже сущесвтует</label>
+        </div>
+
 
         <ui-button class="mt-3" raised v-on:click="registrationUser()"
           >Зарегистрироваться</ui-button
@@ -73,7 +77,7 @@
             <div v-for="item in service_office_list[city_office].services" class="mt-2 city-list">
               <div class="row align-items-center city-item py-4">
                 <div class="col-auto">
-                  <ui-radio v-on:click="office = item.id" value="{{ item.id }}" />
+                  <ui-radio v-model="office" :value="item.id"/>
                 </div>
                 <div class="col">
                   <p>{{ item.address }}
@@ -196,6 +200,7 @@ export default defineComponent({
       } as UserData,
       city_office: 0,
       office: 0,
+      showErrMessage: false,
       service_office_list: [],
       registration_types: [
         {
@@ -207,9 +212,7 @@ export default defineComponent({
           value: 1,
         },
       ],
-
       registration_type: ref(0),
-      // service_cities: ref("city1"),
     };
   },
 
@@ -227,9 +230,9 @@ export default defineComponent({
         },
         {
           id: 1,
-          address: "ул. Пушкина, дом 6",
-          phone: "8(499) 577-45-32",
-          work_time: "пн-пт 12:00 - 18:00",
+          address: "ул. Глушкова, дом 16",
+          phone: "8(495) 677-15-42",
+          work_time: "пн-пт 12:00 - 19:00",
         },
       ],
     };
@@ -255,8 +258,10 @@ export default defineComponent({
   methods: {
     registrationUser() {
       let data = {
-        fio: this.user_data.fio,
-        phone: this.user_data.phone,
+        // fio: this.user_data.fio,
+        // phone: this.user_data.phone,
+        login: this.user_data.fio,
+        password: this.user_data.phone,
         email: this.user_data.email,
         allow_data_processed: this.user_data.allow_data_processed,
         service_office: this.office
@@ -264,14 +269,16 @@ export default defineComponent({
       console.log(data);
       RegistrationDataService.registration(data)
         .then((response: ResponseData) => {
+          this.showErrMessage = false
           console.log(response.data);
+          this.$router.push({name: "catalog"})
         })
         .catch((e: Error) => {
+          this.showErrMessage = true
           console.log(e);
         });
     },
   },
-
 });
 </script>
 
@@ -287,5 +294,10 @@ export default defineComponent({
   display: block;
   height: 100%;
   object-fit: cover;
+}
+
+.mini-heading-color-red {
+  color: #e50050;
+  margin-bottom: 8px;
 }
 </style>
