@@ -1,5 +1,5 @@
 export default interface ServiceData {
-  address: string,
-  phone: string,
-  work_time: string,
+  value: number
+  label: string
+  services: object []
 }

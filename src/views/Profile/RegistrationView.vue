@@ -68,12 +68,12 @@
             <ui-select
               outlined fullwidth value
               :options="service_office_list"
-              v-model="city"
+              v-model="city_office"
             />
-            <div v-for="item in service_office_list[city].services" class="mt-2 city-list">
+            <div v-for="item in service_office_list[city_office].services" class="mt-2 city-list">
               <div class="row align-items-center city-item py-4">
                 <div class="col-auto">
-                  <ui-radio value="city1" />
+                  <ui-radio v-on:click="office = item.id" value="{{ item.id }}" />
                 </div>
                 <div class="col">
                   <p>{{ item.address }}
@@ -192,45 +192,11 @@ export default defineComponent({
 
     return {
       user_data: {
-        fio: "",
-        phone: "",
-        email: "",
         allow_data_processed: false,
-        service_office: "",
       } as UserData,
-
-      service_data: {
-        address: "",
-        phone: "",
-        work_time: "",
-      } as ServiceData,
-
-      city: 0,
-      service_office_list: [
-        {
-          value: 0,
-          label: "г. Москва",
-          services: [
-            {
-              address: "ул. Пушкина, дом 6",
-              phone: "8(499) 577-45-32",
-              work_time: "пн-пт 12:00 - 18:00",
-            },
-          ],
-        },
-        {
-          value: 1,
-          label: "г. Санкт-Петербург",
-          services: [
-            {
-              address: "ул. Рощина, дом 6",
-              phone: "8(357) 876-23-12",
-              work_time: "пн-пт 12:00 - 18:00",
-            },
-          ],
-        },
-      ],
-
+      city_office: 0,
+      office: 0,
+      service_office_list: [],
       registration_types: [
         {
           label: "Частное лицо",
@@ -248,9 +214,42 @@ export default defineComponent({
   },
 
   created: function () {
-    this.service_data.address = "dsdsdsd";
-    this.service_data.phone = "dsdsdsd";
-    this.service_data.work_time = "dsdsdsd";
+
+    let city1: ServiceData = {
+      value: 0,
+      label: "г. Москва",
+      services: [
+        {
+          id: 0,
+          address: "ул. Пушкина, дом 6",
+          phone: "8(499) 577-45-32",
+          work_time: "пн-пт 12:00 - 18:00",
+        },
+        {
+          id: 1,
+          address: "ул. Пушкина, дом 6",
+          phone: "8(499) 577-45-32",
+          work_time: "пн-пт 12:00 - 18:00",
+        },
+      ],
+    };
+
+    let city2: ServiceData = {
+      value: 1,
+      label: "г. Санкт-Петербург",
+      services: [
+        {
+          id: 0,
+          address: "ул. Рощина, дом 6",
+          phone: "8(357) 876-23-12",
+          work_time: "пн-пт 12:00 - 18:00",
+        },
+      ],
+    };
+
+
+    this.service_office_list.push(city1);
+    this.service_office_list.push(city2);
   },
 
   methods: {
@@ -260,7 +259,7 @@ export default defineComponent({
         phone: this.user_data.phone,
         email: this.user_data.email,
         allow_data_processed: this.user_data.allow_data_processed,
-        // service_office: this.service_office_list,
+        service_office: this.office
       };
       console.log(data);
       RegistrationDataService.registration(data)
