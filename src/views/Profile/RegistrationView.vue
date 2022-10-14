@@ -185,8 +185,8 @@
 <script lang="ts">
 import { ref } from "vue";
 import { defineComponent } from "vue";
-import RegistrationDataService from "@/services/RegistrationDataService";
-import type UserData from "@/types/UserData";
+import UserDataService from "@/services/UserDataService";
+import type UserDataRegPerson from "@/types/UserDataRegPerson";
 import type ResponseData from "@/types/ResponseData";
 import type ServiceData from "@/types/ServiceData";
 
@@ -197,7 +197,7 @@ export default defineComponent({
     return {
       user_data: {
         allow_data_processed: false,
-      } as UserData,
+      } as UserDataRegPerson,
       city_office: 0,
       office: 0,
       showErrMessage: false,
@@ -257,17 +257,17 @@ export default defineComponent({
 
   methods: {
     registrationUser() {
-      let data = {
-        // fio: this.user_data.fio,
-        // phone: this.user_data.phone,
+      this.user_data = {
         login: this.user_data.fio,
         password: this.user_data.phone,
+        fio: this.user_data.fio,
+        phone: this.user_data.phone,
         email: this.user_data.email,
         allow_data_processed: this.user_data.allow_data_processed,
         service_office: this.office
       };
-      console.log(data);
-      RegistrationDataService.registration(data)
+      console.log(this.user_data);
+      UserDataService.registration(this.user_data)
         .then((response: ResponseData) => {
           this.showErrMessage = false
           console.log(response.data);

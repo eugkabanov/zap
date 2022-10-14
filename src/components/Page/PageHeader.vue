@@ -2,32 +2,97 @@
 import { ref } from "vue";
 import LineBreak from "../LineBreak.vue";
 
-const isNavMenuOpen = ref(false);
-const isLoginOpen = ref(false);
-const isProfileDialogOpen = ref(false);
-const isNotificationOpen = ref(false);
+// const isNavMenuOpen = ref(false);
+// const isLoginOpen = ref(false);
+// const isProfileDialogOpen = ref(false);
+// const isNotificationOpen = ref(false);
 
-const isAuthorisedUser = ref(false);
+// const isAuthorisedUser = ref(false);
 
-const openLogin = () => (isLoginOpen.value = true);
-const openProfileDialog = () => (isProfileDialogOpen.value = true);
-const closeProfileDialog = () => (isProfileDialogOpen.value = false);
+// const openLogin = () => (isLoginOpen.value = true);
+// const openProfileDialog = () => (isProfileDialogOpen.value = true);
+// const closeProfileDialog = () => (isProfileDialogOpen.value = false);
 
-const closeLoginDialog = () => (isLoginOpen.value = false);
-const onLoginSubmit = () => {
-  isAuthorisedUser.value = true;
-  isLoginOpen.value = false;
-};
-const onLogout = () => {
-  isAuthorisedUser.value = false;
-  isProfileDialogOpen.value = false;
-};
+// const closeLoginDialog = () => (isLoginOpen.value = false);
+// const onLoginSubmit = () => {
+  // isAuthorisedUser.value = true;
+  // isLoginOpen.value = false;
+// };
+// const onLogout = () => {
+  // isAuthorisedUser.value = false;
+  // isProfileDialogOpen.value = false;
+// };
 
-const onNotificationClick = () => {
-  isNotificationOpen.value = true;
-  closeProfileDialog();
-};
+// const onNotificationClick = () => {
+  // isNotificationOpen.value = true;
+  // closeProfileDialog();
+// };
 </script>
+
+<script lang="ts">
+
+import {defineComponent} from "vue";
+import type UserDataAuth from "@/types/UserDataAuth";
+import UserDataService from "@/services/UserDataService";
+import type ResponseData from "@/types/ResponseData";
+
+export default defineComponent({
+  name: "register-user",
+  data() {
+
+    return {
+      user_data_auth: {} as UserDataAuth,
+      isLoginOpen: false,
+      isAuthorisedUser: false,
+      isProfileDialogOpen: false,
+      isNotificationOpen: false,
+      isNavMenuOpen: false
+    };
+  },
+
+  created: function () {},
+
+  methods: {
+    openLogin() {
+      this.isLoginOpen = true
+    },
+    onNotificationClick() {
+      this.isNotificationOpen = true
+      this.closeProfileDialog()
+    },
+    closeLoginDialog() {
+      this.isLoginOpen = false
+    },
+    logout() {
+      this.isAuthorisedUser = false
+      this.isProfileDialogOpen = false
+    },
+    openProfileDialog() {
+      this.isProfileDialogOpen = true
+    },
+    closeProfileDialog() {
+      this.isProfileDialogOpen = false
+    },
+    authUser() {
+      this.user_data_auth = {
+        login: this.user_data_auth.login,
+        password: this.user_data_auth.password
+      }
+
+      UserDataService.auth(this.user_data_auth)
+        .then((response: ResponseData) => {
+          this.isAuthorisedUser = true
+          this.isLoginOpen = false
+          this.$router.push({name: "catalog"})
+      })
+        .catch((e: Error) => {
+          console.log(e);
+      });
+    }
+  },
+});
+</script>
+
 
 <template>
   <ui-drawer type="modal" v-model="isNavMenuOpen">
@@ -238,7 +303,7 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Настройки</div>
           </div>
         </RouterLink>
-        <div @click="onLogout" class="row align-items-center link hint">
+        <div @click="logout" class="row align-items-center link hint">
           <div class="col-auto">
             <ui-icon>logout</ui-icon>
           </div>
@@ -260,12 +325,17 @@ const onNotificationClick = () => {
 
     <ui-dialog-content>
       <div class="mt-4">
-        <label class="hint" for="login-name">Логин</label>
-        <ui-textfield input-id="login-name" outlined fullwidth />
+        <label class="hint" for="login-name" >Логин</label>
+        <ui-textfield
+            input-id="login-name"
+            outlined fullwidth
+            v-model="user_data_auth.login"
+        />
       </div>
       <div class="mt-3">
         <label class="hint" for="login-password">Пароль</label>
         <ui-textfield
+          v-model="user_data_auth.password"
           input-id="login-password"
           outlined
           fullwidth
@@ -287,7 +357,7 @@ const onNotificationClick = () => {
         </div>
       </div>
 
-      <ui-button v-on:click="onLoginSubmit" raised class="col-12 mt-3"
+      <ui-button v-on:click="onLoginSubmit; authUser()" raised class="col-12 mt-3"
         >Войти</ui-button
       >
 

@@ -1,6 +1,6 @@
-import type UserData from "@/types/UserData";
+import type UserDataRegPerson from "@/types/UserDataRegPerson";
 
-export default interface UserDataLegal extends UserData{
+export default interface UserDataLegal extends UserDataRegPerson{
   inn: string
   name?: string
   legal_address?: string
