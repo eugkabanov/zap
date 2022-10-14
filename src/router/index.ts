@@ -85,6 +85,11 @@ const router = createRouter({
       name: "sessions",
       component: () => import("../views/Profile/WebServicesView.vue"),
     },
+    {
+      path: "/settings",
+      name: "settings",
+      component: () => import("../views/Profile/SettingsView.vue"),
+    },
 
     {
       path: "/work",

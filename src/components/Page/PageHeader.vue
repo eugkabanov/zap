@@ -234,7 +234,11 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <LineBreak class="my-4" />
-        <RouterLink to="/" class="row align-items-center hint mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/settings"
+          class="row align-items-center hint mb-4"
+        >
           <div class="col-auto">
             <ui-icon>settings</ui-icon>
           </div>
