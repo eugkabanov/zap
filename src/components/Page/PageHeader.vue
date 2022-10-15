@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<!--<script setup lang="ts">-->
 import { ref } from "vue";
-import LineBreak from "../LineBreak.vue";
+// import LineBreak from "../LineBreak.vue";
 
 // const isNavMenuOpen = ref(false);
 // const isLoginOpen = ref(false);
@@ -27,10 +27,10 @@ import LineBreak from "../LineBreak.vue";
   // isNotificationOpen.value = true;
   // closeProfileDialog();
 // };
-</script>
+<!--</script>-->
 
 <script lang="ts">
-
+import LineBreak from "../LineBreak.vue";
 import {defineComponent} from "vue";
 import type UserDataAuth from "@/types/UserDataAuth";
 import UserDataService from "@/services/UserDataService";
@@ -38,6 +38,9 @@ import type ResponseData from "@/types/ResponseData";
 
 export default defineComponent({
   name: "register-user",
+  components: {
+    LineBreak: LineBreak
+  },
   data() {
 
     return {
