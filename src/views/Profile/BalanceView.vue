@@ -43,8 +43,8 @@ onMounted(() => {
 
 <template>
   <main class="container-fluid py-5">
-    <div class="row">
-      <div class="align-items-center col-xl-4">
+    <div class="row align-items-center">
+      <div class="row align-items-center col-xl-4">
         <div class="col-auto">
           <h1>Баланс</h1>
         </div>
@@ -59,7 +59,6 @@ onMounted(() => {
           </ui-datepicker>
         </div>
       </div>
-
       <div class="col-auto ms-auto">
         <ui-alert state="error" closable
           >Внимание! Необходимо оплатить заказ</ui-alert
