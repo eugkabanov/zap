@@ -209,7 +209,11 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Заказы</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/appeals"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>contact_support</ui-icon>
           </div>

@@ -91,6 +91,11 @@ const router = createRouter({
       component: () => import("../views/Profile/OrdersView.vue"),
     },
     {
+      path: "/appeals",
+      name: "appeals",
+      component: () => import("../views/Profile/AppealsView.vue"),
+    },
+    {
       path: "/sessions",
       name: "sessions",
       component: () => import("../views/Profile/WebServicesView.vue"),
