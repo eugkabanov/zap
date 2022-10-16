@@ -41,6 +41,13 @@ const router = createRouter({
       component: () => import("../views/Catalog/ProductView.vue"),
     },
 
+    // search
+    {
+      path: "/search/:productId",
+      name: "productSearch",
+      component: () => import("../views/ProductSearch.vue"),
+    },
+
     // cart
     {
       path: "/cart",
@@ -65,6 +72,7 @@ const router = createRouter({
       component: () => import("../views/PassView.vue"),
     },
 
+    // profile
     {
       path: "/balance",
       name: "balance",
@@ -111,6 +119,7 @@ const router = createRouter({
       component: () => import("../views/Profile/SettingsView.vue"),
     },
 
+    // misc
     {
       path: "/work",
       name: "work",
@@ -151,6 +160,8 @@ const router = createRouter({
       name: "return",
       component: () => import("../views/PassView.vue"),
     },
+
+    // debug
     {
       path: "/components",
       name: "components",

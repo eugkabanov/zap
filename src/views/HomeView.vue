@@ -15,7 +15,7 @@ import router from "@/router";
 import SearchFormWithIcon from "../components/Search/SearchFormWithIcon.vue";
 
 const submitSearch = () => {
-  router.push("/catalog");
+  router.push("/search/TS32701");
 };
 </script>
 
