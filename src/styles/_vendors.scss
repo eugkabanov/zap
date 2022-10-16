@@ -123,3 +123,9 @@
   ~ .mdc-checkbox__background {
   background-color: white;
 }
+
+.mdc-data-table.mdc-data-table--last-select
+  .mdc-data-table__header-cell:last-child,
+.mdc-data-table.mdc-data-table--last-select .mdc-data-table__cell:last-child {
+  text-align: right;
+}
