@@ -197,7 +197,11 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Избранное</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/orders"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>list_alt</ui-icon>
           </div>
