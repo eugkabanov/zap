@@ -96,6 +96,11 @@ const router = createRouter({
       component: () => import("../views/Profile/AppealsView.vue"),
     },
     {
+      path: "/appeals/:appealId",
+      name: "appealsDetails",
+      component: () => import("../views/Profile/AppealsChat.vue"),
+    },
+    {
       path: "/sessions",
       name: "sessions",
       component: () => import("../views/Profile/WebServicesView.vue"),

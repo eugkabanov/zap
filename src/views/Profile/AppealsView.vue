@@ -65,6 +65,7 @@ const appealsData = [
       fullwidth
       :data="appealsData"
       :thead="[
+        { value: '' },
         { value: 'Дата' },
         { value: 'Категория' },
         { value: 'Деталь' },
@@ -76,6 +77,7 @@ const appealsData = [
         { slot: 'th-select', columnId: 'select' },
       ]"
       :tbody="[
+        { slot: 'link' },
         { field: 'date' },
         { field: 'category' },
         { field: 'detail' },
@@ -87,6 +89,11 @@ const appealsData = [
         { slot: 'select' },
       ]"
     >
+      <template #link>
+        <div class="table-link">
+          <RouterLink to="/appeals/123" />
+        </div>
+      </template>
       <template #th-select> <ui-checkbox /> </template>
       <template #select>
         <ui-icon-button>more_vert</ui-icon-button>
