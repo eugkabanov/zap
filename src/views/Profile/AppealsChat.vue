@@ -4,7 +4,7 @@ import ClosedStatus from "../../components/Statuses/ClosedStatus.vue";
 
 <template>
   <main class="container-fluid py-5">
-    <div class="row">
+    <div class="row gy-5">
       <div class="col-12 col-xl-3">
         <RouterLink class="clear" to="/appeals">
           <div class="large bold">
@@ -56,10 +56,104 @@ import ClosedStatus from "../../components/Statuses/ClosedStatus.vue";
             <div class="large bold">Возврат произведен (0/5)</div>
           </div>
         </div>
-        <div class="col-12 offset-xl-1 col-xl-8">
-          <!-- TODO: chat window -->
+      </div>
+      <div class="col-12 offset-xl-1 col-xl-8">
+        <div class="chat">
+          <div class="chat__contents">
+            <div class="chat__message chat__message--received">
+              Не следует, однако забывать, что постоянное
+              информационно-пропагандистское обеспечение нашей деятельности
+              представляет собой интересный эксперимент проверки системы
+              обучения кадров, соответствует насущным потребностям. Не следует,
+              однако забывать, что реализация намеченных плановых заданий
+              требуют от нас анализа
+            </div>
+            <div class="chat__message chat__message--send">
+              Не следует, однако забывать, что постоянное
+              информационно-пропагандистское обеспечение нашей деятельности
+              представляет собой интересный эксперимент проверки системы
+              обучения кадров, соответствует насущным потребностям.
+            </div>
+            <div class="chat__message chat__message--send">
+              Не следует, однако забывать, что постоянное
+              информационно-пропагандистское обеспечение нашей деятельности
+              представляет собой интересный эксперимент проверки системы
+              обучения кадров, соответствует насущным потребностям. Не следует,
+              однако забывать, что
+            </div>
+            <div class="chat__message chat__message--received">
+              Не следует, однако забывать, что постоянное
+              информационно-пропагандистское обеспечение нашей деятельности
+              представляет собой интересный эксперимент проверки системы
+              обучения кадров, соответствует насущным
+            </div>
+            <div class="chat__message chat__message--received">
+              Равным образом рамки и место обучения кадров обеспечивает широкому
+              кругу (специалистов) участие в формировании системы обучения
+              кадров
+            </div>
+          </div>
+          <div class="chat__footer">
+            <div class="row">
+              <div class="col-auto">
+                <ui-fab class="chat__attach-icon" icon="attachment" />
+              </div>
+              <ui-form-field class="col">
+                <ui-textfield outlined fullwidth
+                  >Написать сообщение
+                  <template #after>
+                    <ui-textfield-icon style="color: #0069c8" trailing
+                      >send</ui-textfield-icon
+                    >
+                  </template>
+                </ui-textfield>
+              </ui-form-field>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </main>
 </template>
+
+<style scoped lang="scss">
+.chat {
+  border: 1px solid #d9d9de;
+
+  &__contents,
+  &__footer {
+    width: 100%;
+    padding: 20px 30px;
+  }
+
+  &__footer {
+    background-color: #f5f5f7;
+  }
+
+  &__message {
+    padding: 20px 25px;
+    border-radius: 8px;
+    max-width: 700px;
+    margin-bottom: 20px;
+
+    &--send {
+      background-color: #f1ffe2;
+      margin-left: auto;
+    }
+    &--received {
+      background-color: #f4faff;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.chat__attach-icon {
+  background-color: unset;
+  border: 1px solid #bfbfc3;
+
+  .mdc-fab__icon {
+    color: #9898a0 !important;
+  }
+}
+</style>
