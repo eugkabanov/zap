@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const selectedTab = ref(0);
 const isAddAddressOpen = ref(false);
@@ -25,7 +26,8 @@ const addressData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1>Настройки профиля</h1>
 
     <div class="col-12 col-xl-8">

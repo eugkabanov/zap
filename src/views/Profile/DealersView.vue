@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import DealersFilters from "../../components/Profile/DealersFilters.vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const isFiltersOpen = ref(false);
 
@@ -27,7 +28,8 @@ const dealersData = [
 </script>
 
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1 class="mb-5">
       <ui-icon-button class="d-xl-none me-2" v-model="isFiltersOpen"
         >menu_open</ui-icon-button

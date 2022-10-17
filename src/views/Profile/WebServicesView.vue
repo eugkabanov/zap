@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const selectedRow = ref(0);
 const isAddCarOpen = ref(false);
@@ -30,7 +31,8 @@ const webServicesData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1>Web-сервисы</h1>
 
     <div class="mt-4 bold large">IP-адрес</div>

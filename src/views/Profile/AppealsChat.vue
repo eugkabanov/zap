@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import ClosedStatus from "../../components/Statuses/ClosedStatus.vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <div class="row gy-5">
       <div class="col-12 col-xl-3">
         <RouterLink class="clear" to="/appeals">

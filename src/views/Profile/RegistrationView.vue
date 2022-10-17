@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const registrationType = ref(0);
 const selectedCity = ref("city1");
@@ -28,7 +29,8 @@ const citiesList = [
 </script>
 
 <template>
-  <main class="py-5 container-fluid">
+  <main class="pb-5 container-fluid">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1 class="mb-3">Регистрация</h1>
 
     <ui-chips

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SearchFormWithIcon from "../../components/Search/SearchFormWithIcon.vue";
 import ClosedStatus from "../../components/Statuses/ClosedStatus.vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const appealsData = [
   {
@@ -43,7 +44,8 @@ const appealsData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1 class="mb-5">Вопросы по заказам</h1>
 
     <div class="row align-items-center mb-4">

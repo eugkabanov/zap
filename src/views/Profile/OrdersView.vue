@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const isStatsOpen = ref(false);
 const onStatsClick = () => (isStatsOpen.value = true);
@@ -129,7 +130,8 @@ const ordersData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1 class="mb-5">Заказы</h1>
 
     <div class="row align-items-center gy-4 mb-4">
