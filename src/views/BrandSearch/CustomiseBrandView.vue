@@ -8,11 +8,11 @@ import AsideSearch from "../../components/Search/AsideSearch.vue";
 
     <div class="row">
       <div class="col-12 col-xl-7">
-        <h3 class="mb-4">
+        <h2 class="mb-4">
           <RouterLink to="/search-brand" class="clear">
             <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda
           </RouterLink>
-        </h3>
+        </h2>
 
         <div class="row gy-4">
           <div class="col-12 col-xl-4">
@@ -81,7 +81,7 @@ import AsideSearch from "../../components/Search/AsideSearch.vue";
           </div>
 
           <div class="mt-5">
-            <router-link v-button.raised to="/search-brand/honda/type"
+            <router-link v-button.raised to="/search-brand/honda/accord"
               >Показать автомобили</router-link
             >
           </div>

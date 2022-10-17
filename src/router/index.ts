@@ -57,6 +57,11 @@ const router = createRouter({
       name: "brandNameSearch",
       component: () => import("../views/BrandSearch/CustomiseBrandView.vue"),
     },
+    {
+      path: "/search-brand/:brandName/:type",
+      name: "brandNameTypeSearch",
+      component: () => import("../views/BrandSearch/CustomerBrandTypeView.vue"),
+    },
 
     // cart
     {
