@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import AsideSearch from "../../components/Search/AsideSearch.vue";
+</script>
+
 <template>
   <main class="py-5 container-fluid">
     <h1 class="mb-5">Оригинальный каталог</h1>
@@ -313,7 +317,9 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-xl-5 order-xl-last order-first">todo</div>
+      <div class="col-12 col-xl-5 order-xl-last order-first">
+        <AsideSearch />
+      </div>
     </div>
   </main>
 </template>
