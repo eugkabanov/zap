@@ -69,7 +69,10 @@ button.small {
   }
 }
 .hint {
-  color: #76767a;
+  color: vars.$grayed;
+}
+.color-primary {
+  color: vars.$primaryColor;
 }
 
 .grayed {

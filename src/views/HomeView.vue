@@ -37,7 +37,7 @@ const submitSearch = () => {
             <div class="col-12 col-lg-6 mx-auto mt-4">
               <div class="row">
                 <div class="col-6 col-lg-auto">
-                  <RouterLink to="/catalog">
+                  <RouterLink to="/search-brand">
                     <ui-button
                       raised
                       style="background-color: white; color: #0069c8"
