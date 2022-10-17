@@ -3,7 +3,7 @@ import SearchFormWithIcon from "./SearchFormWithIcon.vue";
 </script>
 
 <template>
-  <div class="aside-search">
+  <div class="aside-search float-block">
     <div class="mb-4">
       <SearchFormWithIcon
         :submit-handler="() => {}"
@@ -16,10 +16,3 @@ import SearchFormWithIcon from "./SearchFormWithIcon.vue";
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.aside-search {
-  padding: 40px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-}
-</style>
