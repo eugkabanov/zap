@@ -357,13 +357,12 @@ const onNotificationClick = () => {
         >
         УВЕДОМЛЕНИЯ
       </h3>
-    </ui-dialog-title>
-    <ui-dialog-content>
-      <div class="row mb-5">
+      <div class="row">
         <div class="col-auto link">Показать непрочитанные (2)</div>
         <div class="col-auto link clear">Прочитать все</div>
       </div>
-
+    </ui-dialog-title>
+    <ui-dialog-content>
       <div class="mb-4">
         <div class="hint">20 июля 2022</div>
         <div class="mt-2">
