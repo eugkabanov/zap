@@ -106,20 +106,24 @@ const onNotificationClick = () => {
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <RouterLink to="/cart">
-            <div class="header-item">
+          <div class="header-item">
+            <RouterLink to="/cart">
               <ui-badge overlap :count="12"
                 ><ui-icon>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
-            </div>
-          </RouterLink>
-          <div class="header-item">
-            <ui-icon>star_outline</ui-icon
-            ><span class="header-item__label">Избранное</span>
+            </RouterLink>
           </div>
           <div class="header-item">
-            <ui-icon>receipt</ui-icon
-            ><span class="header-item__label">Заказы</span>
+            <RouterLink to="/favourites">
+              <ui-icon>star_outline</ui-icon
+              ><span class="header-item__label">Избранное</span>
+            </RouterLink>
+          </div>
+          <div class="header-item">
+            <RouterLink to="/orders">
+              <ui-icon>receipt</ui-icon
+              ><span class="header-item__label">Заказы</span>
+            </RouterLink>
           </div>
           <div
             v-if="isAuthorisedUser"
