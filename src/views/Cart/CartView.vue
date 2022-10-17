@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 
 const activeTab = ref(0);
 
@@ -41,6 +42,13 @@ const productsData = [
 
 <template>
   <main class="container-fluid py-5">
+    <BreadCrumbs
+      class="mb-4"
+      :crumbs="[
+        { title: 'Главная', href: '/' },
+        { title: 'Корзина', href: '/cart' },
+      ]"
+    />
     <h1 :class="$tt('headline1')">Корзина</h1>
     <div class="mt-5">
       <ui-tab-bar v-model="activeTab">

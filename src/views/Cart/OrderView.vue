@@ -1,9 +1,19 @@
 <script setup lang="ts">
 import LineBreak from "../../components/LineBreak.vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 </script>
 
 <template>
   <main class="container-fluid py-5">
+    <BreadCrumbs
+      class="mb-4"
+      :crumbs="[
+        { title: 'Главная', href: '/' },
+        { title: 'Корзина', href: '/cart' },
+        { title: 'Оформление заказа', href: '/order' },
+      ]"
+    />
+
     <h1 :class="$tt('headline1')">Оформление заказа</h1>
 
     <div class="row flex-column">

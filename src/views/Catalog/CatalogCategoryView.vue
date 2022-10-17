@@ -5,6 +5,7 @@ import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ViewOptions from "../../components/Catalog/ViewOptions.vue";
 import ProductListCard from "../../components/Catalog/ProductListCard.vue";
 import CustomCollapse from "../../components/CustomCollapse.vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 
 const list = Array(30).fill("");
 
@@ -82,6 +83,17 @@ const expandBrands = ref(false);
     </template>
     <template #main>
       <div class="pb-5">
+        <BreadCrumbs
+          class="mb-4"
+          :crumbs="[
+            { title: 'Главная', href: '/' },
+            { title: 'Каталог', href: '/catalog' },
+            {
+              title: 'Шины индустриальные',
+              href: '/catalog-choose/oil-winter',
+            },
+          ]"
+        />
         <div class="mb-5">
           <span :class="$tt('headline1')">Шины индустриальные</span>
           <span :class="$tt('body2')" class="ms-2 hint">56 товаров</span>

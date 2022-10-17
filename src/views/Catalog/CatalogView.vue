@@ -3,6 +3,7 @@ import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
 import CategoryButton from "../../components/Catalog/CategoryButton.vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ProductSection from "../../components/Catalog/ProductSection.vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 
 const list = [1, 2, 3, 4];
 </script>
@@ -251,6 +252,14 @@ const list = [1, 2, 3, 4];
     </template>
     <template #main>
       <div class="pb-5">
+        <BreadCrumbs
+          class="mb-4"
+          :crumbs="[
+            { title: 'Главная', href: '/' },
+            { title: 'Каталог', href: '/catalog' },
+          ]"
+        />
+
         <div class="row flex-column g-4">
           <div class="col">
             <ProductSection title="Масло" href="/catalog-choose/oil">
