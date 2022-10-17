@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import BrandProductFilters from "../../components/Search/BrandProductFilters.vue";
 import CustomCollapse from "../../components/CustomControls/CustomCollapse.vue";
+import BrandProductNodeFilters from "../../components/Search/BrandProductNodeFilters.vue";
 
 const isFiltersOpen = ref(false);
 const searchType = ref(0);
@@ -47,10 +48,16 @@ const searchType = ref(0);
 
     <div class="row">
       <div class="col-xl-3 d-none d-xl-block">
-        <BrandProductFilters />
+        <div v-if="searchType === 0">
+          <BrandProductFilters />
+        </div>
+        <div v-if="searchType === 1">
+          <BrandProductNodeFilters />
+        </div>
       </div>
 
       <div class="col-12 offset-xl-1 col-xl-8">
+        <!-- Search Type 1 -->
         <div v-if="searchType === 0">
           <div class="large bold mb-2">1 ENGINE</div>
 
@@ -74,7 +81,11 @@ const searchType = ref(0);
               <CustomCollapse>
                 <template #title>
                   <div class="row align-items-center">
-                    <div class="col-6">13410-RAA-A00</div>
+                    <div class="col-6">
+                      <RouterLink to="/search-brand/honda/accord/cupe/12">
+                        13410-RAA-A00
+                      </RouterLink>
+                    </div>
                     <div class="col-6">SHAFT, FR. BALANCER</div>
                   </div>
                 </template>
@@ -154,7 +165,11 @@ const searchType = ref(0);
               <CustomCollapse>
                 <template #title>
                   <div class="row align-items-center">
-                    <div class="col-6">13410-RAA-A00</div>
+                    <div class="col-6">
+                      <RouterLink to="/search-brand/honda/accord/cupe/12">
+                        13410-RAA-A00
+                      </RouterLink>
+                    </div>
                     <div class="col-6">SHAFT, FR. BALANCER</div>
                   </div>
                 </template>
@@ -234,7 +249,11 @@ const searchType = ref(0);
               <CustomCollapse>
                 <template #title>
                   <div class="row align-items-center">
-                    <div class="col-6">13410-RAA-A00</div>
+                    <div class="col-6">
+                      <RouterLink to="/search-brand/honda/accord/cupe/12">
+                        13410-RAA-A00
+                      </RouterLink>
+                    </div>
                     <div class="col-6">SPROCKET, DRIVEN (17T)</div>
                   </div>
                 </template>
@@ -314,7 +333,11 @@ const searchType = ref(0);
               <CustomCollapse>
                 <template #title>
                   <div class="row align-items-center">
-                    <div class="col-6">13410-RAA-A00</div>
+                    <div class="col-6">
+                      <RouterLink to="/search-brand/honda/accord/cupe/12">
+                        13410-RAA-A00
+                      </RouterLink>
+                    </div>
                     <div class="col-6">SHAFT, FR. BALANCER</div>
                   </div>
                 </template>
@@ -394,7 +417,11 @@ const searchType = ref(0);
               <CustomCollapse>
                 <template #title>
                   <div class="row align-items-center">
-                    <div class="col-6">13410-RAA-A00</div>
+                    <div class="col-6">
+                      <RouterLink to="/search-brand/honda/accord/cupe/12">
+                        13410-RAA-A00
+                      </RouterLink>
+                    </div>
                     <div class="col-6">TENSIONER, BALANCER SHAFT</div>
                   </div>
                 </template>
@@ -474,6 +501,76 @@ const searchType = ref(0);
             </div>
           </div>
         </div>
+
+        <!-- Search Type 2 -->
+        <div v-if="searchType === 1">
+          <div class="row gy-2">
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <RouterLink to="/search-brand/honda/accord/cupe/12" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
+                </div>
+                <div>THROTTLE BODY (L4) (-'05) E0100</div>
+              </RouterLink>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -482,7 +579,12 @@ const searchType = ref(0);
     <ui-drawer-content class="p-4">
       <!-- drawer needs at lease one focusable element -->
       <div tabindex="1" />
-      <BrandProductFilters />
+      <div v-if="searchType === 0">
+        <BrandProductFilters />
+      </div>
+      <div v-if="searchType === 1">
+        <BrandProductNodeFilters />
+      </div>
     </ui-drawer-content>
   </ui-drawer>
 </template>
