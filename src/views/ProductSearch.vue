@@ -130,7 +130,7 @@ const similarSearchData = [
       </div>
 
       <div class="d-none d-xl-block offset-1 col-3">
-        <ProductSearchFilters @filter-click="onFilterClick" />
+        <ProductSearchFilters :onFilterClick="onFilterClick" />
       </div>
     </div>
   </main>
@@ -139,7 +139,7 @@ const similarSearchData = [
     <ui-drawer-content class="p-4">
       <!-- drawer needs at lease one focusable element -->
       <div tabindex="1" />
-      <ProductSearchFilters @filter-click="onFilterClick" />
+      <ProductSearchFilters :onFilterClick="onFilterClick" />
     </ui-drawer-content>
   </ui-drawer>
 </template>
