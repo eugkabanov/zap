@@ -12,9 +12,10 @@ import IconFilter from "../components/icons/IconFilter.vue";
 import IconLamp from "../components/icons/IconLamp.vue";
 import IconWasher from "../components/icons/IconWasher.vue";
 import router from "@/router";
+import SearchFormWithIcon from "../components/Search/SearchFormWithIcon.vue";
 
 const submitSearch = () => {
-  router.push("/catalog");
+  router.push("/search/TS32701");
 };
 </script>
 
@@ -28,28 +29,15 @@ const submitSearch = () => {
         >
           <div class="row g-0">
             <div class="col-12 col-lg-8 mx-auto">
-              <form @submit.stop.prevent="submitSearch">
-                <div class="row">
-                  <div class="col-10">
-                    <ui-textfield outlined fullwidth
-                      >Поиск по артикулу или VIN/Frame</ui-textfield
-                    >
-                  </div>
-                  <div class="col-2">
-                    <ui-fab
-                      icon="search"
-                      type="submit"
-                      @click="submitSearch"
-                      style="background-color: #bfbfc3"
-                    />
-                  </div>
-                </div>
-              </form>
+              <SearchFormWithIcon
+                :submit-handler="submitSearch"
+                placeholder="Поиск по артикулу или VIN/Frame"
+              />
             </div>
             <div class="col-12 col-lg-6 mx-auto mt-4">
               <div class="row">
                 <div class="col-6 col-lg-auto">
-                  <RouterLink to="/catalog">
+                  <RouterLink to="/search-brand">
                     <ui-button
                       raised
                       style="background-color: white; color: #0069c8"

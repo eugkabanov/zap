@@ -180,20 +180,24 @@ export default defineComponent({
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <RouterLink to="/cart">
-            <div class="header-item">
+          <div class="header-item">
+            <RouterLink to="/cart">
               <ui-badge overlap :count="12"
                 ><ui-icon>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
-            </div>
-          </RouterLink>
-          <div class="header-item">
-            <ui-icon>star_outline</ui-icon
-            ><span class="header-item__label">Избранное</span>
+            </RouterLink>
           </div>
           <div class="header-item">
-            <ui-icon>receipt</ui-icon
-            ><span class="header-item__label">Заказы</span>
+            <RouterLink to="/favourites">
+              <ui-icon>star_outline</ui-icon
+              ><span class="header-item__label">Избранное</span>
+            </RouterLink>
+          </div>
+          <div class="header-item">
+            <RouterLink to="/orders">
+              <ui-icon>receipt</ui-icon
+              ><span class="header-item__label">Заказы</span>
+            </RouterLink>
           </div>
           <div
             v-if="isAuthorisedUser"
@@ -271,7 +275,11 @@ export default defineComponent({
             <div :class="$tt('body1')">Избранное</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/orders"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>list_alt</ui-icon>
           </div>
@@ -279,7 +287,11 @@ export default defineComponent({
             <div :class="$tt('body1')">Заказы</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/appeals"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>contact_support</ui-icon>
           </div>
@@ -287,7 +299,11 @@ export default defineComponent({
             <div :class="$tt('body1')">Вопросы по заказам</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/dealers"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>local_shipping</ui-icon>
           </div>
@@ -295,7 +311,11 @@ export default defineComponent({
             <div :class="$tt('body1')">Поставщики</div>
           </div>
         </RouterLink>
-        <RouterLink to="/" class="row align-items-center clear mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/sessions"
+          class="row align-items-center clear mb-4"
+        >
           <div class="col-auto">
             <ui-icon>desktop_windows</ui-icon>
           </div>
@@ -304,7 +324,11 @@ export default defineComponent({
           </div>
         </RouterLink>
         <LineBreak class="my-4" />
-        <RouterLink to="/" class="row align-items-center hint mb-4">
+        <RouterLink
+          @click="closeProfileDialog"
+          to="/settings"
+          class="row align-items-center hint mb-4"
+        >
           <div class="col-auto">
             <ui-icon>settings</ui-icon>
           </div>
@@ -416,13 +440,12 @@ export default defineComponent({
         >
         УВЕДОМЛЕНИЯ
       </h3>
-    </ui-dialog-title>
-    <ui-dialog-content>
-      <div class="row mb-5">
+      <div class="row">
         <div class="col-auto link">Показать непрочитанные (2)</div>
         <div class="col-auto link clear">Прочитать все</div>
       </div>
-
+    </ui-dialog-title>
+    <ui-dialog-content>
       <div class="mb-4">
         <div class="hint">20 июля 2022</div>
         <div class="mt-2">

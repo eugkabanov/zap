@@ -3,6 +3,9 @@ import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
 import CategoryButton from "../../components/Catalog/CategoryButton.vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ProductSection from "../../components/Catalog/ProductSection.vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
+import SearchFormWithIcon from "../../components/Search/SearchFormWithIcon.vue";
+import router from "@/router";
 
 const list = [1, 2, 3, 4];
 </script>
@@ -251,6 +254,40 @@ const list = [1, 2, 3, 4];
     </template>
     <template #main>
       <div class="pb-5">
+        <BreadCrumbs
+          class="mb-4"
+          :crumbs="[
+            { title: 'Главная', href: '/' },
+            { title: 'Каталог', href: '/catalog' },
+          ]"
+        />
+
+        <div class="d-none d-lg-block mb-4 float-block">
+          <div class="row">
+            <div class="col-auto">
+              <h3>Поиск автозапчастей</h3>
+            </div>
+            <div class="col-6" style="border-right: 1px solid #d9d9de">
+              <SearchFormWithIcon
+                :submit-handler="
+                  () => {
+                    router.push('/search/TS32701');
+                  }
+                "
+                placeholder="По VIN-коду
+              автомобиля или Frame номеру"
+              />
+            </div>
+            <div class="col">
+              <RouterLink to="/search-brand">
+                <ui-button raised style="background-color: black; color: white"
+                  >Подбор по марке</ui-button
+                >
+              </RouterLink>
+            </div>
+          </div>
+        </div>
+
         <div class="row flex-column g-4">
           <div class="col">
             <ProductSection title="Масло" href="/catalog-choose/oil">

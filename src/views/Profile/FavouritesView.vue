@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const isGarageDialogOpen = ref(false);
 const onGarageClick = () => {
@@ -8,7 +9,8 @@ const onGarageClick = () => {
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1>Избранное <span :class="$tt('body2')" class="hint">2 товара</span></h1>
 
     <div class="mt-4 row justify-content-between">

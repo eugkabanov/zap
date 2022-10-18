@@ -41,6 +41,40 @@ const router = createRouter({
       component: () => import("../views/Catalog/ProductView.vue"),
     },
 
+    // search
+    {
+      path: "/search/:productId",
+      name: "productSearch",
+      component: () => import("../views/ProductSearch.vue"),
+    },
+    {
+      path: "/search-brand/",
+      name: "brandSearch",
+      component: () => import("../views/BrandSearch/ChooseBrandView.vue"),
+    },
+    {
+      path: "/search-brand/:brandName",
+      name: "brandNameSearch",
+      component: () => import("../views/BrandSearch/CustomiseBrandView.vue"),
+    },
+    {
+      path: "/search-brand/:brandName/:type",
+      name: "brandNameTypeSearch",
+      component: () => import("../views/BrandSearch/CustomerBrandTypeView.vue"),
+    },
+    {
+      path: "/search-brand/:brandName/:type/:model",
+      name: "brandNameTypeModelSearch",
+      component: () =>
+        import("../views/BrandSearch/CustomerBrandTypeModel.vue"),
+    },
+    {
+      path: "/search-brand/:brandName/:type/:model/:productId",
+      name: "brandSearchProduct",
+      component: () =>
+        import("../views/BrandSearch/CustomerBrandProductView.vue"),
+    },
+
     // cart
     {
       path: "/cart",
@@ -65,6 +99,7 @@ const router = createRouter({
       component: () => import("../views/PassView.vue"),
     },
 
+    // profile
     {
       path: "/balance",
       name: "balance",
@@ -80,7 +115,38 @@ const router = createRouter({
       name: "favourites",
       component: () => import("../views/Profile/FavouritesView.vue"),
     },
+    {
+      path: "/dealers",
+      name: "dealers",
+      component: () => import("../views/Profile/DealersView.vue"),
+    },
+    {
+      path: "/orders",
+      name: "orders",
+      component: () => import("../views/Profile/OrdersView.vue"),
+    },
+    {
+      path: "/appeals",
+      name: "appeals",
+      component: () => import("../views/Profile/AppealsView.vue"),
+    },
+    {
+      path: "/appeals/:appealId",
+      name: "appealsDetails",
+      component: () => import("../views/Profile/AppealsChat.vue"),
+    },
+    {
+      path: "/sessions",
+      name: "sessions",
+      component: () => import("../views/Profile/WebServicesView.vue"),
+    },
+    {
+      path: "/settings",
+      name: "settings",
+      component: () => import("../views/Profile/SettingsView.vue"),
+    },
 
+    // misc
     {
       path: "/work",
       name: "work",
@@ -121,6 +187,8 @@ const router = createRouter({
       name: "return",
       component: () => import("../views/PassView.vue"),
     },
+
+    // debug
     {
       path: "/components",
       name: "components",

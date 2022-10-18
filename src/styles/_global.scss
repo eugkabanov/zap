@@ -69,7 +69,10 @@ button.small {
   }
 }
 .hint {
-  color: #76767a;
+  color: vars.$grayed;
+}
+.color-primary {
+  color: vars.$primaryColor;
 }
 
 .grayed {
@@ -82,6 +85,14 @@ button.small {
 
 .text-center {
   text-align: center;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
 }
 
 .w-100 {
@@ -106,5 +117,16 @@ footer#app-footer {
 
   nav a.router-link-exact-active {
     border-bottom: 3px solid #0069c8;
+  }
+}
+
+.float-block {
+  display: block;
+  background-color: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+
+  @media (min-width: vars.$desktop) {
+    padding: 35px;
   }
 }

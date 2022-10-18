@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 const sortingOptions = [
   {
     label: "Все",
@@ -24,6 +25,21 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
 <template>
   <main>
     <section class="container-fluid pt-5">
+      <BreadCrumbs
+        class="mb-4"
+        :crumbs="[
+          { title: 'Главная', href: '/' },
+          { title: 'Каталог', href: '/catalog' },
+          {
+            title: 'Шины индустриальные',
+            href: '/catalog-choose/oil-winter',
+          },
+          {
+            title: 'Артикул NOKIAN TS32701',
+            href: '/catalog/wheel/123',
+          },
+        ]"
+      />
       <div class="row gy-4">
         <div class="order-first col-12 col-md-6 col-xxl-3">
           <img src="@/assets/catalog/wheel.png" alt="product image" />

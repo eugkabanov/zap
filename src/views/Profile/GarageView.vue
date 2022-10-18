@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const isAddCarOpen = ref(false);
 const onAddCarClick = () => {
@@ -20,7 +21,8 @@ const parkData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1>Гараж</h1>
 
     <div class="mt-4 row">

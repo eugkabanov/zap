@@ -7,22 +7,16 @@
       <div class="col-12 col-lg">
         <nav class="row gy-4 gy-lg-0">
           <div class="col-12 col-lg-auto footer-item">
-            <RouterLink to="/payment">Оплата</RouterLink>
+            <RouterLink to="/balance">Оплата</RouterLink>
           </div>
           <div class="col-12 col-lg-auto footer-item">
-            <RouterLink to="/sources">Поставщики</RouterLink>
+            <RouterLink to="/dealers">Поставщики</RouterLink>
           </div>
           <div class="col-12 col-lg-auto footer-item">
-            <RouterLink to="/delivery">Доставка</RouterLink>
+            <RouterLink to="/orders">Доставка</RouterLink>
           </div>
           <div class="col-12 col-lg-auto footer-item">
-            <RouterLink to="/return">Возврат</RouterLink>
-          </div>
-          <div class="col-12 col-lg-auto footer-item">
-            <ui-badge state="info">
-              <RouterLink to="/components">Компоненты</RouterLink>
-              <template #badge>debug</template>
-            </ui-badge>
+            <RouterLink to="/appeals">Возврат</RouterLink>
           </div>
         </nav>
 

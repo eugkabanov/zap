@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const activeTab = ref(0);
 
@@ -40,7 +42,15 @@ const productsData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pb-5">
+    <BreadCrumbs
+      class="mt-3"
+      :crumbs="[
+        { title: 'Главная', href: '/' },
+        { title: 'Корзина', href: '/cart' },
+      ]"
+    />
+    <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1 :class="$tt('headline1')">Корзина</h1>
     <div class="mt-5">
       <ui-tab-bar v-model="activeTab">

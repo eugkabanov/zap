@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import LineBreak from "../../components/LineBreak.vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const balanceData = [
   {
@@ -42,9 +43,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="container-fluid py-5">
-    <div class="row">
-      <div class="align-items-center col-xl-4">
+  <main class="container-fluid pb-5">
+    <BalanceBar class="ms-auto mt-2 mb-3" />
+    <div class="row align-items-center">
+      <div class="row align-items-center col-xl-4">
         <div class="col-auto">
           <h1>Баланс</h1>
         </div>
@@ -59,7 +61,6 @@ onMounted(() => {
           </ui-datepicker>
         </div>
       </div>
-
       <div class="col-auto ms-auto">
         <ui-alert state="error" closable
           >Внимание! Необходимо оплатить заказ</ui-alert
