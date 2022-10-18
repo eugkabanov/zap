@@ -35,6 +35,9 @@ import {defineComponent} from "vue";
 import type UserDataAuth from "@/types/UserDataAuth";
 import UserDataService from "@/services/UserDataService";
 import type ResponseData from "@/types/ResponseData";
+import jwt_service from "@/http-common/jwt_service";
+import HTTPClient from "@/http-common/client_http";
+
 
 export default defineComponent({
   name: "register-user",
@@ -86,6 +89,9 @@ export default defineComponent({
         .then((response: ResponseData) => {
           this.isAuthorisedUser = true
           this.isLoginOpen = false
+          console.log(response)
+          // jwt_service.saveToken(response.data.getToken());
+          console.log(jwt_service.getToken())
           this.$router.push({name: "catalog"})
       })
         .catch((e: Error) => {

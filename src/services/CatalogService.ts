@@ -1,4 +1,4 @@
-import HTTPClient from "../http-common/clieent_config";
+import HTTPClient from "../http-common/client_http";
 
 class CatalogService {
 
