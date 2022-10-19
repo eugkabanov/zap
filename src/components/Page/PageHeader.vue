@@ -86,11 +86,11 @@ export default defineComponent({
       }
 
       UserDataService.auth(this.user_data_auth)
-        .then((response: ResponseData) => {
+        .then((response) => {
           this.isAuthorisedUser = true
           this.isLoginOpen = false
           console.log(response)
-          // jwt_service.saveToken(response.data.getToken());
+          jwt_service.saveToken(response.headers.access_token);
           console.log(jwt_service.getToken())
           this.$router.push({name: "catalog"})
       })

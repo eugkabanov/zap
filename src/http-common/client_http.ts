@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { AxiosInstance } from "axios";
 import { API_URL } from "./client_config";
-import cors from "cors";
+import { getToken } from "./jwt_service";
 
 const HTTPClient: AxiosInstance = axios.create({
   baseURL: API_URL,
@@ -15,7 +15,7 @@ const HTTPClient: AxiosInstance = axios.create({
 
 HTTPClient.interceptors.request.use(
   (config: any) => {
-    // config.headers["Authorization"] = "tokentokentokentokentokentokenhhh";
+    config.headers["Authorization"] = "Bearer " + getToken(); 
     return config;
   },
   (error: any) => {
