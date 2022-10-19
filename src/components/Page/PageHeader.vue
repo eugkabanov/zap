@@ -33,10 +33,12 @@ import { ref } from "vue";
 import LineBreak from "../LineBreak.vue";
 import {defineComponent} from "vue";
 import type UserDataAuth from "@/types/UserDataAuth";
-import UserDataService from "@/services/UserDataService";
 import type ResponseData from "@/types/ResponseData";
 import jwt_service from "@/http-common/jwt_service";
-import HTTPClient from "@/http-common/client_http";
+import {store} from "@/store";
+import {AUTH} from "@/store/actions_type";
+import UserDataService from "@/services/UserDataService";
+import {mapGetters} from "vuex";
 
 
 export default defineComponent({
@@ -57,6 +59,10 @@ export default defineComponent({
   },
 
   created: function () {},
+
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  },
 
   methods: {
     openLogin() {
@@ -85,14 +91,12 @@ export default defineComponent({
         password: this.user_data_auth.password
       }
 
-      UserDataService.auth(this.user_data_auth)
-        .then((response: ResponseData) => {
+      store.dispatch(AUTH, this.user_data_auth)
+        .then((data: ResponseData) => {
           this.isAuthorisedUser = true
           this.isLoginOpen = false
-          console.log(response)
-          // jwt_service.saveToken(response.data.getToken());
-          console.log(jwt_service.getToken())
           this.$router.push({name: "catalog"})
+          UserDataService.userMe();
       })
         .catch((e: Error) => {
           console.log(e);

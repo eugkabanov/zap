@@ -16,7 +16,6 @@
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Логин</label>
           <ui-textfield
-            required
             v-model="user_data.fio"
             name="full name"
             id="reg-name"
@@ -56,7 +55,7 @@
             Согласие на обработку персональных данных</label>
         </ui-form-field>
         <div class="mb-3">
-          <label for="reg-phone" class="hint mini-heading-color-red" v-if="showErrMessage">Пользователь с таким логином уже сущесвтует</label>
+          <label for="reg-phone" class="hint mini-heading-color-red" v-if="showErrMessage">{{ errMessage }}</label>
         </div>
 
 
@@ -186,10 +185,10 @@
 <script lang="ts">
 import { ref } from "vue";
 import { defineComponent } from "vue";
-import UserDataService from "@/services/UserDataService";
 import type UserDataRegPerson from "@/types/UserDataRegPerson";
 import type ResponseData from "@/types/ResponseData";
 import type ServiceData from "@/types/ServiceData";
+import UserDataService from "@/services/UserDataService";
 
 export default defineComponent({
   name: "register-user",
@@ -198,9 +197,15 @@ export default defineComponent({
     return {
       user_data: {
         allow_data_processed: false,
+        login: '',
+        password: '',
+        fio: '',
+        phone: '',
+        email: '',
       } as UserDataRegPerson,
       city_office: 0,
       office: 0,
+      errMessage: "",
       showErrMessage: false,
       service_office_list: [],
       registration_types: [
@@ -251,7 +256,6 @@ export default defineComponent({
       ],
     };
 
-
     this.service_office_list.push(city1);
     this.service_office_list.push(city2);
   },
@@ -267,17 +271,35 @@ export default defineComponent({
         allow_data_processed: this.user_data.allow_data_processed,
         service_office: this.office
       };
-      console.log(this.user_data);
-      UserDataService.registration(this.user_data)
-        .then((response: ResponseData) => {
-          this.showErrMessage = false
-          console.log(response.data);
-          this.$router.push({name: "catalog"})
-        })
-        .catch((e: Error) => {
-          this.showErrMessage = true
-          console.log(e);
-        });
+
+      if (this.user_data.login != '' && this.user_data.password != '' && this.user_data.allow_data_processed) {
+        UserDataService.registration(this.user_data)
+            .then((response: ResponseData) => {
+              console.log(response.data)
+              this.showErrMessage = false
+              this.$router.push({name: "catalog"})
+            })
+            .catch((e: Error) => {
+              this.showErrMessage = true
+              console.log(e);
+            });
+      }
+
+      if (this.user_data.login == '') {
+        this.errMessage = ('Поле "Логин" является обязательным');
+        this.showErrMessage = true
+        return
+      }
+      if (this.user_data.password == '') {
+        this.errMessage = ('Поле "Пароль" является обязательным');
+        this.showErrMessage = true
+        return
+      }
+      if (!this.user_data.allow_data_processed) {
+        this.errMessage = ('Необходимо подтвердить согласие на обработку персональных двнных');
+        this.showErrMessage = true
+        return
+      }
     },
   },
 });

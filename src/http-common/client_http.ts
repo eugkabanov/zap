@@ -1,21 +1,23 @@
 import axios from "axios";
 import type { AxiosInstance } from "axios";
 import { API_URL } from "./client_config";
-import cors from "cors";
+import jwt_service from "@/http-common/jwt_service";
+import {store} from "@/store";
 
 const HTTPClient: AxiosInstance = axios.create({
   baseURL: API_URL,
   timeout: 5000,
   headers: {
-    "Content-Type": "application/json",
-    // exposedHeaders: "access_token"
+    "Content-Type": "application/json"
   },
 });
 
 
 HTTPClient.interceptors.request.use(
   (config: any) => {
-    // config.headers["Authorization"] = "tokentokentokentokentokentokenhhh";
+    if (store.getters.isAuthenticated) {
+      config.headers["Authorization"] = "Bearer " + jwt_service.getToken();
+    }
     return config;
   },
   (error: any) => {
