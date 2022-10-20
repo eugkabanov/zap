@@ -34,11 +34,11 @@ import LineBreak from "../LineBreak.vue";
 import {defineComponent} from "vue";
 import type UserDataAuth from "@/types/UserDataAuth";
 import type ResponseData from "@/types/ResponseData";
-import jwt_service from "@/http-common/jwt_service";
 import {store} from "@/store";
-import {AUTH} from "@/store/actions_type";
+import {AUTH, LOGOUT} from "@/store/actions_type";
 import UserDataService from "@/services/UserDataService";
 import {mapGetters} from "vuex";
+import type UserDataInfo from "@/types/UserDataInfo";
 
 
 export default defineComponent({
@@ -54,7 +54,8 @@ export default defineComponent({
       isAuthorisedUser: false,
       isProfileDialogOpen: false,
       isNotificationOpen: false,
-      isNavMenuOpen: false
+      isNavMenuOpen: false,
+      user_data_info: {} as UserDataInfo
     };
   },
 
@@ -76,6 +77,7 @@ export default defineComponent({
       this.isLoginOpen = false
     },
     logout() {
+      store.dispatch(LOGOUT)
       this.isAuthorisedUser = false
       this.isProfileDialogOpen = false
     },
@@ -91,19 +93,22 @@ export default defineComponent({
         password: this.user_data_auth.password
       }
 
-      UserDataService.auth(this.user_data_auth)
-        .then((response) => {
-          this.isAuthorisedUser = true
-          this.isLoginOpen = false
-          console.log(response)
-          jwt_service.saveToken(response.headers.access_token);
-          console.log(jwt_service.getToken())
-          this.$router.push({name: "catalog"})
-          UserDataService.userMe();
-      })
-        .catch((e: Error) => {
-          console.log(e);
-      });
+      store.dispatch(AUTH, this.user_data_auth)
+          .then((data: ResponseData) => {
+            this.isAuthorisedUser = true
+            this.isLoginOpen = false
+            this.$router.push({name: "catalog"})
+            UserDataService.userMe()
+                .then((response: ResponseData) => {
+                  this.user_data_info.login = response.data.username
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                })
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          });
     }
   },
 });
@@ -114,7 +119,7 @@ export default defineComponent({
   <ui-drawer type="modal" v-model="isNavMenuOpen">
     <ui-drawer-header>
       <ui-drawer-title
-        ><img
+      ><img
           style="vertical-align: middle"
           alt="Logo"
           src="@/assets/logo-blue.svg"
@@ -132,12 +137,12 @@ export default defineComponent({
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/about">
           <ui-nav-item :href="href" :active="isActive"
-            >О&nbsp;компании</ui-nav-item
+          >О&nbsp;компании</ui-nav-item
           >
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/work">
           <ui-nav-item :href="href" :active="isActive"
-            >Сотрудничество</ui-nav-item
+          >Сотрудничество</ui-nav-item
           >
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/help">
@@ -190,7 +195,7 @@ export default defineComponent({
           <div class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="12"
-                ><ui-icon>shopping_cart</ui-icon></ui-badge
+              ><ui-icon>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
           </div>
@@ -207,9 +212,9 @@ export default defineComponent({
             </RouterLink>
           </div>
           <div
-            v-if="isAuthorisedUser"
-            v-on:click="openProfileDialog"
-            class="header-item"
+              v-if="isAuthorisedUser"
+              v-on:click="openProfileDialog"
+              class="header-item"
           >
             <ui-icon>perm_identity</ui-icon
             ><span class="header-item__label">Сергей</span>
@@ -224,21 +229,21 @@ export default defineComponent({
   </header>
 
   <ui-dialog
-    v-model="isProfileDialogOpen"
-    sheet
-    maskClosable
-    class="profile-dialog"
+      v-model="isProfileDialogOpen"
+      sheet
+      maskClosable
+      class="profile-dialog"
   >
     <ui-dialog-title>
-      <div :class="$tt('body1')" class="bold large">Сергей Иванов</div>
+      <div :class="$tt('body1')" class="bold large">{{ user_data_info.login }}</div>
     </ui-dialog-title>
 
     <ui-dialog-content>
       <div class="row flex-column py-4">
         <RouterLink
-          @click="closeProfileDialog"
-          to="/balance"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/balance"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>account_balance_wallet</ui-icon>
@@ -248,8 +253,8 @@ export default defineComponent({
           </div>
         </RouterLink>
         <div
-          @click="onNotificationClick"
-          class="row align-items-center link clear mb-4"
+            @click="onNotificationClick"
+            class="row align-items-center link clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>notifications</ui-icon>
@@ -259,9 +264,9 @@ export default defineComponent({
           </div>
         </div>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/park"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/park"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>directions_car</ui-icon>
@@ -271,9 +276,9 @@ export default defineComponent({
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/favourites"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/favourites"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>star_outline</ui-icon>
@@ -283,9 +288,9 @@ export default defineComponent({
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/orders"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/orders"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>list_alt</ui-icon>
@@ -295,9 +300,9 @@ export default defineComponent({
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/appeals"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/appeals"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>contact_support</ui-icon>
@@ -307,9 +312,9 @@ export default defineComponent({
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/dealers"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/dealers"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>local_shipping</ui-icon>
@@ -319,9 +324,9 @@ export default defineComponent({
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/sessions"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/sessions"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>desktop_windows</ui-icon>
@@ -332,9 +337,9 @@ export default defineComponent({
         </RouterLink>
         <LineBreak class="my-4" />
         <RouterLink
-          @click="closeProfileDialog"
-          to="/settings"
-          class="row align-items-center hint mb-4"
+            @click="closeProfileDialog"
+            to="/settings"
+            class="row align-items-center hint mb-4"
         >
           <div class="col-auto">
             <ui-icon>settings</ui-icon>
@@ -348,7 +353,7 @@ export default defineComponent({
             <ui-icon>logout</ui-icon>
           </div>
           <div class="col">
-            <div :class="$tt('body1')">Выход</div>
+            <div :class="$tt('body1')" v-on:click="logout">Выход</div>
           </div>
         </div>
       </div>
@@ -375,11 +380,11 @@ export default defineComponent({
       <div class="mt-3">
         <label class="hint" for="login-password">Пароль</label>
         <ui-textfield
-          v-model="user_data_auth.password"
-          input-id="login-password"
-          outlined
-          fullwidth
-          input-type="password"
+            v-model="user_data_auth.password"
+            input-id="login-password"
+            outlined
+            fullwidth
+            input-type="password"
         />
       </div>
 
@@ -398,7 +403,7 @@ export default defineComponent({
       </div>
 
       <ui-button v-on:click="onLoginSubmit; authUser()" raised class="col-12 mt-3"
-        >Войти</ui-button
+      >Войти</ui-button
       >
 
       <div class="row mt-3">
@@ -443,7 +448,7 @@ export default defineComponent({
     <ui-dialog-title>
       <h3>
         <ui-icon style="font-size: 34px; vertical-align: middle" type="filled"
-          >notifications</ui-icon
+        >notifications</ui-icon
         >
         УВЕДОМЛЕНИЯ
       </h3>
