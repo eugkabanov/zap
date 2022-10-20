@@ -1,39 +1,125 @@
-<script setup lang="ts">
+<!--<script setup lang="ts">-->
 import { ref } from "vue";
+// import LineBreak from "../LineBreak.vue";
+
+// const isNavMenuOpen = ref(false);
+// const isLoginOpen = ref(false);
+// const isProfileDialogOpen = ref(false);
+// const isNotificationOpen = ref(false);
+
+// const isAuthorisedUser = ref(false);
+
+// const openLogin = () => (isLoginOpen.value = true);
+// const openProfileDialog = () => (isProfileDialogOpen.value = true);
+// const closeProfileDialog = () => (isProfileDialogOpen.value = false);
+
+// const closeLoginDialog = () => (isLoginOpen.value = false);
+// const onLoginSubmit = () => {
+  // isAuthorisedUser.value = true;
+  // isLoginOpen.value = false;
+// };
+// const onLogout = () => {
+  // isAuthorisedUser.value = false;
+  // isProfileDialogOpen.value = false;
+// };
+
+// const onNotificationClick = () => {
+  // isNotificationOpen.value = true;
+  // closeProfileDialog();
+// };
+<!--</script>-->
+
+<script lang="ts">
 import LineBreak from "../LineBreak.vue";
+import {defineComponent} from "vue";
+import type UserDataAuth from "@/types/UserDataAuth";
+import type ResponseData from "@/types/ResponseData";
+import {store} from "@/store";
+import {AUTH, LOGOUT} from "@/store/actions_type";
+import UserDataService from "@/services/UserDataService";
+import {mapGetters} from "vuex";
+import type UserDataInfo from "@/types/UserDataInfo";
 
-const isNavMenuOpen = ref(false);
-const isLoginOpen = ref(false);
-const isProfileDialogOpen = ref(false);
-const isNotificationOpen = ref(false);
 
-const isAuthorisedUser = ref(false);
+export default defineComponent({
+  name: "register-user",
+  components: {
+    LineBreak: LineBreak
+  },
+  data() {
 
-const openLogin = () => (isLoginOpen.value = true);
-const openProfileDialog = () => (isProfileDialogOpen.value = true);
-const closeProfileDialog = () => (isProfileDialogOpen.value = false);
+    return {
+      user_data_auth: {} as UserDataAuth,
+      isLoginOpen: false,
+      isAuthorisedUser: false,
+      isProfileDialogOpen: false,
+      isNotificationOpen: false,
+      isNavMenuOpen: false,
+      user_data_info: {} as UserDataInfo
+    };
+  },
 
-const closeLoginDialog = () => (isLoginOpen.value = false);
-const onLoginSubmit = () => {
-  isAuthorisedUser.value = true;
-  isLoginOpen.value = false;
-};
-const onLogout = () => {
-  isAuthorisedUser.value = false;
-  isProfileDialogOpen.value = false;
-};
+  created: function () {},
 
-const onNotificationClick = () => {
-  isNotificationOpen.value = true;
-  closeProfileDialog();
-};
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  },
+
+  methods: {
+    openLogin() {
+      this.isLoginOpen = true
+    },
+    onNotificationClick() {
+      this.isNotificationOpen = true
+      this.closeProfileDialog()
+    },
+    closeLoginDialog() {
+      this.isLoginOpen = false
+    },
+    logout() {
+      store.dispatch(LOGOUT)
+      this.isAuthorisedUser = false
+      this.isProfileDialogOpen = false
+    },
+    openProfileDialog() {
+      this.isProfileDialogOpen = true
+    },
+    closeProfileDialog() {
+      this.isProfileDialogOpen = false
+    },
+    authUser() {
+      this.user_data_auth = {
+        login: this.user_data_auth.login,
+        password: this.user_data_auth.password
+      }
+
+      store.dispatch(AUTH, this.user_data_auth)
+          .then((data: ResponseData) => {
+            this.isAuthorisedUser = true
+            this.isLoginOpen = false
+            this.$router.push({name: "catalog"})
+            UserDataService.userMe()
+                .then((response: ResponseData) => {
+                  this.user_data_info.login = response.data.username
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                })
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          });
+    }
+  },
+});
 </script>
+
 
 <template>
   <ui-drawer type="modal" v-model="isNavMenuOpen">
     <ui-drawer-header>
       <ui-drawer-title
-        ><img
+      ><img
           style="vertical-align: middle"
           alt="Logo"
           src="@/assets/logo-blue.svg"
@@ -51,12 +137,12 @@ const onNotificationClick = () => {
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/about">
           <ui-nav-item :href="href" :active="isActive"
-            >О&nbsp;компании</ui-nav-item
+          >О&nbsp;компании</ui-nav-item
           >
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/work">
           <ui-nav-item :href="href" :active="isActive"
-            >Сотрудничество</ui-nav-item
+          >Сотрудничество</ui-nav-item
           >
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/help">
@@ -109,7 +195,7 @@ const onNotificationClick = () => {
           <div class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="12"
-                ><ui-icon>shopping_cart</ui-icon></ui-badge
+              ><ui-icon>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
           </div>
@@ -126,9 +212,9 @@ const onNotificationClick = () => {
             </RouterLink>
           </div>
           <div
-            v-if="isAuthorisedUser"
-            v-on:click="openProfileDialog"
-            class="header-item"
+              v-if="isAuthorisedUser"
+              v-on:click="openProfileDialog"
+              class="header-item"
           >
             <ui-icon>perm_identity</ui-icon
             ><span class="header-item__label">Сергей</span>
@@ -143,21 +229,21 @@ const onNotificationClick = () => {
   </header>
 
   <ui-dialog
-    v-model="isProfileDialogOpen"
-    sheet
-    maskClosable
-    class="profile-dialog"
+      v-model="isProfileDialogOpen"
+      sheet
+      maskClosable
+      class="profile-dialog"
   >
     <ui-dialog-title>
-      <div :class="$tt('body1')" class="bold large">Сергей Иванов</div>
+      <div :class="$tt('body1')" class="bold large">{{ user_data_info.login }}</div>
     </ui-dialog-title>
 
     <ui-dialog-content>
       <div class="row flex-column py-4">
         <RouterLink
-          @click="closeProfileDialog"
-          to="/balance"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/balance"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>account_balance_wallet</ui-icon>
@@ -167,8 +253,8 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <div
-          @click="onNotificationClick"
-          class="row align-items-center link clear mb-4"
+            @click="onNotificationClick"
+            class="row align-items-center link clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>notifications</ui-icon>
@@ -178,9 +264,9 @@ const onNotificationClick = () => {
           </div>
         </div>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/park"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/park"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>directions_car</ui-icon>
@@ -190,9 +276,9 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/favourites"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/favourites"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>star_outline</ui-icon>
@@ -202,9 +288,9 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/orders"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/orders"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>list_alt</ui-icon>
@@ -214,9 +300,9 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/appeals"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/appeals"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>contact_support</ui-icon>
@@ -226,9 +312,9 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/dealers"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/dealers"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>local_shipping</ui-icon>
@@ -238,9 +324,9 @@ const onNotificationClick = () => {
           </div>
         </RouterLink>
         <RouterLink
-          @click="closeProfileDialog"
-          to="/sessions"
-          class="row align-items-center clear mb-4"
+            @click="closeProfileDialog"
+            to="/sessions"
+            class="row align-items-center clear mb-4"
         >
           <div class="col-auto">
             <ui-icon>desktop_windows</ui-icon>
@@ -251,9 +337,9 @@ const onNotificationClick = () => {
         </RouterLink>
         <LineBreak class="my-4" />
         <RouterLink
-          @click="closeProfileDialog"
-          to="/settings"
-          class="row align-items-center hint mb-4"
+            @click="closeProfileDialog"
+            to="/settings"
+            class="row align-items-center hint mb-4"
         >
           <div class="col-auto">
             <ui-icon>settings</ui-icon>
@@ -262,12 +348,12 @@ const onNotificationClick = () => {
             <div :class="$tt('body1')">Настройки</div>
           </div>
         </RouterLink>
-        <div @click="onLogout" class="row align-items-center link hint">
+        <div @click="logout" class="row align-items-center link hint">
           <div class="col-auto">
             <ui-icon>logout</ui-icon>
           </div>
           <div class="col">
-            <div :class="$tt('body1')">Выход</div>
+            <div :class="$tt('body1')" v-on:click="logout">Выход</div>
           </div>
         </div>
       </div>
@@ -284,16 +370,21 @@ const onNotificationClick = () => {
 
     <ui-dialog-content>
       <div class="mt-4">
-        <label class="hint" for="login-name">Логин</label>
-        <ui-textfield input-id="login-name" outlined fullwidth />
+        <label class="hint" for="login-name" >Логин</label>
+        <ui-textfield
+            input-id="login-name"
+            outlined fullwidth
+            v-model="user_data_auth.login"
+        />
       </div>
       <div class="mt-3">
         <label class="hint" for="login-password">Пароль</label>
         <ui-textfield
-          input-id="login-password"
-          outlined
-          fullwidth
-          input-type="password"
+            v-model="user_data_auth.password"
+            input-id="login-password"
+            outlined
+            fullwidth
+            input-type="password"
         />
       </div>
 
@@ -311,8 +402,8 @@ const onNotificationClick = () => {
         </div>
       </div>
 
-      <ui-button v-on:click="onLoginSubmit" raised class="col-12 mt-3"
-        >Войти</ui-button
+      <ui-button v-on:click="onLoginSubmit; authUser()" raised class="col-12 mt-3"
+      >Войти</ui-button
       >
 
       <div class="row mt-3">
@@ -357,7 +448,7 @@ const onNotificationClick = () => {
     <ui-dialog-title>
       <h3>
         <ui-icon style="font-size: 34px; vertical-align: middle" type="filled"
-          >notifications</ui-icon
+        >notifications</ui-icon
         >
         УВЕДОМЛЕНИЯ
       </h3>

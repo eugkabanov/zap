@@ -9,10 +9,12 @@ import router from "./router";
 
 import "./styles/_grid.css";
 import "./styles/index.scss";
+import { store } from "@/store";
 
 const app = createApp(App);
 
 app.use(createPinia());
+app.use(store)
 app.use(router);
 app.use(BalmUI);
 app.use(BalmUIPlus);
