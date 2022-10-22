@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomSelect from "../../components/CustomSelect.vue";
 
 const registrationType = ref(0);
 const selectedCity = ref("city1");
@@ -71,7 +72,7 @@ const citiesList = [
 
         <div class="row gy-4 mt-1">
           <div class="col-12 col-md-5">
-            <ui-select outlined fullwidth value :options="citiesList" />
+            <CustomSelect outlined fullwidth value :options="citiesList" />
 
             <div class="mt-2 city-list">
               <div class="row align-items-center city-item py-4">

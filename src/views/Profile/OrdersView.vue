@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomSelect from "../../components/CustomSelect.vue";
 
 const isStatsOpen = ref(false);
 const onStatsClick = () => (isStatsOpen.value = true);
@@ -154,34 +155,34 @@ const ordersData = [
       </div>
 
       <div class="col-auto ms-md-1">
-        <ui-select outlined :options="[{ value: 1, label: '30' }]"></ui-select>
+        <CustomSelect outlined :options="[{ value: 1, label: '30' }]" />
       </div>
     </div>
 
     <div class="row gy-3 mb-3">
       <div class="col-6 col-xl-auto">
-        <ui-select>Дата заказа</ui-select>
+        <CustomSelect>Дата заказа</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Прим. к заказу</ui-select>
+        <CustomSelect>Прим. к заказу</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Комментарий</ui-select>
+        <CustomSelect>Комментарий</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Каталог</ui-select>
+        <CustomSelect>Каталог</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Артикул</ui-select>
+        <CustomSelect>Артикул</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Номер счета</ui-select>
+        <CustomSelect>Номер счета</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Статус</ui-select>
+        <CustomSelect>Статус</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <ui-select>Поставщик</ui-select>
+        <CustomSelect>Поставщик</CustomSelect>
       </div>
     </div>
 
