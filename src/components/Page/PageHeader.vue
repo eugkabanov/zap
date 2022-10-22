@@ -99,12 +99,12 @@ export default defineComponent({
             this.isLoginOpen = false
             this.$router.push({name: "catalog"})
             UserDataService.userMe()
-                .then((response: ResponseData) => {
-                  this.user_data_info.login = response.data.username
-                })
-                .catch((e: Error) => {
-                  console.log(e);
-                })
+              .then((response: ResponseData) => {
+                this.user_data_info.login = response.data.username
+              })
+              .catch((e: Error) => {
+                console.log(e);
+              })
           })
           .catch((e: Error) => {
             console.log(e);
