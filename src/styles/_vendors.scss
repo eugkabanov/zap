@@ -166,3 +166,7 @@
 .mdc-select--filled .mdc-line-ripple {
   display: none;
 }
+
+.mdc-ripple-upgraded--background-focused .mdc-tab__ripple {
+  opacity: 0 !important;
+}
