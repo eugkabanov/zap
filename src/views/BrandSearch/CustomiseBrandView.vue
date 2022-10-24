@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AsideSearch from "../../components/Search/AsideSearch.vue";
+import CustomSelect from "../../components/CustomSelect.vue";
 </script>
 
 <template>
@@ -17,67 +18,67 @@ import AsideSearch from "../../components/Search/AsideSearch.vue";
         <div class="row gy-4">
           <div class="col-12 col-xl-4">
             <div class="mb-2">Модель</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Модель' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Год</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Год' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Регион</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Регион' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Дверей</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Дверей' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Area</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Area' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Коробка передач</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Коробка передач' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Тип коробки передач</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Тип коробки передач' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Country</div>
-            <ui-select
+            <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Country' }]"
-            ></ui-select>
+            ></CustomSelect>
           </div>
 
           <div class="mt-5">

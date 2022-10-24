@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomSelect from "../../components/CustomSelect.vue";
 
 const isGarageDialogOpen = ref(false);
 const onGarageClick = () => {
@@ -128,7 +129,7 @@ const onGarageClick = () => {
       <div class="row align-items-center mt-3">
         <div class="col-3">Автомобиль</div>
         <div class="col offset-1">
-          <ui-select
+          <CustomSelect
             outlined
             fullwidth
             value
