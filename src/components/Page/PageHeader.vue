@@ -572,7 +572,7 @@ header#app-header {
     &__label {
       display: none;
 
-      @media (min-width: 1600px) {
+      @media (min-width: 1500px) {
         display: inline;
       }
     }

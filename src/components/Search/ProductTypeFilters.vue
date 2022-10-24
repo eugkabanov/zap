@@ -1,44 +1,72 @@
+<script setup lang="ts">
+import CustomSelect from "../CustomSelect.vue";
+</script>
+
 <template>
   <div class="mb-3">
     <div class="mb-2">Марка</div>
-    <ui-select outlined fullwidth :options="[{ label: 'Модель' }]"></ui-select>
+    <CustomSelect
+      outlined
+      fullwidth
+      :options="[{ label: 'Модель' }]"
+    ></CustomSelect>
   </div>
 
   <div class="mb-3">
     <div class="mb-2">Год</div>
-    <ui-select outlined fullwidth :options="[{ label: 'Год' }]"></ui-select>
+    <CustomSelect
+      outlined
+      fullwidth
+      :options="[{ label: 'Год' }]"
+    ></CustomSelect>
   </div>
 
   <div class="mb-3">
     <div class="mb-2">Регион</div>
-    <ui-select outlined fullwidth :options="[{ label: 'Регион' }]"></ui-select>
+    <CustomSelect
+      outlined
+      fullwidth
+      :options="[{ label: 'Регион' }]"
+    ></CustomSelect>
   </div>
   <div class="mb-3">
     <div class="mb-2">Дверей</div>
-    <ui-select outlined fullwidth :options="[{ label: 'Дверей' }]"></ui-select>
+    <CustomSelect
+      outlined
+      fullwidth
+      :options="[{ label: 'Дверей' }]"
+    ></CustomSelect>
   </div>
   <div class="mb-3">
     <div class="mb-2">Area</div>
-    <ui-select outlined fullwidth :options="[{ label: 'Area' }]"></ui-select>
+    <CustomSelect
+      outlined
+      fullwidth
+      :options="[{ label: 'Area' }]"
+    ></CustomSelect>
   </div>
   <div class="mb-3">
     <div class="mb-2">Коробка передач</div>
-    <ui-select
+    <CustomSelect
       outlined
       fullwidth
       :options="[{ label: 'Коробка передач' }]"
-    ></ui-select>
+    ></CustomSelect>
   </div>
   <div class="mb-3">
     <div class="mb-2">Тип коробки передач</div>
-    <ui-select
+    <CustomSelect
       outlined
       fullwidth
       :options="[{ label: 'Тип коробки передач' }]"
-    ></ui-select>
+    ></CustomSelect>
   </div>
   <div class="mb-3">
     <div class="mb-2">Country</div>
-    <ui-select outlined fullwidth :options="[{ label: 'Country' }]"></ui-select>
+    <CustomSelect
+      outlined
+      fullwidth
+      :options="[{ label: 'Country' }]"
+    ></CustomSelect>
   </div>
 </template>

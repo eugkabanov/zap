@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SearchFormWithIcon from "./SearchFormWithIcon.vue";
+import CustomSelect from "../CustomSelect.vue";
 </script>
 
 <template>
@@ -12,7 +13,11 @@ import SearchFormWithIcon from "./SearchFormWithIcon.vue";
     </div>
 
     <div>
-      <ui-select outlined fullwidth :options="[{ label: 'Гараж' }]"></ui-select>
+      <CustomSelect
+        outlined
+        fullwidth
+        :options="[{ label: 'Гараж' }]"
+      ></CustomSelect>
     </div>
   </div>
 </template>

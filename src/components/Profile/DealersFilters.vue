@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import CustomSelect from "../CustomSelect.vue";
+</script>
+
 <template>
   <div class="bold large mb-5">Поиск</div>
 
@@ -7,7 +11,7 @@
   </div>
   <div class="mb-3">
     <label class="d-block mb-2">Регион</label>
-    <ui-select outlined fullwidth />
+    <CustomSelect outlined fullwidth />
   </div>
   <div class="mb-3">
     <ui-form-field class="mb-1">
