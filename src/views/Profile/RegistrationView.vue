@@ -1,32 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import BalanceBar from "../../components/Profile/BalanceBar.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
-
-const registrationType = ref(0);
-const selectedCity = ref("city1");
-
-const registrationTypes = [
-  {
-    label: "Частное лицо",
-    value: 0,
-  },
-  {
-    label: "Организация",
-    value: 1,
-  },
-];
-
-const citiesList = [
-  {
-    label: "г. Москва",
-    value: "MSC",
-  },
-  {
-    label: "г. Санкт-Петербург",
-    value: "SPB",
-  },
-];
 </script>
 
 <template>
@@ -78,10 +51,11 @@ const citiesList = [
 
         <ui-form-field>
           <ui-checkbox
-            value="agree"
-            input-id="reg-agree"
-            required
-            @click="user_data.allow_data_processed = !user_data.allow_data_processed" />
+              value="agree"
+              input-id="reg-agree"
+              required
+              v-model="user_data.allow_data_processed"
+          />
           <label class="hint" for="reg-agree">
             Согласие на обработку персональных данных</label>
         </ui-form-field>
@@ -100,12 +74,15 @@ const citiesList = [
 
         <div class="row gy-4 mt-1">
           <div class="col-12 col-md-5">
-            <ui-select
-              outlined fullwidth value
-              :options="service_office_list"
-              v-model="city_office"
+            <!--            <ui-select-->
+            <!--              outlined fullwidth value-->
+            <!--              :options="service_office_list"-->
+            <!--              v-model="city_office"-->
+            <!--            />-->
+            <CustomSelect outlined fullwidth value
+                          :options="service_office_list"
+                          v-model="city_office"
             />
-            <CustomSelect outlined fullwidth value :options="citiesList" />
             <div v-for="item in service_office_list[city_office].services" class="mt-2 city-list">
               <div class="row align-items-center city-item py-4">
                 <div class="col-auto">
@@ -137,13 +114,13 @@ const citiesList = [
         <div class="col-12 col-md-6 col-xl-4">
           <div class="mb-3">
             <label for="reg-name" class="d-block mb-2"
-              >ИНН
+            >ИНН
               <ui-icon
-                v-tooltip="
+                  v-tooltip="
                   'При заполнении ИНН остальные данные добавятся из базы ФНС автоматически '
                 "
-                aria-describedby="tooltip"
-                :dark="false"
+                  aria-describedby="tooltip"
+                  :dark="false"
               >
                 contact_support
               </ui-icon></label
