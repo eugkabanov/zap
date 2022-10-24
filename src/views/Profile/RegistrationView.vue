@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomSelect from "../../components/CustomSelect.vue";
+
+const registrationType = ref(0);
+const selectedCity = ref("city1");
+
+const registrationTypes = [
+  {
+    label: "Частное лицо",
+    value: 0,
+  },
+  {
+    label: "Организация",
+    value: 1,
+  },
+];
+
+const citiesList = [
+  {
+    label: "г. Москва",
+    value: "MSC",
+  },
+  {
+    label: "г. Санкт-Петербург",
+    value: "SPB",
+  },
+];
+</script>
+
 <template>
   <main class="pb-5 container-fluid">
     <BalanceBar class="ms-auto mt-2 mb-3" />
@@ -74,6 +105,7 @@
               :options="service_office_list"
               v-model="city_office"
             />
+            <CustomSelect outlined fullwidth value :options="citiesList" />
             <div v-for="item in service_office_list[city_office].services" class="mt-2 city-list">
               <div class="row align-items-center city-item py-4">
                 <div class="col-auto">

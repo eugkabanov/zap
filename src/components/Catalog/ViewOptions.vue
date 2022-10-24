@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CustomSelect from "../CustomSelect.vue";
 defineProps<{
   selectedViewOption: number;
   setSelectedViewOption: Function;
@@ -34,7 +35,7 @@ const viewOptions = [
     </ui-form-field>
     <ui-form-field class="col-8 col-md-5 ms-md-auto">
       <label class="me-3 d-none d-md-inline">Сортировка:</label>
-      <ui-select outlined fullwidth :options="sortingOptions" />
+      <CustomSelect outlined fullwidth :options="sortingOptions" />
     </ui-form-field>
     <div class="col-auto ms-auto ms-md-3">
       <ui-segmented-buttons

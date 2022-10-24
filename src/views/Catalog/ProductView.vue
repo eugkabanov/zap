@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
+import CustomSelect from "../../components/CustomSelect.vue";
 const sortingOptions = [
   {
     label: "Все",
@@ -162,7 +163,12 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
           <div class="col-12 col-md-4 ms-md-4">
             <ui-form-field>
               <label class="me-3">Производитель</label>
-              <ui-select outlined fullwidth value :options="sortingOptions" />
+              <CustomSelect
+                outlined
+                fullwidth
+                value
+                :options="sortingOptions"
+              />
             </ui-form-field>
           </div>
         </div>
