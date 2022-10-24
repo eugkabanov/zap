@@ -4,7 +4,7 @@ import AsideSearch from "../../components/Search/AsideSearch.vue";
 
 <script lang="ts">
 
-import {defineComponent, ref} from "vue";
+import {defineComponent} from "vue";
 import {mapGetters} from "vuex";
 import CatalogService from "@/services/CatalogService";
 import type ResponseData from "@/types/ResponseData";
