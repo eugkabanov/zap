@@ -4,6 +4,117 @@ import BalanceBar from "../../components/Profile/BalanceBar.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
 import OrdersStatsDialog from "@/components/Dialogs/OrdersStatsDialog.vue";
 
+const ordersDataBody = [
+  { field: "date" },
+  { field: "info" },
+  { field: "comments" },
+  { field: "catalog" },
+  {
+    slot: "articul",
+  },
+  {
+    slot: "cart",
+  },
+  {
+    slot: "time",
+  },
+  { field: "title" },
+  {
+    field: "ordered",
+    align: "center",
+  },
+  {
+    field: "work",
+    align: "center",
+  },
+  {
+    field: "rejected",
+    align: "center",
+  },
+  {
+    field: "completed",
+    align: "center",
+  },
+  {
+    field: "returned",
+    align: "center",
+  },
+  {
+    field: "progress",
+    align: "center",
+  },
+  {
+    field: "arrived",
+    align: "center",
+  },
+  {
+    field: "sold",
+    align: "center",
+  },
+  { slot: "status" },
+  { field: "dealer" },
+  { field: "price" },
+  { field: "total" },
+  {
+    slot: "select",
+  },
+];
+const ordersDataHead = [
+  { value: "Дата" },
+  { value: "Прим. к заказу" },
+  { value: "Комментарий" },
+  { value: "Каталог" },
+  { value: "Артикул" },
+  {
+    slot: "th-cart",
+    columnId: "cart",
+  },
+  {
+    slot: "th-time",
+    columnId: "time",
+  },
+  { value: "Наименование" },
+  {
+    slot: "th-ordered",
+    columnId: "ordered",
+  },
+  {
+    slot: "th-work",
+    columnId: "work",
+  },
+  {
+    slot: "th-rejected",
+    columnId: "rejected",
+  },
+  {
+    slot: "th-completed",
+    columnId: "completed",
+  },
+  {
+    slot: "th-returned",
+    columnId: "returned",
+  },
+  {
+    slot: "th-progress",
+    columnId: "progress",
+  },
+  {
+    slot: "th-arrived",
+    columnId: "arrived",
+  },
+  {
+    slot: "th-sold",
+    columnId: "sold",
+  },
+  { value: "Статус" },
+  { value: "Поставщик" },
+  { value: "Цена" },
+  { value: "Сумма" },
+  {
+    slot: "th-select",
+    columnId: "select",
+  },
+];
 const isStatsOpen = ref(false);
 const onStatsClick = () => (isStatsOpen.value = true);
 
@@ -191,117 +302,8 @@ const ordersData = [
       class="dark orders-table"
       fullwidth
       :data="ordersData"
-      :thead="[
-        { value: 'Дата' },
-        { value: 'Прим. к заказу' },
-        { value: 'Комментарий' },
-        { value: 'Каталог' },
-        { value: 'Артикул' },
-        {
-          slot: 'th-cart',
-          columnId: 'cart',
-        },
-        {
-          slot: 'th-time',
-          columnId: 'time',
-        },
-        { value: 'Наименование' },
-        {
-          slot: 'th-ordered',
-          columnId: 'ordered',
-        },
-        {
-          slot: 'th-work',
-          columnId: 'work',
-        },
-        {
-          slot: 'th-rejected',
-          columnId: 'rejected',
-        },
-        {
-          slot: 'th-completed',
-          columnId: 'completed',
-        },
-        {
-          slot: 'th-returned',
-          columnId: 'returned',
-        },
-        {
-          slot: 'th-progress',
-          columnId: 'progress',
-        },
-        {
-          slot: 'th-arrived',
-          columnId: 'arrived',
-        },
-        {
-          slot: 'th-sold',
-          columnId: 'sold',
-        },
-        { value: 'Статус' },
-        { value: 'Поставщик' },
-        { value: 'Цена' },
-        { value: 'Сумма' },
-        {
-          slot: 'th-select',
-          columnId: 'select',
-        },
-      ]"
-      :tbody="[
-        { field: 'date' },
-        { field: 'info' },
-        { field: 'comments' },
-        { field: 'catalog' },
-        {
-          slot: 'articul',
-        },
-        {
-          slot: 'cart',
-        },
-        {
-          slot: 'time',
-        },
-        { field: 'title' },
-        {
-          field: 'ordered',
-          align: 'center',
-        },
-        {
-          field: 'work',
-          align: 'center',
-        },
-        {
-          field: 'rejected',
-          align: 'center',
-        },
-        {
-          field: 'completed',
-          align: 'center',
-        },
-        {
-          field: 'returned',
-          align: 'center',
-        },
-        {
-          field: 'progress',
-          align: 'center',
-        },
-        {
-          field: 'arrived',
-          align: 'center',
-        },
-        {
-          field: 'sold',
-          align: 'center',
-        },
-        { slot: 'status' },
-        { field: 'dealer' },
-        { field: 'price' },
-        { field: 'total' },
-        {
-          slot: 'select',
-        },
-      ]"
+      :thead="ordersDataHead"
+      :tbody="ordersDataBody"
     >
       <template #th-cart>
         <ui-icon outlined v-tooltip="'Корзина'" aria-describedby="th-cell-0">

@@ -3,6 +3,22 @@ import AddCarDialog from "@/components/Dialogs/AddCarDialog.vue";
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const webServicesBody = [
+  { slot: "radio" },
+  { field: "address" },
+  { field: "status" },
+  { field: "data" },
+  { field: "comments" },
+  { slot: "actions" },
+];
+const webServicesHeader = [
+  { value: "" },
+  { value: "IP-адрес" },
+  { value: "Статус" },
+  { value: "Дата подключения" },
+  { value: "Комментарий" },
+  { value: "" },
+];
 const selectedRow = ref(0);
 const isAddCarOpen = ref(false);
 const onAddCarClick = () => {
@@ -42,22 +58,8 @@ const webServicesData = [
       <ui-table
         fullwidth
         :data="webServicesData"
-        :thead="[
-          { value: '' },
-          { value: 'IP-адрес' },
-          { value: 'Статус' },
-          { value: 'Дата подключения' },
-          { value: 'Комментарий' },
-          { value: '' },
-        ]"
-        :tbody="[
-          { slot: 'radio' },
-          { field: 'address' },
-          { field: 'status' },
-          { field: 'data' },
-          { field: 'comments' },
-          { slot: 'actions' },
-        ]"
+        :thead="webServicesHeader"
+        :tbody="webServicesBody"
       >
         <template #actions>
           <ui-icon class="hint">link_off</ui-icon>

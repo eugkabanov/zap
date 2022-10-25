@@ -2,6 +2,30 @@
 import { ref } from "vue";
 import ProductTypeFilters from "../../components/Search/ProductTypeFilters.vue";
 
+const productsDataBody = [
+  { field: "title" },
+  { field: "engineType" },
+  { field: "bodyType" },
+  { field: "fuelType" },
+  { field: "engineCode" },
+  { field: "power" },
+  { field: "capacity" },
+  { field: "year" },
+  {
+    slot: "choose",
+  },
+];
+const productsDataHead = [
+  { value: "Модификация" },
+  { value: "Тип двигателя" },
+  { value: "Тип кузова" },
+  { value: "Тип топлива" },
+  { value: "Код двигателя" },
+  { value: "Мощность" },
+  { value: "Объем двигателя" },
+  { value: "Год выпуска" },
+  { value: "" },
+];
 const isFiltersOpen = ref(false);
 
 const productTypesData = [
@@ -52,30 +76,8 @@ const productTypesData = [
           class="mdc-data-table--last-select"
           fullwidth
           :data="productTypesData"
-          :thead="[
-            { value: 'Модификация' },
-            { value: 'Тип двигателя' },
-            { value: 'Тип кузова' },
-            { value: 'Тип топлива' },
-            { value: 'Код двигателя' },
-            { value: 'Мощность' },
-            { value: 'Объем двигателя' },
-            { value: 'Год выпуска' },
-            { value: '' },
-          ]"
-          :tbody="[
-            { field: 'title' },
-            { field: 'engineType' },
-            { field: 'bodyType' },
-            { field: 'fuelType' },
-            { field: 'engineCode' },
-            { field: 'power' },
-            { field: 'capacity' },
-            { field: 'year' },
-            {
-              slot: 'choose',
-            },
-          ]"
+          :thead="productsDataHead"
+          :tbody="productsDataBody"
         >
           <template #choose>
             <router-link

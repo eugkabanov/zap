@@ -3,6 +3,24 @@ import AddAddressDialog from "@/components/Dialogs/AddAddressDialog.vue";
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const addressDataBody = [
+  {
+    slot: "select",
+  },
+  { field: "title" },
+  { field: "address" },
+  { slot: "workhours" },
+  { field: "comments" },
+  { slot: "actions" },
+];
+const addressDataHead = [
+  { value: "" },
+  { value: "Наименование" },
+  { value: "Адрес" },
+  { value: "Режим работы" },
+  { value: "Комментарий" },
+  { value: "" },
+];
 const selectedTab = ref(0);
 const isAddAddressOpen = ref(false);
 
@@ -145,24 +163,8 @@ const addressData = [
         <ui-table
           fullwidth
           :data="addressData"
-          :thead="[
-            { value: '' },
-            { value: 'Наименование' },
-            { value: 'Адрес' },
-            { value: 'Режим работы' },
-            { value: 'Комментарий' },
-            { value: '' },
-          ]"
-          :tbody="[
-            {
-              slot: 'select',
-            },
-            { field: 'title' },
-            { field: 'address' },
-            { slot: 'workhours' },
-            { field: 'comments' },
-            { slot: 'actions' },
-          ]"
+          :thead="addressDataHead"
+          :tbody="addressDataBody"
         >
           <template #workhours="{ data }">
             <div style="width: 500px" class="row py-3">

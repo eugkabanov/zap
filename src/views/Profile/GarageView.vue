@@ -3,6 +3,26 @@ import GarageAddCarDialog from "@/components/Dialogs/GarageAddCarDialog.vue";
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const parkDataBody = [
+  { field: "year" },
+  { field: "modification" },
+  { field: "vin" },
+  { field: "number" },
+  { field: "owner" },
+  { field: "ctc" },
+  { field: "comments" },
+  { slot: "actions" },
+];
+const parkDataHead = [
+  { value: "Год" },
+  { value: "Модификация" },
+  { value: "VIN" },
+  { value: "Гос. номер" },
+  { value: "Владелец" },
+  { value: "CTC" },
+  { value: "Комментарии" },
+  { value: "" },
+];
 const isAddCarOpen = ref(false);
 const onAddCarClick = () => {
   isAddCarOpen.value = true;
@@ -37,26 +57,8 @@ const parkData = [
       <ui-table
         fullwidth
         :data="parkData"
-        :thead="[
-          { value: 'Год' },
-          { value: 'Модификация' },
-          { value: 'VIN' },
-          { value: 'Гос. номер' },
-          { value: 'Владелец' },
-          { value: 'CTC' },
-          { value: 'Комментарии' },
-          { value: '' },
-        ]"
-        :tbody="[
-          { field: 'year' },
-          { field: 'modification' },
-          { field: 'vin' },
-          { field: 'number' },
-          { field: 'owner' },
-          { field: 'ctc' },
-          { field: 'comments' },
-          { slot: 'actions' },
-        ]"
+        :thead="parkDataHead"
+        :tbody="parkDataBody"
       >
         <template #actions>
           <ui-icon class="hint">border_color</ui-icon>

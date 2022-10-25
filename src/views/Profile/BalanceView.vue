@@ -5,6 +5,24 @@ import { onMounted, ref } from "vue";
 import LineBreak from "../../components/LineBreak.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const balanceDataBody = [
+  { field: "date" },
+  { field: "reason" },
+  { field: "debit", align: "center" },
+  { field: "credit", align: "center" },
+  { field: "balance", align: "center" },
+  { field: "comments" },
+  { field: "documents" },
+];
+const balanceDataHead = [
+  { value: "Дата" },
+  { value: "Основание" },
+  { value: "Дебит, ₽" },
+  { value: "Кредит, ₽" },
+  { value: "Баланс" },
+  { value: "Комментарии" },
+  { value: "Документы" },
+];
 const balanceData = [
   {
     date: "10.08.2022",
@@ -168,24 +186,8 @@ onMounted(() => {
           <ui-table
             fullwidth
             :data="balanceData"
-            :thead="[
-              { value: 'Дата' },
-              { value: 'Основание' },
-              { value: 'Дебит, ₽' },
-              { value: 'Кредит, ₽' },
-              { value: 'Баланс' },
-              { value: 'Комментарии' },
-              { value: 'Документы' },
-            ]"
-            :tbody="[
-              { field: 'date' },
-              { field: 'reason' },
-              { field: 'debit', align: 'center' },
-              { field: 'credit', align: 'center' },
-              { field: 'balance', align: 'center' },
-              { field: 'comments' },
-              { field: 'documents' },
-            ]"
+            :thead="balanceDataHead"
+            :tbody="balanceDataBody"
           >
           </ui-table>
 
