@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import VueSlider from "vue-3-slider-component";
 import CustomSelect from "../CustomSelect.vue";
+
+const daysRange = ref([0, 40]);
 </script>
 
 <template>
@@ -12,6 +16,13 @@ import CustomSelect from "../CustomSelect.vue";
   <div class="mb-3">
     <label class="d-block mb-2">Регион</label>
     <CustomSelect outlined fullwidth />
+  </div>
+  <div class="mb-3">
+    <VueSlider v-model="daysRange" max="70" />
+    <div class="row justify-content-between">
+      <div class="col-auto hint small">0 д.</div>
+      <div class="col-auto hint small">70 д.</div>
+    </div>
   </div>
   <div class="mb-3">
     <ui-form-field class="mb-1">

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import VueSlider from "vue-3-slider-component";
 import CatalogLayout from "../../components/Layout/CatalogLayout.vue";
 import ProductCard from "../../components/Catalog/ProductCard.vue";
 import ViewOptions from "../../components/Catalog/ViewOptions.vue";
@@ -14,6 +15,7 @@ const setSelectedViewOption = (value: number) =>
   (selectedViewOption.value = value);
 
 const expandBrands = ref(false);
+const priceRange = ref([3000, 12000]);
 </script>
 
 <template>
@@ -26,7 +28,7 @@ const expandBrands = ref(false);
 
       <div class="row flex-column filters">
         <CustomCollapse default-expanded label="Цена, руб">
-          <div class="row">
+          <div class="row mb-3">
             <ui-form-field class="col-6">
               <ui-textfield outlined fullwidth />
             </ui-form-field>
@@ -34,6 +36,7 @@ const expandBrands = ref(false);
               <ui-textfield outlined fullwidth />
             </ui-form-field>
           </div>
+          <VueSlider v-model="priceRange" max="15000" />
         </CustomCollapse>
         <CustomCollapse default-expanded label="Производитель">
           <div class="row flex-column">
