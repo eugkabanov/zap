@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import LineBreak from '@/components/LineBreak.vue';
+import LineBreak from "@/components/LineBreak.vue";
 
 defineProps<{
-  closeProfileDialog: Function;
+  closeProfileDialog: (payload: MouseEvent) => void;
   onNotificationClick: (payload: MouseEvent) => void;
   onLogout: (payload: MouseEvent) => void;
 }>();

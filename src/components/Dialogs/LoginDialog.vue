@@ -2,7 +2,7 @@
 import LineBreak from "@/components/LineBreak.vue";
 
 defineProps<{
-  closeDialog: Function;
+  closeDialog: (payload: MouseEvent) => void;
   onLoginSubmit: Function;
 }>();
 </script>
