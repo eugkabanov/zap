@@ -24,7 +24,7 @@ import CompanyRegistration from "@/components/Sections/CompanyRegistration.vue";
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Логин</label>
           <ui-textfield
-            v-model="user_data.fio"
+            v-model="user_data.login"
             name="full name"
             id="reg-name"
             outlined
@@ -35,24 +35,13 @@ import CompanyRegistration from "@/components/Sections/CompanyRegistration.vue";
           <label for="reg-phone" class="d-block mb-2">Пароль</label>
           <ui-textfield
             required
-            v-model="user_data.phone"
+            v-model="user_data.password"
             name="phone number"
             id="reg-phone"
             outlined
             fullwidth
           />
         </div>
-<!--        <div class="mb-3">-->
-<!--          <label for="reg-email" class="d-block mb-2">E-mail</label>-->
-<!--          <ui-textfield-->
-<!--            required-->
-<!--            v-model="user_data.email"-->
-<!--            name="E-Mail"-->
-<!--            id="reg-email"-->
-<!--            outlined-->
-<!--            fullwidth />-->
-<!--        </div>-->
-
         <ui-form-field>
           <ui-checkbox
               value="agree"
@@ -78,11 +67,6 @@ import CompanyRegistration from "@/components/Sections/CompanyRegistration.vue";
 
         <div class="row gy-4 mt-1">
           <div class="col-12 col-md-5">
-            <!--            <ui-select-->
-            <!--              outlined fullwidth value-->
-            <!--              :options="service_office_list"-->
-            <!--              v-model="city_office"-->
-            <!--            />-->
             <CustomSelect outlined fullwidth value
                           :options="service_office_list"
                           v-model="city_office"
@@ -282,8 +266,8 @@ export default defineComponent({
   methods: {
     registrationUser() {
       this.user_data = {
-        login: this.user_data.fio,
-        password: this.user_data.phone,
+        login: this.user_data.login,
+        password: this.user_data.password,
         fio: this.user_data.fio,
         phone: this.user_data.phone,
         email: this.user_data.email,

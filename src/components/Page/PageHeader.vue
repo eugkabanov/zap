@@ -1,59 +1,26 @@
-<script setup lang="ts">
-import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
-import NotificationsDialog from "@/components/Dialogs/NotificationsDialog.vue";
-import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
-<!--<script setup lang="ts">-->
-import { ref } from "vue";
-// import LineBreak from "../LineBreak.vue";
-
-// const isNavMenuOpen = ref(false);
-// const isLoginOpen = ref(false);
-// const isProfileDialogOpen = ref(false);
-// const isNotificationOpen = ref(false);
-
-// const isAuthorisedUser = ref(false);
-
-// const openLogin = () => (isLoginOpen.value = true);
-// const openProfileDialog = () => (isProfileDialogOpen.value = true);
-// const closeProfileDialog = () => (isProfileDialogOpen.value = false);
-
-// const closeLoginDialog = () => (isLoginOpen.value = false);
-// const onLoginSubmit = () => {
-  // isAuthorisedUser.value = true;
-  // isLoginOpen.value = false;
-// };
-// const onLogout = () => {
-  // isAuthorisedUser.value = false;
-  // isProfileDialogOpen.value = false;
-// };
-
-// const onNotificationClick = () => {
-  // isNotificationOpen.value = true;
-  // closeProfileDialog();
-// };
-<!--</script>-->
-
 <script lang="ts">
 import LineBreak from "../LineBreak.vue";
+import LoginDialog from "../Dialogs/LoginDialog.vue";
+import NotificationsDialog from "../Dialogs/NotificationsDialog.vue";
+import ProfileDialog from "../Dialogs/ProfileDialog.vue";
 import {defineComponent} from "vue";
-import type UserDataAuth from "@/types/UserDataAuth";
-import type ResponseData from "@/types/ResponseData";
 import {store} from "@/store";
-import {AUTH, LOGOUT} from "@/store/actions_type";
-import UserDataService from "@/services/UserDataService";
+import {LOGOUT} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
 
 
 export default defineComponent({
-  name: "register-user",
+  name: "page-header",
   components: {
-    LineBreak: LineBreak
+    LineBreak: LineBreak,
+    LoginDialog: LoginDialog,
+    NotificationsDialog: NotificationsDialog,
+    ProfileDialog: ProfileDialog
   },
   data() {
 
     return {
-      user_data_auth: {} as UserDataAuth,
       isLoginOpen: false,
       isAuthorisedUser: false,
       isProfileDialogOpen: false,
@@ -91,29 +58,6 @@ export default defineComponent({
     closeProfileDialog() {
       this.isProfileDialogOpen = false
     },
-    authUser() {
-      this.user_data_auth = {
-        login: this.user_data_auth.login,
-        password: this.user_data_auth.password
-      }
-
-      store.dispatch(AUTH, this.user_data_auth)
-          .then((data: ResponseData) => {
-            this.isAuthorisedUser = true
-            this.isLoginOpen = false
-            this.$router.push({name: "catalog"})
-            UserDataService.userMe()
-              .then((response: ResponseData) => {
-                this.user_data_info.login = response.data.username
-              })
-              .catch((e: Error) => {
-                console.log(e);
-              })
-          })
-          .catch((e: Error) => {
-            console.log(e);
-          });
-    }
   },
 });
 </script>
@@ -231,316 +175,20 @@ export default defineComponent({
       </div>
     </div>
   </header>
-
-  <ui-dialog
-      v-model="isProfileDialogOpen"
-      sheet
-      maskClosable
-      class="profile-dialog"
-  >
     <ProfileDialog
+      v-if="isProfileDialogOpen"
       :close-profile-dialog="closeProfileDialog"
       :on-notification-click="onNotificationClick"
-      :on-logout="onLogout"
+      :on-logout="logout"
     />
-    <ui-dialog-title>
-      <div :class="$tt('body1')" class="bold large">{{ user_data_info.login }}</div>
-    </ui-dialog-title>
-
-    <ui-dialog-content>
-      <div class="row flex-column py-4">
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/balance"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>account_balance_wallet</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Баланс</div>
-          </div>
-        </RouterLink>
-        <div
-            @click="onNotificationClick"
-            class="row align-items-center link clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>notifications</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Уведомления</div>
-          </div>
-        </div>
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/park"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>directions_car</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Гараж</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/favourites"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>star_outline</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Избранное</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/orders"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>list_alt</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Заказы</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/appeals"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>contact_support</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Вопросы по заказам</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/dealers"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>local_shipping</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Поставщики</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/sessions"
-            class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>desktop_windows</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Web-сервисы</div>
-          </div>
-        </RouterLink>
-        <LineBreak class="my-4" />
-        <RouterLink
-            @click="closeProfileDialog"
-            to="/settings"
-            class="row align-items-center hint mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>settings</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Настройки</div>
-          </div>
-        </RouterLink>
-        <div @click="logout" class="row align-items-center link hint">
-          <div class="col-auto">
-            <ui-icon>logout</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')" v-on:click="logout">Выход</div>
-          </div>
-        </div>
-      </div>
-    </ui-dialog-content>
-  </ui-dialog>
-
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
     <LoginDialog
-      :onLoginSubmit="onLoginSubmit"
       :closeDialog="closeLoginDialog"
+      @isAuthorisedUser="this.isAuthorisedUser = true"
+      @isLoginOpen="this.isLoginOpen = false"
     />
-    <!-- leave title for close action -->
-    <ui-dialog-title>
-      <div :class="$tt('body1')" class="bold large login-dialog__title">
-        Личный кабинет
-      </div>
-    </ui-dialog-title>
-
-    <ui-dialog-content>
-      <div class="mt-4">
-        <label class="hint" for="login-name" >Логин</label>
-        <ui-textfield
-            input-id="login-name"
-            outlined fullwidth
-            v-model="user_data_auth.login"
-        />
-      </div>
-      <div class="mt-3">
-        <label class="hint" for="login-password">Пароль</label>
-        <ui-textfield
-            v-model="user_data_auth.password"
-            input-id="login-password"
-            outlined
-            fullwidth
-            input-type="password"
-        />
-      </div>
-
-      <div class="row mt-2 align-items-center">
-        <div class="col-auto">
-          <ui-form-field>
-            <ui-checkbox input-id="login-remember" />
-            <label for="login-remember">Запомнить меня</label>
-          </ui-form-field>
-        </div>
-        <div class="col-auto ms-auto">
-          <RouterLink to="/recover">
-            <div :class="$tt('body1')" class="hint">Забыли пароль?</div>
-          </RouterLink>
-        </div>
-      </div>
-
-      <ui-button v-on:click="onLoginSubmit; authUser()" raised class="col-12 mt-3"
-      >Войти</ui-button
-      >
-
-      <div class="row mt-3">
-        <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
-
-        <div class="mt-2 row g-2 justify-content-xl-between">
-          <div class="col-auto">
-            <img src="@/assets/social/vk-color.png" alt="vk" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/ok-color.png" alt="ok" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/google-color.png" alt="google" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/ya-color.png" alt="ya" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/mail-color.png" alt="mail" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/facebook-color.png" alt="facebook" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/insta-color.png" alt="insta" />
-          </div>
-        </div>
-
-        <LineBreak class="my-3" />
-
-        <div class="text-center">
-          <RouterLink @click="closeLoginDialog" to="/register">
-            <ui-button>ЗАРЕГИСТРИРОВАТЬСЯ</ui-button>
-          </RouterLink>
-        </div>
-      </div>
-    </ui-dialog-content>
   </ui-dialog>
-
-  <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
-    <NotificationsDialog />
-  <ui-dialog v-model="isNotificationOpen" scrollable maskClosable>
-    <ui-dialog-title>
-      <h3>
-        <ui-icon style="font-size: 34px; vertical-align: middle" type="filled"
-        >notifications</ui-icon
-        >
-        УВЕДОМЛЕНИЯ
-      </h3>
-      <div class="row">
-        <div class="col-auto link">Показать непрочитанные (2)</div>
-        <div class="col-auto link clear">Прочитать все</div>
-      </div>
-    </ui-dialog-title>
-    <ui-dialog-content>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию позиции требуют определения и уточнения модели развития.
-          Равным образом ...
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию позиции требуют определения и уточнения модели развития.
-          Равным образом ...
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию..
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-    </ui-dialog-content>
-  </ui-dialog>
+    <NotificationsDialog v-if="isNotificationOpen" />
 </template>
 
 <style lang="scss" scoped>
