@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
-import CustomSelect from "../../components/CustomSelect.vue";
 import GarageDialog from "@/components/Dialogs/GarageDialog.vue";
 
 const isGarageDialogOpen = ref(false);

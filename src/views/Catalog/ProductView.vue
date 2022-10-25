@@ -1,23 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ProductCard from "../../components/Catalog/ProductCard.vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
-import CustomSelect from "../../components/CustomSelect.vue";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
-const sortingOptions = [
-  {
-    label: "Все",
-    value: "all",
-  },
-  { label: "ALTENZO", value: "ALTENZO" },
-  { label: "AMTEL", value: "AMTEL" },
-  { label: "APLUS", value: "APLUS" },
-  { label: "BARUM", value: "BARUM" },
-  { label: "BELSHINA", value: "BELSHINA" },
-  { label: "BF GOODRICH", value: "BF GOODRICH" },
-];
-
-const list = [1, 2, 3, 4];
+import RelatedProducts from "@/components/Sections/RelatedProducts.vue";
 
 const isShowAddedProduct = ref(false);
 const showAddedProduct = () => (isShowAddedProduct.value = true);
@@ -156,41 +141,7 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
       </div>
     </section>
     <section class="grayed py-5 mt-5">
-      <div class="container-fluid">
-        <div class="row g-2">
-          <div class="col-6 col-md-auto" :class="$tt('headline2')">
-            Аналогичные товары
-          </div>
-          <div class="col-12 col-md-4 ms-md-4">
-            <ui-form-field>
-              <label class="me-3">Производитель</label>
-              <CustomSelect
-                outlined
-                fullwidth
-                value
-                :options="sortingOptions"
-              />
-            </ui-form-field>
-          </div>
-        </div>
-        <div class="row g-3 mt-3">
-          <article
-            v-for="item of list"
-            v-bind:key="item"
-            class="col-12 col-sm-6 col-md-4 col-xxl-3"
-          >
-            <ProductCard
-              productId="123"
-              productCategory="wheel"
-              title="Название товара"
-              image="@/assets/catalog/oil.png"
-              brand="BREND"
-              inventoryId="L03412960404"
-              price="5841"
-            />
-          </article>
-        </div>
-      </div>
+      <RelatedProducts />
     </section>
   </main>
 

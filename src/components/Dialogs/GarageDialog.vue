@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import CustomSelect from "@/components/CustomSelect.vue";
+</script>
+
 <template>
   <ui-dialog-title></ui-dialog-title>
   <ui-dialog-content class="py-4">
