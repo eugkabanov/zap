@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import CustomSelect from "../../components/CustomSelect.vue";
+import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import PersonRegistration from "@/components/Sections/PersonRegistration.vue";
+import CompanyRegistration from "@/components/Sections/CompanyRegistration.vue";
 </script>
 
 <template>
@@ -20,7 +24,7 @@ import CustomSelect from "../../components/CustomSelect.vue";
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Логин</label>
           <ui-textfield
-            v-model="user_data.fio"
+            v-model="user_data.login"
             name="full name"
             id="reg-name"
             outlined
@@ -31,24 +35,13 @@ import CustomSelect from "../../components/CustomSelect.vue";
           <label for="reg-phone" class="d-block mb-2">Пароль</label>
           <ui-textfield
             required
-            v-model="user_data.phone"
+            v-model="user_data.password"
             name="phone number"
             id="reg-phone"
             outlined
             fullwidth
           />
         </div>
-<!--        <div class="mb-3">-->
-<!--          <label for="reg-email" class="d-block mb-2">E-mail</label>-->
-<!--          <ui-textfield-->
-<!--            required-->
-<!--            v-model="user_data.email"-->
-<!--            name="E-Mail"-->
-<!--            id="reg-email"-->
-<!--            outlined-->
-<!--            fullwidth />-->
-<!--        </div>-->
-
         <ui-form-field>
           <ui-checkbox
               value="agree"
@@ -74,11 +67,6 @@ import CustomSelect from "../../components/CustomSelect.vue";
 
         <div class="row gy-4 mt-1">
           <div class="col-12 col-md-5">
-            <!--            <ui-select-->
-            <!--              outlined fullwidth value-->
-            <!--              :options="service_office_list"-->
-            <!--              v-model="city_office"-->
-            <!--            />-->
             <CustomSelect outlined fullwidth value
                           :options="service_office_list"
                           v-model="city_office"
@@ -188,6 +176,12 @@ import CustomSelect from "../../components/CustomSelect.vue";
         </div>
       </div>
     </div>
+    <section v-if="registrationType === 0" class="mt-3 row gy-4">
+      <PersonRegistration />
+    </section>
+    <section v-if="registrationType === 1" class="mt-5">
+      <CompanyRegistration />
+    </section>
   </main>
 </template>
 
@@ -272,8 +266,8 @@ export default defineComponent({
   methods: {
     registrationUser() {
       this.user_data = {
-        login: this.user_data.fio,
-        password: this.user_data.phone,
+        login: this.user_data.login,
+        password: this.user_data.password,
         fio: this.user_data.fio,
         phone: this.user_data.phone,
         email: this.user_data.email,

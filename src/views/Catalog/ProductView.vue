@@ -1,22 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ProductCard from "../../components/Catalog/ProductCard.vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
-import CustomSelect from "../../components/CustomSelect.vue";
-const sortingOptions = [
-  {
-    label: "Все",
-    value: "all",
-  },
-  { label: "ALTENZO", value: "ALTENZO" },
-  { label: "AMTEL", value: "AMTEL" },
-  { label: "APLUS", value: "APLUS" },
-  { label: "BARUM", value: "BARUM" },
-  { label: "BELSHINA", value: "BELSHINA" },
-  { label: "BF GOODRICH", value: "BF GOODRICH" },
-];
-
-const list = [1, 2, 3, 4];
+import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
+import RelatedProducts from "@/components/Sections/RelatedProducts.vue";
 
 const isShowAddedProduct = ref(false);
 const showAddedProduct = () => (isShowAddedProduct.value = true);
@@ -155,41 +141,7 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
       </div>
     </section>
     <section class="grayed py-5 mt-5">
-      <div class="container-fluid">
-        <div class="row g-2">
-          <div class="col-6 col-md-auto" :class="$tt('headline2')">
-            Аналогичные товары
-          </div>
-          <div class="col-12 col-md-4 ms-md-4">
-            <ui-form-field>
-              <label class="me-3">Производитель</label>
-              <CustomSelect
-                outlined
-                fullwidth
-                value
-                :options="sortingOptions"
-              />
-            </ui-form-field>
-          </div>
-        </div>
-        <div class="row g-3 mt-3">
-          <article
-            v-for="item of list"
-            v-bind:key="item"
-            class="col-12 col-sm-6 col-md-4 col-xxl-3"
-          >
-            <ProductCard
-              productId="123"
-              productCategory="wheel"
-              title="Название товара"
-              image="@/assets/catalog/oil.png"
-              brand="BREND"
-              inventoryId="L03412960404"
-              price="5841"
-            />
-          </article>
-        </div>
-      </div>
+      <RelatedProducts />
     </section>
   </main>
 
@@ -199,45 +151,7 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
     maskClosable
     class="cart-dialog"
   >
-    <!-- leave title for close action -->
-    <ui-dialog-title>
-      <div :class="$tt('body2')" class="cart-dialog__title large">
-        Добавлено в корзину
-      </div>
-    </ui-dialog-title>
-    <ui-dialog-content>
-      <div class="row cart-dialog__content">
-        <div class="col-auto">
-          <img src="@/assets/catalog/wheel.png" alt="" width="104" />
-        </div>
-        <div class="col">
-          <div :class="$tt('body1')" class="bold mb-1">
-            Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
-          </div>
-          <div :class="$tt('body1')" class="small">
-            Бренд: <span class="hint">NOKIAN</span> <br />Артикул:
-            <span class="hint">TS32701</span>
-          </div>
-          <div class="row align-items-end mt-3">
-            <div class="col-auto" :class="$tt('body1')">4 шт</div>
-            <div class="col-auto ms-auto" :class="$tt('headline3')">5841 ₽</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row g-3 mt-4">
-        <div class="col-12 col-md-6">
-          <ui-button class="w-100" outlined @click="hideAddedProduct"
-            >Продолжить покупки</ui-button
-          >
-        </div>
-        <div class="col-12 col-md-6">
-          <RouterLink to="/cart">
-            <ui-button class="w-100" raised>Перейти в корзину</ui-button>
-          </RouterLink>
-        </div>
-      </div>
-    </ui-dialog-content>
+    <CartAddDialog :hide-added-product="hideAddedProduct" />
   </ui-dialog>
 </template>
 

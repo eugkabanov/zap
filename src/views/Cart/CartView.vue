@@ -3,6 +3,34 @@ import { ref } from "vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const productsDataBody = [
+  { field: "title", align: "center" },
+  { field: "delivery", align: "center" },
+  { field: "time" },
+  { field: "price", align: "center" },
+  { field: "quantity", align: "center" },
+  { field: "total", align: "center" },
+  {
+    slot: "select",
+  },
+  { field: "comments" },
+];
+const productsDataHead = [
+  { value: "Наименование" },
+  { value: "Поставщик" },
+  {
+    slot: "th-time",
+    columnId: "time",
+  },
+  { value: "Цена", align: "center" },
+  { value: "Количество", align: "center" },
+  { value: "Сумма", align: "center" },
+  {
+    slot: "th-select",
+    columnId: "select",
+  },
+  "Комментарии",
+];
 const activeTab = ref(0);
 
 const productsData = [
@@ -64,34 +92,8 @@ const productsData = [
       <ui-table
         fullwidth
         :data="productsData"
-        :thead="[
-          { value: 'Наименование' },
-          { value: 'Поставщик' },
-          {
-            slot: 'th-time',
-            columnId: 'time',
-          },
-          { value: 'Цена', align: 'center' },
-          { value: 'Количество', align: 'center' },
-          { value: 'Сумма', align: 'center' },
-          {
-            slot: 'th-select',
-            columnId: 'select',
-          },
-          'Комментарии',
-        ]"
-        :tbody="[
-          { field: 'title', align: 'center' },
-          { field: 'delivery', align: 'center' },
-          { field: 'time' },
-          { field: 'price', align: 'center' },
-          { field: 'quantity', align: 'center' },
-          { field: 'total', align: 'center' },
-          {
-            slot: 'select',
-          },
-          { field: 'comments' },
-        ]"
+        :thead="productsDataHead"
+        :tbody="productsDataBody"
       >
         <template #th-time>
           <ui-icon

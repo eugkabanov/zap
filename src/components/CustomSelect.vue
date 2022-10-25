@@ -9,7 +9,6 @@ onMounted(() => {
   if (element !== null) {
     const selectIcon = element.querySelector(".mdc-select__dropdown-icon");
     if (selectIcon !== null) {
-      console.log(selectIcon.innerHTML);
       selectIcon.innerHTML = `<span class="mdc-select__dropdown-icon-graphic">
     <i
       class="material-icons mdc-select__dropdown-icon-inactive"

@@ -170,3 +170,23 @@
 .mdc-ripple-upgraded--background-focused .mdc-tab__ripple {
   opacity: 0 !important;
 }
+
+.vue-slider-dot-handle {
+  background-color: #1c60a9 !important;
+  width: 16px !important;
+  height: 16px !important;
+  box-shadow: unset !important;
+}
+
+.vue-slider-process {
+  background-color: #1c60a9 !important;
+}
+
+.vue-slider-dot-tooltip-inner {
+  background-color: #1c60a9 !important;
+  border-color: #1c60a9 !important;
+}
+
+.vue-slider {
+  height: 2px !important;
+}

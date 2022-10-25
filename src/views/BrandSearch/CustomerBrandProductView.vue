@@ -1,4 +1,16 @@
 <script setup lang="ts">
+const productsDataBody = [
+  { field: "brand" },
+  { field: "articul" },
+  { field: "details" },
+  { slot: "actions" },
+];
+const productsDataHead = [
+  { value: "Производитель" },
+  { value: "Артикул" },
+  { value: "Данные" },
+  { value: "" },
+];
 const brandsData = [
   {
     brand: "GENUINE PART",
@@ -37,18 +49,8 @@ const brandsData = [
         class="mdc-data-table--last-select"
         fullwidth
         :data="brandsData"
-        :thead="[
-          { value: 'Производитель' },
-          { value: 'Артикул' },
-          { value: 'Данные' },
-          { value: '' },
-        ]"
-        :tbody="[
-          { field: 'brand' },
-          { field: 'articul' },
-          { field: 'details' },
-          { slot: 'actions' },
-        ]"
+        :thead="productsDataHead"
+        :tbody="productsDataBody"
       >
         <template #actions>
           <ui-icon class="hint">camera_alt</ui-icon>
