@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import NotificationsDialog from "@/components/Dialogs/NotificationsDialog.vue";
+import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import { ref } from "vue";
-import LineBreak from "../LineBreak.vue";
 
 const isNavMenuOpen = ref(false);
 const isLoginOpen = ref(false);
@@ -148,292 +150,22 @@ const onNotificationClick = () => {
     maskClosable
     class="profile-dialog"
   >
-    <ui-dialog-title>
-      <div :class="$tt('body1')" class="bold large">Сергей Иванов</div>
-    </ui-dialog-title>
-
-    <ui-dialog-content>
-      <div class="row flex-column py-4">
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/balance"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>account_balance_wallet</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Баланс</div>
-          </div>
-        </RouterLink>
-        <div
-          @click="onNotificationClick"
-          class="row align-items-center link clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>notifications</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Уведомления</div>
-          </div>
-        </div>
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/park"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>directions_car</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Гараж</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/favourites"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>star_outline</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Избранное</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/orders"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>list_alt</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Заказы</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/appeals"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>contact_support</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Вопросы по заказам</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/dealers"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>local_shipping</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Поставщики</div>
-          </div>
-        </RouterLink>
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/sessions"
-          class="row align-items-center clear mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>desktop_windows</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Web-сервисы</div>
-          </div>
-        </RouterLink>
-        <LineBreak class="my-4" />
-        <RouterLink
-          @click="closeProfileDialog"
-          to="/settings"
-          class="row align-items-center hint mb-4"
-        >
-          <div class="col-auto">
-            <ui-icon>settings</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Настройки</div>
-          </div>
-        </RouterLink>
-        <div @click="onLogout" class="row align-items-center link hint">
-          <div class="col-auto">
-            <ui-icon>logout</ui-icon>
-          </div>
-          <div class="col">
-            <div :class="$tt('body1')">Выход</div>
-          </div>
-        </div>
-      </div>
-    </ui-dialog-content>
+    <ProfileDialog
+      :close-profile-dialog="closeProfileDialog"
+      :on-notification-click="onNotificationClick"
+      :on-logout="onLogout"
+    />
   </ui-dialog>
 
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
-    <!-- leave title for close action -->
-    <ui-dialog-title>
-      <div :class="$tt('body1')" class="bold large login-dialog__title">
-        Личный кабинет
-      </div>
-    </ui-dialog-title>
-
-    <ui-dialog-content>
-      <div class="mt-4">
-        <label class="hint" for="login-name">Логин</label>
-        <ui-textfield input-id="login-name" outlined fullwidth />
-      </div>
-      <div class="mt-3">
-        <label class="hint" for="login-password">Пароль</label>
-        <ui-textfield
-          input-id="login-password"
-          outlined
-          fullwidth
-          input-type="password"
-        />
-      </div>
-
-      <div class="row mt-2 align-items-center">
-        <div class="col-auto">
-          <ui-form-field>
-            <ui-checkbox input-id="login-remember" />
-            <label for="login-remember">Запомнить меня</label>
-          </ui-form-field>
-        </div>
-        <div class="col-auto ms-auto">
-          <RouterLink to="/recover">
-            <div :class="$tt('body1')" class="hint">Забыли пароль?</div>
-          </RouterLink>
-        </div>
-      </div>
-
-      <ui-button v-on:click="onLoginSubmit" raised class="col-12 mt-3"
-        >Войти</ui-button
-      >
-
-      <div class="row mt-3">
-        <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
-
-        <div class="mt-2 row g-2 justify-content-xl-between">
-          <div class="col-auto">
-            <img src="@/assets/social/vk-color.png" alt="vk" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/ok-color.png" alt="ok" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/google-color.png" alt="google" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/ya-color.png" alt="ya" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/mail-color.png" alt="mail" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/facebook-color.png" alt="facebook" />
-          </div>
-          <div class="col-auto">
-            <img src="@/assets/social/insta-color.png" alt="insta" />
-          </div>
-        </div>
-
-        <LineBreak class="my-3" />
-
-        <div class="text-center">
-          <RouterLink @click="closeLoginDialog" to="/register">
-            <ui-button>ЗАРЕГИСТРИРОВАТЬСЯ</ui-button>
-          </RouterLink>
-        </div>
-      </div>
-    </ui-dialog-content>
+    <LoginDialog
+      :onLoginSubmit="onLoginSubmit"
+      :closeDialog="closeLoginDialog"
+    />
   </ui-dialog>
 
-  <ui-dialog v-model="isNotificationOpen" scrollable maskClosable>
-    <ui-dialog-title>
-      <h3>
-        <ui-icon style="font-size: 34px; vertical-align: middle" type="filled"
-          >notifications</ui-icon
-        >
-        УВЕДОМЛЕНИЯ
-      </h3>
-      <div class="row">
-        <div class="col-auto link">Показать непрочитанные (2)</div>
-        <div class="col-auto link clear">Прочитать все</div>
-      </div>
-    </ui-dialog-title>
-    <ui-dialog-content>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию позиции требуют определения и уточнения модели развития.
-          Равным образом ...
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию позиции требуют определения и уточнения модели развития.
-          Равным образом ...
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию..
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-      <div class="mb-4">
-        <div class="hint">20 июля 2022</div>
-        <div class="mt-2">
-          Задача организации, в особенности же начало повседневной работы по
-          формированию.
-        </div>
-        <LineBreak class="mt-3" />
-      </div>
-    </ui-dialog-content>
+  <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
+    <NotificationsDialog />
   </ui-dialog>
 </template>
 
