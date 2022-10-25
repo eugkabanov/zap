@@ -187,13 +187,6 @@ const router = createRouter({
       name: "return",
       component: () => import("../views/PassView.vue"),
     },
-
-    // debug
-    {
-      path: "/components",
-      name: "components",
-      component: () => import("../views/ComponentsView.vue"),
-    },
   ],
 });
 

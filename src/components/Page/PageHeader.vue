@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import NotificationsDialog from "@/components/Dialogs/NotificationsDialog.vue";
+import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 <!--<script setup lang="ts">-->
 import { ref } from "vue";
 // import LineBreak from "../LineBreak.vue";
@@ -234,6 +238,11 @@ export default defineComponent({
       maskClosable
       class="profile-dialog"
   >
+    <ProfileDialog
+      :close-profile-dialog="closeProfileDialog"
+      :on-notification-click="onNotificationClick"
+      :on-logout="onLogout"
+    />
     <ui-dialog-title>
       <div :class="$tt('body1')" class="bold large">{{ user_data_info.login }}</div>
     </ui-dialog-title>
@@ -361,6 +370,10 @@ export default defineComponent({
   </ui-dialog>
 
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+    <LoginDialog
+      :onLoginSubmit="onLoginSubmit"
+      :closeDialog="closeLoginDialog"
+    />
     <!-- leave title for close action -->
     <ui-dialog-title>
       <div :class="$tt('body1')" class="bold large login-dialog__title">
@@ -444,6 +457,8 @@ export default defineComponent({
     </ui-dialog-content>
   </ui-dialog>
 
+  <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
+    <NotificationsDialog />
   <ui-dialog v-model="isNotificationOpen" scrollable maskClosable>
     <ui-dialog-title>
       <h3>

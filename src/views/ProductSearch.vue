@@ -2,6 +2,46 @@
 import { ref } from "vue";
 import ProductSearchFilters from "../components/Search/ProductSearchFilters.vue";
 
+const searchDataBody = [
+  { field: "brand" },
+  { field: "dealer" },
+  { field: "count" },
+  { field: "deadline" },
+  { field: "price" },
+  { field: "date" },
+  { slot: "cart" },
+  { slot: "delivery" },
+];
+const searchDataHead = [
+  { value: "Бренд" },
+  { value: "Поставщик" },
+  { value: "Количество" },
+  { value: "Срок" },
+  { value: "Цена" },
+  { value: "Отправка поставщику" },
+  { value: "" },
+  { value: "" },
+];
+const similarSearchDataBody = [
+  { field: "brand" },
+  { field: "dealer" },
+  { field: "count" },
+  { field: "deadline" },
+  { field: "price" },
+  { field: "date" },
+  { slot: "cart" },
+  { slot: "delivery" },
+];
+const similarSearchDataHead = [
+  { value: "Бренд" },
+  { value: "Поставщик" },
+  { value: "Количество" },
+  { value: "Срок" },
+  { value: "Цена" },
+  { value: "Отправка поставщику" },
+  { value: "" },
+  { value: "" },
+];
 const isSearchFiltersOpen = ref(false);
 const isSimilarShow = ref(false);
 
@@ -60,26 +100,8 @@ const similarSearchData = [
           <ui-table
             fullwidth
             :data="searchData"
-            :thead="[
-              { value: 'Бренд' },
-              { value: 'Поставщик' },
-              { value: 'Количество' },
-              { value: 'Срок' },
-              { value: 'Цена' },
-              { value: 'Отправка поставщику' },
-              { value: '' },
-              { value: '' },
-            ]"
-            :tbody="[
-              { field: 'brand' },
-              { field: 'dealer' },
-              { field: 'count' },
-              { field: 'deadline' },
-              { field: 'price' },
-              { field: 'date' },
-              { slot: 'cart' },
-              { slot: 'delivery' },
-            ]"
+            :thead="searchDataHead"
+            :tbody="searchDataBody"
           >
             <template #cart>
               <ui-icon class="hint" outlined> shopping_cart </ui-icon>
@@ -98,26 +120,8 @@ const similarSearchData = [
           <ui-table
             fullwidth
             :data="similarSearchData"
-            :thead="[
-              { value: 'Бренд' },
-              { value: 'Поставщик' },
-              { value: 'Количество' },
-              { value: 'Срок' },
-              { value: 'Цена' },
-              { value: 'Отправка поставщику' },
-              { value: '' },
-              { value: '' },
-            ]"
-            :tbody="[
-              { field: 'brand' },
-              { field: 'dealer' },
-              { field: 'count' },
-              { field: 'deadline' },
-              { field: 'price' },
-              { field: 'date' },
-              { slot: 'cart' },
-              { slot: 'delivery' },
-            ]"
+            :thead="similarSearchDataHead"
+            :tbody="similarSearchDataBody"
           >
             <template #cart>
               <ui-icon class="hint" outlined> shopping_cart </ui-icon>

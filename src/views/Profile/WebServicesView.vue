@@ -1,7 +1,24 @@
 <script setup lang="ts">
+import AddCarDialog from "@/components/Dialogs/AddCarDialog.vue";
 import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const webServicesBody = [
+  { slot: "radio" },
+  { field: "address" },
+  { field: "status" },
+  { field: "data" },
+  { field: "comments" },
+  { slot: "actions" },
+];
+const webServicesHeader = [
+  { value: "" },
+  { value: "IP-адрес" },
+  { value: "Статус" },
+  { value: "Дата подключения" },
+  { value: "Комментарий" },
+  { value: "" },
+];
 const selectedRow = ref(0);
 const isAddCarOpen = ref(false);
 const onAddCarClick = () => {
@@ -41,22 +58,8 @@ const webServicesData = [
       <ui-table
         fullwidth
         :data="webServicesData"
-        :thead="[
-          { value: '' },
-          { value: 'IP-адрес' },
-          { value: 'Статус' },
-          { value: 'Дата подключения' },
-          { value: 'Комментарий' },
-          { value: '' },
-        ]"
-        :tbody="[
-          { slot: 'radio' },
-          { field: 'address' },
-          { field: 'status' },
-          { field: 'data' },
-          { field: 'comments' },
-          { slot: 'actions' },
-        ]"
+        :thead="webServicesHeader"
+        :tbody="webServicesBody"
       >
         <template #actions>
           <ui-icon class="hint">link_off</ui-icon>
@@ -73,26 +76,7 @@ const webServicesData = [
   </main>
 
   <ui-dialog v-model="isAddCarOpen" maskClosable sheet class="park-add-car">
-    <ui-dialog-title class="mb-4" />
-
-    <ui-dialog-content>
-      <div class="mb-3">
-        <label class="d-block col-3">IP-адрес</label>
-        <div>
-          <ui-textfield outlined fullwidth />
-        </div>
-      </div>
-      <div class="mb-3">
-        <label class="d-block col-3">Комментарий</label>
-        <div>
-          <ui-textfield outlined fullwidth input-type="textarea" rows="4" />
-        </div>
-      </div>
-
-      <div class="mt-4 text-center">
-        <ui-button raised>Сохранить</ui-button>
-      </div>
-    </ui-dialog-content>
+    <AddCarDialog />
   </ui-dialog>
 </template>
 

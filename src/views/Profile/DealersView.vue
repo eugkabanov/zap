@@ -3,6 +3,25 @@ import { ref } from "vue";
 import DealersFilters from "../../components/Profile/DealersFilters.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const dealersDataBody = [
+  { field: "title" },
+  { field: "time" },
+  { field: "progress", align: "center" },
+  { field: "info" },
+  {
+    slot: "select",
+  },
+];
+const dealersDataHead = [
+  { value: "Название" },
+  { value: "Срок" },
+  { value: "Исполнение (%)" },
+  { value: "Информация" },
+  {
+    slot: "th-select",
+    columnId: "select",
+  },
+];
 const isFiltersOpen = ref(false);
 
 const dealersData = [
@@ -47,25 +66,8 @@ const dealersData = [
           class="mdc-data-table--last-select"
           fullwidth
           :data="dealersData"
-          :thead="[
-            { value: 'Название' },
-            { value: 'Срок' },
-            { value: 'Исполнение (%)' },
-            { value: 'Информация' },
-            {
-              slot: 'th-select',
-              columnId: 'select',
-            },
-          ]"
-          :tbody="[
-            { field: 'title' },
-            { field: 'time' },
-            { field: 'progress', align: 'center' },
-            { field: 'info' },
-            {
-              slot: 'select',
-            },
-          ]"
+          :thead="dealersDataHead"
+          :tbody="dealersDataBody"
         >
           <template #th-select> <ui-checkbox /></template>
           <template #select>

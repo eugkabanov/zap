@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import CustomSelect from "../../components/CustomSelect.vue";
+import { ref } from "vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import PersonRegistration from "@/components/Sections/PersonRegistration.vue";
+import CompanyRegistration from "@/components/Sections/CompanyRegistration.vue";
 </script>
 
 <template>
@@ -188,6 +192,12 @@ import CustomSelect from "../../components/CustomSelect.vue";
         </div>
       </div>
     </div>
+    <section v-if="registrationType === 0" class="mt-3 row gy-4">
+      <PersonRegistration />
+    </section>
+    <section v-if="registrationType === 1" class="mt-5">
+      <CompanyRegistration />
+    </section>
   </main>
 </template>
 

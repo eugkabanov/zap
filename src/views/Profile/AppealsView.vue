@@ -3,6 +3,30 @@ import SearchFormWithIcon from "../../components/Search/SearchFormWithIcon.vue";
 import ClosedStatus from "../../components/Statuses/ClosedStatus.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
+const appealsDataBody = [
+  { slot: "link" },
+  { field: "date" },
+  { field: "category" },
+  { field: "detail" },
+  { field: "dealer" },
+  { field: "comments" },
+  { field: "price" },
+  { slot: "status" },
+  { slot: "result" },
+  { slot: "select" },
+];
+const appealsDataHead = [
+  { value: "" },
+  { value: "Дата" },
+  { value: "Категория" },
+  { value: "Деталь" },
+  { value: "Поставщик" },
+  { value: "Комментарий" },
+  { value: "Сумма" },
+  { value: "Статус" },
+  { value: "" },
+  { slot: "th-select", columnId: "select" },
+];
 const appealsData = [
   {
     date: "25 июля 10:22",
@@ -66,30 +90,8 @@ const appealsData = [
       class="dark"
       fullwidth
       :data="appealsData"
-      :thead="[
-        { value: '' },
-        { value: 'Дата' },
-        { value: 'Категория' },
-        { value: 'Деталь' },
-        { value: 'Поставщик' },
-        { value: 'Комментарий' },
-        { value: 'Сумма' },
-        { value: 'Статус' },
-        { value: '' },
-        { slot: 'th-select', columnId: 'select' },
-      ]"
-      :tbody="[
-        { slot: 'link' },
-        { field: 'date' },
-        { field: 'category' },
-        { field: 'detail' },
-        { field: 'dealer' },
-        { field: 'comments' },
-        { field: 'price' },
-        { slot: 'status' },
-        { slot: 'result' },
-        { slot: 'select' },
-      ]"
+      :thead="appealsDataHead"
+      :tbody="appealsDataBody"
     >
       <template #link>
         <div class="table-link">
