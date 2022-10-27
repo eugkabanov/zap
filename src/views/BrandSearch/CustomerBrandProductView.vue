@@ -29,7 +29,7 @@ const brandsData = [
   <main class="container-fluid pb-5">
     <h1 class="mb-4 large">Оригинальный каталог</h1>
 
-    <h2 class="mb-4 large">
+    <h2 class="mb-5 large bold">
       <RouterLink to="/search-brand/honda" class="clear">
         <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda ACCORD
         IX, Купе 3.5

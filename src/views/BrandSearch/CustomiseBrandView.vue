@@ -9,7 +9,7 @@ import CustomSelect from "../../components/CustomSelect.vue";
 
     <div class="row">
       <div class="col-12 col-xl-7">
-        <h2 class="mb-5 large bold">
+        <h2 class="mt-0 mb-5 large bold">
           <RouterLink to="/search-brand" class="clear">
             <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda
           </RouterLink>
