@@ -8,6 +8,15 @@ import CustomSelect from "../CustomSelect.vue";
     <CustomSelect
       outlined
       fullwidth
+      :options="[{ label: 'Honda' }]"
+    ></CustomSelect>
+  </div>
+
+  <div class="mb-3">
+    <div class="mb-2">Модель</div>
+    <CustomSelect
+      outlined
+      fullwidth
       :options="[{ label: 'Модель' }]"
     ></CustomSelect>
   </div>
