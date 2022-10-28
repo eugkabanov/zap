@@ -1,6 +1,6 @@
 <template>
   <ui-dialog-title>
-    <div :class="$tt('body1')" class="bold large">{{ profile_user_data_info.login }}</div>
+    <div :class="$tt('body1')" class="bold large">{{ login }}</div>
   </ui-dialog-title>
 
   <ui-dialog-content>
@@ -126,11 +126,11 @@
 </template>
 
 <script setup lang="ts">
-
 defineProps<{
   closeProfileDialog: (payload: MouseEvent) => void;
   onNotificationClick: (payload: MouseEvent) => void;
   onLogout: (payload: MouseEvent) => void;
+  login: String;
 }>();
 </script>
 
@@ -138,9 +138,7 @@ defineProps<{
 
 import {defineComponent} from "vue";
 import LineBreak from "@/components/LineBreak.vue";
-import type   UserDataInfo from "@/types/UserDataInfo";
 import {mapGetters} from "vuex";
-import {store} from "@/store";
 
 export default defineComponent({
   name: "ProfileDialog",
@@ -150,21 +148,19 @@ export default defineComponent({
   data() {
 
     return {
-      profile_user_data_info: {} as UserDataInfo
     };
   },
 
   created: function () {
-    this.profile_user_data_info = store.getters.currentUser
   },
 
   computed: {
-    ...mapGetters(["isAuthenticated", "userData"])
+    ...mapGetters(["isAuthenticated", "currentUser"])
   },
 
   methods: {
-
   },
+
 });
 
 </script>

@@ -99,7 +99,6 @@
 
 <script lang="ts">
 
-import { ref } from "vue";
 import { defineComponent } from "vue";
 import type PersonRegistrationData from "@/types/PersonRegistrationData";
 import type ResponseData from "@/types/ResponseData";
@@ -139,17 +138,6 @@ export default defineComponent({
       errMessage: "",
       showErrMessage: false,
       service_office_list: new Array(),
-      registration_types: [
-        {
-          label: "Частное лицо",
-          value: 0,
-        },
-        {
-          label: "Организация",
-          value: 1,
-        },
-      ],
-      registration_type: ref(0),
     };
   },
 
@@ -199,6 +187,8 @@ export default defineComponent({
         credentials: this.user_data.credentials,
         firstName: this.user_data.fio,
         secondName: this.user_data.fio,
+        patronymic: this.user_data.fio,
+        phone: this.user_data.phone,
         email: this.user_data.email,
         officeId: this.office
       }

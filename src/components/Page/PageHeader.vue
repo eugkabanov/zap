@@ -121,6 +121,7 @@
       :close-profile-dialog="closeProfileDialog"
       :on-notification-click="onNotificationClick"
       :on-logout="logout"
+      v-bind:login="profile_user_data_info.login"
     />
   </ui-dialog>
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
@@ -158,6 +159,7 @@ export default defineComponent({
   data() {
 
     return {
+      profile_user_data_info: {} as UserDataInfo,
       isLoginOpen: false,
       isAuthorisedUser: false,
       isProfileDialogOpen: false,
@@ -170,7 +172,7 @@ export default defineComponent({
   created: function () {},
 
   computed: {
-    ...mapGetters(["isAuthenticated"])
+    ...mapGetters(["isAuthenticated", "currentUser"])
   },
 
   methods: {
@@ -196,6 +198,7 @@ export default defineComponent({
       this.isProfileDialogOpen = false
     },
     openProfileDialog() {
+      this.profile_user_data_info = store.getters.currentUser
       this.isProfileDialogOpen = true
     },
     closeProfileDialog() {

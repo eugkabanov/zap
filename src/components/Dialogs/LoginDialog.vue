@@ -51,10 +51,9 @@ export default defineComponent({
             this.$emit("isAuthorisedUser")
             this.$emit('isLoginOpen')
             this.$emit('closeDialog')
-            router.push({name: "catalog"})
             store.dispatch(USER_ME)
                 .then((data: ResponseData) => {
-                  console.log('  DIS')
+                  router.push({path: "/catalog"})
                 })
                 .catch((e: Error) => {
                   console.log(e);

@@ -46,6 +46,7 @@ const actions = {
             UserDataService.userMe()
                 .then((data) => {
                     context.commit(SET_USER_DATA, data.data)
+                    resolve(data)
                 })
                 .catch((e: Error) => {
                     console.log(e);
