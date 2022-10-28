@@ -56,6 +56,7 @@ const webServicesData = [
 
     <div class="mt-3 col-xl-7">
       <ui-table
+        class="mdc-data-table--last-select"
         fullwidth
         :data="webServicesData"
         :thead="webServicesHeader"

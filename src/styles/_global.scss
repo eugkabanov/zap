@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+*:not(.material-icons) {
+  font-family: "Montserrat", sans-serif !important;
+}
+
 html,
 body {
   width: 100%;
@@ -13,9 +17,12 @@ body {
 }
 
 body {
-  font-family: "Montserrat", sans-serif !important;
   font-weight: 500;
   margin: 0;
+}
+
+main {
+  min-height: 730px;
 }
 
 .mdc-layout-grid {
@@ -43,22 +50,64 @@ b,
   font-weight: 600 !important;
 }
 
+.x-bold {
+  font-weight: 700 !important;
+}
+
 .small {
   font-size: 14px !important;
   line-height: 17px !important;
 }
 
 button.small {
-  font-size: 14px !important;
-  line-height: 17px !important;
+  .mdc-button__label {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+  }
 
+  height: unset;
   padding: 12px 24px;
-  font-weight: 400;
+}
+
+button.x-small {
+  .mdc-button__label {
+    font-size: 12px;
+    line-height: 14.63px;
+    font-weight: 400;
+  }
+
+  height: unset;
+  padding: 10px 14px;
 }
 
 .large {
   font-size: 20px !important;
   line-height: 26px !important;
+}
+
+h1.large {
+  font-size: 44px !important;
+  line-height: 53.64px !important;
+}
+
+h2.large {
+  font-size: 28px !important;
+  line-height: 34.13px !important;
+}
+
+h3,
+.h3 {
+  font-size: 20px;
+  line-height: 24.38px;
+  font-weight: 600;
+}
+
+h3.large,
+.h3.large-bxo {
+  font-size: 24px;
+  line-height: 29.26px;
+  font-weight: 500;
 }
 
 .light {
@@ -70,6 +119,9 @@ button.small {
 }
 .hint {
   color: vars.$grayed;
+}
+.color-black {
+  color: black;
 }
 .color-primary {
   color: vars.$primaryColor;
@@ -93,6 +145,10 @@ button.small {
 
 .vertical-align-middle {
   vertical-align: middle;
+}
+
+.fw-400 {
+  font-weight: 400;
 }
 
 .w-100 {
@@ -127,6 +183,6 @@ footer#app-footer {
   padding: 10px;
 
   @media (min-width: vars.$desktop) {
-    padding: 35px;
+    padding: 24px 35px;
   }
 }

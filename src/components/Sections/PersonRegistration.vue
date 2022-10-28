@@ -48,7 +48,7 @@
           input-id="reg-agree"
           v-model="user_data.allow_data_processed"
       />
-      <label class="hint" for="reg-agree">Согласие на обработку персональных данных</label>
+      <label style="font-size: 14px" class="hint" for="reg-agree">Согласие на обработку персональных данных</label>
     </ui-form-field>
     <div class="mb-3">
       <label for="reg-phone" class="hint mini-heading-color-red" v-if="showErrMessage">{{ errMessage }}</label>
@@ -61,9 +61,9 @@
   </div>
   <div class="col-12 col-xl-8 ms-auto">
     <div class="large bold mb-5">Офис обслуживания</div>
-    <div>Выберите город</div>
+    <div class="mb-3">Выберите город</div>
 
-    <div class="row gy-4 mt-1">
+    <div class="row gy-4">
       <div class="col-12 col-md-5">
         <CustomSelect
           outlined fullwidth value
@@ -72,16 +72,16 @@
         />
 
         <div v-for="item in service_office_list[city_office].services" class="mt-2 city-list">
-          <div class="row align-items-center city-item py-4">
+          <div class="row align-items-center city-item">
             <div class="col-auto">
               <ui-radio v-model="office" :value="item.id" />
             </div>
             <div class="col">
-              <p>
+              <p class="small fw-400">
                 {{ item.address }}
                 <br />тел. {{ item.phone }}<br />{{ item.work_time }}
               </p>
-              <ui-button outlined>Показать на карте</ui-button>
+              <ui-button class="x-small" outlined>Показать на карте</ui-button>
             </div>
           </div>
         </div>
@@ -229,3 +229,16 @@ export default defineComponent({
 });
 
 </script>
+
+<style lang="scss" scoped>
+.city-list {
+  .city-item {
+    border-bottom: 1px solid #d9d9de;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  max-height: 450px;
+  overflow-y: auto;
+}
+</style>

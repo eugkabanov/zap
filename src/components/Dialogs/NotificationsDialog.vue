@@ -11,8 +11,8 @@ import LineBreak from "@/components/LineBreak.vue";
       УВЕДОМЛЕНИЯ
     </h3>
     <div class="row">
-      <div class="col-auto link">Показать непрочитанные (2)</div>
-      <div class="col-auto link clear">Прочитать все</div>
+      <div class="col-auto small link">Показать непрочитанные (2)</div>
+      <div class="ms-auto col-auto small link clear">Прочитать все</div>
     </div>
   </ui-dialog-title>
   <ui-dialog-content>

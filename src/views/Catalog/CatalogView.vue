@@ -263,11 +263,11 @@ const list = [1, 2, 3, 4];
         />
 
         <div class="d-none d-lg-block mb-4 float-block">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col-auto">
-              <h3>Поиск автозапчастей</h3>
+              <div class="h3 large">ПОИСК АВТОЗАПЧАСТЕЙ</div>
             </div>
-            <div class="col-6" style="border-right: 1px solid #d9d9de">
+            <div class="col" style="border-right: 1px solid #d9d9de">
               <SearchFormWithIcon
                 :submit-handler="
                   () => {
@@ -278,10 +278,10 @@ const list = [1, 2, 3, 4];
               автомобиля или Frame номеру"
               />
             </div>
-            <div class="col">
+            <div class="col-auto">
               <RouterLink to="/search-brand">
                 <ui-button raised style="background-color: black; color: white"
-                  >Подбор по марке</ui-button
+                  >ПОДБОР ПО МАРКЕ</ui-button
                 >
               </RouterLink>
             </div>
@@ -290,9 +290,9 @@ const list = [1, 2, 3, 4];
 
         <div class="row flex-column g-4">
           <div class="col">
-            <ProductSection title="Масло" href="/catalog-choose/oil">
+            <ProductSection title="Масла" href="/catalog-choose/oil">
               <template #products>
-                <div class="row g-3">
+                <div class="row gy-3">
                   <article
                     v-for="item of list"
                     v-bind:key="item"
