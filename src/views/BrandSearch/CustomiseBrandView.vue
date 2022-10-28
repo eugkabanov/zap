@@ -3,6 +3,55 @@ import AsideSearch from "../../components/Search/AsideSearch.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
 </script>
 
+<script lang="ts">
+import {defineComponent} from "vue";
+import {mapGetters} from "vuex";
+import CatalogService from "@/services/CatalogService";
+import type ResponseData from "@/types/ResponseData";
+import type CatalogWizard2Object from "@/types/CatalogWizard2Object"
+import AxiosResponse from "axios";
+
+export default defineComponent({
+  name: "brandNameSearch",
+  data() {
+
+    return {
+      catalogWizardList: new Array<CatalogWizard2Object>(),
+
+    };
+  },
+
+  created: function () {
+    CatalogService.catalogWizard2(this.$route.params.brandName)
+        .then((response: AxiosResponse<CatalogWizard2Object[]>) => {
+          
+          for (let entry of response) {
+            console.log(entry); // 1, "string", false
+            this.catalogWizardList.push(entry)
+          }
+
+
+          // response.data.array.forEach(element => {
+            
+          // });
+          // this.catalogWizardList = response.data
+          console.log(this.catalogWizardList)
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+  },
+
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  },
+
+  methods: {
+  },
+});
+</script>
+
 <template>
   <main class="container-fluid py-5">
     <h1 class="mb-5">Оригинальный каталог</h1>
@@ -15,16 +64,16 @@ import CustomSelect from "../../components/CustomSelect.vue";
           </RouterLink>
         </h2>
 
-        <div class="row gy-4">
+        <div class="row gy-4" v-for="catalogWizardItem in catalogWizardList">
           <div class="col-12 col-xl-4">
-            <div class="mb-2">Модель</div>
+            <div class="mb-2">{{ catalogWizardItem.name }}</div>
             <CustomSelect
               outlined
               fullwidth
               :options="[{ label: 'Модель' }]"
             ></CustomSelect>
           </div>
-          <div class="col-12 col-xl-4">
+          <!-- <div class="col-12 col-xl-4">
             <div class="mb-2">Год</div>
             <CustomSelect
               outlined
@@ -79,7 +128,7 @@ import CustomSelect from "../../components/CustomSelect.vue";
               fullwidth
               :options="[{ label: 'Country' }]"
             ></CustomSelect>
-          </div>
+          </div> -->
 
           <div class="mt-5">
             <router-link v-button.raised to="/search-brand/honda/accord"
