@@ -245,7 +245,7 @@ const ordersData = [
 <template>
   <main class="container-fluid pb-5">
     <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5">Заказы</h1>
+    <h1 class="mb-5 mt-0 large">Заказы</h1>
 
     <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
@@ -305,24 +305,21 @@ const ordersData = [
       :thead="ordersDataHead"
       :tbody="ordersDataBody"
     >
-      <template #th-cart>
-        <ui-icon outlined v-tooltip="'Корзина'" aria-describedby="th-cell-0">
-          shopping_cart
-        </ui-icon>
-      </template>
       <template #th-time>
         <ui-icon v-tooltip="'Время'" aria-describedby="th-cell-1">
           schedule
         </ui-icon>
       </template>
       <template #articul="{ data }">
-        <span>{{ data.articul }}</span
+        <span style="text-decoration: underline" class="link">{{
+          data.articul
+        }}</span
         ><ui-icon style="vertical-align: middle" class="hint ms-2">
           lock
         </ui-icon>
       </template>
       <template #cart>
-        <ui-icon class="hint" outlined> shopping_cart </ui-icon>
+        <ui-icon class="hint" filled> shopping_cart </ui-icon>
       </template>
       <template #time>
         <ui-icon class="hint"> schedule </ui-icon>
@@ -435,8 +432,21 @@ const ordersData = [
 @use "@/styles/vars";
 
 .orders-table {
-  .mdc-data-table__cell {
+  .mdc-data-table__row .mdc-data-table__cell,
+  .mdc-data-table__header-row .mdc-data-table__header-cell {
     font-size: 12px;
+
+    &:nth-child(9),
+    &:nth-child(10),
+    &:nth-child(11),
+    &:nth-child(12),
+    &:nth-child(13),
+    &:nth-child(14),
+    &:nth-child(15),
+    &:nth-child(16) {
+      padding-left: 3px;
+      padding-right: 3px;
+    }
   }
   .status {
     border-bottom: 1px dashed vars.$grayed;

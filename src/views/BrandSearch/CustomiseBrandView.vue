@@ -53,18 +53,18 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="container-fluid py-5">
-    <h1 class="mb-5">Оригинальный каталог</h1>
+  <main class="container-fluid pb-5">
+    <h1 class="mb-4 large">Оригинальный каталог</h1>
 
     <div class="row">
       <div class="col-12 col-xl-7">
-        <h2 class="mb-4">
+        <h2 class="mt-0 mb-5 large bold">
           <RouterLink to="/search-brand" class="clear">
             <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda
           </RouterLink>
         </h2>
 
-        <div class="row gy-4" v-for="catalogWizardItem in catalogWizardList">
+        <div class="row gy-5" v-for="catalogWizardItem in catalogWizardList">
           <div class="col-12 col-xl-4">
             <div class="mb-2">{{ catalogWizardItem.name }}</div>
             <CustomSelect
@@ -141,5 +141,7 @@ export default defineComponent({
         <AsideSearch />
       </div>
     </div>
+
+    <div style="height: 100px" />
   </main>
 </template>

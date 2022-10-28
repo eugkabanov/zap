@@ -12,10 +12,10 @@ const onSubmit = () => {
 <template>
   <form @submit.stop.prevent="onSubmit">
     <div class="row">
-      <div class="col-10">
+      <div class="col">
         <ui-textfield outlined fullwidth>{{ placeholder }}</ui-textfield>
       </div>
-      <div class="col-2">
+      <div class="col-auto text-right">
         <ui-fab icon="search" type="submit" style="background-color: #bfbfc3" />
       </div>
     </div>

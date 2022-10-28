@@ -8,8 +8,8 @@ import BalanceBar from "../../components/Profile/BalanceBar.vue";
     <BalanceBar class="ms-auto mt-2 mb-3" />
     <div class="row gy-5">
       <div class="col-12 col-xl-3">
-        <RouterLink class="clear" to="/appeals">
-          <div class="large bold">
+        <RouterLink class="clear mb-4 d-block" to="/appeals">
+          <div class="bold large">
             <ui-icon style="vertical-align: middle" class="hint me-2"
               >arrow_back</ui-icon
             >
@@ -23,39 +23,39 @@ import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
         <div class="mt-3">
           <div class="hint">Дата заявки</div>
-          <div class="large bold">24 июля 2022</div>
+          <div class="bold">24 июля 2022</div>
         </div>
         <div class="mt-3">
           <div class="hint">Категория</div>
-          <div class="large bold">Рекламация</div>
+          <div class="bold">Рекламация</div>
         </div>
         <div class="mt-3">
           <div class="hint">Дата заказа</div>
-          <div class="large bold">18 июля 2022</div>
+          <div class="bold">18 июля 2022</div>
         </div>
         <div class="mt-3">
           <div class="hint">Номер счета</div>
-          <div class="large bold">ООО-455848</div>
+          <div class="bold">ООО-455848</div>
           <div class="mt-3">
             <div class="hint">Деталь</div>
-            <div class="large bold">RYTSON DW9Z351269</div>
+            <div class="bold">RYTSON DW9Z351269</div>
             <div class="large">Фара правая</div>
           </div>
           <div class="mt-3">
             <div class="hint">Комментарий</div>
-            <div class="large bold">22251115202001</div>
+            <div class="bold">22251115202001</div>
           </div>
           <div class="mt-3">
             <div class="hint">Сумма</div>
-            <div class="large bold">16 810 ₽</div>
+            <div class="bold">16 810 ₽</div>
           </div>
           <div class="mt-3">
             <div class="hint">Поставщик</div>
-            <div class="large bold">VEO (4)</div>
+            <div class="bold">VEO (4)</div>
           </div>
           <div class="mt-3">
             <div class="hint">Статус</div>
-            <div class="large bold">Возврат произведен (0/5)</div>
+            <div class="bold">Возврат произведен (0/5)</div>
           </div>
         </div>
       </div>

@@ -64,9 +64,8 @@ onMounted(() => {
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
     <div class="row align-items-center">
-      <div class="row align-items-center col-xl-4">
+      <div class="row align-items-center col-xl-4 pt-5">
         <div class="col-auto">
           <h1>Баланс</h1>
         </div>
@@ -81,9 +80,19 @@ onMounted(() => {
           </ui-datepicker>
         </div>
       </div>
-      <div class="col-auto ms-auto">
-        <ui-alert state="error" closable
-          >Внимание! Необходимо оплатить заказ</ui-alert
+      <div class="col-12 col-md-6 ms-auto">
+        <ui-alert state="warning" closable
+          ><div class="row">
+            <div class="col-auto">Внимание! Необходимо оплатить заказ</div>
+            <div class="col text-center">
+              <RouterLink to="/">
+                Перейти к заказу
+                <ui-icon class="vertical-align-middle"
+                  >chevron_right</ui-icon
+                ></RouterLink
+              >
+            </div>
+          </div></ui-alert
         >
       </div>
     </div>
@@ -208,6 +217,7 @@ onMounted(() => {
   <ui-dialog
     v-model="isWarningOpen"
     maskClosable
+    sheet
     class="balance-warning-dialog"
   >
     <BalanceWarnDialog />

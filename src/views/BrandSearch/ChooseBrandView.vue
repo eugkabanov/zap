@@ -82,14 +82,14 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="py-5 container-fluid">
-    <h1 class="mb-5">Оригинальный каталог</h1>
+  <main class="pb-5 container-fluid">
+    <h1 class="mb-4 large">Оригинальный каталог</h1>
     <div class="row">
       <div class="col-12 col-xl-7">
-        <h3 class="mb-4">Марка автомобиля</h3>
+        <h2 class="mb-4 large bold">Марка автомобиля</h2>
 
         <div class="col-12 col-md-8 col-xl-6 mb-4">
-          <ui-textfield fullwidth outlined>Поиск марки</ui-textfield>
+          <ui-textfield fullwidth>Поиск марки</ui-textfield>
         </div>
 
         <div class="row">

@@ -1,68 +1,3 @@
-<script lang="ts">
-import LineBreak from "../LineBreak.vue";
-import LoginDialog from "../Dialogs/LoginDialog.vue";
-import NotificationsDialog from "../Dialogs/NotificationsDialog.vue";
-import ProfileDialog from "../Dialogs/ProfileDialog.vue";
-import {defineComponent} from "vue";
-import {store} from "@/store";
-import {LOGOUT} from "@/store/actions_type";
-import {mapGetters} from "vuex";
-import type UserDataInfo from "@/types/UserDataInfo";
-
-
-export default defineComponent({
-  name: "page-header",
-  components: {
-    LineBreak: LineBreak,
-    LoginDialog: LoginDialog,
-    NotificationsDialog: NotificationsDialog,
-    ProfileDialog: ProfileDialog
-  },
-  data() {
-
-    return {
-      isLoginOpen: false,
-      isAuthorisedUser: false,
-      isProfileDialogOpen: false,
-      isNotificationOpen: false,
-      isNavMenuOpen: false,
-      user_data_info: {} as UserDataInfo
-    };
-  },
-
-  created: function () {},
-
-  computed: {
-    ...mapGetters(["isAuthenticated"])
-  },
-
-  methods: {
-    openLogin() {
-      this.isLoginOpen = true
-    },
-    onNotificationClick() {
-      this.isNotificationOpen = true
-      this.closeProfileDialog()
-    },
-    closeLoginDialog() {
-      this.isLoginOpen = false
-    },
-    logout() {
-      store.dispatch(LOGOUT)
-      this.isAuthorisedUser = false
-      this.isProfileDialogOpen = false
-    },
-    openProfileDialog() {
-      this.isProfileDialogOpen = true
-    },
-    closeProfileDialog() {
-      this.isProfileDialogOpen = false
-    },
-  },
-});
-</script>
-
-
 <template>
   <ui-drawer type="modal" v-model="isNavMenuOpen">
     <ui-drawer-header>
@@ -175,21 +110,103 @@ export default defineComponent({
       </div>
     </div>
   </header>
+
+  <ui-dialog
+      v-model="isProfileDialogOpen"
+      sheet
+      maskClosable
+      class="profile-dialog"
+  >
     <ProfileDialog
-      v-if="isProfileDialogOpen"
       :close-profile-dialog="closeProfileDialog"
       :on-notification-click="onNotificationClick"
       :on-logout="logout"
-    />
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
-    <LoginDialog
-      :closeDialog="closeLoginDialog"
-      @isAuthorisedUser="this.isAuthorisedUser = true"
-      @isLoginOpen="this.isLoginOpen = false"
+      v-bind:login="profile_user_data_info.login"
     />
   </ui-dialog>
+  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+    <LoginDialog
+      @closeDialog="closeLoginDialog"
+      @isAuthorisedUser="authorisedUser"
+      @isLoginOpen="loginOpen"
+    />
+  </ui-dialog>
+  <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
     <NotificationsDialog v-if="isNotificationOpen" />
+  </ui-dialog>
 </template>
+
+<script lang="ts">
+import LineBreak from "../LineBreak.vue";
+import LoginDialog from "../Dialogs/LoginDialog.vue";
+import NotificationsDialog from "../Dialogs/NotificationsDialog.vue";
+import ProfileDialog from "../Dialogs/ProfileDialog.vue";
+import {defineComponent} from "vue";
+import {store} from "@/store";
+import {LOGOUT} from "@/store/actions_type";
+import {mapGetters} from "vuex";
+import type UserDataInfo from "@/types/UserDataInfo";
+
+
+export default defineComponent({
+  name: "page-header",
+  components: {
+    LineBreak: LineBreak,
+    LoginDialog: LoginDialog,
+    NotificationsDialog: NotificationsDialog,
+    ProfileDialog: ProfileDialog
+  },
+  data() {
+
+    return {
+      profile_user_data_info: {} as UserDataInfo,
+      isLoginOpen: false,
+      isAuthorisedUser: false,
+      isProfileDialogOpen: false,
+      isNotificationOpen: false,
+      isNavMenuOpen: false,
+      user_data_info: {} as UserDataInfo
+    };
+  },
+
+  created: function () {},
+
+  computed: {
+    ...mapGetters(["isAuthenticated", "currentUser"])
+  },
+
+  methods: {
+    loginOpen() {
+      this.isLoginOpen = false
+    },
+    authorisedUser() {
+      this.isAuthorisedUser = true
+    },
+    openLogin() {
+      this.isLoginOpen = true
+    },
+    onNotificationClick() {
+      this.isNotificationOpen = true
+      this.closeProfileDialog()
+    },
+    closeLoginDialog() {
+      this.isLoginOpen = false
+    },
+    logout() {
+      store.dispatch(LOGOUT)
+      this.isAuthorisedUser = false
+      this.isProfileDialogOpen = false
+    },
+    openProfileDialog() {
+      this.profile_user_data_info = store.getters.currentUser
+      this.isProfileDialogOpen = true
+    },
+    closeProfileDialog() {
+      this.isProfileDialogOpen = false
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 @use "@/styles/vars";
@@ -264,7 +281,7 @@ header#app-header {
 .login-dialog {
   .mdc-dialog__surface {
     @media (min-width: vars.$desktop) {
-      max-width: 640px !important;
+      max-width: 476px !important;
     }
   }
 }

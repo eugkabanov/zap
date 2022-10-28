@@ -53,14 +53,14 @@ const productTypesData = [
 </script>
 
 <template>
-  <main class="container-fluid py-5">
-    <h1 class="mb-5">
+  <main class="container-fluid pb-5">
+    <h1 class="mb-4 large">
       <ui-icon-button class="d-xl-none" v-model="isFiltersOpen"
         >menu_open</ui-icon-button
       >Оригинальный каталог
     </h1>
 
-    <h2 class="mb-4">
+    <h2 class="mb-5 large bold">
       <RouterLink to="/search-brand/honda" class="clear">
         <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda Accord
       </RouterLink>
@@ -82,7 +82,7 @@ const productTypesData = [
           <template #choose>
             <router-link
               to="/search-brand/honda/accord/cupe"
-              style="height: 30px; padding: 0px 10px; font-size: 12px"
+              style="height: 35px; padding: 3px 10px; font-size: 12px"
               v-button.outlined
               >Выбрать</router-link
             >
