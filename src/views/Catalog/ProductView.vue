@@ -118,7 +118,14 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
 
               <div :class="$tt('body1')">Количество:</div>
               <ui-form-field>
-                <ui-textfield outlined fullwidth />
+                <ui-textfield outlined fullwidth>
+                  <template #after>
+                    <ui-textfield-icon>add</ui-textfield-icon>
+                  </template>
+                  <template #before>
+                    <ui-textfield-icon>remove</ui-textfield-icon>
+                  </template>
+                </ui-textfield>
               </ui-form-field>
               <ui-button class="d-block mt-4" raised @click="showAddedProduct"
                 >Заказать</ui-button

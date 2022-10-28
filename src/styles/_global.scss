@@ -96,10 +96,18 @@ h2.large {
   line-height: 34.13px !important;
 }
 
-h3 {
-  font-size: 20;
+h3,
+.h3 {
+  font-size: 20px;
   line-height: 24.38px;
   font-weight: 600;
+}
+
+h3.large,
+.h3.large-bxo {
+  font-size: 24px;
+  line-height: 29.26px;
+  font-weight: 500;
 }
 
 .light {
@@ -175,6 +183,6 @@ footer#app-footer {
   padding: 10px;
 
   @media (min-width: vars.$desktop) {
-    padding: 35px;
+    padding: 24px 35px;
   }
 }
