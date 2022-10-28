@@ -43,10 +43,11 @@ const addressDataHead = [
 </script>
 
 <template>
-  <div class="large bold mb-4">Реквизиты</div>
+  <div class="large bold mb-4">Адрес по умолчанию</div>
 
   <ui-table
     fullwidth
+    class="mdc-data-table--last-select"
     :data="addressData"
     :thead="addressDataHead"
     :tbody="addressDataBody"

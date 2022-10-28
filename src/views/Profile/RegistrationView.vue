@@ -21,7 +21,7 @@ const registrationTypes = [
 <template>
   <main class="pb-5 container-fluid">
     <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-3">Регистрация</h1>
+    <h1 class="mb-5 mt-0 large">Регистрация</h1>
 
     <ui-chips
       v-model="registrationType"

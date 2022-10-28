@@ -21,6 +21,10 @@ body {
   margin: 0;
 }
 
+main {
+  min-height: 730px;
+}
+
 .mdc-layout-grid {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
@@ -46,17 +50,35 @@ b,
   font-weight: 600 !important;
 }
 
+.x-bold {
+  font-weight: 700 !important;
+}
+
 .small {
   font-size: 14px !important;
   line-height: 17px !important;
 }
 
 button.small {
-  font-size: 14px !important;
-  line-height: 17px !important;
+  .mdc-button__label {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 400;
+  }
 
+  height: unset;
   padding: 12px 24px;
-  font-weight: 400;
+}
+
+button.x-small {
+  .mdc-button__label {
+    font-size: 12px;
+    line-height: 14.63px;
+    font-weight: 400;
+  }
+
+  height: unset;
+  padding: 10px 14px;
 }
 
 .large {
@@ -90,6 +112,9 @@ h3 {
 .hint {
   color: vars.$grayed;
 }
+.color-black {
+  color: black;
+}
 .color-primary {
   color: vars.$primaryColor;
 }
@@ -112,6 +137,10 @@ h3 {
 
 .vertical-align-middle {
   vertical-align: middle;
+}
+
+.fw-400 {
+  font-weight: 400;
 }
 
 .w-100 {

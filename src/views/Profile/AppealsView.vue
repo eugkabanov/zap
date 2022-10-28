@@ -70,7 +70,7 @@ const appealsData = [
 <template>
   <main class="container-fluid pb-5">
     <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5">Вопросы по заказам</h1>
+    <h1 class="mb-5 mt-0 large">Вопросы по заказам</h1>
 
     <div class="row align-items-center mb-4">
       <div class="col-12 col-xl-auto">
@@ -87,6 +87,7 @@ const appealsData = [
     </div>
 
     <ui-table
+      id="appeals"
       class="dark"
       fullwidth
       :data="appealsData"
@@ -117,3 +118,11 @@ const appealsData = [
     </ui-table>
   </main>
 </template>
+
+<style lang="scss" scoped>
+#appeals {
+  .mdc-data-table__cell:first-child {
+    position: absolute;
+  }
+}
+</style>

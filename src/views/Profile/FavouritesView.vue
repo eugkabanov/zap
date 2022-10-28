@@ -22,20 +22,24 @@ const onGarageClick = () => {
         </ui-form-field>
       </div>
       <div class="col-auto hint link">
-        <ui-icon type="outlined" class="me-2" style="vertical-align: middle"
-          >delete</ui-icon
+        <ui-icon class="me-2" style="vertical-align: middle"
+          >delete_outline</ui-icon
         >
         Удалить выбранное
       </div>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 col-12 col-xl-9">
       <div class="mb-4 mb-md-0 row favourite-item row align-items-center">
         <div class="col-auto">
           <ui-checkbox value="all" />
         </div>
         <div class="col-9 col-md-auto">
-          <img src="@/assets/catalog/wheel.png" alt="product image" />
+          <img
+            src="@/assets/catalog/wheel.png"
+            alt="product image"
+            style="height: 104px"
+          />
         </div>
         <div class="col">
           <div class="d-md-none bold large">5841 ₽</div>
@@ -43,7 +47,7 @@ const onGarageClick = () => {
             <span class="hint">Бренд: </span>NOKIAN
             <span class="ms-4 hint">Артикул: </span>TS32701
           </div>
-          <div class="mt-3 bold">
+          <div class="mt-3 x-bold">
             Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
           </div>
           <div class="mt-5">
@@ -76,7 +80,11 @@ const onGarageClick = () => {
           <ui-checkbox value="all" />
         </div>
         <div class="col-9 col-md-auto">
-          <img src="@/assets/catalog/wheel.png" alt="product image" />
+          <img
+            src="@/assets/catalog/wheel.png"
+            alt="product image"
+            style="height: 104px"
+          />
         </div>
         <div class="col">
           <div class="d-md-none bold large">5841 ₽</div>
@@ -84,7 +92,7 @@ const onGarageClick = () => {
             <span class="hint">Бренд: </span>NOKIAN
             <span class="ms-4 hint">Артикул: </span>TS32701
           </div>
-          <div class="mt-3 bold">
+          <div class="mt-3 x-bold">
             Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
           </div>
           <div class="mt-5">
@@ -115,13 +123,21 @@ const onGarageClick = () => {
     </div>
   </main>
 
-  <ui-dialog v-model="isGarageDialogOpen" sheet>
+  <ui-dialog class="add-garage" v-model="isGarageDialogOpen" sheet>
     <GarageDialog />
   </ui-dialog>
 </template>
 
 <style lang="scss" scoped>
 @use "@/styles/vars";
+
+.add-garage {
+  @media (min-width: vars.$desktop) {
+    .mdc-dialog__container {
+      width: 512px;
+    }
+  }
+}
 .favourite-item {
   padding-top: 24px;
   padding-bottom: 24px;

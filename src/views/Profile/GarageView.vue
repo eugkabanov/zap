@@ -46,8 +46,8 @@ const parkData = [
     <BalanceBar class="ms-auto mt-2 mb-3" />
     <h1>Гараж</h1>
 
-    <div class="mt-4 row">
-      <div class="col-auto mr-lg-3">AUDI A6/Avant</div>
+    <div class="mt-4 row align-items-center">
+      <div class="col-auto mr-lg-3 bold large">AUDI A6/Avant</div>
       <div class="col-auto link">Список деталей</div>
       <div class="col-auto link">История заказов</div>
       <div class="col-auto link">Каталог</div>

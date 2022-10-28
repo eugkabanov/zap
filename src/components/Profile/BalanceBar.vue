@@ -13,7 +13,7 @@
         <span class="bold ms-2">565 </span>
       </div>
       <div class="col-auto balance-bar__item">
-        <ui-icon class="vertical-align-middle">contact_support</ui-icon>
+        <ui-icon outlined class="vertical-align-middle">contact_support</ui-icon>
         <span class="ms-2">Вопросы по заказам</span>
       </div>
     </div>

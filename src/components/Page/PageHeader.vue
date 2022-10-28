@@ -242,7 +242,7 @@ header#app-header {
 .login-dialog {
   .mdc-dialog__surface {
     @media (min-width: vars.$desktop) {
-      max-width: 640px !important;
+      max-width: 476px !important;
     }
   }
 }
