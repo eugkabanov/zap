@@ -1,21 +1,24 @@
 import {
     AUTH,
-    LOGOUT
+    LOGOUT,
+    USER_ME
 } from "@/store/actions_type";
 import UserDataService from "@/services/UserDataService";
 import jwt_service from "@/http-common/jwt_service";
 import type UserDataAuth from "@/types/UserDataAuth";
-import {SET_AUTH, PURGE_AUTH } from "@/store/mutations_type";
+import {SET_AUTH, PURGE_AUTH, SET_USER_DATA} from "@/store/mutations_type";
+import type UserDataInfo from "@/types/UserDataInfo";
 
 const state = {
+  userData: {},
   errors: null,
   isAuthenticated: false
 };
 
 const getters = {
-  // currentUser(state: any) {
-  //   return state.user;
-  // },
+  currentUser(state: any) {
+    return state.userData;
+  },
   isAuthenticated(state: any) {
     return state.isAuthenticated;
   }
@@ -27,7 +30,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       UserDataService.auth(userDataAuth)
         .then(({ data }) => {
-            console.log(data)
             jwt_service.saveToken(data.access_token)
             context.commit(SET_AUTH)
             resolve(data);
@@ -38,6 +40,19 @@ const actions = {
           });
     });
   },
+
+    [USER_ME](context: any) {
+        return new Promise((resolve, reject) => {
+            UserDataService.userMe()
+                .then((data) => {
+                    context.commit(SET_USER_DATA, data.data)
+                    resolve(data)
+                })
+                .catch((e: Error) => {
+                    console.log(e);
+                })
+        });
+    },
 
     [LOGOUT](context: any) {
         return new Promise((resolve, reject) => {
@@ -52,7 +67,10 @@ const mutations = {
   },
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false
-  }
+  },
+  [SET_USER_DATA](state: any, userData: UserDataInfo) {
+    state.userData = userData
+  },
 };
 
 export default {

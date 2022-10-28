@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<!--<script setup lang="ts">-->
 
-defineProps<{
-  closeDialog: (payload: MouseEvent) => void;
-}>();
-</script>
+<!--defineProps<{-->
+<!--  closeLoginDialog: (payload: MouseEvent) => void;-->
+<!--}>();-->
+<!--</script>-->
 
 <script lang="ts">
 import LineBreak from "../LineBreak.vue";
@@ -11,10 +11,10 @@ import {defineComponent} from "vue";
 import type UserDataAuth from "@/types/UserDataAuth";
 import type ResponseData from "@/types/ResponseData";
 import {store} from "@/store";
-import {AUTH} from "@/store/actions_type";
-import UserDataService from "@/services/UserDataService";
+import {AUTH, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
+import router from "@/router";
 
 
 export default defineComponent({
@@ -37,6 +37,9 @@ export default defineComponent({
   },
 
   methods: {
+    closeLoginDialog() {
+      this.$emit('closeDialog')
+    },
     authUser() {
       this.user_data_auth = {
         login: this.user_data_auth.login,
@@ -47,10 +50,10 @@ export default defineComponent({
           .then((data: ResponseData) => {
             this.$emit("isAuthorisedUser")
             this.$emit('isLoginOpen')
-            this.$router.push({name: "catalog"})
-            UserDataService.userMe()
-                .then((response: ResponseData) => {
-                  this.user_data_info.login = response.data.username
+            this.$emit('closeDialog')
+            store.dispatch(USER_ME)
+                .then((data: ResponseData) => {
+                  router.push({path: "/catalog"})
                 })
                 .catch((e: Error) => {
                   console.log(e);
@@ -140,7 +143,7 @@ export default defineComponent({
       <LineBreak class="my-3" />
 
       <div class="text-center">
-        <RouterLink @click="closeDialog" to="/register">
+        <RouterLink @click="closeLoginDialog" to="/register">
           <ui-button>ЗАРЕГИСТРИРОВАТЬСЯ</ui-button>
         </RouterLink>
       </div>

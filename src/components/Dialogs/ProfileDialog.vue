@@ -1,16 +1,6 @@
-<script setup lang="ts">
-import LineBreak from "@/components/LineBreak.vue";
-
-defineProps<{
-  closeProfileDialog: (payload: MouseEvent) => void;
-  onNotificationClick: (payload: MouseEvent) => void;
-  onLogout: (payload: MouseEvent) => void;
-}>();
-</script>
-
 <template>
   <ui-dialog-title>
-    <div :class="$tt('body1')" class="bold large">Сергей Иванов</div>
+    <div :class="$tt('body1')" class="bold large">{{ login }}</div>
   </ui-dialog-title>
 
   <ui-dialog-content>
@@ -134,3 +124,43 @@ defineProps<{
     </div>
   </ui-dialog-content>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  closeProfileDialog: (payload: MouseEvent) => void;
+  onNotificationClick: (payload: MouseEvent) => void;
+  onLogout: (payload: MouseEvent) => void;
+  login: String;
+}>();
+</script>
+
+<script lang="ts">
+
+import {defineComponent} from "vue";
+import LineBreak from "@/components/LineBreak.vue";
+import {mapGetters} from "vuex";
+
+export default defineComponent({
+  name: "ProfileDialog",
+  components: {
+    LineBreak: LineBreak
+  },
+  data() {
+
+    return {
+    };
+  },
+
+  created: function () {
+  },
+
+  computed: {
+    ...mapGetters(["isAuthenticated", "currentUser"])
+  },
+
+  methods: {
+  },
+
+});
+
+</script>

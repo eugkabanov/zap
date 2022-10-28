@@ -86,8 +86,8 @@ const similarSearchData = [
 </script>
 
 <template>
-  <main class="py-5 container-fluid">
-    <h1 class="mb-5">
+  <main class="pb-5 container-fluid">
+    <h1 class="large mb-5">
       <ui-icon-button class="d-xl-none" v-model="isSearchFiltersOpen"
         >menu_open</ui-icon-button
       >Артикул TS32701
@@ -96,7 +96,7 @@ const similarSearchData = [
 
     <div class="row">
       <div class="col-12 col-xl-8">
-        <div class="mb-5">
+        <div style="margin-bottom: 40px">
           <ui-table
             fullwidth
             :data="searchData"
@@ -112,7 +112,9 @@ const similarSearchData = [
           </ui-table>
         </div>
         <div v-if="isSimilarShow">
-          <h2 class="mb-5">Аналоги других производителей</h2>
+          <h2 style="font-size: 30px" class="mb-5">
+            Аналоги других производителей
+          </h2>
           <ui-tab-bar class="mb-4">
             <ui-tab min-width content-indicator>По цене</ui-tab>
             <ui-tab min-width content-indicator>По производителю</ui-tab>

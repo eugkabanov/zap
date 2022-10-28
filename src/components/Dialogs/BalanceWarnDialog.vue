@@ -1,7 +1,11 @@
 <template>
-  <ui-dialog-content>
-    <div class="mb-2 bold text-center">ВНИМАНИЕ!</div>
-    <div class="bold text-center">Необходимо оплатить заказ</div>
+  <ui-dialog-content class="pt-5">
+    <div style="color: black" class="mb-2 large bold text-center">
+      ВНИМАНИЕ!
+    </div>
+    <div style="color: black" class="bold large text-center">
+      Необходимо оплатить заказ
+    </div>
 
     <div class="mt-4 row">
       <div class="col-auto mx-auto">

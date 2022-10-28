@@ -66,77 +66,117 @@
     <div class="mb-3">
       <label class="d-block mb-2">Режим работы</label>
       <div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">пн</div>
+          <div class="col-auto ml-2 px-0">пн</div>
           <div class="col-auto ml-3">
             <span class="hint">с&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
             <span class="hint">&nbsp;до&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
           </div>
         </div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">вт</div>
+          <div class="col-auto ml-2 px-0">вт</div>
           <div class="col-auto ml-3">
             <span class="hint">с&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
             <span class="hint">&nbsp;до&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
           </div>
         </div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">ср</div>
+          <div class="col-auto ml-2 px-0">ср</div>
           <div class="col-auto ml-3">
             <span class="hint">с&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
             <span class="hint">&nbsp;до&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
           </div>
         </div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">чт</div>
+          <div class="col-auto ml-2 px-0">чт</div>
           <div class="col-auto ml-3">
             <span class="hint">с&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
             <span class="hint">&nbsp;до&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
           </div>
         </div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">пт</div>
+          <div class="col-auto ml-2 px-0">пт</div>
           <div class="col-auto ml-3">
             <span class="hint">с&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
             <span class="hint">&nbsp;до&nbsp;</span>
-            <ui-textfield style="width: 85px" outlined />
+            <ui-textfield
+              class="small"
+              style="width: 54px; height: 25px; padding: 0 8px"
+              outlined
+            />
           </div>
         </div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">сб</div>
+          <div class="col-auto ml-2 px-0">сб</div>
         </div>
-        <div class="row align-items-center mb-2">
-          <div class="col-auto">
+        <div class="row align-items-center mb-1">
+          <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2">вс</div>
+          <div class="col-auto ml-2 px-0">вс</div>
         </div>
       </div>
     </div>

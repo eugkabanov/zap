@@ -8,7 +8,7 @@ import CustomSelect from "@/components/CustomSelect.vue";
     <div class="row align-items-center">
       <div class="col-3">Товар</div>
       <div class="col offset-1">
-        <div class="bold">
+        <div class="color-black bold">
           Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
         </div>
       </div>

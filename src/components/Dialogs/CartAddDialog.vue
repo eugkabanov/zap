@@ -34,12 +34,14 @@ defineProps<{
     <div class="row g-3 mt-4">
       <div class="col-12 col-md-6">
         <ui-button class="w-100" outlined @click="hideAddedProduct"
-          >Продолжить покупки</ui-button
+          >Продолжить&nbsp;покупки</ui-button
         >
       </div>
       <div class="col-12 col-md-6">
         <RouterLink to="/cart">
-          <ui-button class="w-100" raised>Перейти в корзину</ui-button>
+          <ui-button class="w-100" raised
+            >Перейти&nbsp;в&nbsp;корзину</ui-button
+          >
         </RouterLink>
       </div>
     </div>
