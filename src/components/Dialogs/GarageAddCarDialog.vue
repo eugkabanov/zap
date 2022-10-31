@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import IconQuestionBlue from "@/components/icons/iconQuestionBlue.vue";
+</script>
+
 <template>
   <ui-dialog-title class="mb-4">
     <div style="font-size: 24px; font-weight: 700">ГАРАЖ</div>
@@ -49,14 +53,13 @@
     <div class="mb-3 row align-items-center">
       <label class="color-black col-3"
         >СТС
-        <ui-icon
-          v-tooltip="'Укажите СТС и можете оплачивать штрафы'"
-          aria-describedby="tooltip"
-          :dark="false"
-        >
-          contact_support
-        </ui-icon></label
-      >
+        <IconQuestionBlue data-tooltip-id="tlp-1" />
+        <ui-tooltip-anchor>
+          <ui-tooltip id="tlp-1">
+            Укажите СТС и можете оплачивать штрафы
+          </ui-tooltip>
+        </ui-tooltip-anchor>
+      </label>
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth />
       </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
 import LineBreak from "@/components/LineBreak.vue";
 
 defineProps<{
@@ -80,7 +81,7 @@ defineProps<{
         class="row align-items-center clear mb-4"
       >
         <div class="col-auto">
-          <ui-icon outlined>contact_support</ui-icon>
+          <IconQuestionBlack />
         </div>
         <div class="col">
           <div :class="$tt('body1')">Вопросы по заказам</div>
