@@ -43,11 +43,17 @@ const citiesList = [
   </div>
   <div class="col-12 col-xl-8 ms-auto">
     <div class="large bold mb-5">Офис обслуживания</div>
-    <div class="mb-3">Выберите город</div>
+    <div class="mb-2">Выберите город</div>
 
     <div class="row gy-4">
       <div class="col-12 col-md-5">
-        <CustomSelect outlined fullwidth value :options="citiesList" />
+        <CustomSelect
+          id="city-select"
+          outlined
+          fullwidth
+          value
+          :options="citiesList"
+        />
 
         <div class="mt-2 city-list">
           <div class="row align-items-center city-item">
@@ -133,5 +139,6 @@ const citiesList = [
 
   max-height: 450px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>

@@ -45,6 +45,10 @@ a,
   }
 }
 
+.thin {
+  font-weight: 400 !important;
+}
+
 b,
 .bold {
   font-weight: 600 !important;
@@ -185,4 +189,8 @@ footer#app-footer {
   @media (min-width: vars.$desktop) {
     padding: 24px 35px;
   }
+}
+
+#city-select .mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
+  font-weight: 600 !important;
 }

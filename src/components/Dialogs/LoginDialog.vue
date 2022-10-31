@@ -17,11 +17,13 @@ defineProps<{
 
   <ui-dialog-content>
     <div class="mt-4">
-      <label class="hint" for="login-name">Логин</label>
+      <div class="mb-2"><label class="hint" for="login-name">Логин</label></div>
       <ui-textfield input-id="login-name" outlined fullwidth />
     </div>
     <div class="mt-3">
-      <label class="hint" for="login-password">Пароль</label>
+      <div class="mb-2">
+        <label class="hint" for="login-password">Пароль</label>
+      </div>
       <ui-textfield
         input-id="login-password"
         outlined
@@ -39,7 +41,7 @@ defineProps<{
       </div>
       <div class="col-auto ms-auto">
         <RouterLink to="/recover">
-          <div :class="$tt('body1')" class="hint">Забыли пароль?</div>
+          <div :class="$tt('body1')" class="hint thin">Забыли пароль?</div>
         </RouterLink>
       </div>
     </div>
@@ -48,7 +50,7 @@ defineProps<{
       >Войти</ui-button
     >
 
-    <div class="row mt-3">
+    <div class="row" style="margin-top: 32px">
       <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
 
       <div class="mt-2 row g-2 justify-content-xl-between">

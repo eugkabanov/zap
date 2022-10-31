@@ -48,13 +48,17 @@ const dealersData = [
 
 <template>
   <div class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5">
-      <ui-icon-button class="d-xl-none me-2" v-model="isFiltersOpen"
-        >menu_open</ui-icon-button
-      >
-      Поставщики
-    </h1>
+    <div class="row">
+      <h1 class="my-5 col-auto">
+        <ui-icon-button class="d-xl-none me-2" v-model="isFiltersOpen"
+          >menu_open</ui-icon-button
+        >
+        Поставщики
+      </h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row">
       <aside class="d-none d-xl-block col-xl-3">

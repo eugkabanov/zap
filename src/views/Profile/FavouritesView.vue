@@ -11,8 +11,14 @@ const onGarageClick = () => {
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1>Избранное <span :class="$tt('body2')" class="hint">2 товара</span></h1>
+    <div class="row">
+      <h1 class="col-auto mt-5">
+        Избранное <span :class="$tt('body2')" class="hint">2 товара</span>
+      </h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="mt-4 row justify-content-between">
       <div class="col">

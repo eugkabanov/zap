@@ -244,8 +244,12 @@ const ordersData = [
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5 mt-0 large">Заказы</h1>
+    <div class="row">
+      <h1 class="col-auto my-5 large">Заказы</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">

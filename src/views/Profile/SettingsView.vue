@@ -11,8 +11,12 @@ const selectedTab = ref(0);
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1>Настройки профиля</h1>
+    <div class="row">
+      <h1 class="col-auto mt-5">Настройки профиля</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="col-12 col-xl-8">
       <ui-tab-bar v-model="selectedTab">

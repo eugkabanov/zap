@@ -29,7 +29,8 @@
 
 @use "@material/textfield" with (
   $height: 52px,
-  $shape-radius: 0
+  $shape-radius: 0,
+  $outlined-idle-border: #bfbfc3
 );
 @use "@material/select/select-theme" with (
   $height: 52px,
@@ -68,6 +69,12 @@
 );
 
 @use "balm-ui/dist/balm-ui";
+
+.mdc-typography,
+.mdc-form-field,
+.mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
+  color: black;
+}
 
 .mdc-tab-indicator .mdc-tab-indicator__content--underline {
   border-top-width: 4px;
@@ -260,4 +267,13 @@
 .mdc-dialog .mdc-dialog__close .mdc-icon-button__ripple::before,
 .mdc-dialog .mdc-dialog__close .mdc-icon-button__ripple::after {
   background-color: unset;
+}
+
+.mdc-checkbox .mdc-checkbox__ripple::before,
+.mdc-checkbox .mdc-checkbox__ripple::after {
+  background-color: unset !important;
+}
+
+.mdc-dialog .mdc-dialog__close {
+  color: #9898a0;
 }
