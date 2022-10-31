@@ -227,12 +227,6 @@ header#app-header {
   .header-item span {
     margin-left: 10px;
   }
-
-  .login-dialog {
-    &__title {
-      text-transform: uppercase;
-    }
-  }
 }
 </style>
 

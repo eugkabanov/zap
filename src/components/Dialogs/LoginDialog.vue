@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <!-- leave title for close action -->
   <ui-dialog-title>
-    <div :class="$tt('body1')" class="bold large login-dialog__title">
+    <div :class="$tt('body1')" class="mt-4 large login-dialog__title">
       Личный кабинет
     </div>
   </ui-dialog-title>
@@ -85,3 +85,11 @@ defineProps<{
     </div>
   </ui-dialog-content>
 </template>
+
+<style lang="scss" scoped>
+.login-dialog__title {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+</style>
