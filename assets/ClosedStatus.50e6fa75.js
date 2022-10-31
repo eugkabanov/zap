@@ -1,0 +1,1 @@
+import{_ as e,o as s,c as t}from"./index.b4d1589e.js";const _={},c={class:"status"};function o(a,d){return s(),t("div",c,"\u0417\u0430\u043A\u0440\u044B\u0442\u0430")}const r=e(_,[["render",o],["__scopeId","data-v-e6d01d17"]]);export{r as C};
