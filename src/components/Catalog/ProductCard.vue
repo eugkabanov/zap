@@ -24,7 +24,7 @@ defineProps<{
     <div class="small bold">{{ title }}</div>
     <div class="small hint">{{ brand }}</div>
     <div class="small hint">Артикул: {{ inventoryId }}</div>
-    <div :class="$tt('body1')" class="large my-1">{{ price }}&nbsp;₽</div>
+    <div :class="$tt('body1')" class="large my-2">{{ price }}&nbsp;₽</div>
     <ui-button raised>В&nbsp;корзину</ui-button>
   </RouterLink>
 </template>

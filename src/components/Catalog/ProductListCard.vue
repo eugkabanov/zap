@@ -35,52 +35,62 @@ defineProps<{
       <div class="col-12 col-md-6 col-xxl-5 pe-5">
         <div class="hint">
           <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Ширина</div>
+            <div class="col-auto small" :class="$tt('body2')">Ширина</div>
             <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">245</div>
+            <div class="col-auto small" :class="$tt('body2')">245</div>
           </div>
           <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Высота</div>
+            <div class="col-auto small" :class="$tt('body2')">Высота</div>
             <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">60</div>
+            <div class="col-auto small" :class="$tt('body2')">60</div>
           </div>
           <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Диаметр</div>
+            <div class="col-auto small" :class="$tt('body2')">Диаметр</div>
             <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">18</div>
+            <div class="col-auto small" :class="$tt('body2')">18</div>
           </div>
           <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Сезон</div>
+            <div class="col-auto small" :class="$tt('body2')">Сезон</div>
             <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">Зимняя</div>
+            <div class="col-auto small" :class="$tt('body2')">Зимняя</div>
           </div>
           <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Индекс нагрузки</div>
-            <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">109</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Индекс скорости</div>
-            <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">T</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">Тип конструкции</div>
-            <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">R</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-auto" :class="$tt('body2')">
-              Увеличенная грузоподъемность
+            <div class="col-auto small" :class="$tt('body2')">
+              Индекс нагрузки
             </div>
             <div class="col dotted" />
-            <div class="col-auto" :class="$tt('body2')">да</div>
+            <div class="col-auto small" :class="$tt('body2')">109</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-auto small" :class="$tt('body2')">
+              Индекс скорости
+            </div>
+            <div class="col dotted" />
+            <div class="col-auto small" :class="$tt('body2')">T</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-auto small" :class="$tt('body2')">
+              Тип конструкции
+            </div>
+            <div class="col dotted" />
+            <div class="col-auto small" :class="$tt('body2')">R</div>
+          </div>
+          <div class="row mb-2">
+            <div class="small col-auto" :class="$tt('body2')">
+              Увеличенная&nbsp;грузоподъемность
+            </div>
+            <div class="col dotted" />
+            <div class="small col-auto" :class="$tt('body2')">да</div>
           </div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-xxl-2">
         <div class="row g-0 flex-column" style="height: 100%">
-          <div :class="$tt('body1')" class="large col-auto d-none d-md-block">
+          <div
+            :class="$tt('body1')"
+            style="text-align: right"
+            class="large bold col-auto d-none d-md-block"
+          >
             {{ price }}&nbsp;₽
           </div>
           <ui-button raised class="mt-auto col-auto">В&nbsp;корзину</ui-button>

@@ -17,7 +17,9 @@ import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
       </div>
       <div class="col-auto balance-bar__item">
         <IconQuestionBlack class="vertical-align-middle" />
-        <span class="ms-2">Вопросы по заказам</span>
+        <RouterLink class="clear" to="/appeals"
+          ><span class="ms-2">Вопросы по заказам</span></RouterLink
+        >
       </div>
     </div>
   </div>

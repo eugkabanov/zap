@@ -43,6 +43,9 @@
   $contained-horizontal-padding: 40px,
   $shape-radius: 0
 );
+@use "@material/button/button-outlined-theme" with (
+  $outline-color: #0069c8
+);
 @use "@material/data-table/data-table-theme" with (
   $header-row-fill-color: black,
   $header-row-text-color: white,
@@ -284,4 +287,10 @@
 
 .mdc-tooltip__surface {
   min-width: 270px;
+}
+
+.mdc-fab:hover,
+.mdc-fab:active,
+.mdc-fab:focus:active {
+  box-shadow: unset;
 }
