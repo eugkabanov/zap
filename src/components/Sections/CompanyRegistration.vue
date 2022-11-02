@@ -73,7 +73,12 @@
         <label style="font-size: 14px" class="hint" for="reg-agree">Согласие на обработку персональных данных</label>
       </ui-form-field>
       <div class="mb-3">
-        <label for="reg-phone" class="hint mini-heading-color-red" v-if="showErrMessage">{{ errMessage }}</label>
+        <label
+          for="reg-phone"
+          class="hint mini-heading-color-red"
+          v-if="showErrMessage"
+          >{{ errMessage }}</label
+        >
       </div>
       <ui-button class="mt-3" raised v-on:click="registrationOrg()">Зарегистрироваться</ui-button>
     </div>
@@ -81,7 +86,6 @@
 </template>
 
 <script lang="ts">
-
 import { defineComponent } from "vue";
 import type CompanyRegistrationData from "@/types/CompanyRegistrationData";
 import CustomSelect from "../../components/CustomSelect.vue";
@@ -109,17 +113,17 @@ export default defineComponent({
         addressId: 0,
         allow_data_processed: false,
         service_office: 0,
-        address: '',
-        kpp: '',
-        okpo: '',
-        bankName: '',
-        bankAccount: '',
-        bankCorrAccount: '',
-        bankBik: '',
-        ogrn: '',
-        contactPerson: '',
-        contactEmail: '',
-        contactPhone: ''
+        address: "",
+        kpp: "",
+        okpo: "",
+        bankName: "",
+        bankAccount: "",
+        bankCorrAccount: "",
+        bankBik: "",
+        ogrn: "",
+        contactPerson: "",
+        contactEmail: "",
+        contactPhone: "",
       } as CompanyRegistrationData,
       errMessage: "",
       showErrMessage: false,
@@ -149,18 +153,17 @@ export default defineComponent({
 
         UserDataService.registrationCompany(user_org_reg)
           .then((response: ResponseData) => {
-            console.log(response.data)
-            this.showErrMessage = false
-            router.push({ path: "/catalog" })
+            console.log(response.data);
+            this.showErrMessage = false;
+            router.push({ path: "/catalog" });
           })
           .catch((e: Error) => {
-            this.showErrMessage = true
+            this.showErrMessage = true;
             console.log(e);
           });
     },
   },
 });
-
 </script>
 
 <style lang="scss" scoped>

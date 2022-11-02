@@ -86,7 +86,6 @@ import type ServicesData from "@/types/ServicesData";
 import UserDataService from "@/services/UserDataService";
 import CustomSelect from "../../components/CustomSelect.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
-import CompanyRegistration from "@/components/Sections/CompanyRegistration.vue";
 import LineBreak from "@/components/LineBreak.vue";
 import router from "@/router";
 
