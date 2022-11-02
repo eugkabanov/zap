@@ -96,7 +96,6 @@ export default defineComponent({
   components: {
     CustomSelect: CustomSelect,
     BalanceBar: BalanceBar,
-    // CompanyRegistration: CompanyRegistration,
     LineBreak: LineBreak,
   },
 

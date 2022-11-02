@@ -1,8 +1,4 @@
 export default interface CompanyRegistrationData {
-  credentials: {
-    login: string
-    password: string
-  }
   readonly id?: null;
   allow_data_processed: boolean;
   service_office?: number;
