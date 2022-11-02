@@ -4,7 +4,9 @@ export default interface PersonRegistrationData {
     password: string
   }
   readonly id?: null;
-  fio?: string;
+  firstName: string;
+  secondName: string;
+  patronymic?: string;
   phone?: string;
   email?: string;
   allow_data_processed: boolean;

@@ -3,61 +3,49 @@
     <div class="large bold mb-5">Личные данные</div>
     <div class="mb-3">
       <label for="reg-name" class="d-block mb-2">Логин</label>
-      <ui-textfield
-          v-model="user_data.credentials.login"
-          name="login"
-          id="reg-name"
-          outlined fullwidth />
+      <ui-textfield v-model="user_data.credentials.login" 
+      name="login" id="reg-name" outlined fullwidth />
     </div>
     <div class="mb-3">
       <label for="reg-name" class="d-block mb-2">Пароль</label>
-      <ui-textfield
-          v-model="user_data.credentials.password"
-          name="password"
-          id="reg-name"
-          outlined fullwidth />
+      <ui-textfield v-model="user_data.credentials.password" 
+      name="password" id="reg-name" outlined fullwidth />
     </div>
     <div class="mb-3">
-      <label for="reg-name" class="d-block mb-2">Ф.И.О.</label>
-      <ui-textfield
-        v-model="user_data.fio"
-        name="full name"
-        id="reg-name"
-        outlined fullwidth />
+      <label for="reg-name" class="d-block mb-2">Фамилия</label>
+      <ui-textfield v-model="user_data.firstName" 
+      name="full name" id="reg-name" outlined fullwidth />
+    </div>
+    <div class="mb-3">
+      <label for="reg-name" class="d-block mb-2">Имя</label>
+      <ui-textfield v-model="user_data.secondName" 
+      name="full name" id="reg-name" outlined fullwidth />
+    </div>
+    <div class="mb-3">
+      <label for="reg-name" class="d-block mb-2">Отчество</label>
+      <ui-textfield v-model="user_data.patronymic" 
+      name="full name" id="reg-name" outlined fullwidth />
     </div>
     <div class="mb-3">
       <label for="reg-phone" class="d-block mb-2">Телефон</label>
-      <ui-textfield
-        v-model="user_data.phone"
-        name="Phone number"
-        id="reg-phone"
-        outlined fullwidth />
+      <ui-textfield v-model="user_data.phone" 
+      name="Phone number" id="reg-phone" outlined fullwidth />
     </div>
     <div class="mb-3">
       <label for="reg-email" class="d-block mb-2">E-mail</label>
-      <ui-textfield
-          v-model="user_data.email"
-          name="E-mail"
-          id="reg-email"
-          outlined fullwidth />
+      <ui-textfield v-model="user_data.email" 
+      name="E-mail" id="reg-email" outlined fullwidth />
     </div>
 
     <ui-form-field>
-      <ui-checkbox
-          value="agree"
-          input-id="reg-agree"
-          v-model="user_data.allow_data_processed"
-      />
-      <label style="font-size: 14px" class="hint" for="reg-agree">Согласие на обработку персональных данных</label>
+      <ui-checkbox value="agree" input-id="reg-agree" v-model="user_data.allow_data_processed" />
+      <label style="font-size: 14px" class="hint" 
+      for="reg-agree">Согласие на обработку персональных данных</label>
     </ui-form-field>
     <div class="mb-3">
       <label for="reg-phone" class="hint mini-heading-color-red" v-if="showErrMessage">{{ errMessage }}</label>
     </div>
-    <ui-button
-      class="mt-3"
-      raised
-      v-on:click="registrationUser()"
-    >Зарегистрироваться</ui-button>
+    <ui-button class="mt-3" raised v-on:click="registration()">Зарегистрироваться</ui-button>
   </div>
   <div class="col-12 col-xl-8 ms-auto">
     <div class="large bold mb-5">Офис обслуживания</div>
@@ -65,11 +53,7 @@
 
     <div class="row gy-4">
       <div class="col-12 col-md-5">
-        <CustomSelect
-          outlined fullwidth value
-          :options="service_office_list"
-          v-model="city_office"
-        />
+        <CustomSelect outlined fullwidth value :options="service_office_list" v-model="city_office" />
 
         <div v-for="item in service_office_list[city_office].services" class="mt-2 city-list">
           <div class="row align-items-center city-item">
@@ -87,11 +71,7 @@
         </div>
       </div>
       <div class="col-12 col-md-7">
-        <img
-          src="@/assets/city-map.jpg"
-          alt="city map"
-          class="city-map w-100"
-        />
+        <img src="@/assets/city-map.jpg" alt="city map" class="city-map w-100" />
       </div>
     </div>
   </div>
@@ -116,7 +96,7 @@ export default defineComponent({
   components: {
     CustomSelect: CustomSelect,
     BalanceBar: BalanceBar,
-    CompanyRegistration: CompanyRegistration,
+    // CompanyRegistration: CompanyRegistration,
     LineBreak: LineBreak,
   },
 
@@ -127,7 +107,9 @@ export default defineComponent({
           login: '',
           password: ''
         },
-        fio: '',
+        firstName: '',
+        secondName: '',
+        patronymic: '',
         phone: '',
         email: '',
         allow_data_processed: false,
@@ -180,33 +162,32 @@ export default defineComponent({
   },
 
   methods: {
-    registrationUser() {
+    registration() {
 
       let user_data_reg: any
       user_data_reg = {
         credentials: this.user_data.credentials,
-        firstName: this.user_data.fio,
-        secondName: this.user_data.fio,
-        patronymic: this.user_data.fio,
+        firstName: this.user_data.firstName,
+        secondName: this.user_data.secondName,
+        patronymic: this.user_data.patronymic,
         phone: this.user_data.phone,
         email: this.user_data.email,
         officeId: this.office
       }
 
       if (this.user_data.credentials.login != '' &&
-          this.user_data.credentials.password != '' &&
-          this.user_data.allow_data_processed)
-      {
-        UserDataService.registration(user_data_reg)
-            .then((response: ResponseData) => {
-              console.log(response.data)
-              this.showErrMessage = false
-              router.push({path: "/catalog"})
-            })
-            .catch((e: Error) => {
-              this.showErrMessage = true
-              console.log(e);
-            });
+        this.user_data.credentials.password != '' &&
+        this.user_data.allow_data_processed) {
+        UserDataService.registrationPerson(user_data_reg)
+          .then((response: ResponseData) => {
+            console.log(response.data)
+            this.showErrMessage = false
+            router.push({ path: "/catalog" })
+          })
+          .catch((e: Error) => {
+            this.showErrMessage = true
+            console.log(e);
+          });
       }
 
       if (this.user_data.credentials.login == '') {
@@ -218,8 +199,8 @@ export default defineComponent({
         this.errMessage = ('Поле "Пароль" является обязательным');
         this.showErrMessage = true
         return
+        if (!this.user_data.allow_data_processed) {
       }
-      if (!this.user_data.allow_data_processed) {
         this.errMessage = ('Необходимо подтвердить согласие на обработку персональных двнных');
         this.showErrMessage = true
         return
@@ -237,7 +218,6 @@ export default defineComponent({
     padding-top: 20px;
     padding-bottom: 20px;
   }
-
   max-height: 450px;
   overflow-y: auto;
 }
