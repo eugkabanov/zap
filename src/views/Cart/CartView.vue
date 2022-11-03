@@ -117,7 +117,7 @@ const productsData = [
 
       <div class="mt-4 row justify-content-between justify-content-md-end">
         <div class="col-auto">
-          <ui-button outlined>Экспорт&nbsp;(0)</ui-button>
+          <ui-button disabled outlined>Экспорт&nbsp;(0)</ui-button>
         </div>
         <div class="col-auto ml-2">
           <ui-button raised>Импорт</ui-button>

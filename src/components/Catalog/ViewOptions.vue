@@ -26,8 +26,7 @@ const viewOptions = [
 <template>
   <div class="row g-3">
     <ui-form-field class="col-12 col-md-5"
-      ><ui-textfield outlined fullwidth
-        >Поиск
+      ><ui-textfield outlined fullwidth placeholder="Поиск">
         <template #after>
           <ui-textfield-icon trailing>search</ui-textfield-icon>
         </template>

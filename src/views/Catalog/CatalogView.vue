@@ -267,18 +267,17 @@ const list = [1, 2, 3, 4];
             <div class="col-auto">
               <div class="h3 large">ПОИСК АВТОЗАПЧАСТЕЙ</div>
             </div>
-            <div class="col" style="border-right: 1px solid #d9d9de">
+            <div class="col" style="padding-right: 25px; border-right: 1px solid #d9d9de">
               <SearchFormWithIcon
                 :submit-handler="
                   () => {
                     router.push('/search/TS32701');
                   }
                 "
-                placeholder="По VIN-коду
-              автомобиля или Frame номеру"
+                placeholder="По VIN-коду автомобиля или Frame номеру"
               />
             </div>
-            <div class="col-auto">
+            <div class="ps-4 col-auto">
               <RouterLink to="/search-brand">
                 <ui-button raised style="background-color: black; color: white"
                   >ПОДБОР ПО МАРКЕ</ui-button

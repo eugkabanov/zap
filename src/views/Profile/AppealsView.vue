@@ -7,7 +7,7 @@ const appealsDataBody = [
   { slot: "link" },
   { field: "date" },
   { field: "category" },
-  { field: "detail" },
+  { slot: "detail" },
   { field: "dealer" },
   { field: "comments" },
   { field: "price" },
@@ -106,6 +106,15 @@ const appealsData = [
       <template #th-select> <ui-checkbox /> </template>
       <template #select>
         <ui-icon-button>more_vert</ui-icon-button>
+      </template>
+      <template #detail>
+        DENCO DCN32032
+        <ui-icon
+          style="font-size: 18px; vertical-align: middle"
+          class="ms-2 hint"
+          >lock</ui-icon
+        ><br />
+        Конденсор
       </template>
 
       <template #status="{ data }">

@@ -3,50 +3,50 @@
     <div class="large bold text-center mb-4">Стастистика по заказам</div>
 
     <div class="stats-view">
-      <article class="all row">
-        <div class="col-5">Все заказы</div>
-        <div class="col-1 text-center">8</div>
-        <div class="ms-auto col-auto">8000 ₽</div>
+      <article class="all row gx-0">
+        <div class="small col-5">Все заказы</div>
+        <div class="small col-1 text-center">8</div>
+        <div class="small ms-auto col-auto">8000 ₽</div>
       </article>
-      <article class="ordered row">
-        <div class="col-5">Заказано</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="ordered row gx-0">
+        <div class="small col-5">Заказано</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="in-work row">
-        <div class="col-5">В работе</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="in-work row gx-0">
+        <div class="small col-5">В работе</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="sold row">
-        <div class="col-5">Выкуплено</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="sold row gx-0">
+        <div class="small col-5">Выкуплено</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="progress row">
-        <div class="col-5">В пути</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="progress row gx-0">
+        <div class="small col-5">В пути</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="arrived row">
-        <div class="col-5">Пришло</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="arrived row gx-0">
+        <div class="small col-5">Пришло</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="reject row">
-        <div class="col-5">Отказ</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="reject row gx-0">
+        <div class="small col-5">Отказ</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="completed row">
-        <div class="col-5">Выдано</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="completed row gx-0">
+        <div class="small col-5">Выдано</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
-      <article class="returned row">
-        <div class="col-5">Возврат</div>
-        <div class="col-1 text-center">1</div>
-        <div class="ms-auto col-auto">1000 ₽</div>
+      <article class="returned row gx-0">
+        <div class="small col-5">Возврат</div>
+        <div class="small col-1 text-center">1</div>
+        <div class="small ms-auto col-auto">1000 ₽</div>
       </article>
     </div>
   </ui-dialog-content>

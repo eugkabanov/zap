@@ -112,7 +112,7 @@ const similarSearchData = [
           </ui-table>
         </div>
         <div v-if="isSimilarShow">
-          <h2 style="font-size: 30px" class="mb-5">
+          <h2 style="font-size: 30px" class="large mb-5">
             Аналоги других производителей
           </h2>
           <ui-tab-bar class="mb-4">

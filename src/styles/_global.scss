@@ -194,3 +194,18 @@ footer#app-footer {
 #city-select .mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
   font-weight: 600 !important;
 }
+
+.small-select .mdc-select__anchor {
+  height: 40px;
+}
+
+.mdc-text-field--outlined.no-border {
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+  }
+}

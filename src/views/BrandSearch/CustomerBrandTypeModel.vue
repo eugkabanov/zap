@@ -4,6 +4,7 @@ import BrandGroupsView from "@/components/Search/BrandGroupsView.vue";
 import BrandNodesView from "@/components/Search/BrandNodesView.vue";
 import BrandProductFilters from "../../components/Search/BrandProductFilters.vue";
 import BrandProductNodeFilters from "../../components/Search/BrandProductNodeFilters.vue";
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
 
 const isFiltersOpen = ref(false);
 const searchType = ref(0);
@@ -11,19 +12,27 @@ const searchType = ref(0);
 
 <template>
   <main class="container-fluid pb-4">
-    <h1 class="mb-4 large">
-      <ui-icon-button class="d-xl-none" v-model="isFiltersOpen"
-        >menu_open</ui-icon-button
-      >Оригинальный каталог
-    </h1>
+    <div class="row">
+      <h1 class="mb-4 mt-5 col-auto large">
+        <ui-icon-button class="d-xl-none" v-model="isFiltersOpen"
+          >menu_open</ui-icon-button
+        >Оригинальный каталог
+      </h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <h2 class="mb-4 large bold">
       <RouterLink to="/search-brand/honda" class="clear">
         <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda ACCORD
         IX, Купе 3.5
       </RouterLink>
-      <span class="small hint ms-2"
-        ><ui-icon outlined class="vertical-align-middle"
+      <span style="vertical-align: middle" class="fw-400 small hint ms-2"
+        ><ui-icon
+          style="padding-bottom: 4px"
+          outlined
+          class="vertical-align-middle"
           >directions_car</ui-icon
         >
         Добавить в гараж</span

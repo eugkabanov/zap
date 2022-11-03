@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <!-- leave title for close action -->
   <ui-dialog-title>
-    <div :class="$tt('body1')" class="mt-4 large login-dialog__title">
+    <div :class="$tt('body1')" class="large login-dialog__title">
       Личный кабинет
     </div>
   </ui-dialog-title>

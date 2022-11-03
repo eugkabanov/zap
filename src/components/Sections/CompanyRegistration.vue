@@ -88,7 +88,7 @@ import IconQuestionBlue from "@/components/icons/iconQuestionBlue.vue";
 
 #reg-inn-icon {
   position: absolute;
-  top: -10px;
+  top: -3px;
   right: -30px;
 }
 </style>

@@ -58,7 +58,7 @@ const webServicesData = [
 
     <div class="mt-4 bold large">IP-адрес</div>
 
-    <div class="mt-3 col-xl-7">
+    <div class="mt-4 col-xl-7">
       <ui-table
         class="mdc-data-table--last-select"
         fullwidth

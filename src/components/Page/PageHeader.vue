@@ -2,6 +2,7 @@
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 import NotificationsDialog from "@/components/Dialogs/NotificationsDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
+import IconUnarchive from "@/components/icons/IconUnarchive.vue";
 import { ref } from "vue";
 
 const isNavMenuOpen = ref(false);
@@ -111,7 +112,7 @@ const onNotificationClick = () => {
           <div class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="12"
-                ><ui-icon>shopping_cart</ui-icon></ui-badge
+                ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
           </div>
@@ -123,8 +124,8 @@ const onNotificationClick = () => {
           </div>
           <div class="header-item">
             <RouterLink to="/orders">
-              <ui-icon>receipt</ui-icon
-              ><span class="header-item__label">Заказы</span>
+              <IconUnarchive />
+              <span class="header-item__label">Заказы</span>
             </RouterLink>
           </div>
           <div
@@ -239,9 +240,18 @@ header#app-header {
       max-width: 476px !important;
     }
   }
+  .mdc-dialog__content {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
 }
 
 .profile-dialog {
+  .mdc-dialog__content,
+  .mdc-dialog__title {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
   .mdc-dialog__container {
     @media (min-width: vars.$desktop) {
       margin-left: auto;

@@ -12,10 +12,10 @@ const expanded = ref(!!props.defaultExpanded);
 <template>
   <ui-collapse iconEndAligned with-icon ripple v-model="expanded">
     <template #expand-more-icon>
-      <ui-icon>expand_more</ui-icon>
+      <ui-icon>expand_less</ui-icon>
     </template>
     <template #expand-less-icon>
-      <ui-icon>expand_less</ui-icon>
+      <ui-icon>expand_more</ui-icon>
     </template>
     <template #toggle>
       <div :class="$tt('body1')" class="large bold">{{ label }}</div>

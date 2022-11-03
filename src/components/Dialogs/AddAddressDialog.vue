@@ -1,5 +1,5 @@
 <template>
-  <ui-dialog-content>
+  <ui-dialog-content class="py-5">
     <div class="mb-3">
       <label class="d-block mb-2">Город</label>
       <div>
@@ -49,10 +49,10 @@
       <label class="d-block mb-2">GPS-координаты</label>
       <div class="row">
         <div class="col-6">
-          <ui-textfield outlined fullwidth>Широта</ui-textfield>
+          <ui-textfield placeholder="Широта" outlined fullwidth></ui-textfield>
         </div>
         <div class="col-6">
-          <ui-textfield outlined fullwidth>Долгота</ui-textfield>
+          <ui-textfield placeholder="Долгота" outlined fullwidth></ui-textfield>
         </div>
       </div>
     </div>
@@ -70,8 +70,8 @@
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">пн</div>
-          <div class="col-auto ml-3">
+          <div style="width: 20px" class="col-auto ms-1 px-0">пн</div>
+          <div class="col-auto ms-3">
             <span class="hint">с&nbsp;</span>
             <ui-textfield
               class="small"
@@ -90,8 +90,8 @@
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">вт</div>
-          <div class="col-auto ml-3">
+          <div style="width: 20px" class="col-auto ms-1 px-0">вт</div>
+          <div class="col-auto ms-3">
             <span class="hint">с&nbsp;</span>
             <ui-textfield
               class="small"
@@ -110,8 +110,8 @@
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">ср</div>
-          <div class="col-auto ml-3">
+          <div style="width: 20px" class="col-auto ms-1 px-0">ср</div>
+          <div class="col-auto ms-3">
             <span class="hint">с&nbsp;</span>
             <ui-textfield
               class="small"
@@ -130,8 +130,8 @@
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">чт</div>
-          <div class="col-auto ml-3">
+          <div style="width: 20px" class="col-auto ms-1 px-0">чт</div>
+          <div class="col-auto ms-3">
             <span class="hint">с&nbsp;</span>
             <ui-textfield
               class="small"
@@ -150,8 +150,8 @@
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">пт</div>
-          <div class="col-auto ml-3">
+          <div style="width: 20px" class="col-auto ms-1 px-0">пт</div>
+          <div class="col-auto ms-3">
             <span class="hint">с&nbsp;</span>
             <ui-textfield
               class="small"
@@ -170,13 +170,13 @@
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">сб</div>
+          <div class="col-auto ms-1 px-0">сб</div>
         </div>
         <div class="row align-items-center mb-1">
           <div class="col-auto px-0">
             <ui-checkbox />
           </div>
-          <div class="col-auto ml-2 px-0">вс</div>
+          <div class="col-auto ms-1 px-0">вс</div>
         </div>
       </div>
     </div>

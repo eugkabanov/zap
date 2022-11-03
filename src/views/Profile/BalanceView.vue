@@ -4,6 +4,7 @@ import BalanceWarnDialog from "@/components/Dialogs/BalanceWarnDialog.vue";
 import { onMounted, ref } from "vue";
 import LineBreak from "../../components/LineBreak.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomDatePikcer from "@/components/CustomControls/CustomDatePikcer.vue";
 
 const balanceDataBody = [
   { field: "date" },
@@ -70,14 +71,10 @@ onMounted(() => {
           <h1>Баланс</h1>
         </div>
         <div class="col">
-          <ui-datepicker outlined toggle fullwidth>
-            <template #toggle><ui-icon>event</ui-icon></template>
-          </ui-datepicker>
+          <CustomDatePikcer />
         </div>
-        <div class="col">
-          <ui-datepicker outlined toggle fullwidth>
-            <template #toggle><ui-icon>event</ui-icon></template>
-          </ui-datepicker>
+        <div class="col pe-0">
+          <CustomDatePikcer />
         </div>
       </div>
       <div class="col-12 col-md-6 ms-auto">
@@ -210,7 +207,7 @@ onMounted(() => {
     </div>
   </main>
 
-  <ui-dialog v-model="isTopUpBalanceOpen" maskClosable class="topup-dialog">
+  <ui-dialog v-model="isTopUpBalanceOpen" sheet class="topup-dialog">
     <TopUpBalanceDialog />
   </ui-dialog>
 
@@ -238,7 +235,7 @@ onMounted(() => {
 .balance-warning-dialog .mdc-dialog__surface {
   @media (min-width: vars.$desktop) {
     min-width: 480px !important;
-    padding: 40px;
+    padding-bottom: 40px;
     padding-top: 0;
   }
 }
