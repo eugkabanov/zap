@@ -7,7 +7,7 @@ defineProps<{
 <template>
   <div class="row align-items-center mb-5">
     <div class="col-auto">
-      <h2>Аналоги</h2>
+      <h2 class="large" style="font-size: 30px">Аналоги</h2>
     </div>
     <div class="col-auto hint">
       <ui-form-field>

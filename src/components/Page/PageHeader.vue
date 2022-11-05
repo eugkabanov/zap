@@ -78,7 +78,7 @@
           <div class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="12"
-              ><ui-icon>shopping_cart</ui-icon></ui-badge
+              ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
           </div>
@@ -90,8 +90,8 @@
           </div>
           <div class="header-item">
             <RouterLink to="/orders">
-              <ui-icon>receipt</ui-icon
-              ><span class="header-item__label">Заказы</span>
+              <IconUnarchive />
+              <span class="header-item__label">Заказы</span>
             </RouterLink>
           </div>
           <div
@@ -266,12 +266,6 @@ header#app-header {
   .header-item span {
     margin-left: 10px;
   }
-
-  .login-dialog {
-    &__title {
-      text-transform: uppercase;
-    }
-  }
 }
 </style>
 
@@ -284,9 +278,18 @@ header#app-header {
       max-width: 476px !important;
     }
   }
+  .mdc-dialog__content {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
 }
 
 .profile-dialog {
+  .mdc-dialog__content,
+  .mdc-dialog__title {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
   .mdc-dialog__container {
     @media (min-width: vars.$desktop) {
       margin-left: auto;

@@ -78,8 +78,12 @@ const productsData = [
         { title: 'Корзина', href: '/cart' },
       ]"
     />
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 :class="$tt('headline1')">Корзина</h1>
+    <div class="row">
+      <h1 :class="$tt('headline1')" class="mt-5 col-auto">Корзина</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
     <div class="mt-5">
       <ui-tab-bar v-model="activeTab">
         <ui-tab min-width content-indicator>Корзина</ui-tab>
@@ -113,7 +117,7 @@ const productsData = [
 
       <div class="mt-4 row justify-content-between justify-content-md-end">
         <div class="col-auto">
-          <ui-button outlined>Экспорт&nbsp;(0)</ui-button>
+          <ui-button disabled outlined>Экспорт&nbsp;(0)</ui-button>
         </div>
         <div class="col-auto ml-2">
           <ui-button raised>Импорт</ui-button>

@@ -16,67 +16,67 @@ import LineBreak from "@/components/LineBreak.vue";
     </div>
   </ui-dialog-title>
   <ui-dialog-content>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item notification-item--active">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию позиции требуют определения и уточнения модели развития.
-        Равным образом ...
+        Равным образом ... <span class="link fw-400">Развернуть</span>
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию позиции требуют определения и уточнения модели развития.
-        Равным образом ...
+        Равным образом ... <span class="link fw-400">Развернуть</span>
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию.
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item notification-item--active">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию.
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию..
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию.
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию.
       </div>
       <LineBreak class="mt-3" />
     </div>
-    <div class="mb-4">
-      <div class="hint">20 июля 2022</div>
-      <div class="mt-2">
+    <div class="mb-4 notification-item">
+      <div class="notification-item__date hint">20 июля 2022</div>
+      <div class="mt-1 notification-item__contents">
         Задача организации, в особенности же начало повседневной работы по
         формированию.
       </div>
@@ -84,3 +84,19 @@ import LineBreak from "@/components/LineBreak.vue";
     </div>
   </ui-dialog-content>
 </template>
+
+<style lang="scss">
+.notification-item {
+  font-size: 14px;
+  &__date {
+    font-weight: 400;
+  }
+  &__contents {
+    font-weight: 400;
+  }
+
+  &--active &__contents {
+    font-weight: 500;
+  }
+}
+</style>

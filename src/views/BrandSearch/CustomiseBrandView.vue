@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import AsideSearch from "../../components/Search/AsideSearch.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
 </script>
 
 <template>
   <main class="container-fluid pb-5">
-    <h1 class="mb-4 large">Оригинальный каталог</h1>
+    <div class="row">
+      <h1 class="mb-4 mt-5 col-auto large">Оригинальный каталог</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-12 col-xl-7">
@@ -15,69 +21,77 @@ import CustomSelect from "../../components/CustomSelect.vue";
           </RouterLink>
         </h2>
 
-        <div class="row gy-5">
+        <div class="row gy-4">
           <div class="col-12 col-xl-4">
             <div class="mb-2">Модель</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Модель' }]"
+              :options="[{ label: 'Hakkapeliitta' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Год</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Год' }]"
+              :options="[{ label: '2012' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Регион</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Регион' }]"
+              :options="[{ label: 'Корея' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Дверей</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Дверей' }]"
+              :options="[{ label: '4' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Area</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Area' }]"
+              :options="[{ label: '300' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Коробка передач</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Коробка передач' }]"
+              :options="[{ label: 'Автомат' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Тип коробки передач</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Тип коробки передач' }]"
+              :options="[{ label: 'Автомат' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Country</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Country' }]"
+              :options="[{ label: 'Россия' }]"
             ></CustomSelect>
           </div>
 

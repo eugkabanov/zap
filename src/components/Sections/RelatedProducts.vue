@@ -30,6 +30,14 @@ const list = [1, 2, 3, 4];
           <CustomSelect outlined fullwidth value :options="sortingOptions" />
         </ui-form-field>
       </div>
+      <div class="ms-auto col-auto">
+        <ui-button style="border-color: #bfbfc3" class="p-0" outlined
+          ><ui-icon style="color: #0069c8">chevron_left</ui-icon></ui-button
+        >
+        <ui-button style="border-color: #bfbfc3" class="p-0 ms-2" outlined
+          ><ui-icon style="color: #0069c8">chevron_right</ui-icon></ui-button
+        >
+      </div>
     </div>
     <div class="row g-3 mt-3">
       <article

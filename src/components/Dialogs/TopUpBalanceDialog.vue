@@ -1,39 +1,44 @@
 <template>
   <ui-dialog-content>
-    <div class="text-center bold large mb-4">Пополнить баланс</div>
+    <div class="text-center bold large mb-4 mt-5">Пополнить баланс</div>
 
     <div class="mb-4">
       <label for="topup-total" class="d-block mb-2">Сумма пополнения</label>
-      <ui-textfield id="topup-total" outlined fullwidth />
+      <ui-textfield
+        id="topup-total"
+        outlined
+        fullwidth
+        model-value="10 000 ₽"
+      />
     </div>
 
     <div class="mb-4">Способ оплаты</div>
 
     <ui-tab-bar>
-      <ui-tab> Банковская карта </ui-tab>
-      <ui-tab> Счет </ui-tab>
+      <ui-tab style="width: 200px"> Банковская карта </ui-tab>
+      <ui-tab style="width: 200px"> Счет </ui-tab>
     </ui-tab-bar>
 
-    <div class="mt-4">Выберите карту иди добавьте новую</div>
+    <div class="my-4">Выберите карту иди добавьте новую</div>
 
-    <div class="mt-2 card-item row align-items-center">
+    <div class="card-item row gx-0 align-items-center">
       <div class="col-auto">
         <ui-radio />
       </div>
 
-      <div class="col-auto">**** 5863</div>
+      <div class="ms-4 col-auto">**** 5863</div>
 
       <div class="col-auto ms-auto">
-        <ui-icon>border_color</ui-icon>
-        <ui-icon class="ms-3">delete</ui-icon>
+        <ui-icon class="hint">border_color</ui-icon>
+        <ui-icon class="ms-3 hint">delete</ui-icon>
       </div>
     </div>
-    <div class="mt-2 card-item row align-items-center">
+    <div class="mt-2 card-item row gx-0 align-items-center">
       <div class="col-auto">
-        <ui-radio />
+        <ui-radio :model-value="false" />
       </div>
 
-      <div class="col-auto">Добавить новую</div>
+      <div class="ms-4 col-auto">Добавить новую</div>
     </div>
 
     <div class="mt-4">
@@ -42,9 +47,7 @@
     </div>
 
     <div class="mt-4">
-      <div class="row">
-        <ui-button raised>Оплатить 10 000 ₽</ui-button>
-      </div>
+      <ui-button class="w-100" raised>Оплатить 10 000 ₽</ui-button>
     </div>
   </ui-dialog-content>
 </template>

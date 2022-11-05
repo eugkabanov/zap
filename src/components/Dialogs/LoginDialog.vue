@@ -70,14 +70,14 @@ export default defineComponent({
 <template>
   <!-- leave title for close action -->
   <ui-dialog-title>
-    <div :class="$tt('body1')" class="bold large login-dialog__title">
+    <div :class="$tt('body1')" class="large login-dialog__title">
       Личный кабинет
     </div>
   </ui-dialog-title>
 
   <ui-dialog-content>
     <div class="mt-4">
-      <label class="hint" for="login-name">Логин</label>
+      <div class="mb-2"><label class="hint" for="login-name">Логин</label></div>
       <ui-textfield
         v-model="user_data_auth.login"
         input-id="login-name"
@@ -85,7 +85,9 @@ export default defineComponent({
       />
     </div>
     <div class="mt-3">
-      <label class="hint" for="login-password">Пароль</label>
+      <div class="mb-2">
+        <label class="hint" for="login-password">Пароль</label>
+      </div>
       <ui-textfield
         v-model="user_data_auth.password"
         input-id="login-password"
@@ -104,7 +106,7 @@ export default defineComponent({
       </div>
       <div class="col-auto ms-auto">
         <RouterLink to="/recover">
-          <div :class="$tt('body1')" class="hint">Забыли пароль?</div>
+          <div :class="$tt('body1')" class="hint thin">Забыли пароль?</div>
         </RouterLink>
       </div>
     </div>
@@ -113,7 +115,7 @@ export default defineComponent({
       >Войти</ui-button
     >
 
-    <div class="row mt-3">
+    <div class="row" style="margin-top: 32px">
       <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
 
       <div class="mt-2 row g-2 justify-content-xl-between">
@@ -150,3 +152,11 @@ export default defineComponent({
     </div>
   </ui-dialog-content>
 </template>
+
+<style lang="scss" scoped>
+.login-dialog__title {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+</style>

@@ -27,9 +27,16 @@
   )
 );
 
+@use "@material/checkbox/checkbox-theme" with (
+  $icon-size: 24px,
+  $border-color: #bfbfc3,
+  $mark-stroke-size: 5px
+);
+
 @use "@material/textfield" with (
   $height: 52px,
-  $shape-radius: 0
+  $shape-radius: 0,
+  $outlined-idle-border: #bfbfc3
 );
 @use "@material/select/select-theme" with (
   $height: 52px,
@@ -41,6 +48,9 @@
   $horizontal-padding: 40px,
   $contained-horizontal-padding: 40px,
   $shape-radius: 0
+);
+@use "@material/button/button-outlined-theme" with (
+  $outline-color: #0069c8
 );
 @use "@material/data-table/data-table-theme" with (
   $header-row-fill-color: black,
@@ -68,6 +78,18 @@
 );
 
 @use "balm-ui/dist/balm-ui";
+
+.mdc-typography,
+.mdc-form-field,
+.mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text,
+.mdc-select:not(.mdc-select--disabled) .mdc-floating-label,
+.mdc-button--outlined:not(:disabled) {
+  color: black;
+}
+
+.mdc-text-field__input {
+  font-weight: 500;
+}
 
 .mdc-tab-indicator .mdc-tab-indicator__content--underline {
   border-top-width: 4px;
@@ -112,6 +134,12 @@
 
 .mdc-collapse--with-icon .mdc-collapse__content {
   padding-left: 0;
+}
+
+.mdc-dialog .mdc-dialog__content,
+.mdc-dialog .mdc-dialog__title {
+  color: black;
+  padding: 20px 40px;
 }
 
 .mdc-dialog__title::before {
@@ -260,4 +288,81 @@
 .mdc-dialog .mdc-dialog__close .mdc-icon-button__ripple::before,
 .mdc-dialog .mdc-dialog__close .mdc-icon-button__ripple::after {
   background-color: unset;
+}
+
+.mdc-checkbox .mdc-checkbox__ripple::before,
+.mdc-checkbox .mdc-checkbox__ripple::after {
+  background-color: unset !important;
+}
+
+.mdc-dialog .mdc-dialog__close {
+  color: #9898a0;
+}
+
+.mdc-notched-outline__notch {
+  display: none;
+}
+
+.mdc-tooltip__surface {
+  min-width: 270px;
+}
+
+.mdc-fab:hover,
+.mdc-fab:active,
+.mdc-fab:focus:active {
+  box-shadow: unset;
+}
+
+.mdc-radio
+  .mdc-radio__native-control:enabled:not(:checked)
+  + .mdc-radio__background
+  .mdc-radio__outer-circle {
+  border-color: #bfbfc3;
+}
+
+.mdc-dialog.mdc-dialog--scrollable .mdc-dialog__title {
+  border-bottom: unset;
+}
+
+.mdc-dialog--sheet .mdc-dialog__close {
+  right: -4px;
+  top: -6px;
+  color: #9898a0;
+}
+
+.mdc-dialog .mdc-dialog__title {
+  padding-bottom: 0;
+}
+.mdc-dialog .mdc-dialog__content {
+  padding-top: 0;
+}
+
+.mdc-checkbox__checkmark {
+  padding: 4px;
+}
+
+.mdc-select__selected-text {
+  font-weight: 500;
+}
+
+.mdc-tab .mdc-tab__text-label {
+  font-weight: 500;
+  color: black;
+}
+
+.mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text,
+.mdc-select:not(.mdc-select--disabled) .mdc-floating-label {
+  font-weight: 500;
+}
+
+.mdc-button__label {
+  font-weight: 500 !important;
+}
+
+.mdc-button--outlined:disabled {
+  border-color: #bfbfc3;
+
+  .mdc-button__label {
+    color: #76767a;
+  }
 }

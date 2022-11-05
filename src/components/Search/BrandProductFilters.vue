@@ -13,47 +13,47 @@ import CustomCollapse from "../CustomControls/CustomCollapse.vue";
     <div class="ps-4">
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Фильтр масляный</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Фильтр воздушный</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Фильтр салонный</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Свечи зажигания</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Ремень поликлиновой</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Термостат</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Щетки стеклоочистителя</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Насос системы охлаждения</RouterLink
       >
       <RouterLink
         to="/search-brand/honda/accord/cupe"
-        class="d-block clear mb-3"
+        class="fw-400 d-block clear mb-3"
         >Колодки тормозные</RouterLink
       >
     </div>

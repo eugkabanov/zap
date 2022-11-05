@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import ClosedStatus from "../../components/Statuses/ClosedStatus.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 </script>
 
 <template>
   <main class="container-fluid pb-5">
     <BalanceBar class="ms-auto mt-2 mb-3" />
-    <div class="row gy-5">
+    <div class="row gy-5 mt-2">
       <div class="col-12 col-xl-3">
         <RouterLink class="clear mb-4 d-block" to="/appeals">
           <div class="bold large">
@@ -18,44 +17,55 @@ import BalanceBar from "../../components/Profile/BalanceBar.vue";
         </RouterLink>
 
         <div class="mt-3">
-          <ClosedStatus />
+          <div
+            style="
+              display: inline-block;
+              background-color: #ebffd7;
+              border: 1px solid #acdf79;
+              padding: 10px 20px;
+            "
+          >
+            Закрыта
+          </div>
         </div>
 
-        <div class="mt-3">
-          <div class="hint">Дата заявки</div>
+        <div class="mt-4">
+          <div class="hint mb-2 fw-400">Дата заявки</div>
           <div class="bold">24 июля 2022</div>
         </div>
         <div class="mt-3">
-          <div class="hint">Категория</div>
+          <div class="hint mb-2 fw-400">Категория</div>
           <div class="bold">Рекламация</div>
         </div>
         <div class="mt-3">
-          <div class="hint">Дата заказа</div>
+          <div class="hint mb-2 fw-400">Дата заказа</div>
           <div class="bold">18 июля 2022</div>
         </div>
         <div class="mt-3">
-          <div class="hint">Номер счета</div>
+          <div class="hint mb-2 fw-400">Номер счета</div>
           <div class="bold">ООО-455848</div>
           <div class="mt-3">
-            <div class="hint">Деталь</div>
+            <div class="hint mb-2 fw-400">Деталь</div>
             <div class="bold">RYTSON DW9Z351269</div>
-            <div class="large">Фара правая</div>
+            <div class="fw-400">Фара правая</div>
           </div>
           <div class="mt-3">
-            <div class="hint">Комментарий</div>
+            <div class="hint mb-2 fw-400">Комментарий</div>
             <div class="bold">22251115202001</div>
           </div>
           <div class="mt-3">
-            <div class="hint">Сумма</div>
+            <div class="hint mb-2 fw-400">Сумма</div>
             <div class="bold">16 810 ₽</div>
           </div>
           <div class="mt-3">
-            <div class="hint">Поставщик</div>
+            <div class="hint mb-2 fw-400">Поставщик</div>
             <div class="bold">VEO (4)</div>
           </div>
           <div class="mt-3">
-            <div class="hint">Статус</div>
-            <div class="bold">Возврат произведен (0/5)</div>
+            <div class="hint mb-2 fw-400">Статус</div>
+            <div class="bold" style="text-decoration: underline">
+              Возврат произведен (0/5)
+            </div>
           </div>
         </div>
       </div>
@@ -101,7 +111,12 @@ import BalanceBar from "../../components/Profile/BalanceBar.vue";
                 <ui-fab class="chat__attach-icon" icon="attachment" />
               </div>
               <ui-form-field class="col">
-                <ui-textfield outlined fullwidth
+                <ui-textfield
+                  class="no-border"
+                  outlined
+                  fullwidth
+                  style="background-color: #fff"
+                  placeholder="Написать сообщение"
                   >Написать сообщение
                   <template #after>
                     <ui-textfield-icon style="color: #0069c8" trailing
