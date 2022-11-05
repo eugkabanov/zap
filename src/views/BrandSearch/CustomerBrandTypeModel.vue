@@ -28,7 +28,9 @@ const searchType = ref(0);
         <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda ACCORD
         IX, Купе 3.5
       </RouterLink>
-      <span style="vertical-align: middle" class="fw-400 small hint ms-2"
+      <span
+        style="vertical-align: middle; padding-left: 26px"
+        class="fw-400 small hint"
         ><ui-icon
           style="padding-bottom: 4px"
           outlined
