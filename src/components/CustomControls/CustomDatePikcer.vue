@@ -26,6 +26,7 @@ const onChange = (value: string) => {
 <style lang="scss">
 .custom-datepicker {
   height: 44px;
+  max-width: 144px;
 
   .mdc-text-field__input {
     color: #76767a !important;

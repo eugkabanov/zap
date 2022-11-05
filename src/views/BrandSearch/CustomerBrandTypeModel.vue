@@ -23,7 +23,7 @@ const searchType = ref(0);
       </div>
     </div>
 
-    <h2 class="mb-4 large bold">
+    <h2 style="margin-bottom: 40px" class="large bold">
       <RouterLink to="/search-brand/honda" class="clear">
         <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda ACCORD
         IX, Купе 3.5
@@ -39,7 +39,7 @@ const searchType = ref(0);
       >
     </h2>
 
-    <div class="row align-items-center mb-4">
+    <div style="margin-bottom: 40px" class="row align-items-center">
       <div class="col-auto">
         <ui-chips
           v-model="searchType"
@@ -58,7 +58,7 @@ const searchType = ref(0);
 
     <div class="row">
       <div class="col-xl-3 d-none d-xl-block">
-        <div v-if="searchType === 0">
+        <div class="pt-2" v-if="searchType === 0">
           <BrandProductFilters />
         </div>
         <div v-if="searchType === 1">

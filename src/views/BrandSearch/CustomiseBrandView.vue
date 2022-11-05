@@ -25,65 +25,73 @@ import BalanceBar from "@/components/Profile/BalanceBar.vue";
           <div class="col-12 col-xl-4">
             <div class="mb-2">Модель</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Модель' }]"
+              :options="[{ label: 'Hakkapeliitta' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Год</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Год' }]"
+              :options="[{ label: '2012' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Регион</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Регион' }]"
+              :options="[{ label: 'Корея' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Дверей</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Дверей' }]"
+              :options="[{ label: '4' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Area</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Area' }]"
+              :options="[{ label: '300' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Коробка передач</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Коробка передач' }]"
+              :options="[{ label: 'Автомат' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Тип коробки передач</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Тип коробки передач' }]"
+              :options="[{ label: 'Автомат' }]"
             ></CustomSelect>
           </div>
           <div class="col-12 col-xl-4">
             <div class="mb-2">Country</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Country' }]"
+              :options="[{ label: 'Россия' }]"
             ></CustomSelect>
           </div>
 

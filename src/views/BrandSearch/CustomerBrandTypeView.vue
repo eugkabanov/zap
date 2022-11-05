@@ -77,7 +77,7 @@ const productTypesData = [
         <ProductTypeFilters />
       </div>
 
-      <div class="col-12 col-xl-9">
+      <div style="padding-top: 27px" class="col-12 col-xl-8 offset-xl-1">
         <ui-table
           class="mdc-data-table--last-select"
           fullwidth

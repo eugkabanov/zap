@@ -85,6 +85,10 @@ button.x-small {
   padding: 10px 14px;
 }
 
+.mdc-select.thin .mdc-select__selected-text {
+  font-weight: 400 !important;
+}
+
 .large {
   font-size: 20px !important;
   line-height: 26px !important;
