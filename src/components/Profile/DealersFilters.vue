@@ -43,7 +43,9 @@ const daysRange = ref([0, 40]);
     </ui-form-field>
   </div>
   <div class="mb-3">
-    <ui-button class="col-12 small" outlined>Показать отключенных</ui-button>
+    <ui-button class="col-12 small blue" outlined
+      >Показать отключенных</ui-button
+    >
   </div>
 
   <h3 class="mt-5 mb-4">Настройки</h3>

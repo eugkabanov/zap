@@ -232,6 +232,10 @@
   font-size: 14px;
 }
 
+.mdc-text-field.thin .mdc-text-field__input {
+  font-weight: 400;
+}
+
 .vue-slider-dot-handle {
   background-color: #1c60a9 !important;
   width: 16px !important;
@@ -365,4 +369,12 @@
   .mdc-button__label {
     color: #76767a;
   }
+}
+
+.mdc-button--outlined.gray {
+  border-color: #bfbfc3;
+}
+
+.mdc-button--outlined.blue {
+  color: #0069c8;
 }

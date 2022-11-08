@@ -33,8 +33,13 @@ const viewOptions = [
       </ui-textfield>
     </ui-form-field>
     <ui-form-field class="col-8 col-md-5 ms-md-auto">
-      <label class="me-3 d-none d-md-inline">Сортировка:</label>
-      <CustomSelect outlined fullwidth :options="sortingOptions" />
+      <label class="small me-3 d-none d-md-inline">Сортировка:</label>
+      <CustomSelect
+        class="w-100"
+        outlined
+        fullwidth
+        :options="sortingOptions"
+      />
     </ui-form-field>
     <div class="col-auto ms-auto ms-md-3">
       <ui-segmented-buttons

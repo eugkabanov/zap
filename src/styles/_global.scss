@@ -129,7 +129,7 @@ h3.large,
   color: vars.$grayed;
 }
 .color-black {
-  color: black;
+  color: black !important;
 }
 .color-primary {
   color: vars.$primaryColor;

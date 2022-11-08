@@ -24,9 +24,7 @@ const openCategoryDrawer = () => (isOpen.value = true);
     </div>
   </div>
 
-  <ui-dialog v-model="isOpen" fullscreen maskClosable>
-    <!-- leave title for close action -->
-    <ui-dialog-title />
+  <ui-dialog class="category-dialog" v-model="isOpen" fullscreen sheet>
     <ui-dialog-content>
       <slot name="subCategory" />
     </ui-dialog-content>
@@ -48,5 +46,8 @@ const openCategoryDrawer = () => (isOpen.value = true);
 <style lang="scss">
 .category-button:not(:last-child) {
   border-bottom: 1px solid #d9d9de;
+}
+.category-dialog .mdc-dialog__close {
+  right: -5px !important;
 }
 </style>

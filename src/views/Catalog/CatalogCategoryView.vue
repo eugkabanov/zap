@@ -7,6 +7,7 @@ import ViewOptions from "../../components/Catalog/ViewOptions.vue";
 import ProductListCard from "../../components/Catalog/ProductListCard.vue";
 import CustomCollapse from "../../components/CustomCollapse.vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
+import Paginator from "@/components/Paginator.vue";
 
 const list = Array(30).fill("");
 
@@ -23,17 +24,29 @@ const priceRange = ref([3000, 12000]);
     <template #aside>
       <div class="row align-items-baseline mb-4">
         <div :class="$tt('headline2')" class="col-auto">Фильтры</div>
-        <div :class="$tt('body2')" class="col-auto hint ms-auto">Очистить</div>
+        <div :class="$tt('body2')" class="small col-auto hint ms-auto">
+          Очистить
+        </div>
       </div>
 
       <div class="row flex-column filters">
         <CustomCollapse default-expanded label="Цена, руб">
           <div class="row mb-3">
             <ui-form-field class="col-6">
-              <ui-textfield outlined fullwidth />
+              <ui-textfield
+                class="thin"
+                model-value="3000"
+                outlined
+                fullwidth
+              />
             </ui-form-field>
             <ui-form-field class="col-6">
-              <ui-textfield outlined fullwidth />
+              <ui-textfield
+                class="thin"
+                model-value="12000"
+                outlined
+                fullwidth
+              />
             </ui-form-field>
           </div>
           <VueSlider v-model="priceRange" max="15000" />
@@ -139,9 +152,16 @@ const priceRange = ref([3000, 12000]);
           </article>
         </div>
 
-        <div class="mt-5 row justify-content-center">
+        <div class="mt-5 row">
           <div class="col-auto">
-            <ui-button outlined style="color: #76767a" :class="$tt('body1')"
+            <Paginator />
+          </div>
+          <div class="ms-5 col-auto">
+            <ui-button
+              outlined
+              style="color: #76767a; padding-left: 68px; padding-right: 68px"
+              :class="$tt('body1')"
+              class="gray"
               >Загрузить еще</ui-button
             >
           </div>
