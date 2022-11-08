@@ -44,10 +44,38 @@ const openCategoryDrawer = () => (isOpen.value = true);
 </style>
 
 <style lang="scss">
+@use "@/styles/vars";
+
 .category-button:not(:last-child) {
   border-bottom: 1px solid #d9d9de;
 }
-.category-dialog .mdc-dialog__close {
-  right: -5px !important;
+
+.category-dialog {
+  .mdc-dialog__close {
+    right: -5px !important;
+  }
+
+  .mdc-dialog__surface {
+    overflow-x: hidden;
+  }
+
+  @media (min-width: vars.$desktop) {
+    position: relative;
+
+    .mdc-dialog,
+    .mdc-dialog__scrim {
+      left: 24.7vw;
+    }
+
+    .mdc-dialog__container {
+      position: absolute;
+      top: -110px;
+      right: -1065px;
+      height: 700px;
+    }
+    .mdc-dialog__surface {
+      max-width: 1040px !important;
+    }
+  }
 }
 </style>
