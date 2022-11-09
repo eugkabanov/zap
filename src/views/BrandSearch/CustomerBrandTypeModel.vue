@@ -9,6 +9,52 @@ const isFiltersOpen = ref(false);
 const searchType = ref(0);
 </script>
 
+<script lang="ts">
+import {defineComponent} from "vue";
+import {mapGetters} from "vuex";
+import CatalogService from "@/services/CatalogService";
+import type ResponseData from "@/types/ResponseData";
+import type UnitObject from "@/types/UnitObject"
+
+export default defineComponent({
+  name: "brandNameTypeModelSearch",
+  data() {
+    return {
+      ssd: this.$route.params.type,
+      brandName: this.$route.params.brandName,
+      model: this.$route.params.model,
+      units: [] as UnitObject[]
+    };
+  },
+
+  mounted: function () {
+    this.listUnits()
+  },
+
+  created: function () {
+    
+  },
+
+  methods: {
+    listUnits() {
+      // this.productTypesData.length = 0
+      CatalogService.listUnits(this.brandName, this.ssd, this.model, '')
+        .then((response: ResponseData) => {
+          for (let item of response.data) {
+            this.units.push(item)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+    
+  },
+});
+</script>
+
+
 <template>
   <main class="container-fluid pb-4">
     <h1 class="mb-4 large">
@@ -65,7 +111,22 @@ const searchType = ref(0);
 
         <!-- Search Type 2 -->
         <div v-if="searchType === 1">
-          <BrandNodesView />
+          <div class="row gy-3">
+            <div class="col-12 col-md-6 col-xl-3" v-for="unit in units">
+              <RouterLink :to="{name: 'brandSearchProduct', params: { brandName: brandName, type: unit.ssd, model: model, productId: unit.unitid}}" class="clear">
+                <div style="border: 1px solid #d9d9de" class="mb-2">
+                  <img
+                    class="w-100"
+                    style="height: 200px; object-fit: contain"
+                    :src="unit.imageurl.replace('%size%', 200)"
+                    alt=""
+                  />
+                </div>
+                <div>{{ unit.name }}</div>
+              </RouterLink>
+            </div>
+          </div>
+          <!-- <BrandNodesView /> -->
         </div>
       </div>
     </div>

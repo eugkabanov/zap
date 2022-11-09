@@ -9,38 +9,23 @@ import {mapGetters} from "vuex";
 import CatalogService from "@/services/CatalogService";
 import type ResponseData from "@/types/ResponseData";
 import type CatalogWizard2Object from "@/types/CatalogWizard2Object"
-import AxiosResponse from "axios";
 
 export default defineComponent({
   name: "brandNameSearch",
   data() {
-
     return {
-      catalogWizardList: new Array<CatalogWizard2Object>(),
-
+      catalogWizardList: [] as CatalogWizard2Object[],
+      ssd: '',
+      brandName: this.$route.params.brandName
     };
   },
 
+  mounted: function () {
+    this.catalogWizard2()
+  },
+
   created: function () {
-    CatalogService.catalogWizard2(this.$route.params.brandName)
-        .then((response: AxiosResponse<CatalogWizard2Object[]>) => {
-          
-          for (let entry of response) {
-            console.log(entry); // 1, "string", false
-            this.catalogWizardList.push(entry)
-          }
-
-
-          // response.data.array.forEach(element => {
-            
-          // });
-          // this.catalogWizardList = response.data
-          console.log(this.catalogWizardList)
-        })
-
-        .catch((e: Error) => {
-          console.log(e);
-        })
+    
   },
 
   computed: {
@@ -48,6 +33,43 @@ export default defineComponent({
   },
 
   methods: {
+    invertFilterDetermined(value: boolean): boolean {
+      if (value)
+        return false
+      else
+        return false
+    },
+
+    catalogWizard2() {
+      this.catalogWizardList.length = 0
+      CatalogService.catalogWizard2(this.brandName, this.ssd)
+        .then((response: ResponseData) => {
+          for (let item of response.data.wizardStepObjectList) {
+            console.log(item); // 1, "string", false
+            this.catalogWizardList.push(item)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+
+    onSelected(selected) {
+      this.ssd = selected.value
+      this.catalogWizard2()
+      console.log(selected)
+      // this.selected = selected.value;
+    },
+
+    defaultLabel(item: CatalogWizard2Object) {
+      if(item.determined) {
+        return item.value
+      } else {
+        return ' '
+      }
+    },
+    
   },
 });
 </script>
@@ -64,78 +86,26 @@ export default defineComponent({
           </RouterLink>
         </h2>
 
-        <div class="row gy-5" v-for="catalogWizardItem in catalogWizardList">
-          <div class="col-12 col-xl-4">
+        <div class="row gy-5" >
+          <div class="col-12 col-xl-4" v-for=" in catalogWizardList">
             <div class="mb-2">{{ catalogWizardItem.name }}</div>
             <CustomSelect
               outlined
               fullwidth
-              :options="[{ label: 'Модель' }]"
+              :optionFormat="{ label: 'value', value: 'key' }"
+              :options="catalogWizardItem.options"
+              :defaultValue="' '"catalogWizardItem
+              :defaultLabel="defaultLabel(catalogWizardItem)"
+              :disabled="catalogWizardItem.determined"
+              @selected="onSelected($event)"
             ></CustomSelect>
           </div>
-          <!-- <div class="col-12 col-xl-4">
-            <div class="mb-2">Год</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Год' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Регион</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Регион' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Дверей</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Дверей' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Area</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Area' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Коробка передач</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Коробка передач' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Тип коробки передач</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Тип коробки передач' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Country</div>
-            <CustomSelect
-              outlined
-              fullwidth
-              :options="[{ label: 'Country' }]"
-            ></CustomSelect>
-          </div> -->
 
-          <div class="mt-5">
-            <router-link v-button.raised to="/search-brand/honda/accord"
-              >Показать автомобили</router-link
-            >
+          <div class="mt-5" v-if="ssd.length>0">
+            <RouterLink v-button.raised :to="{ name: 'brandNameTypeSearch', params: { brandName: brandName, type:  ssd}}"
+              >Показать автомобили</RouterLink>
           </div>
-        </div>
+        </div>    
       </div>
       <div class="col-12 col-xl-5 order-xl-last order-first">
         <AsideSearch />

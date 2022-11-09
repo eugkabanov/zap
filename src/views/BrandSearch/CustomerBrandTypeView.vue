@@ -12,7 +12,7 @@ const productsDataBody = [
   { field: "capacity" },
   { field: "year" },
   {
-    slot: "choose",
+    slot: "choose"
   },
 ];
 const productsDataHead = [
@@ -28,7 +28,7 @@ const productsDataHead = [
 ];
 const isFiltersOpen = ref(false);
 
-const productTypesData = [
+const productTypesData2 = [
   {
     title: "1.4 (199.AXNB)",
     engineType: "Бензиновый",
@@ -51,6 +51,62 @@ const productTypesData = [
   },
 ];
 </script>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import {mapGetters} from "vuex";
+import CatalogService from "@/services/CatalogService";
+import type ResponseData from "@/types/ResponseData";
+import type VehicleObject from "@/types/VehicleObject"
+import type VehicleTableRow from "@/types/VehicleTableRow"
+
+export default defineComponent({
+  name: "brandNameTypeSearch",
+  data() {
+    return {
+      // catalogWizardList: [] as CatalogWizard2Object[],
+     ssd: this.$route.params.type,
+      brandName: this.$route.params.brandName,
+      productTypesData: [] as VehicleTableRow[]
+    };
+  },
+
+  mounted: function () {
+    this.findVehicleByWizard2()
+  },
+
+  created: function () {
+    
+  },
+
+  methods: {
+    findVehicleByWizard2() {
+      this.productTypesData.length = 0
+      CatalogService.findVehicleByWizard2(this.brandName, this.ssd)
+        .then((response: ResponseData) => {
+          for (let item of response.data) {
+            let o : VehicleObject = item
+            let row: VehicleTableRow = {
+              title: o.name,
+              vehicleid: o.vehicleid,
+              ssd: o.ssd,
+              power: o.attributes.find(a => a.key==='engine_info')?.value,
+              engineCode: o.attributes.find(a => a.key==='engine_info')?.value,
+              year: o.attributes.find(a => a.key==='prodrange')?.value
+            }
+            this.productTypesData.push(row)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+    
+  },
+});
+</script>
+
 
 <template>
   <main class="container-fluid pb-5">
@@ -79,9 +135,9 @@ const productTypesData = [
           :thead="productsDataHead"
           :tbody="productsDataBody"
         >
-          <template #choose>
+          <template #choose="{ data }">
             <router-link
-              to="/search-brand/honda/accord/cupe"
+              :to="{ name: 'brandNameTypeModelSearch', params: { brandName: brandName, type: data.ssd, model: data.vehicleid}}"
               style="height: 35px; padding: 3px 10px; font-size: 12px"
               v-button.outlined
               >Выбрать</router-link
