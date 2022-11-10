@@ -143,15 +143,14 @@ import {mapGetters} from "vuex";
 export default defineComponent({
   name: "ProfileDialog",
   components: {
-    LineBreak: LineBreak
+    LineBreak: LineBreak,
   },
   data() {
-
-    return {
-    };
+    return {};
   },
 
   created: function () {
+    
   },
 
   computed: {

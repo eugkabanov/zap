@@ -1,14 +1,3 @@
-<script setup lang="ts">
-import ProfilePersonalData from "@/components/Sections/ProfilePersonalData.vue";
-import ProfilePaymentDetails from "@/components/Sections/ProfilePaymentDetails.vue";
-import ProfileDeliveryDetails from "@/components/Sections/ProfileDeliveryDetails.vue";
-import ProfilePasswordChange from "@/components/Sections/ProfilePasswordChange.vue";
-import { ref } from "vue";
-import BalanceBar from "../../components/Profile/BalanceBar.vue";
-
-const selectedTab = ref(0);
-</script>
-
 <template>
   <main class="container-fluid pb-5">
     <BalanceBar class="ms-auto mt-2 mb-3" />
@@ -44,6 +33,29 @@ const selectedTab = ref(0);
     </div>
   </main>
 </template>
+
+<script lang="ts">
+import { ref } from "vue";
+import { defineComponent } from "vue";
+import CustomSelect from "../../components/CustomSelect.vue";
+import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import LineBreak from "@/components/LineBreak.vue";
+
+export default defineComponent({
+  name: "SettingsViev",
+
+  components: {
+    CustomSelect: CustomSelect,
+    BalanceBar: BalanceBar,
+    LineBreak: LineBreak,
+  },
+
+  data() {
+    return {};
+  },
+  });
+
+</script>
 
 <style lang="scss">
 @use "@/styles/vars";

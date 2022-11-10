@@ -9,77 +9,82 @@
       <label for="reg-name" class="d-block mb-2">Пароль</label>
       <ui-textfield v-model="user_data.credentials.password" name="password" id="reg-name" outlined fullwidth />
     </div>
-    <div class="row gy-3">
-      <div class="col-12 col-md-6 col-xl-4">
+  </div>
+  
+    <div class="row">
+      <div class="col col-md-5 col-xl-4">
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">ИНН
-            <ui-icon v-tooltip="
-              'При заполнении ИНН остальные данные добавятся из базы ФНС автоматически '
-            " aria-describedby="tooltip" :dark="false">
+            <ui-icon
+              v-tooltip="
+                'При заполнении ИНН остальные данные добавятся из базы ФНС автоматически '
+              "
+            aria-describedby="tooltip" :dark="false">
               contact_support
             </ui-icon>
           </label>
           <ui-textfield v-model="user_data.inn" name="inn" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
-          <label for="reg-name" class="d-block mb-2">Наименование</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <label for="companyName" class="d-block mb-2">Наименование</label>
+          <ui-textfield v-model="user_data.companyName" name="companyName" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
-          <label for="reg-name" class="d-block mb-2">Юридический адрес</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <label for="addressId" class="d-block mb-2">Юридический адрес</label>
+          <ui-textfield  v-model="user_data.addressId" name="addressId" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
-          <label for="reg-name" class="d-block mb-2">Фактический адрес</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <label for="address" class="d-block mb-2">Фактический адрес</label>
+          <ui-textfield v-model="user_data.address" name="address" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
-          <label for="reg-name" class="d-block mb-2">Наименование банка</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <label for="bankName" class="d-block mb-2">Наименование банка</label>
+          <ui-textfield v-model="user_data.bankName" name="bankName" id="reg-name" outlined fullwidth />
         </div>
       </div>
-      <div class="col-12 col-md-6 col-xl-4">
+      <div class="col col-md-5 col-xl-4">
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">КПП</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.kpp" name="kpp" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Р/С</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.bankAccount" name="bankAccount" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">К/С</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.bankCorrAccount" name="bankCorrAccount" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">БИК</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.bankBik" name="bankBik" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">ОГРН</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.ogrn" name="ogrn" id="reg-name" outlined fullwidth />
         </div>
       </div>
-      <div class="col-12 col-md-6 col-xl-4">
+      <div class="col col-md-5 col-xl-4">
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">ОКПО</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.okpo" name="okpo" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Контактное лицо</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.contactPerson" name="contactPerson" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">E-mail</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.contactEmail" name="contactEmail" id="reg-name" outlined fullwidth />
         </div>
         <div class="mb-3">
           <label for="reg-name" class="d-block mb-2">Телефон</label>
-          <ui-textfield id="reg-name" outlined fullwidth />
+          <ui-textfield v-model="user_data.contactPhone" name="contactPhone" id="reg-name" outlined fullwidth />
         </div>
       </div>
     </div>
-    <div>
+
+    <div class="row gy-4">
       <ui-form-field>
         <ui-checkbox value="agree" input-id="reg-agree" v-model="user_data.allow_data_processed" />
         <label style="font-size: 14px" class="hint" for="reg-agree">Согласие на обработку персональных данных</label>
@@ -122,7 +127,7 @@
         </div>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script lang="ts">
@@ -237,8 +242,8 @@ export default defineComponent({
         ogrn: this.user_data.ogrn,
         contactPerson: this.user_data.contactPerson,
         contactEmail: this.user_data.contactEmail,
-        contactPhone: this.user_data.contactPhone
-      }
+        contactPhone: this.user_data.contactPhone,
+      };
 
       if (this.user_data.credentials.login != '' &&
         this.user_data.credentials.password != '' &&
@@ -257,18 +262,18 @@ export default defineComponent({
 
       if (this.user_data.credentials.login == '') {
         this.errMessage = ('Поле "Логин" является обязательным');
-        this.showErrMessage = true
-        return
+        this.showErrMessage = true;
+        return;
       }
       if (this.user_data.credentials.password == '') {
         this.errMessage = ('Поле "Пароль" является обязательным');
-        this.showErrMessage = true
-        return
+        this.showErrMessage = true;
+        return;
       }
       if (!this.user_data.allow_data_processed) {
         this.errMessage = ('Необходимо подтвердить согласие на обработку персональных двнных');
-        this.showErrMessage = true
-        return
+        this.showErrMessage = true;
+        return;
       }
     },
   },
