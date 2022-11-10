@@ -1,7 +1,7 @@
 <template>
   <main class="container-fluid pb-5">
     <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1>Настройки профиля</h1>
+    <h1 class="mb-5 mt-0 large">Настройки профиля</h1>
 
     <div class="col-12 col-xl-8">
       <ui-tab-bar v-model="selectedTab">
@@ -53,15 +53,25 @@ export default defineComponent({
   data() {
     return {};
   },
-  });
-
+});
 </script>
 
-<style lang="scss">
-@use "@/styles/vars";
-.add-new-address .mdc-dialog__surface {
-  @media (min-width: vars.$desktop) {
-    min-width: 500px !important;
-  }
+<style scoped lang="scss">
+.city-list {
+  max-height: 450px;
+  overflow-y: auto;
+}
+.city-item {
+  border-bottom: 1px solid #d9d9de;
+}
+.city-map {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mini-heading-color-red {
+  color: #e50050;
+  margin-bottom: 8px;
 }
 </style>
