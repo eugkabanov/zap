@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconExpandLessCircle from "@/components/icons/IconExpandLessCircle.vue";
+import IconExpandMoreCircle from "@/components/icons/IconExpandMoreCircle.vue";
 import { ref } from "vue";
 
 const props = defineProps<{
@@ -12,10 +14,10 @@ const expanded = ref(!!props.defaultExpanded);
 <template>
   <ui-collapse iconEndAligned with-icon ripple v-model="expanded">
     <template #expand-more-icon>
-      <ui-icon>expand_less</ui-icon>
+      <IconExpandLessCircle />
     </template>
     <template #expand-less-icon>
-      <ui-icon>expand_more</ui-icon>
+      <IconExpandMoreCircle />
     </template>
     <template #toggle>
       <div :class="$tt('body1')" class="large bold">{{ label }}</div>

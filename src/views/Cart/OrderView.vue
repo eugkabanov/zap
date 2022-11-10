@@ -5,7 +5,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 </script>
 
 <template>
-  <main class="container-fluid py-5">
+  <main class="container-fluid pt-4 pb-5">
     <BreadCrumbs
       class="mb-4"
       :crumbs="[
@@ -15,11 +15,14 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
       ]"
     />
 
-    <h1 :class="$tt('headline1')">Оформление заказа</h1>
+    <h1 class="my-5" :class="$tt('headline1')">Оформление заказа</h1>
 
     <div class="row flex-column">
       <div class="col-12 col-md-8 col-xl-5">
-        <div class="row align-items-center justify-content-between mb-4">
+        <div
+          class="row align-items-center justify-content-between mb-4"
+          style="margin-bottom: 33px"
+        >
           <div class="col-6 col-lg-auto large bold">Данные получателя</div>
           <div class="col-6 col-lg-auto">
             <ui-icon style="vertical-align: middle">person_outline</ui-icon>
@@ -27,7 +30,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
           </div>
         </div>
 
-        <div class="row align-items-center mb-3">
+        <div class="row align-items-center mb-4">
           <label class="col-2">Ф.И.О.</label>
           <div class="col ms-3">
             <ui-textfield outlined fullwidth></ui-textfield>
@@ -47,6 +50,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
         <div class="mt-4">
           <ui-chips
             type="choice"
+            :model-value="0"
             :options="[
               { label: 'Самовывоз', value: 0 },
               { label: 'Курьер', value: 1 },
@@ -58,7 +62,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
           <div class="row g-2">
             <div class="col-12 col-md-6">
               <div
-                class="row flex-column justify-content-between"
+                class="row flex-column justify-content-between py-3"
                 style="min-height: 300px"
               >
                 <div class="col-auto" :class="$tt('body1')">
@@ -93,7 +97,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
       <div class="col-12 col-xl-8 mt-5">
         <div class="large bold">1 товар на сумму 23 364 ₽</div>
 
-        <div class="mt-5 product">
+        <div class="mt-4 product">
           <div class="row">
             <div class="col-12 col-md-4 col-xl-2">
               <img
@@ -137,9 +141,10 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
       <div class="col-12 col-xl-8 mt-5">
         <div class="large bold">Способ оплаты</div>
 
-        <div class="mt-5">
+        <div class="mt-4">
           <ui-chips
             type="choice"
+            :model-value="0"
             :options="[
               { label: 'Банковской картой', value: 0 },
               { label: 'По счету', value: 1 },
@@ -148,7 +153,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
         </div>
 
         <div class="mt-5">
-          <label for="cart-comments" class="d-block mb-5 large bold"
+          <label for="cart-comments" class="d-block mb-4 large bold"
             >Комментарий к заказу</label
           >
           <ui-textfield
