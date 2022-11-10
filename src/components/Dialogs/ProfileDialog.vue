@@ -1,15 +1,4 @@
 <template>
-<script setup lang="ts">
-import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
-import LineBreak from "@/components/LineBreak.vue";
-
-defineProps<{
-  closeProfileDialog: (payload: MouseEvent) => void;
-  onNotificationClick: (payload: MouseEvent) => void;
-  onLogout: (payload: MouseEvent) => void;
-}>();
-</script>
-
   <ui-dialog-title>
     <div :class="$tt('body1')" class="bold large">{{ login }}</div>
   </ui-dialog-title>
@@ -149,12 +138,14 @@ defineProps<{
 
 import {defineComponent} from "vue";
 import LineBreak from "@/components/LineBreak.vue";
+import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
 import {mapGetters} from "vuex";
 
 export default defineComponent({
   name: "ProfileDialog",
   components: {
-    LineBreak: LineBreak
+    LineBreak: LineBreak,
+    IconQuestionBlack: IconQuestionBlack
   },
   data() {
 

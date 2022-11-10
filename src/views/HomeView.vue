@@ -170,6 +170,21 @@ const submitSearch = () => {
   </main>
 </template>
 
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
+  name: "HomeView",
+  data() {
+
+    return {
+      
+    };
+  },
+});
+
+</script>
+
 <style lang="scss">
 section#banner {
   background-image: url("@/assets/home-banner.jpg");

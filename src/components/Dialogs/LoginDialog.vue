@@ -1,72 +1,3 @@
-<!--<script setup lang="ts">-->
-
-<!--defineProps<{-->
-<!--  closeLoginDialog: (payload: MouseEvent) => void;-->
-<!--}>();-->
-<!--</script>-->
-
-<script lang="ts">
-import LineBreak from "../LineBreak.vue";
-import {defineComponent} from "vue";
-import type UserDataAuth from "@/types/UserDataAuth";
-import type ResponseData from "@/types/ResponseData";
-import {store} from "@/store";
-import {AUTH, USER_ME} from "@/store/actions_type";
-import {mapGetters} from "vuex";
-import type UserDataInfo from "@/types/UserDataInfo";
-import router from "@/router";
-
-
-export default defineComponent({
-  name: "login-dialog",
-  components: {
-    LineBreak: LineBreak
-  },
-  data() {
-
-    return {
-      user_data_auth: {} as UserDataAuth,
-      user_data_info: {} as UserDataInfo
-    };
-  },
-
-  created: function () {},
-
-  computed: {
-    ...mapGetters(["isAuthenticated"])
-  },
-
-  methods: {
-    closeLoginDialog() {
-      this.$emit('closeDialog')
-    },
-    authUser() {
-      this.user_data_auth = {
-        login: this.user_data_auth.login,
-        password: this.user_data_auth.password
-      }
-
-      store.dispatch(AUTH, this.user_data_auth)
-          .then((data: ResponseData) => {
-            this.$emit("isAuthorisedUser")
-            this.$emit('isLoginOpen')
-            this.$emit('closeDialog')
-            store.dispatch(USER_ME)
-                .then((data: ResponseData) => {
-                  router.push({path: "/catalog"})
-                })
-                .catch((e: Error) => {
-                  console.log(e);
-                })
-          })
-          .catch((e: Error) => {
-            console.log(e);
-          });
-    }
-  },
-});
-</script>
-
 <template>
   <!-- leave title for close action -->
   <ui-dialog-title>
@@ -152,6 +83,68 @@ export default defineComponent({
     </div>
   </ui-dialog-content>
 </template>
+
+<script lang="ts">
+import LineBreak from "../LineBreak.vue";
+import {defineComponent} from "vue";
+import type UserDataAuth from "@/types/UserDataAuth";
+import type ResponseData from "@/types/ResponseData";
+import {store} from "@/store";
+import {AUTH, USER_ME} from "@/store/actions_type";
+import {mapGetters} from "vuex";
+import type UserDataInfo from "@/types/UserDataInfo";
+import router from "@/router";
+
+
+export default defineComponent({
+  name: "LoginDialog",
+  components: {
+    LineBreak: LineBreak
+  },
+  data() {
+
+    return {
+      user_data_auth: {} as UserDataAuth,
+      user_data_info: {} as UserDataInfo
+    };
+  },
+
+  created: function () {},
+
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  },
+
+  methods: {
+    closeLoginDialog() {
+      this.$emit('closeDialog')
+    },
+    authUser() {
+      this.user_data_auth = {
+        login: this.user_data_auth.login,
+        password: this.user_data_auth.password
+      }
+
+      store.dispatch(AUTH, this.user_data_auth)
+          .then((data: ResponseData) => {
+            this.$emit("isAuthorisedUser")
+            this.$emit('isLoginOpen')
+            this.$emit('closeDialog')
+            store.dispatch(USER_ME)
+                .then((data: ResponseData) => {
+                  router.push({path: "/catalog"})
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                })
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          });
+    }
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .login-dialog__title {
