@@ -110,7 +110,12 @@ export default defineComponent({
           <BrandProductFilters />
         </div>
         <div v-if="searchType === 1">
-          <BrandProductNodeFilters />
+          <!-- <BrandProductNodeFilters /> -->
+          <div class="node-filter-item">
+            <RouterLink to="/search-brand/honda/accord/cupe/" class="clear">1 ENGINE</RouterLink>
+          </div>
+
+          
         </div>
       </div>
 
@@ -164,5 +169,12 @@ export default defineComponent({
   position: fixed;
   left: 0;
   top: 0;
+}
+
+.node-filter-item {
+  padding: 15px 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid #d9d9de;
+  }
 }
 </style>
