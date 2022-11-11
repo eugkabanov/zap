@@ -13,7 +13,7 @@ const productsDataHead = [
   { value: "Данные" },
   { value: "" },
 ];
-const brandsData = [
+const brandsData2 = [
   {
     brand: "GENUINE PART",
     articul: "15110RAAA01",
@@ -26,6 +26,66 @@ const brandsData = [
   },
 ];
 </script>
+
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import {mapGetters} from "vuex";
+import CatalogService from "@/services/CatalogService";
+import type ResponseData from "@/types/ResponseData";
+import type PartObject from "@/types/PartObject"
+
+interface ProductTableRow {
+  brand: string;
+  articul: string;
+  details: string;
+}
+
+export default defineComponent({
+  name: "brandNameTypeModelSearch",
+  data() {
+    return {
+      ssd: this.$route.params.type,
+      brandName: this.$route.params.brandName,
+      model: this.$route.params.model,
+      productId: this.$route.params.productId,
+      brandsData: [] as ProductTableRow[]
+    };
+  },
+
+  mounted: function () {
+    this.listDetailByUnit()
+  },
+
+  created: function () {
+    
+  },
+
+  methods: {
+    listDetailByUnit() {
+      // this.productTypesData.length = 0
+      CatalogService.listDetailByUnit(this.brandName, this.ssd, this.productId)
+        .then((response: ResponseData) => {
+          for (let item of response.data) {
+            let o : PartObject = item
+            let row: ProductTableRow = {
+              brand: 'brand',
+              articul: o.oem,
+              details: o.name,
+            }
+            this.brandsData.push(row)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+    
+  },
+});
+</script>
+
 
 <template>
   <main class="container-fluid pb-5">

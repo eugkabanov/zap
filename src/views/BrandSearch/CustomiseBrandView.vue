@@ -4,6 +4,77 @@ import CustomSelect from "../../components/CustomSelect.vue";
 import BalanceBar from "@/components/Profile/BalanceBar.vue";
 </script>
 
+<script lang="ts">
+import {defineComponent} from "vue";
+import {mapGetters} from "vuex";
+import CatalogService from "@/services/CatalogService";
+import type ResponseData from "@/types/ResponseData";
+import type CatalogWizard2Object from "@/types/CatalogWizard2Object"
+
+export default defineComponent({
+  name: "brandNameSearch",
+  data() {
+    return {
+      catalogWizardList: [] as CatalogWizard2Object[],
+      ssd: '',
+      brandName: this.$route.params.brandName
+    };
+  },
+
+  mounted: function () {
+    this.catalogWizard2()
+  },
+
+  created: function () {
+    
+  },
+
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  },
+
+  methods: {
+    invertFilterDetermined(value: boolean): boolean {
+      if (value)
+        return false
+      else
+        return false
+    },
+
+    catalogWizard2() {
+      this.catalogWizardList.length = 0
+      CatalogService.catalogWizard2(this.brandName, this.ssd)
+        .then((response: ResponseData) => {
+          for (let item of response.data.wizardStepObjectList) {
+            console.log(item); // 1, "string", false
+            this.catalogWizardList.push(item)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+
+    onSelected(selected) {
+      this.ssd = selected.value
+      this.catalogWizard2()
+      console.log(selected)
+      // this.selected = selected.value;
+    },
+
+    defaultLabel(item: CatalogWizard2Object) {
+      if(item.determined) {
+        return item.value
+      } else {
+        return ' '
+      }
+    },
+    
+  },
+});
+</script>
+
 <template>
   <main class="container-fluid pb-5">
     <div class="row">
@@ -21,86 +92,27 @@ import BalanceBar from "@/components/Profile/BalanceBar.vue";
           </RouterLink>
         </h2>
 
-        <div class="row gy-4">
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Модель</div>
+        <div class="row gy-4" >
+          <div class="col-12 col-xl-4" v-for=" in catalogWizardList">
+            <div class="mb-2">{{ catalogWizardItem.name }}</div>
             <CustomSelect
               class="thin"
               outlined
               fullwidth
-              :options="[{ label: 'Hakkapeliitta' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Год</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: '2012' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Регион</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: 'Корея' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Дверей</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: '4' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Area</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: '300' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Коробка передач</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: 'Автомат' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Тип коробки передач</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: 'Автомат' }]"
-            ></CustomSelect>
-          </div>
-          <div class="col-12 col-xl-4">
-            <div class="mb-2">Country</div>
-            <CustomSelect
-              class="thin"
-              outlined
-              fullwidth
-              :options="[{ label: 'Россия' }]"
+              :optionFormat="{ label: 'value', value: 'key' }"
+              :options="catalogWizardItem.options"
+              :defaultValue="' '"catalogWizardItem
+              :defaultLabel="defaultLabel(catalogWizardItem)"
+              :disabled="catalogWizardItem.determined"
+              @selected="onSelected($event)"
             ></CustomSelect>
           </div>
 
-          <div class="mt-5">
-            <router-link v-button.raised to="/search-brand/honda/accord"
-              >Показать автомобили</router-link
-            >
+          <div class="mt-5" v-if="ssd.length>0">
+            <RouterLink v-button.raised :to="{ name: 'brandNameTypeSearch', params: { brandName: brandName, type:  ssd}}"
+              >Показать автомобили</RouterLink>
           </div>
-        </div>
+        </div>    
       </div>
       <div class="col-12 col-xl-5 order-xl-last order-first">
         <AsideSearch />

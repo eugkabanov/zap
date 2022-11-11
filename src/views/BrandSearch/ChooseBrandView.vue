@@ -9,6 +9,7 @@ import {defineComponent} from "vue";
 import {mapGetters} from "vuex";
 import CatalogService from "@/services/CatalogService";
 import type ResponseData from "@/types/ResponseData";
+import type CatalogObject from "@/types/CatalogObject"
 
 export default defineComponent({
   name: "ChooseBrand",
@@ -26,17 +27,24 @@ export default defineComponent({
   created: function () {
     CatalogService.listCatalogs()
         .then((response: ResponseData) => {
+          console.log(response)
           let map_brands = new Map();
           let letter: String
           let index, len;
           for (index = 0, len = response.data.length; index < len; index++) {
             letter = response.data[index].brand.substring(0,1)
-            let brand_list = new Array<String>;
+            let brand_list = new Array<CatalogObject>;
             if (map_brands.has(letter)) {
               brand_list = map_brands.get(letter)
-              brand_list.push(response.data[index].brand)
+              brand_list.push({
+                brand: response.data[index].brand, 
+                code: response.data[index].code
+              })
             } else {
-              brand_list.push(response.data[index].brand)
+              brand_list.push({
+                brand: response.data[index].brand, 
+                code: response.data[index].code
+              })
               map_brands.set(letter, brand_list)
             }
           }
@@ -95,9 +103,11 @@ export default defineComponent({
             <div class="row" v-for="letter of brands_row0">
               <div class="col-2 color-primary bold">{{ letter[0] }}</div>
               <div class="col-10">
-                <RouterLink to="/search-brand/honda" class="clear" v-for="brand_name of letter[1]">
-                  <div class="mb-3">{{ brand_name }}</div>
-                </RouterLink>
+                <template v-for="brand of letter[1]">
+                  <RouterLink class="clear"  :to="{ name: 'brandNameSearch', params: { brandName: brand.code}}" >
+                    <div class="mb-3">{{ brand.brand }}</div>
+                  </RouterLink>
+                </template>
               </div>
             </div>
           </div>
@@ -106,9 +116,11 @@ export default defineComponent({
             <div class="row" v-for="letter of brands_row1">
               <div class="col-2 color-primary bold">{{ letter[0] }}</div>
               <div class="col-10">
-                <RouterLink to="/search-brand/honda" class="clear" v-for="brand_name of letter[1]">
-                  <div class="mb-3">{{ brand_name }}</div>
-                </RouterLink>
+                <template v-for="brand of letter[1]">
+                  <RouterLink class="clear"  :to="{ name: 'brandNameSearch', params: { brandName: brand.code}}" >
+                    <div class="mb-3">{{ brand.brand }}</div>
+                  </RouterLink>
+                </template>
               </div>
             </div>
           </div>
@@ -116,9 +128,11 @@ export default defineComponent({
             <div class="row" v-for="letter of brands_row2">
               <div class="col-2 color-primary bold">{{ letter[0] }}</div>
               <div class="col-10">
-                <RouterLink to="/search-brand/honda" class="clear" v-for="brand_name of letter[1]">
-                  <div class="mb-3">{{ brand_name }}</div>
-                </RouterLink>
+                <template v-for="brand of letter[1]">
+                  <RouterLink class="clear"  :to="{ name: 'brandNameSearch', params: { brandName: brand.code}}" >
+                    <div class="mb-3">{{ brand.brand }}</div>
+                  </RouterLink>
+                </template>
               </div>
             </div>
           </div>
@@ -126,9 +140,11 @@ export default defineComponent({
             <div class="row" v-for="letter of brands_row3">
               <div class="col-2 color-primary bold">{{ letter[0] }}</div>
               <div class="col-10">
-                <RouterLink to="/search-brand/honda" class="clear" v-for="brand_name of letter[1]">
-                  <div class="mb-3">{{ brand_name }}</div>
-                </RouterLink>
+                <template v-for="brand of letter[1]">
+                  <RouterLink class="clear"  :to="{ name: 'brandNameSearch', params: { brandName: brand.code}}" >
+                    <div class="mb-3">{{ brand.brand }}</div>
+                  </RouterLink>
+                </template>
               </div>
             </div>
           </div>
