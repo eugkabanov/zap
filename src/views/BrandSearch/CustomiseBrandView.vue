@@ -93,7 +93,7 @@ export default defineComponent({
         </h2>
 
         <div class="row gy-4" >
-          <div class="col-12 col-xl-4" v-for=" in catalogWizardList">
+          <div class="col-12 col-xl-4" v-for="catalogWizardItem in catalogWizardList">
             <div class="mb-2">{{ catalogWizardItem.name }}</div>
             <CustomSelect
               class="thin"
@@ -101,7 +101,7 @@ export default defineComponent({
               fullwidth
               :optionFormat="{ label: 'value', value: 'key' }"
               :options="catalogWizardItem.options"
-              :defaultValue="' '"catalogWizardItem
+              :defaultValue="' '"
               :defaultLabel="defaultLabel(catalogWizardItem)"
               :disabled="catalogWizardItem.determined"
               @selected="onSelected($event)"

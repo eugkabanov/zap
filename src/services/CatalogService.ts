@@ -34,6 +34,16 @@ class CatalogService {
     return HTTPClient.get("/catalog/listUnits",  { params : params });
   }
 
+  listCategories(catalog : string, ssd : string, vehicleId: string, categoryId: string): Promise<any> {
+    let params = {
+      'catalog': catalog,
+      'ssd': ssd,
+      'vehicleId': vehicleId,
+      'categoryId': categoryId
+    };
+    return HTTPClient.get("/catalog/listCategories",  { params : params });
+  }
+
   listDetailByUnit(catalog : string, ssd : string, unitId: string): Promise<any> {
     let params = {
       'catalog': catalog,

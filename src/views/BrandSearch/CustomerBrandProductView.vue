@@ -68,12 +68,14 @@ export default defineComponent({
         .then((response: ResponseData) => {
           for (let item of response.data) {
             let o : PartObject = item
-            let row: ProductTableRow = {
+            if (o.oem.length>0) {
+              let row: ProductTableRow = {
               brand: 'brand',
               articul: o.oem,
               details: o.name,
             }
             this.brandsData.push(row)
+            }
           }
         })
 
@@ -122,9 +124,12 @@ export default defineComponent({
         :thead="productsDataHead"
         :tbody="productsDataBody"
       >
-        <template #actions>
+
+        <template #actions="{ data }">
           <ui-icon class="hint">camera_alt</ui-icon>
-          <ui-icon class="hint ms-2">link</ui-icon>
+          <RouterLink :to="{ name: 'productSearch', params: { productId: data.articul}}" >
+            <ui-icon class="hint ms-2">link</ui-icon>
+          </RouterLink>
         </template>
       </ui-table>
     </div>
