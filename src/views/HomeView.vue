@@ -40,14 +40,23 @@ const submitSearch = () => {
                   <RouterLink to="/search-brand">
                     <ui-button
                       raised
-                      style="background-color: white; color: #0069c8"
+                      style="
+                        background-color: white;
+                        color: #0069c8;
+                        height: 66px;
+                        text-transform: uppercase;
+                      "
                       >Подбор по марке</ui-button
                     >
                   </RouterLink>
                 </div>
                 <div class="col-6 col-lg-auto">
                   <RouterLink to="/catalog">
-                    <ui-button raised>Каталог товаров</ui-button>
+                    <ui-button
+                      style="height: 66px; text-transform: uppercase"
+                      raised
+                      >Каталог товаров</ui-button
+                    >
                   </RouterLink>
                 </div>
               </div>
@@ -161,6 +170,21 @@ const submitSearch = () => {
   </main>
 </template>
 
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
+  name: "HomeView",
+  data() {
+
+    return {
+      
+    };
+  },
+});
+
+</script>
+
 <style lang="scss">
 section#banner {
   background-image: url("@/assets/home-banner.jpg");
@@ -172,18 +196,36 @@ section#banner {
     caret-color: white;
     z-index: 2;
   }
+
+  .mdc-text-field {
+    height: 80px;
+  }
+  .mdc-text-field__input {
+    font-size: 20px;
+  }
+
+  button.mdc-fab {
+    width: 80px;
+    height: 80px;
+  }
+  .mdc-fab__icon {
+    font-size: 34px;
+  }
+  .mdc-button__label {
+    font-weight: 700 !important;
+  }
+
   .mdc-text-field--outlined:not(.mdc-text-field--disabled)
     .mdc-notched-outline__leading,
   .mdc-text-field--outlined:not(.mdc-text-field--disabled)
     .mdc-notched-outline__notch,
   .mdc-text-field--outlined:not(.mdc-text-field--disabled)
     .mdc-notched-outline__trailing {
-    border-color: white;
+    border-color: rgba($color: #fff, $alpha: 0.3);
     background-color: rgba($color: black, $alpha: 0.5);
-
-    .mdc-floating-label {
-      color: white;
-    }
+  }
+  .mdc-text-field__input::placeholder {
+    color: white !important;
   }
 }
 

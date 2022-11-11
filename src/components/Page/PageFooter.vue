@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import LineBreak from "@/components/LineBreak.vue";
+</script>
+
 <template>
   <footer id="app-footer" class="container-fluid">
     <div class="row gy-4 gy-lg-0 align-items-top justify-content-center">
@@ -20,7 +24,7 @@
           </div>
         </nav>
 
-        <ui-divider class="mt-4 mb-5" />
+        <LineBreak style="opacity: 0.4" class="my-4" />
 
         <div class="row">
           <div class="col-12 col-lg-3 footer-item">

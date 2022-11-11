@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
 import AsideSearch from "../../components/Search/AsideSearch.vue";
 </script>
 
@@ -83,7 +84,12 @@ export default defineComponent({
 
 <template>
   <main class="pb-5 container-fluid">
-    <h1 class="mb-4 large">Оригинальный каталог</h1>
+    <div class="row">
+      <h1 class="mb-4 mt-5 col-auto large">Оригинальный каталог</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
     <div class="row">
       <div class="col-12 col-xl-7">
         <h2 class="mb-4 large bold">Марка автомобиля</h2>

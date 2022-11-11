@@ -3,6 +3,8 @@ import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
 import OrdersStatsDialog from "@/components/Dialogs/OrdersStatsDialog.vue";
+import IconTime from "@/components/icons/IconTime.vue";
+import IconTimeWhite from "@/components/icons/IconTimeWhite.vue";
 
 const ordersDataBody = [
   { field: "date" },
@@ -244,8 +246,12 @@ const ordersData = [
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5 mt-0 large">Заказы</h1>
+    <div class="row">
+      <h1 class="col-auto my-5 large">Заказы</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
@@ -262,39 +268,45 @@ const ordersData = [
       </div>
 
       <div class="col-auto ms-md-auto">
-        <ui-icon style="vertical-align: middle">compress</ui-icon>
+        <ui-icon style="vertical-align: middle; transform: rotate(90deg)"
+          >compress</ui-icon
+        >
         Свернуть
       </div>
 
       <div class="col-auto ms-md-1">
-        <CustomSelect outlined :options="[{ value: 1, label: '30' }]" />
+        <CustomSelect
+          class="small-select"
+          outlined
+          :options="[{ value: 1, label: '30' }]"
+        />
       </div>
     </div>
 
     <div class="row gy-3 mb-3">
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Дата заказа</CustomSelect>
+        <CustomSelect class="small-select">Дата заказа</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Прим. к заказу</CustomSelect>
+        <CustomSelect class="small-select">Прим. к заказу</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Комментарий</CustomSelect>
+        <CustomSelect class="small-select">Комментарий</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Каталог</CustomSelect>
+        <CustomSelect class="small-select">Каталог</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Артикул</CustomSelect>
+        <CustomSelect class="small-select">Артикул</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Номер счета</CustomSelect>
+        <CustomSelect class="small-select">Номер счета</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Статус</CustomSelect>
+        <CustomSelect class="small-select">Статус</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Поставщик</CustomSelect>
+        <CustomSelect class="small-select">Поставщик</CustomSelect>
       </div>
     </div>
 
@@ -306,9 +318,7 @@ const ordersData = [
       :tbody="ordersDataBody"
     >
       <template #th-time>
-        <ui-icon v-tooltip="'Время'" aria-describedby="th-cell-1">
-          schedule
-        </ui-icon>
+        <IconTimeWhite />
       </template>
       <template #articul="{ data }">
         <span style="text-decoration: underline" class="link">{{
@@ -322,7 +332,7 @@ const ordersData = [
         <ui-icon class="hint" filled> shopping_cart </ui-icon>
       </template>
       <template #time>
-        <ui-icon class="hint"> schedule </ui-icon>
+        <IconTime />
       </template>
       <template #status="{ data }">
         <span :class="data.status" class="status">{{ data.status }}</span>

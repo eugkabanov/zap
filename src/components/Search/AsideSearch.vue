@@ -14,6 +14,7 @@ import CustomSelect from "../CustomSelect.vue";
 
     <div>
       <CustomSelect
+        class="thin"
         outlined
         fullwidth
         :options="[{ label: 'Гараж' }]"

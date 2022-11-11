@@ -45,6 +45,10 @@ a,
   }
 }
 
+.thin {
+  font-weight: 400 !important;
+}
+
 b,
 .bold {
   font-weight: 600 !important;
@@ -79,6 +83,10 @@ button.x-small {
 
   height: unset;
   padding: 10px 14px;
+}
+
+.mdc-select.thin .mdc-select__selected-text {
+  font-weight: 400 !important;
 }
 
 .large {
@@ -121,7 +129,7 @@ h3.large,
   color: vars.$grayed;
 }
 .color-black {
-  color: black;
+  color: black !important;
 }
 .color-primary {
   color: vars.$primaryColor;
@@ -184,5 +192,24 @@ footer#app-footer {
 
   @media (min-width: vars.$desktop) {
     padding: 24px 35px;
+  }
+}
+
+#city-select .mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
+  font-weight: 600 !important;
+}
+
+.small-select .mdc-select__anchor {
+  height: 40px;
+}
+
+.mdc-text-field--outlined.no-border {
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
   }
 }

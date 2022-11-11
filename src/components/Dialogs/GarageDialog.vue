@@ -4,7 +4,7 @@ import CustomSelect from "@/components/CustomSelect.vue";
 
 <template>
   <ui-dialog-title></ui-dialog-title>
-  <ui-dialog-content class="py-4">
+  <ui-dialog-content class="pb-4">
     <div class="row align-items-center">
       <div class="col-3">Товар</div>
       <div class="col offset-1">

@@ -43,8 +43,12 @@ const parkData = [
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1>Гараж</h1>
+    <div class="row">
+      <h1 class="col-auto mt-5">Гараж</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="mt-4 row align-items-center">
       <div class="col-auto mr-lg-3 bold large">AUDI A6/Avant</div>

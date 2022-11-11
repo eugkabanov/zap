@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AsideSearch from "../../components/Search/AsideSearch.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
 </script>
 
 <script lang="ts">
@@ -76,7 +77,12 @@ export default defineComponent({
 
 <template>
   <main class="container-fluid pb-5">
-    <h1 class="mb-4 large">Оригинальный каталог</h1>
+    <div class="row">
+      <h1 class="mb-4 mt-5 col-auto large">Оригинальный каталог</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-12 col-xl-7">
@@ -86,10 +92,11 @@ export default defineComponent({
           </RouterLink>
         </h2>
 
-        <div class="row gy-5" >
+        <div class="row gy-4" >
           <div class="col-12 col-xl-4" v-for=" in catalogWizardList">
             <div class="mb-2">{{ catalogWizardItem.name }}</div>
             <CustomSelect
+              class="thin"
               outlined
               fullwidth
               :optionFormat="{ label: 'value', value: 'key' }"

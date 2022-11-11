@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
+
 const productsDataBody = [
   { field: "brand" },
   { field: "articul" },
@@ -87,15 +89,23 @@ export default defineComponent({
 
 <template>
   <main class="container-fluid pb-5">
-    <h1 class="mb-4 large">Оригинальный каталог</h1>
+    <div class="row">
+      <h1 class="mb-4 mt-5 col-auto large">Оригинальный каталог</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <h2 class="mb-5 large bold">
       <RouterLink to="/search-brand/honda" class="clear">
         <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda ACCORD
         IX, Купе 3.5
       </RouterLink>
-      <span class="small hint ms-2"
-        ><ui-icon outlined class="vertical-align-middle"
+      <span style="vertical-align: middle" class="fw-400 small hint ms-2"
+        ><ui-icon
+          style="padding-bottom: 4px"
+          outlined
+          class="vertical-align-middle"
           >directions_car</ui-icon
         >
         Добавить в гараж</span

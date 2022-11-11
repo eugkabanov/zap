@@ -7,7 +7,7 @@ const appealsDataBody = [
   { slot: "link" },
   { field: "date" },
   { field: "category" },
-  { field: "detail" },
+  { slot: "detail" },
   { field: "dealer" },
   { field: "comments" },
   { field: "price" },
@@ -69,8 +69,12 @@ const appealsData = [
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5 mt-0 large">Вопросы по заказам</h1>
+    <div class="row">
+      <h1 class="my-5 large col-auto">Вопросы по заказам</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row align-items-center mb-4">
       <div class="col-12 col-xl-auto">
@@ -102,6 +106,15 @@ const appealsData = [
       <template #th-select> <ui-checkbox /> </template>
       <template #select>
         <ui-icon-button>more_vert</ui-icon-button>
+      </template>
+      <template #detail>
+        DENCO DCN32032
+        <ui-icon
+          style="font-size: 18px; vertical-align: middle"
+          class="ms-2 hint"
+          >lock</ui-icon
+        ><br />
+        Конденсор
       </template>
 
       <template #status="{ data }">

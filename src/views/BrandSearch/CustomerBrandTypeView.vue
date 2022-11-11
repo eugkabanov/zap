@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
 import { ref } from "vue";
 import ProductTypeFilters from "../../components/Search/ProductTypeFilters.vue";
 
@@ -110,11 +111,16 @@ export default defineComponent({
 
 <template>
   <main class="container-fluid pb-5">
-    <h1 class="mb-4 large">
-      <ui-icon-button class="d-xl-none" v-model="isFiltersOpen"
-        >menu_open</ui-icon-button
-      >Оригинальный каталог
-    </h1>
+    <div class="row">
+      <h1 class="mb-4 mt-5 col-auto large">
+        <ui-icon-button class="d-xl-none" v-model="isFiltersOpen"
+          >menu_open</ui-icon-button
+        >Оригинальный каталог
+      </h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <h2 class="mb-5 large bold">
       <RouterLink to="/search-brand/honda" class="clear">
@@ -127,7 +133,7 @@ export default defineComponent({
         <ProductTypeFilters />
       </div>
 
-      <div class="col-12 col-xl-9">
+      <div style="padding-top: 27px" class="col-12 col-xl-8 offset-xl-1">
         <ui-table
           class="mdc-data-table--last-select"
           fullwidth
@@ -138,7 +144,7 @@ export default defineComponent({
           <template #choose="{ data }">
             <router-link
               :to="{ name: 'brandNameTypeModelSearch', params: { brandName: brandName, type: data.ssd, model: data.vehicleid}}"
-              style="height: 35px; padding: 3px 10px; font-size: 12px"
+              style="height: 35px; padding: 3px 10px; font-size: 12px color: #0069c8;"
               v-button.outlined
               >Выбрать</router-link
             >

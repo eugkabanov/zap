@@ -6,7 +6,7 @@ const isOpen = ref(false);
 
 <template>
   <div class="row">
-    <aside class="col-3">
+    <aside style="position: relative" class="col-3">
       <slot name="aside" />
     </aside>
     <main class="col grayed">

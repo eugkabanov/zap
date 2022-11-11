@@ -1,68 +1,73 @@
+<script lang="ts" setup>
+import IconQuestionBlue from "@/components/icons/iconQuestionBlue.vue";
+</script>
+
 <template>
-  <ui-dialog-title class="mb-4">
+  <ui-dialog-title>
     <div style="font-size: 24px; font-weight: 700">ГАРАЖ</div>
   </ui-dialog-title>
 
   <ui-dialog-content>
+    <div class="mb-3 mt-4 row align-items-center">
+      <div class="col-3"><label class="color-black">Марка</label></div>
+      <div class="col-8 offset-1">
+        <ui-textfield outlined fullwidth model-value="AUDI" />
+      </div>
+    </div>
     <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Марка</label>
+      <div class="col-3"><label class="color-black">Название</label></div>
+      <div class="col-8 offset-1">
+        <ui-textfield outlined fullwidth model-value="A6/Avant" />
+      </div>
+    </div>
+    <div class="mb-3 row align-items-center">
+      <div class="col-3"><label class="color-black">Модель</label></div>
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth />
       </div>
     </div>
     <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Название</label>
+      <div class="col-3"><label class="color-black">Год</label></div>
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth />
       </div>
     </div>
     <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Модель</label>
+      <div class="col-3"><label class="color-black">Модификация</label></div>
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth />
       </div>
     </div>
     <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Год</label>
+      <div class="col-3"><label class="color-black">Vin/Frame</label></div>
+      <div class="col-8 offset-1">
+        <ui-textfield outlined fullwidth model-value="waubh54b11n111054" />
+      </div>
+    </div>
+    <div class="mb-3 row align-items-center">
+      <div class="col-3"><label class="color-black">Гос. номер</label></div>
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth />
       </div>
     </div>
     <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Модификация</label>
-      <div class="col-8 offset-1">
-        <ui-textfield outlined fullwidth />
+      <div class="col-3">
+        <label class="color-black"
+          >СТС
+          <IconQuestionBlue id="sts-icon" data-tooltip-id="tlp-1" />
+          <ui-tooltip-anchor>
+            <ui-tooltip id="tlp-1">
+              Укажите СТС и можете оплачивать штрафы
+            </ui-tooltip>
+          </ui-tooltip-anchor>
+        </label>
       </div>
-    </div>
-    <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Vin/Frame</label>
-      <div class="col-8 offset-1">
-        <ui-textfield outlined fullwidth />
-      </div>
-    </div>
-    <div class="mb-3 row align-items-center">
-      <label class="color-black col-3">Гос. номер</label>
-      <div class="col-8 offset-1">
-        <ui-textfield outlined fullwidth />
-      </div>
-    </div>
-    <div class="mb-3 row align-items-center">
-      <label class="color-black col-3"
-        >СТС
-        <ui-icon
-          v-tooltip="'Укажите СТС и можете оплачивать штрафы'"
-          aria-describedby="tooltip"
-          :dark="false"
-        >
-          contact_support
-        </ui-icon></label
-      >
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth />
       </div>
     </div>
     <div class="mb-3 row">
-      <label class="color-black col-3">Владелец</label>
+      <div class="col-3"><label class="color-black">Владелец</label></div>
       <div class="col-8 offset-1">
         <div>
           <ui-textfield outlined fullwidth placeholder="Имя" />
@@ -76,7 +81,7 @@
       </div>
     </div>
     <div class="mb-3 row">
-      <label class="color-black col-3">Комментарии</label>
+      <div class="col-3"><label class="color-black">Комментарии</label></div>
       <div class="col-8 offset-1">
         <ui-textfield outlined fullwidth input-type="textarea" rows="4" />
       </div>
@@ -87,3 +92,14 @@
     </div>
   </ui-dialog-content>
 </template>
+
+<style lang="scss" scoped>
+label {
+  position: relative;
+}
+#sts-icon {
+  position: absolute;
+  top: -3px;
+  right: -30px;
+}
+</style>

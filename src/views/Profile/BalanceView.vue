@@ -4,6 +4,7 @@ import BalanceWarnDialog from "@/components/Dialogs/BalanceWarnDialog.vue";
 import { onMounted, ref } from "vue";
 import LineBreak from "../../components/LineBreak.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomDatePikcer from "@/components/CustomControls/CustomDatePikcer.vue";
 
 const balanceDataBody = [
   { field: "date" },
@@ -65,19 +66,15 @@ onMounted(() => {
 <template>
   <main class="container-fluid pb-5">
     <div class="row align-items-center">
-      <div class="row align-items-center col-xl-4 pt-5">
+      <div class="row align-items-center col-xl-5 pt-5">
         <div class="col-auto">
           <h1>Баланс</h1>
         </div>
-        <div class="col">
-          <ui-datepicker outlined toggle fullwidth>
-            <template #toggle><ui-icon>event</ui-icon></template>
-          </ui-datepicker>
+        <div class="col-auto ms-auto">
+          <CustomDatePikcer />
         </div>
-        <div class="col">
-          <ui-datepicker outlined toggle fullwidth>
-            <template #toggle><ui-icon>event</ui-icon></template>
-          </ui-datepicker>
+        <div class="col-auto pe-0">
+          <CustomDatePikcer />
         </div>
       </div>
       <div class="col-12 col-md-6 ms-auto">
@@ -97,9 +94,9 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-3">
       <div class="row gy-3">
-        <div class="col-12 col-xl-4">
+        <div class="col-12 col-xl-5">
           <div class="row mb-3">
             <div class="col-auto">
               <div class="bold">Баланс</div>
@@ -191,7 +188,7 @@ onMounted(() => {
             >Пополнить баланс</ui-button
           >
         </div>
-        <div class="col-12 col-xl-8">
+        <div class="col-12 col-xl-7">
           <ui-table
             fullwidth
             :data="balanceData"
@@ -210,7 +207,7 @@ onMounted(() => {
     </div>
   </main>
 
-  <ui-dialog v-model="isTopUpBalanceOpen" maskClosable class="topup-dialog">
+  <ui-dialog v-model="isTopUpBalanceOpen" sheet class="topup-dialog">
     <TopUpBalanceDialog />
   </ui-dialog>
 
@@ -238,7 +235,7 @@ onMounted(() => {
 .balance-warning-dialog .mdc-dialog__surface {
   @media (min-width: vars.$desktop) {
     min-width: 480px !important;
-    padding: 40px;
+    padding-bottom: 40px;
     padding-top: 0;
   }
 }
