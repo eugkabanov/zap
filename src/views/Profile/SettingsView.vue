@@ -37,9 +37,10 @@
 <script lang="ts">
 import { ref } from "vue";
 import { defineComponent } from "vue";
-import CustomSelect from "../../components/CustomSelect.vue";
-import BalanceBar from "../../components/Profile/BalanceBar.vue";
+import CustomSelect from "@/components/CustomSelect.vue";
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
 import LineBreak from "@/components/LineBreak.vue";
+import ProfilePasswordChange from "@/components/Sections/ProfilePasswordChange.vue";
 
 export default defineComponent({
   name: "SettingsViev",
@@ -48,10 +49,28 @@ export default defineComponent({
     CustomSelect: CustomSelect,
     BalanceBar: BalanceBar,
     LineBreak: LineBreak,
+    ProfilePasswordChange: ProfilePasswordChange,
   },
 
   data() {
-    return {};
+    return {
+      selectedTab: [
+        {
+          value: 0,
+        },
+        {
+          value: 1,
+        },
+        {
+          value: 2,
+        },
+        {
+          value: 3,
+        },
+      ],
+      selectedTab: ref(0),
+
+    };
   },
 });
 </script>

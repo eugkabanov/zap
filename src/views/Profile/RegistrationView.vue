@@ -53,7 +53,7 @@ export default defineComponent({
       registration_type: ref(0),
     };
   },
-  });
+});
 </script>
 
 <style scoped lang="scss">
