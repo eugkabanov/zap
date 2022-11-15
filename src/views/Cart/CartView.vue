@@ -4,10 +4,10 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
-  { field: "title", align: "center" },
-  { field: "delivery", align: "center" },
-  { field: "time" },
-  { field: "price", align: "center" },
+  { field: "itemName", align: "center" },
+  { field: "supplierName", align: "center" },
+  { field: "supplierMaxPeriod" },
+  { field: "priceValue", align: "center" },
   { field: "quantity", align: "center" },
   { field: "total", align: "center" },
   {
@@ -25,49 +25,55 @@ const productsDataHead = [
   { value: "Цена", align: "center" },
   { value: "Количество", align: "center" },
   { value: "Сумма", align: "center" },
-  {
-    slot: "th-select",
-    columnId: "select",
-  },
+  { value: "Выбрать" },
   "Комментарии",
 ];
 const activeTab = ref(0);
-
-const productsData = [
-  {
-    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
-    delivery: "NOKIAN",
-    time: "2 дня",
-    price: "1460",
-    quantity: 4,
-    total: "5841",
-  },
-  {
-    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
-    delivery: "NOKIAN",
-    time: "2 дня",
-    price: "1460",
-    quantity: 4,
-    total: "5841",
-  },
-  {
-    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
-    delivery: "NOKIAN",
-    time: "2 дня",
-    price: "1460",
-    quantity: 4,
-    total: "5841",
-  },
-  {
-    title: "Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)",
-    delivery: "NOKIAN",
-    time: "2 дня",
-    price: "1460",
-    quantity: 4,
-    total: "5841",
-  },
-];
 </script>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import type ResponseData from "@/types/ResponseData";
+import type CartItem from "@/types/CartItem";
+import OrderService from "@/services/OrderService";
+
+export default defineComponent({
+  name: "cart",
+  data() {
+    return {
+      items: [] as CartItem[]
+    };
+  },
+
+  mounted: function () {
+    this.listCart()
+  },
+
+  created: function () {
+    
+  },
+
+  methods: {
+    listCart() {
+      this.items.length = 0
+      OrderService.getCart()
+        .then((response: ResponseData) => {
+          for (let item of response.data.cart) {
+            item.total = (item.priceValue * item.quantity).toFixed(2);
+            item.supplierMaxPeriod += " дней";
+            this.items.push(item);
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+    
+  },
+});
+</script>
+
 
 <template>
   <main class="container-fluid pb-5">
@@ -95,7 +101,7 @@ const productsData = [
     <div class="mt-3 dark">
       <ui-table
         fullwidth
-        :data="productsData"
+        :data="items"
         :thead="productsDataHead"
         :tbody="productsDataBody"
       >
@@ -109,9 +115,8 @@ const productsData = [
           </ui-icon>
         </template>
 
-        <template #th-select> <ui-checkbox /> Выбрать </template>
         <template #select>
-          <ui-checkbox />
+          <ui-checkbox disabled="true" modelValue="true" />
         </template>
       </ui-table>
 
