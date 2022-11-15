@@ -7,12 +7,12 @@ import IconTime from "@/components/icons/IconTime.vue";
 import IconTimeWhite from "@/components/icons/IconTimeWhite.vue";
 
 const ordersDataBody = [
-  { field: "date" },
+  { field: "dateTime" },
   { field: "info" },
-  { field: "comments" },
-  { field: "catalog" },
+  { field: "comment" },
+  { field: "catalogName" },
   {
-    slot: "articul",
+    slot: "vendorCode",
   },
   {
     slot: "cart",
@@ -20,9 +20,9 @@ const ordersDataBody = [
   {
     slot: "time",
   },
-  { field: "title" },
+  { field: "itemName" },
   {
-    field: "ordered",
+    field: "quantity",
     align: "center",
   },
   {
@@ -54,8 +54,8 @@ const ordersDataBody = [
     align: "center",
   },
   { slot: "status" },
-  { field: "dealer" },
-  { field: "price" },
+  { field: "supplierName" },
+  { field: "priceValue" },
   { field: "total" },
   {
     slot: "select",
@@ -120,128 +120,170 @@ const ordersDataHead = [
 const isStatsOpen = ref(false);
 const onStatsClick = () => (isStatsOpen.value = true);
 
-const ordersData = [
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+// const ordersData = [
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "123",
+//     completed: "4",
+//     returned: "85",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "Заказано",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "Пришло",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+// ];
+</script>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import type ResponseData from "@/types/ResponseData";
+import type OrderItem from "@/types/OrderItem";
+import OrderService from "@/services/OrderService";
+
+export default defineComponent({
+  name: "orders",
+  data() {
+    return {
+      items: [] as OrderItem[]
+    };
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "123",
-    completed: "4",
-    returned: "85",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "Заказано",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  mounted: function () {
+    this.listOrders()
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  created: function () {
+    
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  methods: {
+    listOrders() {
+      this.items.length = 0
+      OrderService.getOrders()
+        .then((response: ResponseData) => {
+          for (let item of response.data.orders) {
+            item.total = (item.priceValue * item.quantity).toFixed(2);
+            this.items.push(item);
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+    
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "Пришло",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
-  },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
-  },
-];
+});
 </script>
 
 <template>
@@ -313,16 +355,16 @@ const ordersData = [
     <ui-table
       class="dark orders-table"
       fullwidth
-      :data="ordersData"
+      :data="items"
       :thead="ordersDataHead"
       :tbody="ordersDataBody"
     >
       <template #th-time>
         <IconTimeWhite />
       </template>
-      <template #articul="{ data }">
+      <template #vendorCode="{ data }">
         <span style="text-decoration: underline" class="link">{{
-          data.articul
+          data.vendorCode
         }}</span
         ><ui-icon style="vertical-align: middle" class="hint ms-2">
           lock
