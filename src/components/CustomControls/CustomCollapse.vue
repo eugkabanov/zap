@@ -1,9 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-  <ui-collapse class="filter-item" with-icon ripple>
+  <ui-collapse class="filter-item" iconEndAligned with-icon ripple>
     <template #toggle><slot name="title" /></template>
-
+    <template #expand-more-icon>
+      <ui-icon>expand_less</ui-icon>
+    </template>
+    <template #expand-less-icon>
+      <ui-icon>expand_more</ui-icon>
+    </template>
     <slot name="default" />
   </ui-collapse>
 </template>

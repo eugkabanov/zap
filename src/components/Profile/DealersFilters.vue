@@ -9,22 +9,22 @@ const daysRange = ref([0, 40]);
 <template>
   <div class="bold large mb-5">Поиск</div>
 
-  <div class="mb-3">
+  <div class="mb-4">
     <label class="d-block mb-2">Название</label>
     <ui-textfield outlined fullwidth />
   </div>
-  <div class="mb-3">
+  <div style="margin-bottom: 34px">
     <label class="d-block mb-2">Регион</label>
     <CustomSelect outlined fullwidth />
   </div>
-  <div class="mb-3">
+  <div class="mb-4">
     <VueSlider v-model="daysRange" max="70" />
-    <div class="row justify-content-between">
+    <div class="mt-2 row justify-content-between">
       <div class="col-auto hint small">0 д.</div>
       <div class="col-auto hint small">70 д.</div>
     </div>
   </div>
-  <div class="mb-3">
+  <div style="margin-left: -10px" class="mb-3">
     <ui-form-field class="mb-1">
       <ui-checkbox input-id="filter-1" />
       <label for="filter-1">Центральный склад</label>
@@ -43,7 +43,9 @@ const daysRange = ref([0, 40]);
     </ui-form-field>
   </div>
   <div class="mb-3">
-    <ui-button class="col-12 small" outlined>Показать отключенных</ui-button>
+    <ui-button class="col-12 small blue" outlined
+      >Показать отключенных</ui-button
+    >
   </div>
 
   <h3 class="mt-5 mb-4">Настройки</h3>

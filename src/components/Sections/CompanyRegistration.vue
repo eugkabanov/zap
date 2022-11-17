@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+import IconQuestionBlue from "@/components/icons/iconQuestionBlue.vue";
+</script>
+
 <template>
   <div class="col-12 col-xl-3">
     <div class="large bold mb-5">Данные организации</div>

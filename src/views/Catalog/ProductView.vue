@@ -3,6 +3,10 @@ import { ref } from "vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import RelatedProducts from "@/components/Sections/RelatedProducts.vue";
+import IconOK from "@/components/icons/IconOK.vue";
+import IconVK from "@/components/icons/IconVK.vue";
+import IconTG from "@/components/icons/IconTG.vue";
+import IconWA from "@/components/icons/IconWA.vue";
 
 const isShowAddedProduct = ref(false);
 const showAddedProduct = () => (isShowAddedProduct.value = true);
@@ -29,77 +33,99 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
       />
       <div class="row gy-4">
         <div class="order-first col-12 col-md-6 col-xxl-3">
-          <img src="@/assets/catalog/wheel.png" alt="product image" />
+          <img
+            style="width: 100%; border: 1px solid #d9d9de"
+            src="@/assets/catalog/wheel.png"
+            alt="product image"
+          />
         </div>
         <div class="order-3 order-xxl-2 col-12 col-xxl-6">
           <div :class="$tt('headline2')" class="d-none d-md-block mb-4">
             Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
           </div>
 
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-8">
             <div class="hint">
-              <div :class="$tt('body1')" class="large">Бренд: NOKIAN</div>
-              <div :class="$tt('body1')" class="large">Артикул: TS32701</div>
+              <div style="font-size: 18px" class="fw-400 mb-2">
+                Бренд: <span style="color: black">NOKIAN</span>
+              </div>
+              <div style="font-size: 18px" class="fw-400">
+                Артикул: <span style="color: black">TS32701</span>
+              </div>
             </div>
 
-            <div :class="$tt('headline3')" class="mt-5 mb-4">
-              Характеристики
-            </div>
+            <div class="mt-5 mb-4 large bold">Характеристики</div>
 
-            <div class="hint">
+            <div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">Ширина</div>
-                <div class="col dotted" />
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">Ширина</div>
+                  <div class="col dotted" />
+                </div>
                 <div class="col-auto" :class="$tt('body2')">245</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">Высота</div>
-                <div class="col dotted" />
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">Высота</div>
+                  <div class="col dotted" />
+                </div>
                 <div class="col-auto" :class="$tt('body2')">60</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">Диаметр</div>
-                <div class="col dotted" />
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">Диаметр</div>
+                  <div class="col dotted" />
+                </div>
                 <div class="col-auto" :class="$tt('body2')">18</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">Сезон</div>
-                <div class="col dotted" />
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">Сезон</div>
+                  <div class="col dotted" />
+                </div>
                 <div class="col-auto" :class="$tt('body2')">Зимняя</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">
-                  Индекс нагрузки
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">
+                    Индекс нагрузки
+                  </div>
+                  <div class="col dotted" />
                 </div>
-                <div class="col dotted" />
                 <div class="col-auto" :class="$tt('body2')">109</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">
-                  Индекс скорости
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">
+                    Индекс скорости
+                  </div>
+                  <div class="col dotted" />
                 </div>
-                <div class="col dotted" />
                 <div class="col-auto" :class="$tt('body2')">T</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">
-                  Тип конструкции
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">
+                    Тип конструкции
+                  </div>
+                  <div class="col dotted" />
                 </div>
-                <div class="col dotted" />
                 <div class="col-auto" :class="$tt('body2')">R</div>
               </div>
               <div class="row mb-2">
-                <div class="col-auto" :class="$tt('body2')">
-                  Увеличенная грузоподъемность
+                <div class="col-10 row">
+                  <div class="col-auto" :class="$tt('body2')">
+                    Увеличенная грузоподъемность
+                  </div>
+                  <div class="col dotted" />
                 </div>
-                <div class="col dotted" />
                 <div class="col-auto" :class="$tt('body2')">да</div>
               </div>
             </div>
 
-            <div :class="$tt('headline3')" class="mt-5 mb-4">Описание</div>
+            <div class="mt-5 mb-4 large bold">Описание</div>
 
-            <div class="hint" :class="$tt('body1')">Шина зимняя</div>
+            <div>Шина зимняя</div>
           </div>
         </div>
         <div class="order-2 order-xxl-3 col-12 col-md-6 col-xxl-3">
@@ -107,18 +133,21 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
             Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
           </div>
           <div class="product-summary mb-4">
-            <div class="row gy-2 gx-0 flex-column">
-              <div class="row g-0">
-                <div :class="$tt('body1')" class="col-auto">Цена:</div>
-                <div :class="$tt('body1')" class="col-auto large ms-auto">
-                  5841&nbsp;₽
-                </div>
+            <div>
+              <div class="row align-items-baseline">
+                <div class="col-auto mb-2">Цена:</div>
+                <div class="col-auto bold large ms-auto">5841&nbsp;₽</div>
               </div>
-              <div :class="$tt('body1')" class="small hint mb-4">за 1 шт.</div>
+              <div class="small hint mb-4">за 1 шт.</div>
 
-              <div :class="$tt('body1')">Количество:</div>
+              <div class="mb-3">Количество:</div>
               <ui-form-field>
-                <ui-textfield outlined fullwidth>
+                <ui-textfield
+                  :model-value="4"
+                  class="quantity-input"
+                  outlined
+                  fullwidth
+                >
                   <template #after>
                     <ui-textfield-icon>add</ui-textfield-icon>
                   </template>
@@ -127,22 +156,33 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
                   </template>
                 </ui-textfield>
               </ui-form-field>
-              <ui-button class="d-block mt-4" raised @click="showAddedProduct"
-                >Заказать</ui-button
-              >
+              <div>
+                <ui-button class="w-100 mt-3" raised @click="showAddedProduct"
+                  >Заказать</ui-button
+                >
+              </div>
 
-              <div :class="$tt('body2')" class="hint my-4">Остаток: 30 шт.</div>
+              <div :class="$tt('body2')" class="my-4">Остаток: 30 шт.</div>
 
               <ui-divider />
 
               <div
-                :class="$tt('body1')"
                 class="row align-items-center justify-content-center g-0 mt-4"
               >
                 <ui-icon class="col-auto">star_outline</ui-icon>
                 <span class="col-auto ms-2">В избранное</span>
               </div>
             </div>
+          </div>
+
+          <div class="row align-items-center gx-0">
+            <div style="font-size: 12px; padding-bottom: 8px" class="hint col">
+              Поделиться
+            </div>
+            <div class="col-auto ms-3"><IconOK /></div>
+            <div class="col-auto ms-3"><IconVK /></div>
+            <div class="col-auto ms-3"><IconTG /></div>
+            <div class="col-auto ms-3"><IconWA /></div>
           </div>
         </div>
       </div>
@@ -194,6 +234,20 @@ const hideAddedProduct = () => (isShowAddedProduct.value = false);
   }
   &__title {
     text-transform: uppercase;
+    font-weight: 700;
+  }
+}
+
+.quantity-input {
+  background-color: white;
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__trailing {
+    border: none;
+  }
+
+  .mdc-text-field__input {
+    text-align: center;
     font-weight: 700;
   }
 }

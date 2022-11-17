@@ -49,12 +49,16 @@ const webServicesData = [
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1>Web-сервисы</h1>
+    <div class="row">
+      <h1 class="col-auto mt-5">Web-сервисы</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="mt-4 bold large">IP-адрес</div>
 
-    <div class="mt-3 col-xl-7">
+    <div class="mt-4 col-xl-7">
       <ui-table
         class="mdc-data-table--last-select"
         fullwidth

@@ -47,7 +47,7 @@ const setSelectedViewOption = (value: number) =>
         />
         <div class="mb-5">
           <span :class="$tt('headline1')">Шины</span>
-          <span :class="$tt('body2')" class="ms-2 hint">250 226 товаров</span>
+          <span :class="$tt('body2')" class="ms-3 hint">250 226 товаров</span>
         </div>
         <div class="mb-3">
           <ViewOptions

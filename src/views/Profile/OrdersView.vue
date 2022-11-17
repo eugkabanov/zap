@@ -3,14 +3,16 @@ import { ref } from "vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 import CustomSelect from "../../components/CustomSelect.vue";
 import OrdersStatsDialog from "@/components/Dialogs/OrdersStatsDialog.vue";
+import IconTime from "@/components/icons/IconTime.vue";
+import IconTimeWhite from "@/components/icons/IconTimeWhite.vue";
 
 const ordersDataBody = [
-  { field: "date" },
+  { field: "dateTime" },
   { field: "info" },
-  { field: "comments" },
-  { field: "catalog" },
+  { field: "comment" },
+  { field: "catalogName" },
   {
-    slot: "articul",
+    slot: "vendorCode",
   },
   {
     slot: "cart",
@@ -18,9 +20,9 @@ const ordersDataBody = [
   {
     slot: "time",
   },
-  { field: "title" },
+  { field: "itemName" },
   {
-    field: "ordered",
+    field: "quantity",
     align: "center",
   },
   {
@@ -52,8 +54,8 @@ const ordersDataBody = [
     align: "center",
   },
   { slot: "status" },
-  { field: "dealer" },
-  { field: "price" },
+  { field: "supplierName" },
+  { field: "priceValue" },
   { field: "total" },
   {
     slot: "select",
@@ -118,134 +120,180 @@ const ordersDataHead = [
 const isStatsOpen = ref(false);
 const onStatsClick = () => (isStatsOpen.value = true);
 
-const ordersData = [
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+// const ordersData = [
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "123",
+//     completed: "4",
+//     returned: "85",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "Заказано",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "Пришло",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+// ];
+</script>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import type ResponseData from "@/types/ResponseData";
+import type OrderItem from "@/types/OrderItem";
+import OrderService from "@/services/OrderService";
+
+export default defineComponent({
+  name: "orders",
+  data() {
+    return {
+      items: [] as OrderItem[]
+    };
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "123",
-    completed: "4",
-    returned: "85",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "Заказано",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  mounted: function () {
+    this.listOrders()
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  created: function () {
+    
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  methods: {
+    listOrders() {
+      this.items.length = 0
+      OrderService.getOrders()
+        .then((response: ResponseData) => {
+          for (let item of response.data.orders) {
+            item.total = (item.priceValue * item.quantity).toFixed(2);
+            this.items.push(item);
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+    
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "Пришло",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
-  },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
-  },
-];
+});
 </script>
 
 <template>
   <main class="container-fluid pb-5">
-    <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5 mt-0 large">Заказы</h1>
+    <div class="row">
+      <h1 class="col-auto my-5 large">Заказы</h1>
+      <div class="col-auto ms-auto">
+        <BalanceBar class="mt-2 mb-3" />
+      </div>
+    </div>
 
     <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
@@ -262,57 +310,61 @@ const ordersData = [
       </div>
 
       <div class="col-auto ms-md-auto">
-        <ui-icon style="vertical-align: middle">compress</ui-icon>
+        <ui-icon style="vertical-align: middle; transform: rotate(90deg)"
+          >compress</ui-icon
+        >
         Свернуть
       </div>
 
       <div class="col-auto ms-md-1">
-        <CustomSelect outlined :options="[{ value: 1, label: '30' }]" />
+        <CustomSelect
+          class="small-select"
+          outlined
+          :options="[{ value: 1, label: '30' }]"
+        />
       </div>
     </div>
 
     <div class="row gy-3 mb-3">
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Дата заказа</CustomSelect>
+        <CustomSelect class="small-select">Дата заказа</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Прим. к заказу</CustomSelect>
+        <CustomSelect class="small-select">Прим. к заказу</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Комментарий</CustomSelect>
+        <CustomSelect class="small-select">Комментарий</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Каталог</CustomSelect>
+        <CustomSelect class="small-select">Каталог</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Артикул</CustomSelect>
+        <CustomSelect class="small-select">Артикул</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Номер счета</CustomSelect>
+        <CustomSelect class="small-select">Номер счета</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Статус</CustomSelect>
+        <CustomSelect class="small-select">Статус</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
-        <CustomSelect>Поставщик</CustomSelect>
+        <CustomSelect class="small-select">Поставщик</CustomSelect>
       </div>
     </div>
 
     <ui-table
       class="dark orders-table"
       fullwidth
-      :data="ordersData"
+      :data="items"
       :thead="ordersDataHead"
       :tbody="ordersDataBody"
     >
       <template #th-time>
-        <ui-icon v-tooltip="'Время'" aria-describedby="th-cell-1">
-          schedule
-        </ui-icon>
+        <IconTimeWhite />
       </template>
-      <template #articul="{ data }">
+      <template #vendorCode="{ data }">
         <span style="text-decoration: underline" class="link">{{
-          data.articul
+          data.vendorCode
         }}</span
         ><ui-icon style="vertical-align: middle" class="hint ms-2">
           lock
@@ -322,7 +374,7 @@ const ordersData = [
         <ui-icon class="hint" filled> shopping_cart </ui-icon>
       </template>
       <template #time>
-        <ui-icon class="hint"> schedule </ui-icon>
+        <IconTime />
       </template>
       <template #status="{ data }">
         <span :class="data.status" class="status">{{ data.status }}</span>

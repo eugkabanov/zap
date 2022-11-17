@@ -1,3 +1,6 @@
+<script lang="ts" setup>
+import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
+</script>
 <template>
   <div class="d-none d-xl-block balance-bar small">
     <div class="row">
@@ -13,8 +16,10 @@
         <span class="bold ms-2">565 </span>
       </div>
       <div class="col-auto balance-bar__item">
-        <ui-icon outlined class="vertical-align-middle">contact_support</ui-icon>
-        <span class="ms-2">Вопросы по заказам</span>
+        <IconQuestionBlack class="vertical-align-middle" />
+        <RouterLink class="clear" to="/appeals"
+          ><span class="ms-2">Вопросы по заказам</span></RouterLink
+        >
       </div>
     </div>
   </div>

@@ -101,20 +101,14 @@ const addressDataHead = [
         </div>
         <div class="col-auto">
           <div class="bold">сб</div>
-          <div>
+          <div class="pt-2">
             {{ data.workhours[5].start }}
-          </div>
-          <div>
-            {{ data.workhours[5].end }}
           </div>
         </div>
         <div class="col-auto">
           <div class="bold">вс</div>
-          <div>
+          <div class="pt-2">
             {{ data.workhours[6].start }}
-          </div>
-          <div>
-            {{ data.workhours[6].end }}
           </div>
         </div>
       </div>

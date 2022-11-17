@@ -9,14 +9,14 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
     E1300A OIL PUMP (L4)
   </div>
 
-  <div class="row gy-2">
+  <div class="row gx-0 gy-2">
     <div class="col-12 col-lg-4 col-xl-3">
       <img class="w-100" src="@/assets/catalog/cupe.jpg" alt="" />
     </div>
-    <div class="col-12 col-lg-8 col-xl-9">
+    <div class="offset-xl-1 col-12 col-lg-8">
       <CustomCollapse>
         <template #title>
-          <div class="row align-items-center">
+          <div class="row gx-0 align-items-center">
             <div class="col-6">OEM</div>
             <div class="col-6">Наименование</div>
           </div>
@@ -24,7 +24,7 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
       </CustomCollapse>
       <CustomCollapse>
         <template #title>
-          <div class="row align-items-center">
+          <div class="row gx-0 align-items-center">
             <div class="col-6">
               <RouterLink to="/search-brand/honda/accord/cupe/12">
                 13410-RAA-A00
@@ -34,81 +34,67 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
           </div>
         </template>
 
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+        <div class="ps-5">
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Код на картинке</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">2</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Amount</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">1</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Amount</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Note</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">(NA USE ALT: 15100-R40-A02)</div>
           </div>
-          <div class="col-auto">1</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Note</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Grades</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">LX, LX-SSR, EX, EXL, EXLN</div>
           </div>
-          <div class="col-auto">(NA USE ALT: 15100-R40-A02)</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Grades</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Countries</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">USA</div>
           </div>
-          <div class="col-auto">LX, LX-SSR, EX, EXL, EXLN</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Countries</div>
-              <div class="col">
-                <div class="dotted" />
-              </div>
-            </div>
-          </div>
-          <div class="col-auto">USA</div>
         </div>
       </CustomCollapse>
       <CustomCollapse>
         <template #title>
-          <div class="row align-items-center">
+          <div class="row gx-0 align-items-center">
             <div class="col-6">
               <RouterLink to="/search-brand/honda/accord/cupe/12">
                 13410-RAA-A00
@@ -118,81 +104,67 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
           </div>
         </template>
 
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+        <div class="ps-5">
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Код на картинке</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">2</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Amount</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">1</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Amount</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Note</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">(NA USE ALT: 15100-R40-A02)</div>
           </div>
-          <div class="col-auto">1</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Note</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Grades</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">LX, LX-SSR, EX, EXL, EXLN</div>
           </div>
-          <div class="col-auto">(NA USE ALT: 15100-R40-A02)</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Grades</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Countries</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">USA</div>
           </div>
-          <div class="col-auto">LX, LX-SSR, EX, EXL, EXLN</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Countries</div>
-              <div class="col">
-                <div class="dotted" />
-              </div>
-            </div>
-          </div>
-          <div class="col-auto">USA</div>
         </div>
       </CustomCollapse>
       <CustomCollapse>
         <template #title>
-          <div class="row align-items-center">
+          <div class="row gx-0 align-items-center">
             <div class="col-6">
               <RouterLink to="/search-brand/honda/accord/cupe/12">
                 13410-RAA-A00
@@ -202,81 +174,67 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
           </div>
         </template>
 
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+        <div class="ps-5">
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Код на картинке</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">2</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Amount</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">1</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Amount</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Note</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">(NA USE ALT: 15100-R40-A02)</div>
           </div>
-          <div class="col-auto">1</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Note</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Grades</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">LX, LX-SSR, EX, EXL, EXLN</div>
           </div>
-          <div class="col-auto">(NA USE ALT: 15100-R40-A02)</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Grades</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Countries</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">USA</div>
           </div>
-          <div class="col-auto">LX, LX-SSR, EX, EXL, EXLN</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Countries</div>
-              <div class="col">
-                <div class="dotted" />
-              </div>
-            </div>
-          </div>
-          <div class="col-auto">USA</div>
         </div>
       </CustomCollapse>
       <CustomCollapse>
         <template #title>
-          <div class="row align-items-center">
+          <div class="row gx-0 align-items-center">
             <div class="col-6">
               <RouterLink to="/search-brand/honda/accord/cupe/12">
                 13410-RAA-A00
@@ -286,81 +244,67 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
           </div>
         </template>
 
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+        <div class="ps-5">
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Код на картинке</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">2</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Amount</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">1</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Amount</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Note</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">(NA USE ALT: 15100-R40-A02)</div>
           </div>
-          <div class="col-auto">1</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Note</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Grades</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">LX, LX-SSR, EX, EXL, EXLN</div>
           </div>
-          <div class="col-auto">(NA USE ALT: 15100-R40-A02)</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Grades</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Countries</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">USA</div>
           </div>
-          <div class="col-auto">LX, LX-SSR, EX, EXL, EXLN</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Countries</div>
-              <div class="col">
-                <div class="dotted" />
-              </div>
-            </div>
-          </div>
-          <div class="col-auto">USA</div>
         </div>
       </CustomCollapse>
       <CustomCollapse>
         <template #title>
-          <div class="row align-items-center">
+          <div class="row gx-0 align-items-center">
             <div class="col-6">
               <RouterLink to="/search-brand/honda/accord/cupe/12">
                 13410-RAA-A00
@@ -370,76 +314,62 @@ import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
           </div>
         </template>
 
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+        <div class="ps-5">
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Код на картинке</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">2</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Код на картинке</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Amount</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">1</div>
           </div>
-          <div class="col-auto">2</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Amount</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Note</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">(NA USE ALT: 15100-R40-A02)</div>
           </div>
-          <div class="col-auto">1</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Note</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Grades</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">LX, LX-SSR, EX, EXL, EXLN</div>
           </div>
-          <div class="col-auto">(NA USE ALT: 15100-R40-A02)</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Grades</div>
-              <div class="col">
-                <div class="dotted" />
+          <div class="row gx-0 mb-2 fw-400">
+            <div class="col-4">
+              <div class="row gx-0 align-items-end">
+                <div class="col-auto">Countries</div>
+                <div class="col">
+                  <div class="dotted" />
+                </div>
               </div>
             </div>
+            <div class="col-auto ms-1">USA</div>
           </div>
-          <div class="col-auto">LX, LX-SSR, EX, EXL, EXLN</div>
-        </div>
-
-        <div class="row mb-2">
-          <div class="col-5">
-            <div class="row align-items-end">
-              <div class="col-auto">Countries</div>
-              <div class="col">
-                <div class="dotted" />
-              </div>
-            </div>
-          </div>
-          <div class="col-auto">USA</div>
         </div>
       </CustomCollapse>
     </div>
