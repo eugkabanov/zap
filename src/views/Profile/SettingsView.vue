@@ -43,7 +43,7 @@ import LineBreak from "@/components/LineBreak.vue";
 import ProfilePasswordChange from "@/components/Sections/ProfilePasswordChange.vue";
 
 export default defineComponent({
-  name: "SettingsViev",
+  name: "SettingsView",
 
   components: {
     CustomSelect: CustomSelect,
@@ -54,21 +54,7 @@ export default defineComponent({
 
   data() {
     return {
-      selectedTab: [
-        {
-          value: 0,
-        },
-        {
-          value: 1,
-        },
-        {
-          value: 2,
-        },
-        {
-          value: 3,
-        },
-      ],
-      selectedTab: ref(0),
+      selectedTab: 0,
 
     };
   },
