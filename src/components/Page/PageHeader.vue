@@ -154,7 +154,7 @@ export default defineComponent({
     LineBreak: LineBreak,
     LoginDialog: LoginDialog,
     NotificationsDialog: NotificationsDialog,
-    ProfileDialog: ProfileDialog
+    ProfileDialog: ProfileDialog,
   },
   data() {
 
@@ -165,7 +165,7 @@ export default defineComponent({
       isProfileDialogOpen: false,
       isNotificationOpen: false,
       isNavMenuOpen: false,
-      user_data_info: {} as UserDataInfo
+      user_data_info: {} as UserDataInfo,
     };
   },
 
@@ -177,32 +177,32 @@ export default defineComponent({
 
   methods: {
     loginOpen() {
-      this.isLoginOpen = false
+      this.isLoginOpen = false;
     },
     authorisedUser() {
-      this.isAuthorisedUser = true
+      this.isAuthorisedUser = true;
     },
     openLogin() {
-      this.isLoginOpen = true
+      this.isLoginOpen = true;
     },
     onNotificationClick() {
-      this.isNotificationOpen = true
-      this.closeProfileDialog()
+      this.isNotificationOpen = true;
+      this.closeProfileDialog();
     },
     closeLoginDialog() {
-      this.isLoginOpen = false
+      this.isLoginOpen = false;
     },
     logout() {
-      store.dispatch(LOGOUT)
-      this.isAuthorisedUser = false
-      this.isProfileDialogOpen = false
+      store.dispatch(LOGOUT);
+      this.isAuthorisedUser = false;
+      this.isProfileDialogOpen = false;
     },
     openProfileDialog() {
-      this.profile_user_data_info = store.getters.currentUser
-      this.isProfileDialogOpen = true
+      this.profile_user_data_info = store.getters.currentUser;
+      this.isProfileDialogOpen = true;
     },
     closeProfileDialog() {
-      this.isProfileDialogOpen = false
+      this.isProfileDialogOpen = false;
     },
   },
 });
