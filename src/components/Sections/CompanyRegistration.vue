@@ -142,7 +142,6 @@ import type ServicesData from "@/types/ServicesData";
 import UserDataService from "@/services/UserDataService";
 import CustomSelect from "../../components/CustomSelect.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
-import PersonRegistration from "@/components/Sections/PersonRegistration.vue";
 import LineBreak from "@/components/LineBreak.vue";
 import router from "@/router";
 
@@ -152,7 +151,6 @@ export default defineComponent({
   components: {
     CustomSelect: CustomSelect,
     BalanceBar: BalanceBar,
-    // PersonRegistration: PersonRegistration,
     LineBreak: LineBreak,
   },
 
