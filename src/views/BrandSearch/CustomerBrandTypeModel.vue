@@ -16,6 +16,7 @@ import {mapGetters} from "vuex";
 import CatalogService from "@/services/CatalogService";
 import type ResponseData from "@/types/ResponseData";
 import type UnitObject from "@/types/UnitObject"
+import type GroupObject from "@/types/GroupObject"
 
 export default defineComponent({
   name: "brandNameTypeModelSearch",
@@ -24,7 +25,10 @@ export default defineComponent({
       ssd: this.$route.params.type,
       brandName: this.$route.params.brandName,
       model: this.$route.params.model,
-      units: [] as UnitObject[]
+      units: [] as UnitObject[],
+      groups: [] as GroupObject[],
+      dataFormat: { label: 'name', value: 'quickgroupid', isLeaf: 'searchable', children: 'childGroups' },
+      selectedGroup: ''
     };
   },
 
@@ -37,7 +41,28 @@ export default defineComponent({
   },
 
   methods: {
+
+
+
     listUnits() {
+
+      CatalogService.listQuickGroup(this.brandName, this.ssd, this.model)
+        .then((response: ResponseData) => {
+          for (let item of response.data.childGroups) {
+            console.log(item)
+            this.groups.push(item)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+
+
+
+
+
+
       // this.productTypesData.length = 0
       CatalogService.listUnits(this.brandName, this.ssd, this.model, '')
         .then((response: ResponseData) => {
@@ -107,7 +132,31 @@ export default defineComponent({
     <div class="row">
       <div class="col-xl-3 d-none d-xl-block">
         <div class="pt-2" v-if="searchType === 0">
-          <BrandProductFilters />
+          <div class="mb-3">
+            <div class="mb-2">Название узла, детали</div>
+            <ui-textfield fullwidth outlined></ui-textfield>
+          </div>
+
+
+          <ui-tree 
+            :data="groups" 
+            :dataFormat="dataFormat"
+            v-model="selectedGroup"
+          >
+
+
+          </ui-tree>
+          <!-- <CustomCollapse>
+            <template #title>Детали для ТО</template>
+            <div class="ps-4">
+              <RouterLink
+                to="/search-brand/honda/accord/cupe"
+                class="fw-400 d-block clear mb-3"
+                >Фильтр масляный</RouterLink
+              >
+            </div>
+          </CustomCollapse> -->
+          <!-- <BrandProductFilters /> -->
         </div>
         <div v-if="searchType === 1">
           <!-- <BrandProductNodeFilters /> -->

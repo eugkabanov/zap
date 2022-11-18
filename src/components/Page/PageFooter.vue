@@ -9,7 +9,7 @@ import LineBreak from "@/components/LineBreak.vue";
         <img class="logo" alt="Logo" src="@/assets/logo-white.svg" />
       </div>
       <div class="col-12 col-lg">
-        <nav class="row gy-4 gy-lg-0">
+        <!-- <nav class="row gy-4 gy-lg-0">
           <div class="col-12 col-lg-auto footer-item">
             <RouterLink to="/balance">Оплата</RouterLink>
           </div>
@@ -22,7 +22,7 @@ import LineBreak from "@/components/LineBreak.vue";
           <div class="col-12 col-lg-auto footer-item">
             <RouterLink to="/appeals">Возврат</RouterLink>
           </div>
-        </nav>
+        </nav> -->
 
         <LineBreak style="opacity: 0.4" class="my-4" />
 

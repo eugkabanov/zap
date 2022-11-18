@@ -146,8 +146,8 @@ export default defineComponent({
               :to="{ name: 'brandNameTypeModelSearch', params: { brandName: brandName, type: data.ssd, model: data.vehicleid}}"
               style="height: 35px; padding: 3px 10px; font-size: 12px color: #0069c8;"
               v-button.outlined
-              >Выбрать</router-link
-            >
+              >Выбрать</router-link>
+
           </template>
         </ui-table>
       </div>

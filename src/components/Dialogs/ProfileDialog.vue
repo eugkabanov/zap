@@ -5,7 +5,7 @@
 
   <ui-dialog-content>
     <div class="row flex-column pt-4">
-      <RouterLink
+      <!-- <RouterLink
         @click="closeProfileDialog"
         to="/balance"
         class="row align-items-center clear mb-4"
@@ -15,8 +15,8 @@
         </div>
         <div class="col">
           <div :class="$tt('body1')">Баланс</div>
-        </div>
-      </RouterLink>
+        </div> -->
+      <!-- </RouterLink>
       <div
         @click="onNotificationClick"
         class="row align-items-center link clear mb-4"
@@ -27,8 +27,8 @@
         <div class="col">
           <div :class="$tt('body1')">Уведомления</div>
         </div>
-      </div>
-      <RouterLink
+      </div> -->
+      <!-- <RouterLink
         @click="closeProfileDialog"
         to="/park"
         class="row align-items-center clear mb-4"
@@ -39,8 +39,8 @@
         <div class="col">
           <div :class="$tt('body1')">Гараж</div>
         </div>
-      </RouterLink>
-      <RouterLink
+      </RouterLink> -->
+      <!-- <RouterLink
         @click="closeProfileDialog"
         to="/favourites"
         class="row align-items-center clear mb-4"
@@ -51,7 +51,7 @@
         <div class="col">
           <div :class="$tt('body1')">Избранное</div>
         </div>
-      </RouterLink>
+      </RouterLink> -->
       <RouterLink
         @click="closeProfileDialog"
         to="/orders"
@@ -64,7 +64,7 @@
           <div :class="$tt('body1')">Заказы</div>
         </div>
       </RouterLink>
-      <RouterLink
+      <!-- <RouterLink
         @click="closeProfileDialog"
         to="/appeals"
         class="row align-items-center clear mb-4"
@@ -75,8 +75,8 @@
         <div class="col">
           <div :class="$tt('body1')">Вопросы по заказам</div>
         </div>
-      </RouterLink>
-      <RouterLink
+      </RouterLink> -->
+      <!-- <RouterLink
         @click="closeProfileDialog"
         to="/dealers"
         class="row align-items-center clear mb-4"
@@ -87,8 +87,8 @@
         <div class="col">
           <div :class="$tt('body1')">Поставщики</div>
         </div>
-      </RouterLink>
-      <RouterLink
+      </RouterLink> -->
+      <!-- <RouterLink
         @click="closeProfileDialog"
         to="/sessions"
         class="row align-items-center clear"
@@ -99,7 +99,7 @@
         <div class="col">
           <div :class="$tt('body1')">Web-сервисы</div>
         </div>
-      </RouterLink>
+      </RouterLink> -->
       <LineBreak class="my-3" />
       <RouterLink
         @click="closeProfileDialog"
