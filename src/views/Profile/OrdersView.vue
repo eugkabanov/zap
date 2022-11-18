@@ -8,7 +8,7 @@ import IconTimeWhite from "@/components/icons/IconTimeWhite.vue";
 
 const ordersDataBody = [
   { field: "dateTime" },
-  { field: "info" },
+  // { field: "info" },
   { field: "comment" },
   { field: "catalogName" },
   {
@@ -63,9 +63,9 @@ const ordersDataBody = [
 ];
 const ordersDataHead = [
   { value: "Дата" },
-  { value: "Прим. к заказу" },
+  // { value: "Прим. к заказу" },
   { value: "Комментарий" },
-  { value: "Каталог" },
+  { value: "Производитель" },
   { value: "Артикул" },
   {
     slot: "th-cart",
@@ -295,7 +295,7 @@ export default defineComponent({
       </div>
     </div>
 
-    <div class="row align-items-center gy-4 mb-4">
+    <!-- <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
         <ui-tab-bar>
           <ui-tab min-width content-indicator> Актуальные </ui-tab>
@@ -323,10 +323,10 @@ export default defineComponent({
           :options="[{ value: 1, label: '30' }]"
         />
       </div>
-    </div>
+    </div> -->
 
     <div class="row gy-3 mb-3">
-      <div class="col-6 col-xl-auto">
+      <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Дата заказа</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
@@ -337,19 +337,19 @@ export default defineComponent({
       </div>
       <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Каталог</CustomSelect>
-      </div>
+      </div> -->
       <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Артикул</CustomSelect>
       </div>
-      <div class="col-6 col-xl-auto">
+      <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Номер счета</CustomSelect>
-      </div>
+      </div> -->
       <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Статус</CustomSelect>
       </div>
-      <div class="col-6 col-xl-auto">
+      <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Поставщик</CustomSelect>
-      </div>
+      </div> -->
     </div>
 
     <ui-table
@@ -426,14 +426,14 @@ export default defineComponent({
       </template>
     </ui-table>
 
-    <div class="mt-4 row justify-content-end">
+    <!-- <div class="mt-4 row justify-content-end">
       <div class="col-6 col-md-auto">
         <ui-button outlined disabled>Архивировать (0)</ui-button>
       </div>
       <div class="col-6 col-md-auto">
         <ui-button raised>Экспорт (0)</ui-button>
       </div>
-    </div>
+    </div> -->
   </main>
 
   <ui-dialog type="modal" sheet v-model="isStatsOpen">

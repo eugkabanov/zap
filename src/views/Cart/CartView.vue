@@ -90,13 +90,13 @@ export default defineComponent({
         <BalanceBar class="mt-2 mb-3" />
       </div>
     </div>
-    <div class="mt-5">
+    <!-- <div class="mt-5">
       <ui-tab-bar v-model="activeTab">
         <ui-tab min-width content-indicator>Корзина</ui-tab>
         <ui-tab min-width content-indicator>Отложенные</ui-tab>
         <ui-tab min-width content-indicator>Удаленные</ui-tab>
       </ui-tab-bar>
-    </div>
+    </div> -->
 
     <div class="mt-3 dark">
       <ui-table
@@ -120,19 +120,19 @@ export default defineComponent({
         </template>
       </ui-table>
 
-      <div class="mt-4 row justify-content-between justify-content-md-end">
+      <!-- <div class="mt-4 row justify-content-between justify-content-md-end">
         <div class="col-auto">
           <ui-button disabled outlined>Экспорт&nbsp;(0)</ui-button>
         </div>
         <div class="col-auto ml-2">
           <ui-button raised>Импорт</ui-button>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="row mt-4">
       <div class="col-12 col-md-8 col-xl-6">
-        <div>
+        <!-- <div>
           <label for="cart-comments" class="d-block mb-2"
             >Комментарий к заказу</label
           >
@@ -144,7 +144,7 @@ export default defineComponent({
             rows="8"
             cols="40"
           />
-        </div>
+        </div> -->
 
         <div class="mt-3">
           <ui-form-field>
