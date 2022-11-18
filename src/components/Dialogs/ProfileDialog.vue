@@ -148,12 +148,11 @@ export default defineComponent({
     IconQuestionBlack: IconQuestionBlack
   },
   data() {
-
-    return {
-    };
+    return {};
   },
 
   created: function () {
+    
   },
 
   computed: {

@@ -4,8 +4,12 @@ import type UserDataAuth from "@/types/UserDataAuth";
 
 class UserDataService {
 
-  registration(data: any): Promise<any> {
+  registrationPerson(data: any): Promise<any> {
     return HTTPClient.post("/registration/person", data);
+  }
+
+  registrationCompany(data: any): Promise<any> {
+    return HTTPClient.post("/registration/organization", data);
   }
 
   auth(data: UserDataAuth): Promise<any> {

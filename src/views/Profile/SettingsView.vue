@@ -1,22 +1,7 @@
-<script setup lang="ts">
-import ProfilePersonalData from "@/components/Sections/ProfilePersonalData.vue";
-import ProfilePaymentDetails from "@/components/Sections/ProfilePaymentDetails.vue";
-import ProfileDeliveryDetails from "@/components/Sections/ProfileDeliveryDetails.vue";
-import ProfilePasswordChange from "@/components/Sections/ProfilePasswordChange.vue";
-import { ref } from "vue";
-import BalanceBar from "../../components/Profile/BalanceBar.vue";
-
-const selectedTab = ref(0);
-</script>
-
 <template>
   <main class="container-fluid pb-5">
-    <div class="row">
-      <h1 class="col-auto mt-5">Настройки профиля</h1>
-      <div class="col-auto ms-auto">
-        <BalanceBar class="mt-2 mb-3" />
-      </div>
-    </div>
+    <BalanceBar class="ms-auto mt-2 mb-3" />
+    <h1 class="mb-5 mt-0 large">Настройки профиля</h1>
 
     <div class="col-12 col-xl-8">
       <ui-tab-bar v-model="selectedTab">
@@ -49,11 +34,63 @@ const selectedTab = ref(0);
   </main>
 </template>
 
-<style lang="scss">
-@use "@/styles/vars";
-.add-new-address .mdc-dialog__surface {
-  @media (min-width: vars.$desktop) {
-    min-width: 500px !important;
-  }
+<script lang="ts">
+import { ref } from "vue";
+import { defineComponent } from "vue";
+import CustomSelect from "@/components/CustomSelect.vue";
+import BalanceBar from "@/components/Profile/BalanceBar.vue";
+import LineBreak from "@/components/LineBreak.vue";
+import ProfilePasswordChange from "@/components/Sections/ProfilePasswordChange.vue";
+
+export default defineComponent({
+  name: "SettingsViev",
+
+  components: {
+    CustomSelect: CustomSelect,
+    BalanceBar: BalanceBar,
+    LineBreak: LineBreak,
+    ProfilePasswordChange: ProfilePasswordChange,
+  },
+
+  data() {
+    return {
+      selectedTab: [
+        {
+          value: 0,
+        },
+        {
+          value: 1,
+        },
+        {
+          value: 2,
+        },
+        {
+          value: 3,
+        },
+      ],
+      selectedTab: ref(0),
+
+    };
+  },
+});
+</script>
+
+<style scoped lang="scss">
+.city-list {
+  max-height: 450px;
+  overflow-y: auto;
+}
+.city-item {
+  border-bottom: 1px solid #d9d9de;
+}
+.city-map {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mini-heading-color-red {
+  color: #e50050;
+  margin-bottom: 8px;
 }
 </style>
