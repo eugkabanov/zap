@@ -12,6 +12,28 @@ const similarSearchDataBody = [
   { slot: "cart" },
   { slot: "delivery" },
 ];
+
+const searchDataBody = [
+  { slot: "brand"},
+  { field: "supplier_name" },
+  { field: "count"},
+  { field: "time_delivery" },
+  { field: "price"},
+  { field: "time_delivery_direction" },
+  { slot: "cart" },
+  { slot: "delivery" },
+];
+
+const searchDataHead = [
+  { value: "Бренд"},
+  { value: "Поставщик"},
+  { value: "Количество"},
+  { value: "Срок" },
+  { value: "Цена" },
+  { value: "Отправка поставщику" },
+  { value: "" },
+  { value: "" }
+];
 const similarSearchDataHead = [
   { value: "Бренд" },
   { value: "Поставщик" },
@@ -65,11 +87,21 @@ const similarSearchData = [
             :thead="searchDataHead"
             :tbody="searchDataBody"
           >
-            <template #cart>
-              <ui-icon class="hint" outlined> shopping_cart </ui-icon>
+            <template #brand="{ data }">
+              <router-link
+                  :to="{ name: 'product', params: { categoryId: 'wheel', productId: data.price_id}}"
+              >{{ data.make_name }}</router-link>
+            </template>
+            <template #cart="{ data }">
+              <ui-icon
+                class="hint"
+                style="cursor: pointer"
+                outlined
+                @click="addDetailToCart(data.price_id, 1)"
+              > shopping_cart </ui-icon>
             </template>
             <template #delivery>
-              <ui-icon class="hint" outlined> directions_car </ui-icon>
+              <ui-icon class="hint" outlined > directions_car </ui-icon>
             </template>
           </ui-table>
         </div>
@@ -91,7 +123,7 @@ const similarSearchData = [
               <ui-icon class="hint" outlined> shopping_cart </ui-icon>
             </template>
             <template #delivery>
-              <ui-icon class="hint" outlined> directions_car </ui-icon>
+              <ui-icon class="hint" outlined > directions_car </ui-icon>
             </template>
           </ui-table>
         </div>
@@ -110,6 +142,14 @@ const similarSearchData = [
       <ProductSearchFilters :onFilterClick="onFilterClick" />
     </ui-drawer-content>
   </ui-drawer>
+  <ui-dialog
+      v-model="isShowAddedProduct"
+      sheet
+      maskClosable
+      class="cart-dialog"
+  >
+    <CartAddDialog :hide-added-product="hideAddedProduct" />
+  </ui-dialog>
 </template>
 
 <script lang="ts">
@@ -118,37 +158,22 @@ import SearchService from "@/services/SearchService";
 import type ResponseData from "@/types/ResponseData";
 import type ArticleDetailData from "@/types/ArticleDetailData";
 import type ArticlePriceData from "@/types/ArticlePriceData";
+import OrderService from "@/services/OrderService";
+import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 
 export default defineComponent({
   name: "ProductSearch",
-  components: {},
+  components: {
+    CartAddDialog: CartAddDialog
+  },
 
   data() {
     return {
-      searchDataHead: [
-        { value: "Бренд" },
-        { value: "Поставщик" },
-        { value: "Количество" },
-        { value: "Срок" },
-        { value: "Цена" },
-        { value: "Отправка поставщику" },
-        { value: "" },
-        { value: "" },
-      ],
-      searchDataBody: [
-        { field: "make_name" },
-        { field: "supplier_name" },
-        { field: "count" },
-        { field: "time_delivery" },
-        { field: "price" },
-        { field: "time_delivery_direction" },
-        { slot: "cart" },
-        { slot: "delivery" },
-      ],
-      detailsPriceInfo: Array<ArticleDetailData>(),
-      priceInfo: Array<ArticlePriceData>(),
-      productId: this.$router.currentRoute.value.params.productId,
-      productCount: 0
+      detailsPriceInfo: [] as ArticleDetailData[],
+      priceInfo: [] as ArticlePriceData[],
+      productId: this.$route.params.productId,
+      productCount: 0,
+      isShowAddedProduct: false,
     };
   },
 
@@ -167,7 +192,7 @@ export default defineComponent({
 
           for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
             this.priceInfo.push(response.data[index].prices[index_price])
-            this.productCount = index_price + 1
+            this.productCount++
           }
 
           this.detailsPriceInfo.push(article_details)
@@ -182,7 +207,21 @@ export default defineComponent({
 
   computed: {},
 
-  methods: {},
+  methods: {
+    addDetailToCart(priceId : number, quantity: number) {
+      OrderService.addDetailToCart(priceId, quantity)
+          .then((response: ResponseData) => {
+            this.isShowAddedProduct = true
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          })
+    },
+
+    hideAddedProduct() {
+      this.isShowAddedProduct = false
+    }
+  },
 
 });
 </script>
@@ -192,5 +231,8 @@ export default defineComponent({
   position: fixed;
   left: 0;
   top: 0;
+}
+aspect-container  {
+  cursor: pointer;
 }
 </style>

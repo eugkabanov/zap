@@ -1,5 +1,5 @@
 export default interface ArticlePriceData {
-    id?: number
+    price_id?: number
     make?: string
     supplier_name?: string
     count?: string

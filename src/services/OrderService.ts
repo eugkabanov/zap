@@ -14,7 +14,14 @@ class OrderService {
   getOrders(): Promise<any> {
     return HTTPClient.get("/order/orders");
   }
-  
+
+  addDetailToCart(priceId: number, quantity : number): Promise<any> {
+    let params = {
+      'priceId': priceId,
+      'quantity': quantity
+    };
+    return HTTPClient.get("/order/addToCart", { params : params });
+  }
 }
 
 export default new OrderService();
