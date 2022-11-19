@@ -94,9 +94,9 @@ export default defineComponent({
       <div class="col-12 col-xl-7">
         <h2 class="mb-4 large bold">Марка автомобиля</h2>
 
-        <div class="col-12 col-md-8 col-xl-6 mb-4">
+        <!-- <div class="col-12 col-md-8 col-xl-6 mb-4">
           <ui-textfield fullwidth>Поиск марки</ui-textfield>
-        </div>
+        </div> -->
 
         <div class="row">
           <div class="col-12 col-md-6 col-xl-3">

@@ -47,7 +47,7 @@
     >
 
     <div class="row" style="margin-top: 32px">
-      <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
+      <!-- <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
 
       <div class="mt-2 row g-2 justify-content-xl-between">
         <div class="col-auto">
@@ -71,7 +71,7 @@
         <div class="col-auto">
           <img src="@/assets/social/insta-color.png" alt="insta" />
         </div>
-      </div>
+      </div> -->
 
       <LineBreak class="my-3" />
 
@@ -132,7 +132,7 @@ export default defineComponent({
             this.$emit('closeDialog')
             store.dispatch(USER_ME)
                 .then((data: ResponseData) => {
-                  router.push({path: "/catalog"})
+                  this.closeLoginDialog()
                 })
                 .catch((e: Error) => {
                   console.log(e);

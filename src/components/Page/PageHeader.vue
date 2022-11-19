@@ -1,5 +1,5 @@
 <template>
-  <ui-drawer type="modal" v-model="isNavMenuOpen">
+  <!-- <ui-drawer type="modal" v-model="isNavMenuOpen">
     <ui-drawer-header>
       <ui-drawer-title
       ><img
@@ -39,7 +39,7 @@
         </router-link>
       </ui-nav>
     </ui-drawer-content>
-  </ui-drawer>
+  </ui-drawer> -->
   <header id="app-header" class="container-fluid">
     <div class="row align-items-center">
       <div class="d-xl-none col-auto">
@@ -54,15 +54,15 @@
             <RouterLink to="/">Главная</RouterLink>
           </div>
           <div class="col-auto">
-            <RouterLink to="/catalog">Каталог</RouterLink>
+            <RouterLink to="/search-brand">Каталог</RouterLink>
           </div>
           <div class="col-auto">
             <RouterLink to="/about">О&nbsp;компании</RouterLink>
           </div>
-          <div class="col-auto">
+          <!-- <div class="col-auto">
             <RouterLink to="/work">Сотрудничество</RouterLink>
-          </div>
-          <div class="col-auto">
+          </div> -->
+          <!-- <div class="col-auto">
             <RouterLink to="/help">Помощь</RouterLink>
           </div>
           <div class="col-auto">
@@ -70,25 +70,25 @@
           </div>
           <div class="col-auto">
             <RouterLink to="/contacts">Контакты</RouterLink>
-          </div>
+          </div> -->
         </div>
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <div class="header-item">
+          <div v-if="isAuthorisedUser" class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="12"
               ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
           </div>
-          <div class="header-item">
+          <!-- <div class="header-item">
             <RouterLink to="/favourites">
               <ui-icon>star_outline</ui-icon
               ><span class="header-item__label">Избранное</span>
             </RouterLink>
-          </div>
-          <div class="header-item">
+          </div> -->
+          <div v-if="isAuthorisedUser" class="header-item">
             <RouterLink to="/orders">
               <IconUnarchive />
               <span class="header-item__label">Заказы</span>
@@ -100,7 +100,7 @@
               class="header-item"
           >
             <ui-icon>perm_identity</ui-icon
-            ><span class="header-item__label">Сергей</span>
+            ><span class="header-item__label">{{ profile_user_data_info.login }}</span>
           </div>
           <div v-else v-on:click="openLogin" class="header-item">
             <ui-icon>perm_identity</ui-icon
@@ -154,7 +154,7 @@ export default defineComponent({
     LineBreak: LineBreak,
     LoginDialog: LoginDialog,
     NotificationsDialog: NotificationsDialog,
-    ProfileDialog: ProfileDialog
+    ProfileDialog: ProfileDialog,
   },
   data() {
 
@@ -165,7 +165,7 @@ export default defineComponent({
       isProfileDialogOpen: false,
       isNotificationOpen: false,
       isNavMenuOpen: false,
-      user_data_info: {} as UserDataInfo
+      user_data_info: {} as UserDataInfo,
     };
   },
 
@@ -177,32 +177,32 @@ export default defineComponent({
 
   methods: {
     loginOpen() {
-      this.isLoginOpen = false
+      this.isLoginOpen = false;
     },
     authorisedUser() {
-      this.isAuthorisedUser = true
+      this.isAuthorisedUser = true;
     },
     openLogin() {
-      this.isLoginOpen = true
+      this.isLoginOpen = true;
     },
     onNotificationClick() {
-      this.isNotificationOpen = true
-      this.closeProfileDialog()
+      this.isNotificationOpen = true;
+      this.closeProfileDialog();
     },
     closeLoginDialog() {
-      this.isLoginOpen = false
+      this.isLoginOpen = false;
     },
     logout() {
-      store.dispatch(LOGOUT)
-      this.isAuthorisedUser = false
-      this.isProfileDialogOpen = false
+      store.dispatch(LOGOUT);
+      this.isAuthorisedUser = false;
+      this.isProfileDialogOpen = false;
     },
     openProfileDialog() {
-      this.profile_user_data_info = store.getters.currentUser
-      this.isProfileDialogOpen = true
+      this.profile_user_data_info = store.getters.currentUser;
+      this.isProfileDialogOpen = true;
     },
     closeProfileDialog() {
-      this.isProfileDialogOpen = false
+      this.isProfileDialogOpen = false;
     },
   },
 });

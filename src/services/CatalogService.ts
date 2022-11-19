@@ -53,6 +53,25 @@ class CatalogService {
     return HTTPClient.get("/catalog/listDetailByUnit",  { params : params });
   }
   
+  listQuickGroup(catalog : string, ssd : string, vehicleId: string): Promise<any> {
+    let params = {
+      'catalog': catalog,
+      'ssd': ssd,
+      'vehicleId': vehicleId
+    };
+    return HTTPClient.get("/catalog/listQuickGroup",  { params : params });
+  }
+
+  listQuickDetail(catalog : string, ssd : string, vehicleId: string, groupId: string): Promise<any> {
+    let params = {
+      'catalog': catalog,
+      'ssd': ssd,
+      'vehicleId': vehicleId,
+      'groupId': groupId
+    };
+    return HTTPClient.get("/catalog/listQuickDetail",  { params : params });
+  }
+
 }
 
 export default new CatalogService();

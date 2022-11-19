@@ -51,19 +51,19 @@ const submitSearch = () => {
                   </RouterLink>
                 </div>
                 <div class="col-6 col-lg-auto">
-                  <RouterLink to="/catalog">
+                  <!-- <RouterLink to="/catalog">
                     <ui-button
                       style="height: 66px; text-transform: uppercase"
                       raised
                       >Каталог товаров</ui-button
                     >
-                  </RouterLink>
+                  </RouterLink> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row g-4 text-center">
+        <!-- <div class="row g-4 text-center">
           <RouterLink class="col-4 col-lg" to="/catalog-choose/oil">
             <IconOil style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Масла</div>
@@ -100,10 +100,10 @@ const submitSearch = () => {
             <IconWasher style="height: 50px" />
             <div :class="$tt('body1')" class="mt-2 large">Промывки</div>
           </RouterLink>
-        </div>
+        </div> -->
       </div>
     </section>
-    <section id="news" class="py-5">
+    <!-- <section id="news" class="py-5">
       <div class="container light">
         <div class="row g-3 mb-5">
           <div class="col-12 col-lg-6">
@@ -166,7 +166,7 @@ const submitSearch = () => {
           <BrandsSlider />
         </div>
       </div>
-    </section>
+    </section> -->
   </main>
 </template>
 
