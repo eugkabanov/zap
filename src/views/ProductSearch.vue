@@ -14,14 +14,15 @@ const similarSearchDataBody = [
 ];
 
 const searchDataBody = [
-  { slot: "brand"},
+  { field: "make_name"},
   { field: "supplier_name" },
   { field: "count"},
   { field: "time_delivery" },
   { field: "price"},
   { field: "time_delivery_direction" },
+  { slot: "quantity" },
   { slot: "cart" },
-  { slot: "delivery" },
+  // { slot: "delivery" },
 ];
 
 const searchDataHead = [
@@ -31,8 +32,9 @@ const searchDataHead = [
   { value: "Срок" },
   { value: "Цена" },
   { value: "Отправка поставщику" },
+  { value: "Количество" },
   { value: "" },
-  { value: "" }
+  // { value: "" }
 ];
 const similarSearchDataHead = [
   { value: "Бренд" },
@@ -67,6 +69,7 @@ const similarSearchData = [
     date: "Сегодня в 14:30",
   },
 ];
+
 </script>
 
 <template>
@@ -79,7 +82,7 @@ const similarSearchData = [
     </h1>
 
     <div class="row">
-      <div class="col-12 col-xl-8">
+      <div>
         <div style="margin-bottom: 40px">
           <ui-table
             fullwidth
@@ -87,68 +90,86 @@ const similarSearchData = [
             :thead="searchDataHead"
             :tbody="searchDataBody"
           >
-            <template #brand="{ data }">
-              <router-link
-                  :to="{ name: 'product', params: { categoryId: 'wheel', productId: data.price_id}}"
-              >{{ data.make_name }}</router-link>
-            </template>
+<!--            <template #brand="{ data }">-->
+<!--              <router-link-->
+<!--                  :to="{ name: 'product', params: { categoryId: 'wheel', productId: data.price_id}}"-->
+<!--              >{{ data.make_name }}</router-link>-->
+<!--            </template>-->
             <template #cart="{ data }">
-              <ui-icon
-                class="hint"
-                style="cursor: pointer"
-                outlined
-                @click="addDetailToCart(data.price_id, 1)"
-              > shopping_cart </ui-icon>
+              <ui-icon-button
+                @click="addDetailToCart(data.price_id, quantity, data.make_name, data.count)"
+              >
+                <ui-icon class="hint" outlined>
+                  shopping_cart
+                </ui-icon>
+              </ui-icon-button>
             </template>
-            <template #delivery>
-              <ui-icon class="hint" outlined > directions_car </ui-icon>
-            </template>
-          </ui-table>
-        </div>
-        <div v-if="isSimilarShow">
-          <h2 style="font-size: 30px" class="large mb-5">
-            Аналоги других производителей
-          </h2>
-          <ui-tab-bar class="mb-4">
-            <ui-tab min-width content-indicator>По цене</ui-tab>
-            <ui-tab min-width content-indicator>По производителю</ui-tab>
-          </ui-tab-bar>
-          <ui-table
-            fullwidth
-            :data="similarSearchData"
-            :thead="similarSearchDataHead"
-            :tbody="similarSearchDataBody"
-          >
-            <template #cart>
-              <ui-icon class="hint" outlined> shopping_cart </ui-icon>
-            </template>
-            <template #delivery>
-              <ui-icon class="hint" outlined > directions_car </ui-icon>
+<!--            <template #delivery>-->
+<!--              <ui-icon class="hint" outlined > directions_car </ui-icon>-->
+<!--            </template>-->
+            <template #quantity="{ data }">
+              <ui-textfield
+                @input="event => this.quantity = event.target.value"
+                :min="0"
+                :max="data.count"
+                :placeholder="0"
+                inputType="number"
+                :id="data.price_id"
+              ></ui-textfield>
             </template>
           </ui-table>
         </div>
+<!--        <div v-if="isSimilarShow">-->
+<!--          <h2 style="font-size: 30px" class="large mb-5">-->
+<!--            Аналоги других производителей-->
+<!--          </h2>-->
+<!--          <ui-tab-bar class="mb-4">-->
+<!--            <ui-tab min-width content-indicator>По цене</ui-tab>-->
+<!--            <ui-tab min-width content-indicator>По производителю</ui-tab>-->
+<!--          </ui-tab-bar>-->
+<!--          <ui-table-->
+<!--            fullwidth-->
+<!--            :data="similarSearchData"-->
+<!--            :thead="similarSearchDataHead"-->
+<!--            :tbody="similarSearchDataBody"-->
+<!--          >-->
+<!--            <template #cart>-->
+<!--              <ui-icon class="hint" outlined> shopping_cart </ui-icon>-->
+<!--            </template>-->
+<!--            <template #delivery>-->
+<!--              <ui-icon class="hint" outlined > directions_car </ui-icon>-->
+<!--            </template>-->
+<!--          </ui-table>-->
+<!--        </div>-->
       </div>
 
-      <div class="d-none d-xl-block offset-1 col-3">
-        <ProductSearchFilters :onFilterClick="onFilterClick" />
-      </div>
+<!--      <div class="d-none d-xl-block offset-1 col-3">-->
+<!--        <ProductSearchFilters :onFilterClick="onFilterClick" />-->
+<!--      </div>-->
     </div>
   </main>
 
-  <ui-drawer type="modal" v-model="isSearchFiltersOpen">
-    <ui-drawer-content class="p-4">
-      <!-- drawer needs at lease one focusable element -->
-      <div tabindex="1" />
-      <ProductSearchFilters :onFilterClick="onFilterClick" />
-    </ui-drawer-content>
-  </ui-drawer>
+<!--  <ui-drawer type="modal" v-model="isSearchFiltersOpen">-->
+<!--    <ui-drawer-content class="p-4">-->
+<!--      &lt;!&ndash; drawer needs at lease one focusable element &ndash;&gt;-->
+<!--      <div tabindex="1" />-->
+<!--      <ProductSearchFilters :onFilterClick="onFilterClick" />-->
+<!--    </ui-drawer-content>-->
+<!--  </ui-drawer>-->
   <ui-dialog
       v-model="isShowAddedProduct"
       sheet
       maskClosable
       class="cart-dialog"
   >
-    <CartAddDialog :hide-added-product="hideAddedProduct" />
+    <CartAddDialog
+      :hide-added-product="hideAddedProduct"
+      :detail_name="detail_name_cart"
+      :make_name="make_name_cart"
+      :itm_no="itm_no_cart"
+      :price="price_cart"
+      :quantity="quantity_cart"
+    />
   </ui-dialog>
 </template>
 
@@ -174,6 +195,13 @@ export default defineComponent({
       productId: this.$route.params.productId,
       productCount: 0,
       isShowAddedProduct: false,
+      maxQuantity: 3,
+      quantity: 0,
+      quantity_cart: 0,
+      detail_name_cart: "",
+      make_name_cart: "",
+      itm_no_cart: "",
+      price_cart: 0,
     };
   },
 
@@ -208,14 +236,29 @@ export default defineComponent({
   computed: {},
 
   methods: {
-    addDetailToCart(priceId : number, quantity: number) {
-      OrderService.addDetailToCart(priceId, quantity)
-          .then((response: ResponseData) => {
-            this.isShowAddedProduct = true
-          })
-          .catch((e: Error) => {
-            console.log(e);
-          })
+    addDetailToCart(priceId : number, quantity: number, make_name : string, count: number) {
+
+      if (quantity <= count) {
+        OrderService.addDetailToCart(priceId, quantity)
+            .then((response: ResponseData) => {
+
+              this.quantity_cart = response.data.quantity
+              this.detail_name_cart = response.data.itemName
+              this.make_name_cart = make_name
+              this.itm_no_cart = this.productId
+              this.price_cart = response.data.priceValue
+
+              this.isShowAddedProduct = true
+
+            })
+            .catch((e: Error) => {
+              console.log(e);
+            })
+        return;
+      }
+
+      alert("Количество заказанных деталей превышает наличие")
+
     },
 
     hideAddedProduct() {
