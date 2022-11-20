@@ -182,7 +182,7 @@ import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {INCREMENT_STATE_CART} from "@/store/actions_type";
+import {INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 
 export default defineComponent({
@@ -259,7 +259,7 @@ export default defineComponent({
 
             this.isShowAddedProduct = true
 
-            store.dispatch(INCREMENT_STATE_CART)
+            store.dispatch(INCREMENT_NUMBER_CONFIRM_ORDERS)
             this.quantity = 0
           })
           .catch((e: Error) => {

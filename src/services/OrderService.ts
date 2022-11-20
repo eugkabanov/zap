@@ -22,6 +22,11 @@ class OrderService {
     };
     return HTTPClient.get("/order/addToCart", { params : params });
   }
+
+  currentNumberConfirmed(): Promise<any> {
+    return HTTPClient.get("/order/currentNumberConfirmed");
+  }
+
 }
 
 export default new OrderService();

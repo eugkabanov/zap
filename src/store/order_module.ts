@@ -1,9 +1,12 @@
 import {
-    INCREMENT_STATE_CART,
+    GET_NUMBER_CONFIRM_ORDERS,
+    INCREMENT_NUMBER_CONFIRM_ORDERS,
 } from "@/store/actions_type";
 import {
-    INCREMENT_CART
+    INCREMENT_CONFIRM_ORDERS, NUMBER_CONFIRM_ORDERS,
 } from "@/store/mutations_type";
+import OrderService from "@/services/OrderService";
+import type ResponseData from "@/types/ResponseData";
 
 const state = {
     count_cart: 0,
@@ -18,14 +21,26 @@ const getters = {
 
 const actions = {
 
-    [INCREMENT_STATE_CART](context: any) {
-        context.commit(INCREMENT_CART)
+    [INCREMENT_NUMBER_CONFIRM_ORDERS](context: any) {
+        context.commit(INCREMENT_CONFIRM_ORDERS)
+    },
+    [GET_NUMBER_CONFIRM_ORDERS](context: any) {
+        OrderService.currentNumberConfirmed()
+            .then((response: ResponseData) => {
+                context.commit(NUMBER_CONFIRM_ORDERS, response.data.count)
+            })
+            .catch((e: Error) => {
+                console.log(e);
+            })
     },
 };
 
 const mutations = {
-    [INCREMENT_CART](state: any) {
+    [INCREMENT_CONFIRM_ORDERS](state: any) {
         state.count_cart++
+    },
+    [NUMBER_CONFIRM_ORDERS](state: any, count: number) {
+        state.count_cart = count
     }
 };
 
