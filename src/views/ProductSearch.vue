@@ -181,6 +181,9 @@ import type ArticleDetailData from "@/types/ArticleDetailData";
 import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
+import {store} from "@/store";
+import {INCREMENT_STATE_CART} from "@/store/actions_type";
+import {mapGetters} from "vuex";
 
 export default defineComponent({
   name: "ProductSearch",
@@ -233,32 +236,35 @@ export default defineComponent({
       });
   },
 
-  computed: {},
+  computed: {
+    ...mapGetters(["currentStateCart"])
+  },
 
   methods: {
     addDetailToCart(priceId : number, quantity: number, make_name : string, count: number) {
 
-      if (quantity <= count) {
-        OrderService.addDetailToCart(priceId, quantity)
-            .then((response: ResponseData) => {
-
-              this.quantity_cart = response.data.quantity
-              this.detail_name_cart = response.data.itemName
-              this.make_name_cart = make_name
-              this.itm_no_cart = this.productId
-              this.price_cart = response.data.priceValue
-
-              this.isShowAddedProduct = true
-
-            })
-            .catch((e: Error) => {
-              console.log(e);
-            })
-        return;
+      if (quantity > count) {
+        quantity = count
+        alert("В наличии у данного поставщика " + count + " шт. товара.")
       }
 
-      alert("Количество заказанных деталей превышает наличие")
+        OrderService.addDetailToCart(priceId, quantity)
+          .then((response: ResponseData) => {
 
+            this.quantity_cart = response.data.quantity
+            this.detail_name_cart = response.data.itemName
+            this.make_name_cart = make_name
+            this.itm_no_cart = this.productId
+            this.price_cart = response.data.priceValue
+
+            this.isShowAddedProduct = true
+
+            store.dispatch(INCREMENT_STATE_CART)
+            this.quantity = 0
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          })
     },
 
     hideAddedProduct() {
