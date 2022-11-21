@@ -77,7 +77,7 @@
         <div class="row row-cols-auto g-0">
           <div v-if="isAuthorisedUser" class="header-item">
             <RouterLink to="/cart">
-              <ui-badge overlap :count="12"
+              <ui-badge overlap :count="$store.getters.currentStateCart"
               ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
@@ -169,10 +169,11 @@ export default defineComponent({
     };
   },
 
-  created: function () {},
+  created: function () {
+  },
 
   computed: {
-    ...mapGetters(["isAuthenticated", "currentUser"])
+    ...mapGetters(["isAuthenticated", "currentUser", "currentStateCart"])
   },
 
   methods: {

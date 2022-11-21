@@ -1,6 +1,11 @@
 <script setup lang="ts">
 defineProps<{
   hideAddedProduct: Function;
+  detail_name: string;
+  itm_no: string;
+  make_name: string;
+  quantity: number;
+  price: number;
 }>();
 </script>
 
@@ -16,26 +21,26 @@ defineProps<{
   >
     <div class="row cart-dialog__content">
       <div class="col-auto">
-        <img
-          style="border: 1px solid #d9d9de"
-          src="@/assets/catalog/wheel.png"
-          alt=""
-          width="104"
-        />
+<!--        <img-->
+<!--          style="border: 1px solid #d9d9de"-->
+<!--          src="@/assets/catalog/wheel.png"-->
+<!--          alt=""-->
+<!--          width="104"-->
+<!--        />-->
       </div>
       <div class="col">
         <div :class="$tt('body1')" class="bold mb-2">
-          Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL (шип.)
+          {{ detail_name }}
         </div>
         <div :class="$tt('body1')" class="small">
-          <span class="hint">Бренд:</span> NOKIAN <br /><span class="hint"
+          <span class="hint">Бренд:</span> {{ make_name }} <br /><span class="hint"
             >Артикул:</span
           >
-          TS32701
+          {{ itm_no }}
         </div>
         <div class="row align-items-end mt-3">
-          <div class="col-auto" :class="$tt('body1')">4 шт</div>
-          <div class="col-auto ms-auto" :class="$tt('headline3')">5841 ₽</div>
+          <div class="col-auto" :class="$tt('body1')">{{ quantity }} шт</div>
+          <div class="col-auto ms-auto" :class="$tt('headline3')">{{ price }} ₽</div>
         </div>
       </div>
     </div>

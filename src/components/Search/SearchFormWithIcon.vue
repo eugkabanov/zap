@@ -39,7 +39,6 @@ export default defineComponent({
 
   methods: {
     searchArticleDetail() {
-      console.log("router")
       if (this.article != "") {
         router.push({path: "/search/" + this.article});
       }

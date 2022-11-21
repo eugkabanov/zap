@@ -90,7 +90,7 @@ import {defineComponent} from "vue";
 import type UserDataAuth from "@/types/UserDataAuth";
 import type ResponseData from "@/types/ResponseData";
 import {store} from "@/store";
-import {AUTH, USER_ME} from "@/store/actions_type";
+import {AUTH, GET_NUMBER_CONFIRM_ORDERS, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
 import router from "@/router";
@@ -131,12 +131,18 @@ export default defineComponent({
             this.$emit('isLoginOpen')
             this.$emit('closeDialog')
             store.dispatch(USER_ME)
-                .then((data: ResponseData) => {
-                  this.closeLoginDialog()
-                })
-                .catch((e: Error) => {
-                  console.log(e);
-                })
+              .then((data: ResponseData) => {
+                this.closeLoginDialog()
+              })
+              .catch((e: Error) => {
+                console.log(e);
+              })
+            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+              .then((data: ResponseData) => {
+              })
+              .catch((e: Error) => {
+                console.log(e);
+              });
           })
           .catch((e: Error) => {
             console.log(e);
