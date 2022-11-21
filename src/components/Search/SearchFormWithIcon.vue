@@ -7,10 +7,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <form>
+  <form v-on:submit.prevent>
     <div class="row">
       <div class="col">
-        <ui-textfield v-model="article" outlined fullwidth :placeholder="placeholder" />
+        <ui-textfield v-on:keyup.enter="searchArticleDetail()" v-model="article" outlined fullwidth :placeholder="placeholder" />
       </div>
       <div class="col-auto text-right">
         <ui-fab v-on:click="searchArticleDetail()" icon="search" type="submit" style="background-color: #bfbfc3" />

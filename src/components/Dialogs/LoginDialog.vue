@@ -137,12 +137,6 @@ export default defineComponent({
               .catch((e: Error) => {
                 console.log(e);
               })
-            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-              .then((data: ResponseData) => {
-              })
-              .catch((e: Error) => {
-                console.log(e);
-              });
           })
           .catch((e: Error) => {
             console.log(e);
