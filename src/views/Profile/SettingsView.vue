@@ -16,7 +16,7 @@
     <div class="mt-5">
       <!-- Personal data -->
       <section v-if="selectedTab === 0" class="col-12 col-sm-6 col-md-4">
-        <ProfilePersonalData />
+        <ProfileInfo />
       </section>
       <!-- Payment details -->
       <section v-if="selectedTab === 1" class="col-12 col-md-10 col-xl-6">
@@ -41,6 +41,7 @@ import CustomSelect from "@/components/CustomSelect.vue";
 import BalanceBar from "@/components/Profile/BalanceBar.vue";
 import LineBreak from "@/components/LineBreak.vue";
 import ProfilePasswordChange from "@/components/Sections/ProfilePasswordChange.vue";
+import ProfileInfo from "@/components/Sections/ProfileInfo.vue";
 
 export default defineComponent({
   name: "SettingsView",
@@ -50,12 +51,12 @@ export default defineComponent({
     BalanceBar: BalanceBar,
     LineBreak: LineBreak,
     ProfilePasswordChange: ProfilePasswordChange,
+    ProfileInfo: ProfileInfo,
   },
 
   data() {
     return {
       selectedTab: 0,
-
     };
   },
 });
