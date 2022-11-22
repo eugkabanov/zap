@@ -118,7 +118,7 @@
           <ui-icon outlined>logout</ui-icon>
         </div>
         <div class="col">
-          <div :class="$tt('body1')">Выйти</div>
+          <div v-on:click="logout()" :class="$tt('body1')">Выйти</div>
         </div>
       </div>
     </div>
@@ -140,6 +140,9 @@ import {defineComponent} from "vue";
 import LineBreak from "@/components/LineBreak.vue";
 import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
 import {mapGetters} from "vuex";
+import {LOGOUT} from "@/store/actions_type";
+import type ResponseData from "@/types/ResponseData";
+import {store} from "@/store";
 
 export default defineComponent({
   name: "ProfileDialog",
@@ -152,7 +155,6 @@ export default defineComponent({
   },
 
   created: function () {
-    
   },
 
   computed: {
@@ -160,6 +162,15 @@ export default defineComponent({
   },
 
   methods: {
+    logout() {
+      store.dispatch(LOGOUT)
+        .then((data: ResponseData) => {
+          console.log("LOGOUT")
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
+    }
   },
 
 });

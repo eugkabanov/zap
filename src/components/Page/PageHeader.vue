@@ -143,9 +143,10 @@ import NotificationsDialog from "../Dialogs/NotificationsDialog.vue";
 import ProfileDialog from "../Dialogs/ProfileDialog.vue";
 import {defineComponent} from "vue";
 import {store} from "@/store";
-import {LOGOUT} from "@/store/actions_type";
+import {CHECK_AUTH, GET_NUMBER_CONFIRM_ORDERS, LOGOUT, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
+import type ResponseData from "@/types/ResponseData";
 
 
 export default defineComponent({
@@ -170,6 +171,24 @@ export default defineComponent({
   },
 
   created: function () {
+    store.dispatch(CHECK_AUTH)
+      .then((data: ResponseData) => {
+
+        this.isAuthorisedUser = true
+        console.log("CHECK_AUTH")
+
+        store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+          .then((data: ResponseData) => {
+            console.log("GET_NUMBER_CONFIRM_ORDERS")
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          });
+
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      })
   },
 
   computed: {
