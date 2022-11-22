@@ -36,6 +36,7 @@ const actions = {
           })
           .catch(({ response }) => {
             // context.commit(SET_ERROR, response.data.errors);
+            alert(response.statusText)
             reject(response);
           });
     });
