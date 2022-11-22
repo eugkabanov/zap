@@ -1,6 +1,6 @@
 import HTTPClient from "../http-common/client_http";
-import type PersonRegistrationData from "@/types/PersonRegistrationData";
 import type UserDataAuth from "@/types/UserDataAuth";
+import type CompanyRegistrationData from "@/types/CompanyRegistrationData";
 
 class UserDataService {
 
@@ -8,7 +8,7 @@ class UserDataService {
     return HTTPClient.post("/registration/person", data);
   }
 
-  registrationCompany(data: any): Promise<any> {
+  registrationCompany(data: CompanyRegistrationData): Promise<any> {
     return HTTPClient.post("/registration/organization", data);
   }
 
