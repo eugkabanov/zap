@@ -112,10 +112,13 @@ const similarSearchData = [
             <template #quantity="{ data }">
               <ui-textfield
                 @input="event => this.quantity = event.target.value"
-                :min="0"
+                :vdef="map_carts.get(data.price_id)"
+                :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
                 inputType="number"
                 :id="data.price_id"
+                class="small"
+                style="width: 70px; height: 50px; padding: 0 8px"
               ></ui-textfield>
             </template>
           </ui-table>
@@ -176,6 +179,7 @@ const similarSearchData = [
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
     <LoginDialog
       @isLoginOpen="loginOpen"
+      @updatePage="updatePage"
     />
   </ui-dialog>
 </template>
@@ -189,10 +193,13 @@ import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {INCREMENT_NUMBER_CONFIRM_ORDERS, LOGOUT} from "@/store/actions_type";
+import {INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
+import * as vm from "vm";
+import router from "@/router";
+import * as path from "path";
 
 export default defineComponent({
   name: "ProductSearch",
@@ -209,6 +216,7 @@ export default defineComponent({
 
   data() {
     return {
+      map_carts: new Map<number, string>(),
       detailsPriceInfo: [] as ArticleDetailData[],
       priceInfo: [] as ArticlePriceData[],
       productId: this.$route.params.productId,
@@ -223,9 +231,12 @@ export default defineComponent({
       price_cart: 0,
       isLoginOpen: false,
     };
+
+
   },
 
   created: function () {
+    this.listCart();
 
     SearchService.prices(this.productId)
       .then((response: ResponseData) => {
@@ -257,6 +268,9 @@ export default defineComponent({
   },
 
   methods: {
+    updatePage() {
+      router.go(0)
+    },
     addDetailToCart(priceId : number, quantity: number, make_name : string) {
 
       if (store.getters.isAuthenticated) {
@@ -281,7 +295,21 @@ export default defineComponent({
 
       } else {
         this.isLoginOpen = true
+        this.$forceUpdate();
       }
+    },
+
+    listCart() {
+      OrderService.getCart()
+          .then((response: ResponseData) => {
+            for (let item of response.data.cart) {
+              this.map_carts.set(item.priceId, item.quantity);
+            }
+          })
+
+          .catch((e: Error) => {
+            console.log(e);
+          })
     },
 
     hideAddedProduct() {
