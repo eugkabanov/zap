@@ -19,7 +19,7 @@ const searchDataBody = [
   { field: "count"},
   { field: "time_delivery" },
   { field: "price"},
-  { field: "time_delivery_direction" },
+  // { field: "time_delivery_direction" },
   { slot: "quantity" },
   { slot: "cart" },
   // { slot: "delivery" },
@@ -27,11 +27,11 @@ const searchDataBody = [
 
 const searchDataHead = [
   { value: "Бренд"},
-  { value: "Поставщик"},
+  { value: "Наличие"},
   { value: "Количество"},
   { value: "Срок" },
   { value: "Цена" },
-  { value: "Отправка поставщику" },
+  // { value: "Отправка поставщику" },
   { value: "Количество" },
   { value: "" },
   // { value: "" }
@@ -97,9 +97,11 @@ const similarSearchData = [
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, quantity, data.make_name, data.count)"
+                @click="addDetailToCart(data.price_id, quantity, data.make_name)"
               >
-                <ui-icon class="hint" outlined>
+                <ui-icon
+                  class="hint"
+                  outlined>
                   shopping_cart
                 </ui-icon>
               </ui-icon-button>
@@ -111,7 +113,6 @@ const similarSearchData = [
               <ui-textfield
                 @input="event => this.quantity = event.target.value"
                 :min="0"
-                :max="data.count"
                 :placeholder="0"
                 inputType="number"
                 :id="data.price_id"
@@ -171,6 +172,12 @@ const similarSearchData = [
       :quantity="quantity_cart"
     />
   </ui-dialog>
+
+  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+    <LoginDialog
+      @isLoginOpen="loginOpen"
+    />
+  </ui-dialog>
 </template>
 
 <script lang="ts">
@@ -182,13 +189,22 @@ import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import {INCREMENT_NUMBER_CONFIRM_ORDERS, LOGOUT} from "@/store/actions_type";
 import {mapGetters} from "vuex";
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 
 export default defineComponent({
   name: "ProductSearch",
+
   components: {
+    LoginDialog: LoginDialog,
+    ProfileDialog: ProfileDialog,
     CartAddDialog: CartAddDialog
+  },
+
+  computed: {
+    ...mapGetters(["currentStateCart", "isAuthenticated", "currentUser"])
   },
 
   data() {
@@ -205,6 +221,7 @@ export default defineComponent({
       make_name_cart: "",
       itm_no_cart: "",
       price_cart: 0,
+      isLoginOpen: false,
     };
   },
 
@@ -222,6 +239,9 @@ export default defineComponent({
           article_details.prices = response.data[index].prices
 
           for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
+            if (response.data[index].prices[index_price].count == 0) {
+              response.data[index].prices[index_price].count = 0 + " (под заказ)"
+            }
             this.priceInfo.push(response.data[index].prices[index_price])
             this.productCount++
           }
@@ -236,40 +256,41 @@ export default defineComponent({
       });
   },
 
-  computed: {
-    ...mapGetters(["currentStateCart"])
-  },
-
   methods: {
-    addDetailToCart(priceId : number, quantity: number, make_name : string, count: number) {
+    addDetailToCart(priceId : number, quantity: number, make_name : string) {
 
-      if (quantity > count) {
-        quantity = count
-        alert("В наличии у данного поставщика " + count + " шт. товара.")
-      }
+      if (store.getters.isAuthenticated) {
 
         OrderService.addDetailToCart(priceId, quantity)
-          .then((response: ResponseData) => {
+            .then((response: ResponseData) => {
+              this.quantity == 0 ?
+                  this.detail_name_cart = response.data.itemName + " (под заказ)" : this.detail_name_cart = response.data.itemName
+              this.quantity_cart = response.data.quantity
+              this.make_name_cart = make_name
+              this.itm_no_cart = this.productId
+              this.price_cart = response.data.priceValue
 
-            this.quantity_cart = response.data.quantity
-            this.detail_name_cart = response.data.itemName
-            this.make_name_cart = make_name
-            this.itm_no_cart = this.productId
-            this.price_cart = response.data.priceValue
+              this.isShowAddedProduct = true
 
-            this.isShowAddedProduct = true
+              store.dispatch(INCREMENT_NUMBER_CONFIRM_ORDERS)
+              this.quantity = 0
+            })
+            .catch((e: Error) => {
+              console.log(e);
+            })
 
-            store.dispatch(INCREMENT_NUMBER_CONFIRM_ORDERS)
-            this.quantity = 0
-          })
-          .catch((e: Error) => {
-            console.log(e);
-          })
+      } else {
+        this.isLoginOpen = true
+      }
     },
 
     hideAddedProduct() {
       this.isShowAddedProduct = false
-    }
+    },
+
+    loginOpen() {
+      this.isLoginOpen = false
+    },
   },
 
 });

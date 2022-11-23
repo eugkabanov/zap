@@ -75,7 +75,7 @@
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <div v-if="isAuthorisedUser" class="header-item">
+          <div v-if="$store.getters.isAuthenticated" class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="$store.getters.currentStateCart"
               ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
@@ -95,7 +95,7 @@
             </RouterLink>
           </div>
           <div
-              v-if="isAuthorisedUser"
+              v-if="$store.getters.isAuthenticated"
               v-on:click="openProfileDialog"
               class="header-item"
           >
@@ -174,16 +174,8 @@ export default defineComponent({
     store.dispatch(CHECK_AUTH)
       .then((data: ResponseData) => {
 
-        this.isAuthorisedUser = true
+        // this.isAuthorisedUser = true
         console.log("CHECK_AUTH")
-
-        store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-          .then((data: ResponseData) => {
-            console.log("GET_NUMBER_CONFIRM_ORDERS")
-          })
-          .catch((e: Error) => {
-            console.log(e);
-          });
 
       })
       .catch((e: Error) => {

@@ -104,7 +104,6 @@ import {store} from "@/store";
 import {AUTH, GET_NUMBER_CONFIRM_ORDERS, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
-import router from "@/router";
 import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
 
 
@@ -158,6 +157,13 @@ export default defineComponent({
               .catch((e: Error) => {
                 console.log(e);
               })
+            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                .then((data: ResponseData) => {
+                  console.log("GET_NUMBER_CONFIRM_ORDERS")
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                });
           })
           .catch((e: Error) => {
             if (e.data.code == 401) {
