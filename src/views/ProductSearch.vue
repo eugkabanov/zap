@@ -112,7 +112,6 @@ const similarSearchData = [
             <template #quantity="{ data }">
               <ui-textfield
                 @input="event => this.quantity = event.target.value"
-                :vdef="map_carts.get(data.price_id)"
                 :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
                 inputType="number"
@@ -197,9 +196,7 @@ import {INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
-import * as vm from "vm";
 import router from "@/router";
-import * as path from "path";
 
 export default defineComponent({
   name: "ProductSearch",
@@ -268,9 +265,11 @@ export default defineComponent({
   },
 
   methods: {
+
     updatePage() {
       router.go(0)
     },
+
     addDetailToCart(priceId : number, quantity: number, make_name : string) {
 
       if (store.getters.isAuthenticated) {
@@ -295,7 +294,6 @@ export default defineComponent({
 
       } else {
         this.isLoginOpen = true
-        this.$forceUpdate();
       }
     },
 

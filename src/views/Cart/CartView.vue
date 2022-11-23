@@ -4,8 +4,8 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
-  { field: "itemName", align: "center" },
-  { field: "supplierName", align: "center" },
+  { field: "itemName", },
+  { field: "supplierName",  },
   { field: "supplierMaxPeriod" },
   { field: "priceValue", align: "center" },
   { field: "quantity", align: "center" },
@@ -38,10 +38,11 @@ import type CartItem from "@/types/CartItem";
 import OrderService from "@/services/OrderService";
 
 export default defineComponent({
-  name: "cart",
+  name: "CartView",
   data() {
     return {
-      items: [] as CartItem[]
+      items: [] as CartItem[],
+      cartsToConfirm: [] as number []
     };
   },
 
@@ -54,6 +55,7 @@ export default defineComponent({
   },
 
   methods: {
+
     listCart() {
       this.items.length = 0
       OrderService.getCart()
@@ -115,8 +117,12 @@ export default defineComponent({
           </ui-icon>
         </template>
 
-        <template #select>
-          <ui-checkbox disabled="true" modelValue="true" />
+        <template #select="{ data }">
+            <ui-checkbox
+              v-model="cartsToConfirm"
+              :inputId="data.priceId"
+              :value="data.priceId"
+            />
         </template>
       </ui-table>
 
