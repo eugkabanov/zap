@@ -4,10 +4,14 @@
   </div>
 
   <section v-if="accountInfo.inn != null" class="mt-3 row gy-4">
-    <CompanyProfileInfo />
+    <CompanyProfileInfo :orgAccountInfo="accountInfo" />
   </section>
+  <!-- Временно уберем отображение для физика -->
   <section v-else class="mt-5">
-    <PersonProfileInfo :personAccountInfo="accountInfo" />
+    <!-- <PersonProfileInfo :personAccountInfo="accountInfo" /> -->
+    <div>
+      Загружаем данные
+    </div>
   </section>
 </template>
 

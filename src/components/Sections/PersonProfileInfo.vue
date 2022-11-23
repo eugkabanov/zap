@@ -54,10 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import AccountService from "@/services/AccountService";
-// import PersonProfileInfo from "@/components/Sections/PersonProfileInfo.vue";
-// import CompanyProfileInfo from "@/components/Sections/CompanyProfileInfo.vue";
 import router from "@/router";
 
 export default {
@@ -71,10 +68,6 @@ export default {
 
   data() {
     return {
-      personData: {
-        firstName: this.personAccountInfo,
-      },
-      isPerson: true,
       errMessage: "",
       showErrMessage: false,
     };
@@ -82,16 +75,16 @@ export default {
 
   methods: {
     update() {
-        AccountService.updatePersonInfo(this.personAccountInfo)
+      AccountService.updatePersonInfo(this.personAccountInfo)
         .then((response: any) => {
-            console.log(response.data);
-            this.showErrMessage = false;
-            router.push({ path: "/settings" });
-          })
-          .catch((e: Error) => {
-            this.showErrMessage = true;
-            console.log(e);
-          });
+          console.log(response.data);
+          this.showErrMessage = false;
+          router.push({ path: "/settings" });
+        })
+        .catch((e: Error) => {
+          this.showErrMessage = true;
+          console.log(e);
+        });
     },
   },
 };
