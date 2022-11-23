@@ -1,24 +1,17 @@
 export default interface CompanyRegistrationData {
-  credentials: {
-    login: string
-    password: string
-  }
   readonly id?: null;
-  allow_data_processed: boolean;
-  service_office?: number;
-
-  companyName: string;
-  address?: string;
-  addressId?: number;
   inn: string;
-  kpp?: string;
-  okpo?: string;
+  companyName: string;
+  legalAddress?: string;
+  actualAddress?: string;
   bankName?: string;
+  kpp?: string;
   bankAccount?: string;
   bankCorrAccount?: string;
   bankBik?: string;
   ogrn?: string;
+  okpo?: string;
   contactPerson?: string;
-  contactEmail?: string;
-  contactPhone?: string;
+  contactEmail: string;
+  contactPhone: string;
 }

@@ -2,7 +2,7 @@ import {
     AUTH,
     LOGOUT,
     USER_ME,
-    CHECK_AUTH
+    CHECK_AUTH, GET_NUMBER_CONFIRM_ORDERS
 } from "@/store/actions_type";
 import UserDataService from "@/services/UserDataService";
 import jwt_service from "@/http-common/jwt_service";
@@ -78,6 +78,13 @@ const actions = {
                     .catch((e: Error) => {
                         console.log(e);
                     })
+                store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                    .then((data: ResponseData) => {
+                        console.log("GET_NUMBER_CONFIRM_ORDERS")
+                    })
+                    .catch((e: Error) => {
+                        console.log(e);
+                    });
             } else {
                 context.commit(PURGE_AUTH);
             }

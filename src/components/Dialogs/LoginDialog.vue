@@ -82,6 +82,17 @@
       </div>
     </div>
   </ui-dialog-content>
+  <ui-dialog
+      v-model="showErrMessage"
+      maskClosable
+      sheet
+      class="balance-warning-dialog"
+  >
+    <ErrorDialog
+        :error_detail_message="errMessage"
+        :hide_error_dialog="hideErrorDialog"
+    />
+  </ui-dialog>
 </template>
 
 <script lang="ts">
@@ -93,19 +104,22 @@ import {store} from "@/store";
 import {AUTH, GET_NUMBER_CONFIRM_ORDERS, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
-import router from "@/router";
+import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
 
 
 export default defineComponent({
   name: "LoginDialog",
   components: {
+    ErrorDialog: ErrorDialog,
     LineBreak: LineBreak
   },
   data() {
 
     return {
       user_data_auth: {} as UserDataAuth,
-      user_data_info: {} as UserDataInfo
+      user_data_info: {} as UserDataInfo,
+      showErrMessage: false,
+      errMessage: ''
     };
   },
 
@@ -116,6 +130,12 @@ export default defineComponent({
   },
 
   methods: {
+
+    hideErrorDialog() {
+      this.errMessage = ""
+      this.showErrMessage = false
+    },
+
     closeLoginDialog() {
       this.$emit('closeDialog')
     },
@@ -131,14 +151,28 @@ export default defineComponent({
             this.$emit('isLoginOpen')
             this.$emit('closeDialog')
             store.dispatch(USER_ME)
-              .then((data: ResponseData) => {
+              .then((response: ResponseData) => {
                 this.closeLoginDialog()
               })
               .catch((e: Error) => {
                 console.log(e);
               })
+            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                .then((data: ResponseData) => {
+                  console.log("GET_NUMBER_CONFIRM_ORDERS")
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                });
           })
           .catch((e: Error) => {
+            if (e.data.code == 401) {
+              this.showErrMessage = true
+              this.errMessage = "Неверный логин или пароль"
+            } else {
+              this.showErrMessage = true
+              this.errMessage = "Попробуйте позже"
+            }
             console.log(e);
           });
     }
