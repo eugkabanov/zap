@@ -181,6 +181,8 @@ import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
 import AddCommentToOrder from "@/components/Dialogs/AddCommentToOrder.vue";
 import router from "@/router";
 import type ConfirmOrderObject from "@/types/ConfirmOrderObject";
+import {store} from "@/store";
+import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 
 export default defineComponent({
   name: "CartView",
@@ -191,7 +193,7 @@ export default defineComponent({
       totalOrderPrice: 0.00,
       showErrMessage: false,
       errMessage: "",
-      confirm_order_object: {} as ConfirmOrderObject,
+      confirmOrderMap: {} as ConfirmOrderObject,
       showDialogAddComment: false,
       priceIdEditComment: 0
     };
@@ -247,9 +249,15 @@ export default defineComponent({
     },
 
     doConfirm() {
-      OrderService.confirmOrder(this.confirm_order_object)
+      OrderService.confirmOrder(this.cartsToConfirm)
           .then((response: ResponseData) => {
-            router.push({path: "/orders"})
+            router.push({path: "/confirm/orders"})
+            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                .then((data: ResponseData) => {
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                });
           })
 
           .catch((e: Error) => {

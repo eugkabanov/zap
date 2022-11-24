@@ -1,5 +1,3 @@
 export default interface ConfirmOrderObject {
-    address: string;
-    paymentType: number;
-    comment: string;
+    pricesList: Array <number> []
 }

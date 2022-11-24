@@ -121,7 +121,7 @@ const router = createRouter({
       component: () => import("../views/Profile/DealersView.vue"),
     },
     {
-      path: "/orders",
+      path: "/confirm/orders",
       name: "orders",
       component: () => import("../views/Profile/OrdersView.vue"),
     },
