@@ -129,7 +129,7 @@ const activeTab = ref(0);
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
-          Сумма заказа: <b>0,00 ₽</b>
+          Сумма заказа: <b>{{ totalOrderPrice }} ₽</b>
         </div>
       </div>
     </div>
@@ -153,7 +153,6 @@ import type ResponseData from "@/types/ResponseData";
 import type CartItem from "@/types/CartItem";
 import OrderService from "@/services/OrderService";
 import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
-import LineBreak from "@/components/LineBreak.vue";
 
 export default defineComponent({
   name: "CartView",
@@ -161,6 +160,7 @@ export default defineComponent({
     return {
       items: [] as CartItem[],
       cartsToConfirm: [] as number [],
+      totalOrderPrice: 0.00,
       showErrMessage: false,
       errMessage: "",
     };
@@ -168,6 +168,23 @@ export default defineComponent({
 
   components: {
     ErrorDialog: ErrorDialog
+  },
+
+  watch: {
+
+    cartsToConfirm() {
+      this.totalOrderPrice = 0.00
+
+      if (this.cartsToConfirm.length > 0) {
+        for (let cart of this.cartsToConfirm) {
+          for (let index = 0, len = this.items.length; index < len; index++) {
+            if (this.items[index].priceId == cart) {
+              this.totalOrderPrice += this.items[index].total
+            }
+          }
+        }
+      }
+    }
   },
 
   mounted: function () {
@@ -213,7 +230,7 @@ export default defineComponent({
       OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
-              item.total = (item.priceValue * item.quantity).toFixed(2);
+              item.total = Number((item.priceValue * item.quantity).toFixed(2));
               item.supplierMaxPeriod += " дней";
               this.items.push(item);
             }

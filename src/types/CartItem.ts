@@ -7,4 +7,5 @@ export default interface CartItem {
     supplierMaxPeriod: number;
     quantity: number;
     vendorCode: string;
+    total: number;
 }
