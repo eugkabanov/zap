@@ -254,7 +254,7 @@ export default defineComponent({
           .then((response: ResponseData) => {
             console.log(response.data);
             this.showErrMessage = false;
-            router.push({ path: "/catalog" });
+            router.push({ path: "/" });
           })
           .catch((e: Error) => {
             this.showErrMessage = true;
