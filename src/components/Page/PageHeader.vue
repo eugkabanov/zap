@@ -75,7 +75,7 @@
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <div v-if="isAuthorisedUser" class="header-item">
+          <div v-if="$store.getters.isAuthenticated" class="header-item">
             <RouterLink to="/cart">
               <ui-badge overlap :count="$store.getters.currentStateCart"
               ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
@@ -95,7 +95,7 @@
             </RouterLink>
           </div>
           <div
-              v-if="isAuthorisedUser"
+              v-if="$store.getters.isAuthenticated"
               v-on:click="openProfileDialog"
               class="header-item"
           >
@@ -143,9 +143,10 @@ import NotificationsDialog from "../Dialogs/NotificationsDialog.vue";
 import ProfileDialog from "../Dialogs/ProfileDialog.vue";
 import {defineComponent} from "vue";
 import {store} from "@/store";
-import {LOGOUT} from "@/store/actions_type";
+import {CHECK_AUTH, GET_NUMBER_CONFIRM_ORDERS, LOGOUT, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
+import type ResponseData from "@/types/ResponseData";
 
 
 export default defineComponent({
@@ -170,6 +171,16 @@ export default defineComponent({
   },
 
   created: function () {
+    store.dispatch(CHECK_AUTH)
+      .then((data: ResponseData) => {
+
+        // this.isAuthorisedUser = true
+        console.log("CHECK_AUTH")
+
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      })
   },
 
   computed: {

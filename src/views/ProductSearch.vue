@@ -19,7 +19,7 @@ const searchDataBody = [
   { field: "count"},
   { field: "time_delivery" },
   { field: "price"},
-  { field: "time_delivery_direction" },
+  // { field: "time_delivery_direction" },
   { slot: "quantity" },
   { slot: "cart" },
   // { slot: "delivery" },
@@ -27,11 +27,11 @@ const searchDataBody = [
 
 const searchDataHead = [
   { value: "Бренд"},
-  { value: "Поставщик"},
+  { value: "Наличие"},
   { value: "Количество"},
   { value: "Срок" },
   { value: "Цена" },
-  { value: "Отправка поставщику" },
+  // { value: "Отправка поставщику" },
   { value: "Количество" },
   { value: "" },
   // { value: "" }
@@ -97,9 +97,11 @@ const similarSearchData = [
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, quantity, data.make_name, data.count)"
+                @click="addDetailToCart(data.price_id, quantity, data.make_name)"
               >
-                <ui-icon class="hint" outlined>
+                <ui-icon
+                  class="hint"
+                  outlined>
                   shopping_cart
                 </ui-icon>
               </ui-icon-button>
@@ -110,11 +112,13 @@ const similarSearchData = [
             <template #quantity="{ data }">
               <ui-textfield
                 @input="event => this.quantity = event.target.value"
-                :min="0"
-                :max="data.count"
+                :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
+                :min="0"
                 inputType="number"
                 :id="data.price_id"
+                class="small"
+                style="width: 70px; height: 50px; padding: 0 8px"
               ></ui-textfield>
             </template>
           </ui-table>
@@ -171,6 +175,13 @@ const similarSearchData = [
       :quantity="quantity_cart"
     />
   </ui-dialog>
+
+  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+    <LoginDialog
+      @isLoginOpen="loginOpen"
+      @updatePage="updatePage"
+    />
+  </ui-dialog>
 </template>
 
 <script lang="ts">
@@ -184,15 +195,26 @@ import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
 import {INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
+import router from "@/router";
 
 export default defineComponent({
   name: "ProductSearch",
+
   components: {
+    LoginDialog: LoginDialog,
+    ProfileDialog: ProfileDialog,
     CartAddDialog: CartAddDialog
+  },
+
+  computed: {
+    ...mapGetters(["currentStateCart", "isAuthenticated", "currentUser"])
   },
 
   data() {
     return {
+      map_carts: new Map<number, string>(),
       detailsPriceInfo: [] as ArticleDetailData[],
       priceInfo: [] as ArticlePriceData[],
       productId: this.$route.params.productId,
@@ -205,10 +227,14 @@ export default defineComponent({
       make_name_cart: "",
       itm_no_cart: "",
       price_cart: 0,
+      isLoginOpen: false,
     };
+
+
   },
 
   created: function () {
+    this.listCart();
 
     SearchService.prices(this.productId)
       .then((response: ResponseData) => {
@@ -222,6 +248,9 @@ export default defineComponent({
           article_details.prices = response.data[index].prices
 
           for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
+            if (response.data[index].prices[index_price].count == 0) {
+              response.data[index].prices[index_price].count = 0 + " (под заказ)"
+            }
             this.priceInfo.push(response.data[index].prices[index_price])
             this.productCount++
           }
@@ -236,32 +265,47 @@ export default defineComponent({
       });
   },
 
-  computed: {
-    ...mapGetters(["currentStateCart"])
-  },
-
   methods: {
-    addDetailToCart(priceId : number, quantity: number, make_name : string, count: number) {
 
-      if (quantity > count) {
-        quantity = count
-        alert("В наличии у данного поставщика " + count + " шт. товара.")
-      }
+    updatePage() {
+      router.go(0)
+    },
+
+    addDetailToCart(priceId : number, quantity: number, make_name : string) {
+
+      if (store.getters.isAuthenticated) {
 
         OrderService.addDetailToCart(priceId, quantity)
+            .then((response: ResponseData) => {
+              this.quantity == 0 ?
+                  this.detail_name_cart = response.data.itemName + " (под заказ)" : this.detail_name_cart = response.data.itemName
+              this.quantity_cart = response.data.quantity
+              this.make_name_cart = make_name
+              this.itm_no_cart = this.productId
+              this.price_cart = response.data.priceValue
+
+              this.isShowAddedProduct = true
+
+              store.dispatch(INCREMENT_NUMBER_CONFIRM_ORDERS)
+              this.quantity = 0
+            })
+            .catch((e: Error) => {
+              console.log(e);
+            })
+
+      } else {
+        this.isLoginOpen = true
+      }
+    },
+
+    listCart() {
+      OrderService.getCart()
           .then((response: ResponseData) => {
-
-            this.quantity_cart = response.data.quantity
-            this.detail_name_cart = response.data.itemName
-            this.make_name_cart = make_name
-            this.itm_no_cart = this.productId
-            this.price_cart = response.data.priceValue
-
-            this.isShowAddedProduct = true
-
-            store.dispatch(INCREMENT_NUMBER_CONFIRM_ORDERS)
-            this.quantity = 0
+            for (let item of response.data.cart) {
+              this.map_carts.set(item.priceId, item.quantity);
+            }
           })
+
           .catch((e: Error) => {
             console.log(e);
           })
@@ -269,7 +313,11 @@ export default defineComponent({
 
     hideAddedProduct() {
       this.isShowAddedProduct = false
-    }
+    },
+
+    loginOpen() {
+      this.isLoginOpen = false
+    },
   },
 
 });

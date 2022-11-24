@@ -31,16 +31,17 @@ const submitSearch = () => {
             <div class="col-12 col-lg-8 mx-auto">
               <SearchFormWithIcon
                 :submit-handler="submitSearch"
-                placeholder="Поиск по артикулу или VIN/Frame"
+                placeholder="Поиск по артикулу"
               />
             </div>
             <div class="col-12 col-lg-6 mx-auto mt-4">
               <div class="row">
-                <div class="col-6 col-lg-auto">
+                <div class="col-10 col-lg-auto">
                   <RouterLink to="/search-brand">
                     <ui-button
                       raised
                       style="
+                        margin-left: 160px;
                         background-color: white;
                         color: #0069c8;
                         height: 66px;
@@ -50,7 +51,7 @@ const submitSearch = () => {
                     >
                   </RouterLink>
                 </div>
-                <div class="col-6 col-lg-auto">
+<!--                <div class="col-6 col-lg-auto">-->
                   <!-- <RouterLink to="/catalog">
                     <ui-button
                       style="height: 66px; text-transform: uppercase"
@@ -58,7 +59,7 @@ const submitSearch = () => {
                       >Каталог товаров</ui-button
                     >
                   </RouterLink> -->
-                </div>
+<!--                </div>-->
               </div>
             </div>
           </div>
