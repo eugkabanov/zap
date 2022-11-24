@@ -27,6 +27,13 @@ class OrderService {
     return HTTPClient.get("/order/currentNumberConfirmed");
   }
 
+  deleteOrderForCart(priceId: number): Promise<any> {
+    let params = {
+      'priceId': priceId,
+    };
+    return HTTPClient.get("/order/cart/delete/", { params : params });
+  }
+
 }
 
 export default new OrderService();

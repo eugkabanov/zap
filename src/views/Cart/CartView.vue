@@ -4,8 +4,8 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
-  { field: "itemName", align: "center" },
-  { field: "supplierName", align: "center" },
+  { field: "itemName", },
+  { field: "supplierName",  },
   { field: "supplierMaxPeriod" },
   { field: "priceValue", align: "center" },
   { field: "quantity", align: "center" },
@@ -30,50 +30,6 @@ const productsDataHead = [
 ];
 const activeTab = ref(0);
 </script>
-
-<script lang="ts">
-import {defineComponent} from "vue";
-import type ResponseData from "@/types/ResponseData";
-import type CartItem from "@/types/CartItem";
-import OrderService from "@/services/OrderService";
-
-export default defineComponent({
-  name: "cart",
-  data() {
-    return {
-      items: [] as CartItem[]
-    };
-  },
-
-  mounted: function () {
-    this.listCart()
-  },
-
-  created: function () {
-    
-  },
-
-  methods: {
-    listCart() {
-      this.items.length = 0
-      OrderService.getCart()
-        .then((response: ResponseData) => {
-          for (let item of response.data.cart) {
-            item.total = (item.priceValue * item.quantity).toFixed(2);
-            item.supplierMaxPeriod += " дней";
-            this.items.push(item);
-          }
-        })
-
-        .catch((e: Error) => {
-          console.log(e);
-        })
-    },
-    
-  },
-});
-</script>
-
 
 <template>
   <main class="container-fluid pb-5">
@@ -115,8 +71,19 @@ export default defineComponent({
           </ui-icon>
         </template>
 
-        <template #select>
-          <ui-checkbox disabled="true" modelValue="true" />
+        <template #select="{ data }">
+            <ui-checkbox
+              style="padding-bottom: 12px"
+              v-model="cartsToConfirm"
+              :inputId="data.priceId"
+              :value="data.priceId"
+            />
+          <ui-icon-button
+            v-on:click="deleteCart(data.priceId)"
+          >
+            delete
+          </ui-icon-button>
+
         </template>
       </ui-table>
 
@@ -157,14 +124,123 @@ export default defineComponent({
 
         <div class="mt-4">
           <RouterLink to="/order">
-            <ui-button raised>Оформить заказ (0)</ui-button>
+            <ui-button raised>Оформить заказ ({{ this.cartsToConfirm.length }})</ui-button>
           </RouterLink>
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
-          Сумма заказа: <b>0,00 ₽</b>
+          Сумма заказа: <b>{{ totalOrderPrice }} ₽</b>
         </div>
       </div>
     </div>
   </main>
+  <ui-dialog
+      v-model="showErrMessage"
+      maskClosable
+      sheet
+      class="balance-warning-dialog"
+  >
+    <ErrorDialog
+        :error_detail_message="errMessage"
+        :hide_error_dialog="hideErrorDialog"
+    />
+  </ui-dialog>
 </template>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import type ResponseData from "@/types/ResponseData";
+import type CartItem from "@/types/CartItem";
+import OrderService from "@/services/OrderService";
+import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+
+export default defineComponent({
+  name: "CartView",
+  data() {
+    return {
+      items: [] as CartItem[],
+      cartsToConfirm: [] as number [],
+      totalOrderPrice: 0.00,
+      showErrMessage: false,
+      errMessage: "",
+    };
+  },
+
+  components: {
+    ErrorDialog: ErrorDialog
+  },
+
+  watch: {
+
+    cartsToConfirm() {
+      this.totalOrderPrice = 0.00
+
+      if (this.cartsToConfirm.length > 0) {
+        for (let cart of this.cartsToConfirm) {
+          for (let index = 0, len = this.items.length; index < len; index++) {
+            if (this.items[index].priceId == cart) {
+              this.totalOrderPrice += this.items[index].total
+            }
+          }
+        }
+      }
+    }
+  },
+
+  mounted: function () {
+    this.listCart()
+  },
+
+  created: function () {
+
+  },
+
+  methods: {
+
+    hideErrorDialog() {
+      this.errMessage = ""
+      this.showErrMessage = false
+    },
+
+    deleteCart(priceId: number) {
+
+      OrderService.deleteOrderForCart(priceId)
+          .then((response: ResponseData) => {
+
+            let indexDelete: number;
+
+            for (let index = 0, len = this.items.length; index < len; index++) {
+              if (this.items[index].priceId == priceId) {
+                indexDelete = index
+              }
+            }
+            this.items.splice(indexDelete, 1)
+            this.errMessage = "Заказ удалён из корзины"
+            this.showErrMessage = true
+          })
+
+          .catch((e: Error) => {
+            this.errMessage = "Не удалось удалить."
+            this.showErrMessage = true
+          })
+    },
+
+    listCart() {
+      this.items.length = 0
+      OrderService.getCart()
+          .then((response: ResponseData) => {
+            for (let item of response.data.cart) {
+              item.total = Number((item.priceValue * item.quantity).toFixed(2));
+              item.supplierMaxPeriod += " дней";
+              this.items.push(item);
+            }
+          })
+
+          .catch((e: Error) => {
+            console.log(e);
+          })
+    },
+
+  },
+});
+</script>

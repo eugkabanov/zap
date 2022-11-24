@@ -109,26 +109,6 @@ import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
 
 export default defineComponent({
   name: "LoginDialog",
-  components: {
-    ErrorDialog: ErrorDialog,
-    LineBreak: LineBreak
-  },
-  data() {
-
-    return {
-      user_data_auth: {} as UserDataAuth,
-      user_data_info: {} as UserDataInfo,
-      showErrMessage: false,
-      errMessage: ''
-    };
-  },
-
-  created: function () {},
-
-  computed: {
-    ...mapGetters(["isAuthenticated"])
-  },
-
   methods: {
 
     hideErrorDialog() {
@@ -151,12 +131,12 @@ export default defineComponent({
             this.$emit('isLoginOpen')
             this.$emit('closeDialog')
             store.dispatch(USER_ME)
-              .then((response: ResponseData) => {
-                this.closeLoginDialog()
-              })
-              .catch((e: Error) => {
-                console.log(e);
-              })
+                .then((response: ResponseData) => {
+                  this.closeLoginDialog()
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                })
             store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                 .then((data: ResponseData) => {
                   console.log("GET_NUMBER_CONFIRM_ORDERS")
@@ -164,6 +144,7 @@ export default defineComponent({
                 .catch((e: Error) => {
                   console.log(e);
                 });
+            this.$emit('updatePage')
           })
           .catch((e: Error) => {
             if (e.data.code == 401) {
@@ -176,6 +157,26 @@ export default defineComponent({
             console.log(e);
           });
     }
+  },
+  components: {
+    ErrorDialog: ErrorDialog,
+    LineBreak: LineBreak
+  },
+
+  data() {
+
+    return {
+      user_data_auth: {} as UserDataAuth,
+      user_data_info: {} as UserDataInfo,
+      showErrMessage: false,
+      errMessage: ''
+    };
+  },
+
+  created: function () {},
+
+  computed: {
+    ...mapGetters(["isAuthenticated"])
   },
 });
 </script>
