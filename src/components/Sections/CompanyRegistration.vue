@@ -155,7 +155,6 @@ export default defineComponent({
         return;
       }
       if (this.company_data.companyName == '') {
-        console.log(this.company_data.companyName)
         this.errMessage = ('Поле "Наименовании" обязательно к заполнению');
         this.showErrMessage = true;
         return;
@@ -196,14 +195,17 @@ export default defineComponent({
 
         UserDataService.registrationCompany(company_data_reg)
           .then((response: ResponseData) => {
-            console.log(response.data);
-            this.showErrMessage = false;
-            router.push({path: "/"});
+            if (response.data.code != 409) {
+              this.showErrMessage = false;
+              router.push({path: "/"});
+            } else {
+              this.showErrMessage = true;
+              this.errMessage = ('Пользователь с таким ИНН уже сущесвует');
+            }
           })
           .catch((e: Error) => {
             this.showErrMessage = true;
             this.errMessage = ('Попробуйте пройти регистрацию позже');
-            console.log(e);
           });
 
       }
