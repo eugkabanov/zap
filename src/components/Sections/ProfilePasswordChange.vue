@@ -33,8 +33,7 @@ import router from "@/router";
 export default defineComponent({
   name: "ProfilePasswordChange",
 
-  components: {
-  },
+  components: {},
 
   data() {
     return {
