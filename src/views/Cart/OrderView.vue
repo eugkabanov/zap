@@ -52,6 +52,7 @@ export default defineComponent({
     },
 
     doConfirm() {
+
       OrderService.confirmOrder(this.confirm_order_object)
       .then((response: ResponseData) => {
           router.push({path: "/orders"})

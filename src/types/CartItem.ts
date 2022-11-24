@@ -8,4 +8,5 @@ export default interface CartItem {
     quantity: number;
     vendorCode: string;
     total: number;
+    comment: string;
 }

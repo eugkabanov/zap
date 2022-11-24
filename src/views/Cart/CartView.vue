@@ -4,16 +4,18 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
-  { field: "itemName", },
-  { field: "supplierName",  },
-  { field: "supplierMaxPeriod" },
-  { field: "priceValue", align: "center" },
-  { field: "quantity", align: "center" },
-  { field: "total", align: "center" },
+  { field: "itemName", width: 100},
+  { field: "supplierName", width: 100 },
+  { field: "supplierMaxPeriod", width: 80, },
+  { field: "priceValue", width: 80},
+  { field: "quantity", width: 40, align: "center"},
+  { field: "total", width: 80},
   {
-    slot: "select",
+    slot: "select", align:"center", width: 80
   },
-  { field: "comments" },
+  { slot: "comment", align: "left"},
+  { slot: "edit", width: 20 },
+  { slot: "delete", width: 20},
 ];
 const productsDataHead = [
   { value: "Наименование" },
@@ -26,7 +28,9 @@ const productsDataHead = [
   { value: "Количество", align: "center" },
   { value: "Сумма", align: "center" },
   { value: "Выбрать" },
-  "Комментарии",
+  { value: "Комментарий", align: "left" },
+  { value: ""},
+  { value: "Удалить" }
 ];
 const activeTab = ref(0);
 </script>
@@ -78,12 +82,22 @@ const activeTab = ref(0);
               :inputId="data.priceId"
               :value="data.priceId"
             />
+        </template>
+        <template #comment="{ data }">
+          <label>{{ data.comment }}</label>
+        </template>
+        <template #edit="{ data }">
           <ui-icon-button
-            v-on:click="deleteCart(data.priceId)"
+              v-on:click="showDialogAddCommentFunc(data.priceId)">
+            edit
+          </ui-icon-button>
+        </template>
+        <template #delete="{ data }">
+          <ui-icon-button
+              v-on:click="deleteCart(data.priceId)"
           >
             delete
           </ui-icon-button>
-
         </template>
       </ui-table>
 
@@ -124,7 +138,7 @@ const activeTab = ref(0);
 
         <div class="mt-4">
           <RouterLink to="/order">
-            <ui-button raised>Оформить заказ ({{ this.cartsToConfirm.length }})</ui-button>
+            <ui-button v-on:click="doConfirm()" raised>Оформить заказ ({{ this.cartsToConfirm.length }})</ui-button>
           </RouterLink>
         </div>
 
@@ -145,14 +159,28 @@ const activeTab = ref(0);
         :hide_error_dialog="hideErrorDialog"
     />
   </ui-dialog>
+
+  <ui-dialog
+      v-model="showDialogAddComment"
+      maskClosable
+      sheet
+      class="balance-warning-dialog"
+  >
+    <AddCommentToOrder
+        @saveCommentDialog="saveCommentDialog"
+    />
+  </ui-dialog>
 </template>
 
 <script lang="ts">
-import {defineComponent, watch} from "vue";
+import {defineComponent} from "vue";
 import type ResponseData from "@/types/ResponseData";
 import type CartItem from "@/types/CartItem";
 import OrderService from "@/services/OrderService";
 import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+import AddCommentToOrder from "@/components/Dialogs/AddCommentToOrder.vue";
+import router from "@/router";
+import type ConfirmOrderObject from "@/types/ConfirmOrderObject";
 
 export default defineComponent({
   name: "CartView",
@@ -163,11 +191,15 @@ export default defineComponent({
       totalOrderPrice: 0.00,
       showErrMessage: false,
       errMessage: "",
+      confirm_order_object: {} as ConfirmOrderObject,
+      showDialogAddComment: false,
+      priceIdEditComment: 0
     };
   },
 
   components: {
-    ErrorDialog: ErrorDialog
+    ErrorDialog: ErrorDialog,
+    AddCommentToOrder: AddCommentToOrder
   },
 
   watch: {
@@ -196,6 +228,35 @@ export default defineComponent({
   },
 
   methods: {
+
+    showDialogAddCommentFunc(priceId: number) {
+      this.showDialogAddComment = true
+      this.priceIdEditComment = priceId
+    },
+
+    saveCommentDialog(comment: string) {
+      OrderService.editCommentToOrderCart(comment, this.priceIdEditComment)
+          .then((response: ResponseData) => {
+            this.listCart();
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          })
+
+      this.showDialogAddComment = false
+    },
+
+    doConfirm() {
+      OrderService.confirmOrder(this.confirm_order_object)
+          .then((response: ResponseData) => {
+            router.push({path: "/orders"})
+          })
+
+          .catch((e: Error) => {
+            console.log(e);
+          })
+    },
+
     cartsToConfirmDel() {
       this.totalOrderPrice = 0.00
 
