@@ -1,6 +1,7 @@
 
 export default interface CartItem {
     itemName: string;
+    priceId: number;
     priceValue: number;
     supplierName: string;
     supplierMaxPeriod: number;

@@ -114,6 +114,7 @@ const similarSearchData = [
                 @input="event => this.quantity = event.target.value"
                 :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
+                :min="0"
                 inputType="number"
                 :id="data.price_id"
                 class="small"
