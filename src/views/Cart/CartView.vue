@@ -129,7 +129,7 @@ const activeTab = ref(0);
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
-          Сумма заказа: <b>{{ totalOrderPrice }} ₽</b>
+          Сумма заказа: <b>{{ totalOrderPrice.toFixed(2) }} ₽</b>
         </div>
       </div>
     </div>
@@ -148,7 +148,7 @@ const activeTab = ref(0);
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, watch} from "vue";
 import type ResponseData from "@/types/ResponseData";
 import type CartItem from "@/types/CartItem";
 import OrderService from "@/services/OrderService";
@@ -196,6 +196,19 @@ export default defineComponent({
   },
 
   methods: {
+    cartsToConfirmDel() {
+      this.totalOrderPrice = 0.00
+
+      if (this.cartsToConfirm.length > 0) {
+        for (let cart of this.cartsToConfirm) {
+          for (let index = 0, len = this.items.length; index < len; index++) {
+            if (this.items[index].priceId == cart) {
+              this.totalOrderPrice += this.items[index].total
+            }
+          }
+        }
+      }
+    },
 
     hideErrorDialog() {
       this.errMessage = ""
@@ -215,6 +228,9 @@ export default defineComponent({
               }
             }
             this.items.splice(indexDelete, 1)
+            this.cartsToConfirm.splice(this.cartsToConfirm.indexOf(priceId), 1)
+            this.cartsToConfirmDel()
+
             this.errMessage = "Заказ удалён из корзины"
             this.showErrMessage = true
           })
