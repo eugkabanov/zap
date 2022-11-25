@@ -187,6 +187,11 @@ const router = createRouter({
       name: "return",
       component: () => import("../views/PassView.vue"),
     },
+    {
+      path: "/console",
+      name: "cinsole",
+      component: () => import("../views/Console/Console.vue"),
+    },
   ],
 });
 
