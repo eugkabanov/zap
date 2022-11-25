@@ -8,7 +8,7 @@ const productsDataBody = [
   { field: "supplierName", width: 100 },
   { field: "supplierMaxPeriod", width: 80, },
   { field: "priceValue", width: 80},
-  { field: "quantity", width: 40, align: "center"},
+  { slot: "quantity", width: 40, align: "center"},
   { field: "total", width: 80},
   {
     slot: "select", align:"center", width: 80
@@ -73,6 +73,22 @@ const activeTab = ref(0);
           >
             schedule
           </ui-icon>
+        </template>
+
+        <template #quantity="{ data }">
+          <div class="cell" style="display: flex;">
+            <ui-icon
+                style="cursor: pointer; margin-right: 16px"
+                v-on:click="updateOrderToCart(data.priceId, data.quantity - 1)">
+              remove
+            </ui-icon>
+            <label style="margin-bottom: 10px">{{ data.quantity }}</label>
+            <ui-icon
+                style="cursor: pointer; margin-left: 16px"
+                v-on:click="updateOrderToCart(data.priceId, data.quantity + 1)">
+              add
+            </ui-icon>
+          </div>
         </template>
 
         <template #select="{ data }">
@@ -182,7 +198,7 @@ import AddCommentToOrder from "@/components/Dialogs/AddCommentToOrder.vue";
 import router from "@/router";
 import type ConfirmOrderObject from "@/types/ConfirmOrderObject";
 import {store} from "@/store";
-import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import {GET_NUMBER_CONFIRM_ORDERS, INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 
 export default defineComponent({
   name: "CartView",
@@ -231,6 +247,25 @@ export default defineComponent({
 
   methods: {
 
+    updateOrderToCart(priceId: number, quantity: number) {
+
+      if (quantity >= 0) {
+        OrderService.addDetailToCart(priceId, quantity)
+            .then((response: ResponseData) => {
+              for (let item of this.items) {
+                if (item.priceId == priceId) {
+                  item.quantity = quantity
+                  item.total = Number((item.priceValue * item.quantity).toFixed(2));
+                }
+              }
+              store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+            })
+            .catch((e: Error) => {
+              console.log(e);
+            })
+      }
+    },
+
     showDialogAddCommentFunc(priceId: number) {
       this.showDialogAddComment = true
       this.priceIdEditComment = priceId
@@ -239,7 +274,11 @@ export default defineComponent({
     saveCommentDialog(comment: string) {
       OrderService.editCommentToOrderCart(comment, this.priceIdEditComment)
           .then((response: ResponseData) => {
-            this.listCart();
+            for (let item of this.items) {
+              if (item.priceId == response.data) {
+                item.comment = comment
+              }
+            }
           })
           .catch((e: Error) => {
             console.log(e);
@@ -299,6 +338,8 @@ export default defineComponent({
             this.items.splice(indexDelete, 1)
             this.cartsToConfirm.splice(this.cartsToConfirm.indexOf(priceId), 1)
             this.cartsToConfirmDel()
+
+            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
 
             this.errMessage = "Заказ удалён из корзины"
             this.showErrMessage = true
