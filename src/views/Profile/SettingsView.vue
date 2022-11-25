@@ -6,10 +6,10 @@
     <div class="col-12 col-xl-8">
       <ui-tab-bar v-model="selectedTab">
         <ui-tab min-width content-indicator>Личные данные</ui-tab>
-        <ui-tab min-width content-indicator>Ваши реквизиты</ui-tab>
-        <ui-tab min-width content-indicator>Доставка</ui-tab>
+        <!-- <ui-tab min-width content-indicator>Ваши реквизиты</ui-tab> -->
+        <!-- <ui-tab min-width content-indicator>Доставка</ui-tab> -->
         <ui-tab min-width content-indicator>Изменить пароль</ui-tab>
-        <ui-tab min-width content-indicator>Уведомления</ui-tab>
+        <!-- <ui-tab min-width content-indicator>Уведомления</ui-tab> -->
       </ui-tab-bar>
     </div>
 
@@ -19,15 +19,15 @@
         <ProfileInfo />
       </section>
       <!-- Payment details -->
-      <section v-if="selectedTab === 1" class="col-12 col-md-10 col-xl-6">
-        <ProfilePaymentDetails />
-      </section>
+      <!-- <section v-if="selectedTab === 1" class="col-12 col-md-10 col-xl-6"> -->
+        <!-- <ProfilePaymentDetails /> -->
+      <!-- </section> -->
       <!-- Delivery details -->
-      <section v-if="selectedTab === 2">
-        <ProfileDeliveryDetails />
-      </section>
+      <!-- <section v-if="selectedTab === 2"> -->
+        <!-- <ProfileDeliveryDetails /> -->
+      <!-- </section> -->
       <!-- Password change -->
-      <section v-if="selectedTab === 3">
+      <section v-if="selectedTab === 1">
         <ProfilePasswordChange />
       </section>
       <!-- Password change -->
