@@ -1,4 +1,5 @@
 export default interface CartItem {
+    id: number;
     itemName: string;
     priceValue: number;
     catalogName: string;

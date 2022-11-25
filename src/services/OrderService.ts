@@ -42,6 +42,13 @@ class OrderService {
     return HTTPClient.get("/order/cart/edit/comment/", { params : params });
   }
 
+  getStatusOrder(orderId: number): Promise<any> {
+    let params = {
+      'order_id': orderId,
+    };
+    return HTTPClient.get("/order/status/", { params : params });
+  }
+
 }
 
 export default new OrderService();
