@@ -30,6 +30,7 @@
       <section v-if="selectedTab === 3">
         <ProfilePasswordChange />
       </section>
+      <!-- Password change -->
     </div>
   </main>
 </template>
@@ -55,9 +56,7 @@ export default defineComponent({
   },
 
   data() {
-    return {
-      selectedTab: 0,
-    };
+    return {};
   },
 });
 </script>
