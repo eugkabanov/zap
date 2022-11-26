@@ -326,6 +326,8 @@ export default defineComponent({
 
     listOrders() {
       this.items.length = 0
+      this.itemsTech.length = 0
+
       this.vendorCodes.clear()
       this.statusOrders.clear()
 
