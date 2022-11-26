@@ -1,4 +1,4 @@
 export default interface Option {
-    key: string;
-    value: string;
+    key: string | number;
+    value: string | number;
 }
