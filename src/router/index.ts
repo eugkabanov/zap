@@ -189,7 +189,7 @@ const router = createRouter({
     },
     {
       path: "/console",
-      name: "cinsole",
+      name: "console",
       component: () => import("../views/Console/Console.vue"),
     },
   ],

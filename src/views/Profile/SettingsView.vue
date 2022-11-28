@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
 import { defineComponent } from "vue";
 import CustomSelect from "@/components/CustomSelect.vue";
 import BalanceBar from "@/components/Profile/BalanceBar.vue";
@@ -56,27 +55,9 @@ export default defineComponent({
   },
 
   data() {
-    return {};
+    return {
+      selectedTab: 0,
+    };
   },
 });
 </script>
-
-<style scoped lang="scss">
-.city-list {
-  max-height: 450px;
-  overflow-y: auto;
-}
-.city-item {
-  border-bottom: 1px solid #d9d9de;
-}
-.city-map {
-  display: block;
-  height: 100%;
-  object-fit: cover;
-}
-
-.mini-heading-color-red {
-  color: #e50050;
-  margin-bottom: 8px;
-}
-</style>
