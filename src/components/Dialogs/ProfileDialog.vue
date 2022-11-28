@@ -54,7 +54,7 @@
       </RouterLink> -->
       <RouterLink
         @click="closeProfileDialog"
-        to="/orders"
+        to="/confirm/orders"
         class="row align-items-center clear mb-4"
       >
         <div class="col-auto">

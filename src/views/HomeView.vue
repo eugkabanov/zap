@@ -30,7 +30,6 @@ const submitSearch = () => {
           <div class="row g-0">
             <div class="col-12 col-lg-8 mx-auto">
               <SearchFormWithIcon
-                :submit-handler="submitSearch"
                 placeholder="Поиск по артикулу"
               />
             </div>

@@ -80,7 +80,15 @@ const similarSearchData = [
       >Артикул {{ productId }}
       <span :class="$tt('body1')" class="ms-3 hint">найдено {{ productCount }} товаров</span>
     </h1>
-
+    <div
+        class="col-12 col-lg-5"
+        style="margin-bottom: 10px"
+    >
+      <SearchFormWithIcon
+          placeholder="Поиск по артикулу"
+          @updateSearchPage="getProductByItemNo1"
+      />
+    </div>
     <div class="row">
       <div>
         <div style="margin-bottom: 40px">
@@ -193,11 +201,12 @@ import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import {GET_NUMBER_CONFIRM_ORDERS, INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import router from "@/router";
+import SearchFormWithIcon from "@/components/Search/SearchFormWithIcon.vue";
 
 export default defineComponent({
   name: "ProductSearch",
@@ -205,7 +214,8 @@ export default defineComponent({
   components: {
     LoginDialog: LoginDialog,
     ProfileDialog: ProfileDialog,
-    CartAddDialog: CartAddDialog
+    CartAddDialog: CartAddDialog,
+    SearchFormWithIcon: SearchFormWithIcon
   },
 
   computed: {
@@ -217,7 +227,7 @@ export default defineComponent({
       map_carts: new Map<number, string>(),
       detailsPriceInfo: [] as ArticleDetailData[],
       priceInfo: [] as ArticlePriceData[],
-      productId: this.$route.params.productId,
+      productId: '',
       productCount: 0,
       isShowAddedProduct: false,
       maxQuantity: 3,
@@ -235,37 +245,54 @@ export default defineComponent({
 
   created: function () {
     this.listCart();
-
-    SearchService.prices(this.productId)
-      .then((response: ResponseData) => {
-
-        for (let index = 0, len = response.data.length; index < len; index++) {
-          const article_details: ArticleDetailData = {};
-
-          article_details.id = response.data[index].id
-          article_details.detail_name = response.data[index].detail_name
-
-          article_details.prices = response.data[index].prices
-
-          for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
-            if (response.data[index].prices[index_price].count == 0) {
-              response.data[index].prices[index_price].count = 0 + " (под заказ)"
-            }
-            this.priceInfo.push(response.data[index].prices[index_price])
-            this.productCount++
-          }
-
-          this.detailsPriceInfo.push(article_details)
-
-        }
-
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      });
+    this.getProductByItemNo();
   },
 
   methods: {
+
+    serviceGetProductInfo(productId : string) {
+      this.priceInfo.length = 0
+      SearchService.prices(productId)
+          .then((response: ResponseData) => {
+
+            for (let index = 0, len = response.data.length; index < len; index++) {
+              const article_details: ArticleDetailData = {};
+
+              article_details.id = response.data[index].id
+              article_details.detail_name = response.data[index].detail_name
+
+              article_details.prices = response.data[index].prices
+
+              for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
+                if (response.data[index].prices[index_price].count == 0) {
+                  response.data[index].prices[index_price].count = 0 + " (под заказ)"
+                }
+                this.priceInfo.push(response.data[index].prices[index_price])
+                this.productCount++
+              }
+            }
+
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          });
+    },
+
+    getProductByItemNo1(article: string) {
+      this.priceInfo.length = 0
+      this.productCount = 0
+      this.productId = article
+      this.serviceGetProductInfo(article)
+    },
+
+    getProductByItemNo() {
+
+      this.priceInfo.length = 0
+      this.productCount = 0
+      this.productId = this.$route.params.productId
+      this.serviceGetProductInfo(this.productId)
+
+    },
 
     updatePage() {
       router.go(0)
@@ -286,7 +313,7 @@ export default defineComponent({
 
               this.isShowAddedProduct = true
 
-              store.dispatch(INCREMENT_NUMBER_CONFIRM_ORDERS)
+              store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
               this.quantity = 0
             })
             .catch((e: Error) => {

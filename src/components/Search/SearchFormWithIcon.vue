@@ -40,7 +40,8 @@ export default defineComponent({
   methods: {
     searchArticleDetail() {
       if (this.article != "") {
-        router.push({path: "/search/" + this.article});
+        router.push({name: 'productSearch', params: { productId : this.article } })
+        this.$emit("updateSearchPage", this.article)
       }
     },
   }

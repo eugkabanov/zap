@@ -68,7 +68,7 @@ const ordersDataHead = [
   // { value: "Прим. к заказу" },
   { value: "Комментарий" },
   { value: "Производитель" },
-  { value: "Артикул" },
+  { value: "Артикул"},
   // {
   //   slot: "th-cart",
   //   columnId: "cart",
@@ -251,14 +251,23 @@ import {defineComponent} from "vue";
 import type ResponseData from "@/types/ResponseData";
 import type OrderItem from "@/types/OrderItem";
 import OrderService from "@/services/OrderService";
+import type Option from "@/types/Option";
 
 export default defineComponent({
   name: "orders",
   data() {
     return {
-      items: [] as OrderItem[]
+      items: [] as OrderItem[],
+      itemsTech: [] as OrderItem[],
+      vendorCodes: new Set<number>(),
+      statusOrders: new Set<string>(),
+      vendorCodesOptions: [] as Option[],
+      statusOrdersOptions: [] as Option[],
+      selectedValueVendorCode: '',
+      selectedValueStatus: ''
     };
   },
+
 
   mounted: function () {
     this.listOrders()
@@ -266,6 +275,37 @@ export default defineComponent({
 
   created: function () {
     
+  },
+
+  watch: {
+
+    selectedValueStatus(status: string) {
+      if (this.selectedValueStatus != "Non") {
+        this.items = this.items.filter(item => item.status == status)
+
+        if (this.items.length == 0) {
+          this.items.length = 0
+          this.items = this.itemsTech
+          this.items = this.items.filter(item => item.status == status)
+        }
+      } else {
+        this.listOrders()
+      }
+    },
+
+    selectedValueVendorCode(vendorCode: string) {
+      if (this.selectedValueVendorCode != "Non") {
+        this.items = this.items.filter(item => item.vendorCode == vendorCode)
+
+        if (this.items.length == 0) {
+          this.items.length = 0
+          this.items = this.itemsTech
+          this.items = this.items.filter(item => item.vendorCode == vendorCode)
+        }
+      } else {
+        this.listOrders()
+      }
+    }
   },
 
   methods: {
@@ -286,12 +326,43 @@ export default defineComponent({
 
     listOrders() {
       this.items.length = 0
+      this.itemsTech.length = 0
+
+      this.vendorCodes.clear()
+      this.statusOrders.clear()
+
       OrderService.getOrders()
         .then((response: ResponseData) => {
           for (let item of response.data.orders) {
+
+            this.vendorCodes.add(item.vendorCode)
+            this.statusOrders.add(item.status)
+
+
             item.total = (item.priceValue * item.quantity).toFixed(2);
             this.items.push(item);
+            this.itemsTech.push(item);
           }
+
+
+          this.vendorCodesOptions.length = 0
+          for (let vendorCode of this.vendorCodes) {
+            const optionVendorCode: Option = {
+              key: vendorCode,
+              value: vendorCode
+            }
+            this.vendorCodesOptions.push(optionVendorCode)
+          }
+
+          this.statusOrdersOptions.length = 0
+          for (let status of this.statusOrders) {
+            const optionStatus: Option = {
+              key: status,
+              value: status
+            }
+            this.statusOrdersOptions.push(optionStatus)
+          }
+
         })
 
         .catch((e: Error) => {
@@ -299,8 +370,14 @@ export default defineComponent({
         })
     },
 
-    // updateStatusOrder()
-    
+    onSelectedVendorCode(selected) {
+      this.selectedValueVendorCode = selected.value
+    },
+
+    onSelectedStatus(selected) {
+      this.selectedValueStatus = selected.value
+    },
+
   },
 });
 </script>
@@ -358,13 +435,27 @@ export default defineComponent({
         <CustomSelect class="small-select">Каталог</CustomSelect>
       </div> -->
       <div class="col-6 col-xl-auto">
-        <CustomSelect class="small-select">Артикул</CustomSelect>
+        <CustomSelect
+            :options="vendorCodesOptions"
+            :optionFormat="{ label: 'value', value: 'key' }"
+            :defaultValue="'Non'"
+            defaultLabel="All"
+            class="small-select"
+            @selected="onSelectedVendorCode($event)"
+        >Артикул</CustomSelect>
       </div>
       <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Номер счета</CustomSelect>
       </div> -->
       <div class="col-6 col-xl-auto">
-        <CustomSelect class="small-select">Статус</CustomSelect>
+        <CustomSelect
+            :options="statusOrdersOptions"
+            :optionFormat="{ label: 'value', value: 'key' }"
+            :defaultValue="'Non'"
+            defaultLabel="All"
+            class="small-select"
+            @selected="onSelectedStatus($event)"
+        >Статус</CustomSelect>
       </div>
       <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Поставщик</CustomSelect>
