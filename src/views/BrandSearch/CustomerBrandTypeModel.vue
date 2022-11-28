@@ -5,6 +5,7 @@ import BrandNodesView from "@/components/Search/BrandNodesView.vue";
 import BrandProductFilters from "../../components/Search/BrandProductFilters.vue";
 import BrandProductNodeFilters from "../../components/Search/BrandProductNodeFilters.vue";
 import BalanceBar from "@/components/Profile/BalanceBar.vue";
+import CustomCollapse from "@/components/CustomControls/CustomCollapse.vue";
 </script>
 
 <script lang="ts">
@@ -21,7 +22,7 @@ export default defineComponent({
   name: "brandNameTypeModelSearch",
   data() {
     return {
-      searchType: 0,
+      searchType: 1,
       isFiltersOpen: false,
       ssd: this.$route.params.type,
       brandName: this.$route.params.brandName,
@@ -32,15 +33,16 @@ export default defineComponent({
       groups: [] as GroupObject[],
       dataFormat: { label: 'name', value: 'quickgroupid', isLeaf: 'searchable', children: 'childGroups' },
       selectedGroup: '',
-      vehicleInfo: {} as VehicleObject
+      vehicleInfo: {} as VehicleObject,
+      listQuickDetails: [] as CategoryObject[]
     };
   },
 
   mounted: function () {
-
     this.getVehicleInfo()
     this.listUnits()
     this.listCategories()
+    this.listQuikGroups()
   },
 
   created: function () {
@@ -48,6 +50,22 @@ export default defineComponent({
   },
 
   methods: {
+
+    loadListQuickDetail(event: string) {
+      console.log(event)
+      this.listQuickDetails.length = 0
+      CatalogService.listQuickDetail(this.brandName, this.ssd, this.model, event)
+        .then((response: ResponseData) => {
+          for (let item of response.data.categories) {
+            // console.log(item)
+            this.listQuickDetails.push(item)
+          }
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
 
     getVehicleInfo() {
 
@@ -61,27 +79,22 @@ export default defineComponent({
         })
     },
 
-    listUnits() {
-
+    listQuikGroups() {
       CatalogService.listQuickGroup(this.brandName, this.ssd, this.model)
         .then((response: ResponseData) => {
           for (let item of response.data.childGroups) {
-            console.log(item)
-            this.groups.push(item)
+            this.groups.push(item)           
           }
         })
 
         .catch((e: Error) => {
           console.log(e);
         })
+    },
 
-
-
-
-
-
-      // this.productTypesData.length = 0
-      CatalogService.listUnits(this.brandName, this.ssd, this.model, '')
+    listUnits(categoryId: string) {
+      this.units.length = 0
+      CatalogService.listUnits(this.brandName, this.ssd, this.model, categoryId)
         .then((response: ResponseData) => {
           for (let item of response.data) {
             this.units.push(item)
@@ -170,11 +183,10 @@ export default defineComponent({
             <ui-textfield fullwidth outlined></ui-textfield>
           </div> -->
 
-
           <ui-tree 
             :data="groups" 
             :dataFormat="dataFormat"
-            v-model="selectedGroup"
+            @update:model-value="loadListQuickDetail($event)"
           >
 
 
@@ -194,7 +206,7 @@ export default defineComponent({
         <div v-if="searchType === 1">
           <!-- <BrandProductNodeFilters /> -->
           <div class="node-filter-item" v-for="category in categories">
-            <RouterLink to="/search-brand/honda/accord/cupe/" class="clear">{{ category.name }}</RouterLink>
+            <a @click="listUnits(category.categoryid)" class="clear">{{ category.name }}</a>
           </div>
 
           
@@ -204,7 +216,59 @@ export default defineComponent({
       <div class="col-12 offset-xl-1 col-xl-8">
         <!-- Search Type 1 -->
         <div v-if="searchType === 0">
-          <BrandGroupsView />
+          <!-- <BrandGroupsView /> -->
+          <template v-for="quickCategory of listQuickDetails">
+            <div class="large bold mb-2">{{ quickCategory.name}}</div>
+
+            <template v-for="unit of quickCategory.units">
+              <div style="background-color: #f5f5f7" class="p-3 mb-3">
+                {{unit.name}}
+              </div>
+
+              <div class="row gx-0 gy-2">
+                <div class="col-12 col-lg-4 col-xl-3">
+                  <img class="w-100" :src="unit.imageurl.replace('%size%', '250')" alt="" />
+                </div>
+                <div class="offset-xl-1 col-12 col-lg-8">
+                  <!-- <CustomCollapse>
+                    <template #title> -->
+                      <div class="row gx-0 align-items-center">
+                        <div class="col-6">OEM</div>
+                        <div class="col-6">Наименование</div>
+                      </div>
+                    <!-- </template>
+                  </CustomCollapse> -->
+                  <CustomCollapse v-for="detail of unit.details">
+                    <template #title>
+                      <div class="row gx-0 align-items-center">
+                        <div class="col-6">
+                          <RouterLink v-if="detail.oem.length>0"  :to="{ name: 'productSearch', params: { productId: detail.oem}}">
+                            {{detail.oem}}
+                          </RouterLink>
+                        </div>
+                        <div class="col-6">{{detail.name}}</div>
+                      </div>
+                    </template>
+
+                    <div class="ps-5" v-for="attribute of detail.attributes">
+                      <div class="row gx-0 mb-2 fw-400">
+                        <div class="col-4">
+                          <div class="row gx-0 align-items-end">
+                            <div class="col-auto">{{attribute.name}}</div>
+                            <div class="col">
+                              <div class="dotted" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-auto ms-1">{{attribute.value}}</div>
+                      </div>
+                    </div>
+                  </CustomCollapse>
+                </div>
+              </div>
+            </template>
+          </template>
+
         </div>
 
         <!-- Search Type 2 -->

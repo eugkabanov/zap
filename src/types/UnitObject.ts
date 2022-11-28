@@ -1,4 +1,5 @@
 import type AttributeObject from "@/types/AttributeObject"
+import type PartObject from "@/types/PartObject"
 
 export default interface UnitObject {
     code: string;
@@ -9,4 +10,5 @@ export default interface UnitObject {
     imageurl: string;
     parts: string;
     attributes: AttributeObject[];
+    details: PartObject[];
 }

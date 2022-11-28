@@ -2,13 +2,13 @@
 import BalanceBar from "@/components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
-  { field: "brand" },
+  // { field: "brand" },
   { field: "articul" },
   { field: "details" },
   { slot: "actions" },
 ];
 const productsDataHead = [
-  { value: "Производитель" },
+  // { value: "Производитель" },
   { value: "Артикул" },
   { value: "Данные" },
   { value: "" },
@@ -34,9 +34,10 @@ import {mapGetters} from "vuex";
 import CatalogService from "@/services/CatalogService";
 import type ResponseData from "@/types/ResponseData";
 import type PartObject from "@/types/PartObject"
+import type VehicleObject from "@/types/VehicleObject"
 
 interface ProductTableRow {
-  brand: string;
+  // brand: string;
   articul: string;
   details: string;
 }
@@ -49,11 +50,13 @@ export default defineComponent({
       brandName: this.$route.params.brandName,
       model: this.$route.params.model,
       productId: this.$route.params.productId,
-      brandsData: [] as ProductTableRow[]
+      brandsData: [] as ProductTableRow[],
+      vehicleInfo: {} as VehicleObject,
     };
   },
 
   mounted: function () {
+    this.getVehicleInfo()
     this.listDetailByUnit()
   },
 
@@ -62,6 +65,17 @@ export default defineComponent({
   },
 
   methods: {
+    getVehicleInfo() {
+      CatalogService.getVehicleInfo(this.brandName, this.ssd, this.model)
+        .then((response: ResponseData) => {
+          this.vehicleInfo = response.data
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+
     listDetailByUnit() {
       // this.productTypesData.length = 0
       CatalogService.listDetailByUnit(this.brandName, this.ssd, this.productId)
@@ -70,7 +84,7 @@ export default defineComponent({
             let o : PartObject = item
             if (o.oem.length>0) {
               let row: ProductTableRow = {
-              brand: 'brand',
+              // brand: 'brand',
               articul: o.oem,
               details: o.name,
             }
@@ -98,11 +112,10 @@ export default defineComponent({
     </div>
 
     <h2 class="mb-5 large bold">
-      <RouterLink to="/search-brand/honda" class="clear">
-        <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda ACCORD
-        IX, Купе 3.5
-      </RouterLink>
-      <span style="vertical-align: middle" class="fw-400 small hint ms-2"
+      <a @click="$router.go(-1)" class="clear">
+        <ui-icon class="vertical-align-middle">arrow_back</ui-icon> {{vehicleInfo.brand }} {{vehicleInfo.name }}
+      </a>
+      <!-- <span style="vertical-align: middle" class="fw-400 small hint ms-2"
         ><ui-icon
           style="padding-bottom: 4px"
           outlined
@@ -110,10 +123,10 @@ export default defineComponent({
           >directions_car</ui-icon
         >
         Добавить в гараж</span
-      >
+      > -->
     </h2>
 
-    <h3 class="mb-4">Выбрать производителя</h3>
+    <h3 class="mb-4">Выбрать детали</h3>
 
     <div class="col-12 col-xl-9">
       <ui-table
@@ -125,7 +138,7 @@ export default defineComponent({
       >
 
         <template #actions="{ data }">
-          <ui-icon class="hint">camera_alt</ui-icon>
+          <!-- <ui-icon class="hint">camera_alt</ui-icon> -->
           <RouterLink :to="{ name: 'productSearch', params: { productId: data.articul}}" >
             <ui-icon class="hint ms-2">link</ui-icon>
           </RouterLink>
