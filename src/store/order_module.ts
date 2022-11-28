@@ -24,6 +24,7 @@ const actions = {
     [INCREMENT_NUMBER_CONFIRM_ORDERS](context: any) {
         context.commit(INCREMENT_CONFIRM_ORDERS)
     },
+
     [GET_NUMBER_CONFIRM_ORDERS](context: any) {
         OrderService.currentNumberConfirmed()
             .then((response: ResponseData) => {
