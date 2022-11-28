@@ -154,7 +154,7 @@ const activeTab = ref(0);
 
         <div class="mt-4">
           <RouterLink to="/order">
-            <ui-button v-on:click="doConfirm()" raised>Оформить заказ ({{ this.cartsToConfirm.length }})</ui-button>
+            <ui-button v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
           </RouterLink>
         </div>
 

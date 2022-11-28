@@ -119,7 +119,7 @@ const similarSearchData = [
 <!--            </template>-->
             <template #quantity="{ data }">
               <ui-textfield
-                @input="event => this.quantity = event.target.value"
+                @input="event => quantity = event.target.value"
                 :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
                 :min="0"
