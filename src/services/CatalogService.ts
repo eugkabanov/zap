@@ -16,6 +16,13 @@ class CatalogService {
     return HTTPClient.get("/catalog/catalogWizard2",  { params : params });
   }
 
+  getCatalogInfo(catalog : string): Promise<any> {
+    let params = {
+      'catalog': catalog
+    };
+    return HTTPClient.get("/catalog/getCatalogInfo",  { params : params });
+  }
+
   findVehicleByWizard2(catalog : string, ssd : string): Promise<any> {
     let params = {
       'catalog': catalog,
@@ -70,6 +77,15 @@ class CatalogService {
       'groupId': groupId
     };
     return HTTPClient.get("/catalog/listQuickDetail",  { params : params });
+  }
+
+  getVehicleInfo(catalog : string, ssd : string, vehicleId: string): Promise<any> {
+    let params = {
+      'catalog': catalog,
+      'ssd': ssd,
+      'vehicleId': vehicleId
+    };
+    return HTTPClient.get("/catalog/getVehicleInfo",  { params : params });
   }
 
 }

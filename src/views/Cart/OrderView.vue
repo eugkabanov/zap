@@ -52,14 +52,15 @@ export default defineComponent({
     },
 
     doConfirm() {
-      OrderService.confirmOrder(this.confirm_order_object)
-      .then((response: ResponseData) => {
-          router.push({path: "/orders"})
-        })
 
-        .catch((e: Error) => {
-          console.log(e);
-        })
+      // OrderService.confirmOrder()
+      // .then((response: ResponseData) => {
+      //     router.push({path: "/orders"})
+      //   })
+      //
+      //   .catch((e: Error) => {
+      //     console.log(e);
+      //   })
     }
 
   },

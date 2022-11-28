@@ -151,7 +151,7 @@ export default defineComponent({
         </div>
       </div>
       <div class="col-12 col-xl-5 order-xl-last order-first">
-        <AsideSearch />
+        <!-- <AsideSearch /> -->
       </div>
     </div>
   </main>

@@ -82,8 +82,7 @@ export default defineComponent({
         .catch((e: Error) => {
           console.log(e);
         })
-    },
-    
+    }
   },
 });
 </script>

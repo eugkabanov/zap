@@ -121,7 +121,7 @@ const router = createRouter({
       component: () => import("../views/Profile/DealersView.vue"),
     },
     {
-      path: "/orders",
+      path: "/confirm/orders",
       name: "orders",
       component: () => import("../views/Profile/OrdersView.vue"),
     },
@@ -186,6 +186,11 @@ const router = createRouter({
       path: "/return",
       name: "return",
       component: () => import("../views/PassView.vue"),
+    },
+    {
+      path: "/console",
+      name: "cinsole",
+      component: () => import("../views/Console/Console.vue"),
     },
   ],
 });

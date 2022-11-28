@@ -10,6 +10,7 @@ import {mapGetters} from "vuex";
 import CatalogService from "@/services/CatalogService";
 import type ResponseData from "@/types/ResponseData";
 import type CatalogWizard2Object from "@/types/CatalogWizard2Object"
+import type CatalogObject from "@/types/CatalogObject";
 
 export default defineComponent({
   name: "brandNameSearch",
@@ -17,11 +18,13 @@ export default defineComponent({
     return {
       catalogWizardList: [] as CatalogWizard2Object[],
       ssd: '',
-      brandName: this.$route.params.brandName
+      brandName: this.$route.params.brandName,
+      catalogInfo: {} as CatalogObject
     };
   },
 
   mounted: function () {
+    this.getCatalogInfo()
     this.catalogWizard2()
   },
 
@@ -39,6 +42,17 @@ export default defineComponent({
         return false
       else
         return false
+    },
+
+    getCatalogInfo() {
+      CatalogService.getCatalogInfo(this.brandName)
+        .then((response: ResponseData) => {
+          this.catalogInfo = response.data
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
     },
 
     catalogWizard2() {
@@ -88,7 +102,7 @@ export default defineComponent({
       <div class="col-12 col-xl-7">
         <h2 class="mt-0 mb-5 large bold">
           <RouterLink to="/search-brand" class="clear">
-            <ui-icon class="vertical-align-middle">arrow_back</ui-icon> Honda
+            <ui-icon class="vertical-align-middle">arrow_back</ui-icon> {{ catalogInfo.brand }}
           </RouterLink>
         </h2>
 
@@ -115,7 +129,7 @@ export default defineComponent({
         </div>    
       </div>
       <div class="col-12 col-xl-5 order-xl-last order-first">
-        <AsideSearch />
+        <!-- <AsideSearch /> -->
       </div>
     </div>
 

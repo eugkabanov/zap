@@ -7,16 +7,18 @@ import IconTime from "@/components/icons/IconTime.vue";
 import IconTimeWhite from "@/components/icons/IconTimeWhite.vue";
 
 const ordersDataBody = [
-  { field: "dateTime" },
+  { field: "dateTime",
+    width: 15,
+  },
   // { field: "info" },
   { field: "comment" },
   { field: "catalogName" },
   {
     slot: "vendorCode",
   },
-  {
-    slot: "cart",
-  },
+  // {
+  //   slot: "cart",
+  // },
   {
     slot: "time",
   },
@@ -25,35 +27,35 @@ const ordersDataBody = [
     field: "quantity",
     align: "center",
   },
-  {
-    field: "work",
-    align: "center",
-  },
-  {
-    field: "rejected",
-    align: "center",
-  },
-  {
-    field: "completed",
-    align: "center",
-  },
-  {
-    field: "returned",
-    align: "center",
-  },
-  {
-    field: "progress",
-    align: "center",
-  },
-  {
-    field: "arrived",
-    align: "center",
-  },
-  {
-    field: "sold",
-    align: "center",
-  },
-  { slot: "status" },
+  // {
+  //   field: "work",
+  //   align: "center",
+  // },
+  // {
+  //   field: "rejected",
+  //   align: "center",
+  // },
+  // {
+  //   field: "completed",
+  //   align: "center",
+  // },
+  // {
+  //   field: "returned",
+  //   align: "center",
+  // },
+  // {
+  //   field: "progress",
+  //   align: "center",
+  // },
+  // {
+  //   field: "arrived",
+  //   align: "center",
+  // },
+  // {
+  //   field: "sold",
+  //   align: "center",
+  // },
+  { slot: "status", width: 30 },
   { field: "supplierName" },
   { field: "priceValue" },
   { field: "total" },
@@ -67,10 +69,10 @@ const ordersDataHead = [
   { value: "Комментарий" },
   { value: "Производитель" },
   { value: "Артикул" },
-  {
-    slot: "th-cart",
-    columnId: "cart",
-  },
+  // {
+  //   slot: "th-cart",
+  //   columnId: "cart",
+  // },
   {
     slot: "th-time",
     columnId: "time",
@@ -80,34 +82,34 @@ const ordersDataHead = [
     slot: "th-ordered",
     columnId: "ordered",
   },
-  {
-    slot: "th-work",
-    columnId: "work",
-  },
-  {
-    slot: "th-rejected",
-    columnId: "rejected",
-  },
-  {
-    slot: "th-completed",
-    columnId: "completed",
-  },
-  {
-    slot: "th-returned",
-    columnId: "returned",
-  },
-  {
-    slot: "th-progress",
-    columnId: "progress",
-  },
-  {
-    slot: "th-arrived",
-    columnId: "arrived",
-  },
-  {
-    slot: "th-sold",
-    columnId: "sold",
-  },
+  // {
+  //   slot: "th-work",
+  //   columnId: "work",
+  // },
+  // {
+  //   slot: "th-rejected",
+  //   columnId: "rejected",
+  // },
+  // {
+  //   slot: "th-completed",
+  //   columnId: "completed",
+  // },
+  // {
+  //   slot: "th-returned",
+  //   columnId: "returned",
+  // },
+  // {
+  //   slot: "th-progress",
+  //   columnId: "progress",
+  // },
+  // {
+  //   slot: "th-arrived",
+  //   columnId: "arrived",
+  // },
+  // {
+  //   slot: "th-sold",
+  //   columnId: "sold",
+  // },
   { value: "Статус" },
   { value: "Поставщик" },
   { value: "Цена" },
@@ -267,6 +269,21 @@ export default defineComponent({
   },
 
   methods: {
+
+    getStatusConfirmOrder(orderId: number) {
+      OrderService.getStatusOrder(orderId)
+          .then((response: ResponseData) => {
+            for (let item of this.items) {
+              if (item.id == orderId) {
+                item.status = response.data
+              }
+            }
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          })
+    },
+
     listOrders() {
       this.items.length = 0
       OrderService.getOrders()
@@ -281,6 +298,8 @@ export default defineComponent({
           console.log(e);
         })
     },
+
+    // updateStatusOrder()
     
   },
 });
@@ -365,14 +384,14 @@ export default defineComponent({
       <template #vendorCode="{ data }">
         <span style="text-decoration: underline" class="link">{{
           data.vendorCode
-        }}</span
-        ><ui-icon style="vertical-align: middle" class="hint ms-2">
-          lock
-        </ui-icon>
+        }}</span>
+<!--        <ui-icon style="vertical-align: middle" class="hint ms-2">-->
+<!--          lock-->
+<!--        </ui-icon>-->
       </template>
-      <template #cart>
-        <ui-icon class="hint" filled> shopping_cart </ui-icon>
-      </template>
+<!--      <template #cart>-->
+<!--        <ui-icon class="hint" filled> shopping_cart </ui-icon>-->
+<!--      </template>-->
       <template #time>
         <IconTime />
       </template>
@@ -384,45 +403,49 @@ export default defineComponent({
           assignment_turned_in
         </ui-icon>
       </template>
-      <template #th-work>
-        <ui-icon v-tooltip="'В работе'" aria-describedby="th-cell-3">
-          all_inbox
-        </ui-icon>
-      </template>
-      <template #th-rejected>
-        <ui-icon v-tooltip="'Отказ'" aria-describedby="th-cell-4">
-          dangerous
-        </ui-icon>
-      </template>
-      <template #th-completed>
-        <ui-icon v-tooltip="'Выдано'" aria-describedby="th-cell-5">
-          assignment_returned
-        </ui-icon>
-      </template>
-      <template #th-returned>
-        <ui-icon v-tooltip="'Возврат'" aria-describedby="th-cell-6">
-          assignment_return
-        </ui-icon>
-      </template>
-      <template #th-progress>
-        <ui-icon v-tooltip="'В пути'" aria-describedby="th-cell-7">
-          local_shipping
-        </ui-icon>
-      </template>
-      <template #th-arrived>
-        <ui-icon v-tooltip="'Пришло'" aria-describedby="th-cell-8">
-          store
-        </ui-icon>
-      </template>
-      <template #th-sold>
-        <ui-icon v-tooltip="'Выкуплено'" aria-describedby="th-cell-9">
-          account_balance_wallet
-        </ui-icon>
-      </template>
+<!--      <template #th-work>-->
+<!--        <ui-icon v-tooltip="'В работе'" aria-describedby="th-cell-3">-->
+<!--          all_inbox-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-rejected>-->
+<!--        <ui-icon v-tooltip="'Отказ'" aria-describedby="th-cell-4">-->
+<!--          dangerous-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-completed>-->
+<!--        <ui-icon v-tooltip="'Выдано'" aria-describedby="th-cell-5">-->
+<!--          assignment_returned-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-returned>-->
+<!--        <ui-icon v-tooltip="'Возврат'" aria-describedby="th-cell-6">-->
+<!--          assignment_return-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-progress>-->
+<!--        <ui-icon v-tooltip="'В пути'" aria-describedby="th-cell-7">-->
+<!--          local_shipping-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-arrived>-->
+<!--        <ui-icon v-tooltip="'Пришло'" aria-describedby="th-cell-8">-->
+<!--          store-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-sold>-->
+<!--        <ui-icon v-tooltip="'Выкуплено'" aria-describedby="th-cell-9">-->
+<!--          account_balance_wallet-->
+<!--        </ui-icon>-->
+<!--      </template>-->
 
-      <template #th-select> <ui-checkbox /> </template>
-      <template #select>
-        <ui-icon-button>more_vert</ui-icon-button>
+      <template #th-select>
+
+      </template>
+      <template #select="{ data }">
+        <ui-icon-button
+        v-on:click="getStatusConfirmOrder(data.id)"
+        >restart_alt</ui-icon-button>
       </template>
     </ui-table>
 
