@@ -197,9 +197,8 @@ import OrderService from "@/services/OrderService";
 import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import AddCommentToOrder from "@/components/Dialogs/AddCommentToOrder.vue";
 import router from "@/router";
-import type ConfirmOrderObject from "@/types/ConfirmOrderObject";
 import {store} from "@/store";
-import {GET_NUMBER_CONFIRM_ORDERS, INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 
 export default defineComponent({
   name: "CartView",
@@ -210,7 +209,6 @@ export default defineComponent({
       totalOrderPrice: 0.00,
       showErrMessage: false,
       errMessage: "",
-      confirmOrderMap: {} as ConfirmOrderObject,
       showDialogAddComment: false,
       priceIdEditComment: 0
     };
@@ -225,16 +223,7 @@ export default defineComponent({
 
     cartsToConfirm() {
       this.totalOrderPrice = 0.00
-
-      if (this.cartsToConfirm.length > 0) {
-        for (let cart of this.cartsToConfirm) {
-          for (let index = 0, len = this.items.length; index < len; index++) {
-            if (this.items[index].priceId == cart) {
-              this.totalOrderPrice += this.items[index].total
-            }
-          }
-        }
-      }
+      this.calculatingTotalPrice()
     }
   },
 
@@ -248,6 +237,19 @@ export default defineComponent({
 
   methods: {
 
+    calculatingTotalPrice() {
+      this.totalOrderPrice = 0.00
+      if (this.cartsToConfirm.length > 0) {
+        for (let cart of this.cartsToConfirm) {
+          for (let index = 0, len = this.items.length; index < len; index++) {
+            if (this.items[index].priceId == cart) {
+              this.totalOrderPrice += this.items[index].total
+            }
+          }
+        }
+      }
+    },
+
     updateOrderToCart(priceId: number, quantity: number) {
 
       if (quantity >= 0) {
@@ -259,6 +261,7 @@ export default defineComponent({
                   item.total = Number((item.priceValue * item.quantity).toFixed(2));
                 }
               }
+              this.calculatingTotalPrice()
               store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
             })
             .catch((e: Error) => {
@@ -354,15 +357,20 @@ export default defineComponent({
 
     listCart() {
       this.items.length = 0
+      this.cartsToConfirm.length = 0
+
       OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
+              this.cartsToConfirm.push(item.priceId)
+
               item.total = Number((item.priceValue * item.quantity).toFixed(2));
               item.supplierMaxPeriod += " дней";
+              this.totalOrderPrice += item.total
+
               this.items.push(item);
             }
           })
-
           .catch((e: Error) => {
             console.log(e);
           })
