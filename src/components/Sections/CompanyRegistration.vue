@@ -85,9 +85,10 @@ import IconQuestionBlue from "@/components/icons/iconQuestionBlue.vue";
       sheet
       class="balance-warning-dialog"
   >
-    <ErrorDialog
-    :error_detail_message="errMessage"
-    :hide_error_dialog="hideErrorDialog"
+    <NotificationDialog
+      :type_message="'ВНИМАНИЕ!'"
+      :error_detail_message="errMessage"
+      :hide_error_dialog="hideErrorDialog"
     />
   </ui-dialog>
 </template>
@@ -98,7 +99,7 @@ import type CompanyRegistrationData from "@/types/CompanyRegistrationData";
 import CustomSelect from "../../components/CustomSelect.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 import LineBreak from "@/components/LineBreak.vue";
-import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import UserDataService from "@/services/UserDataService";
 import type ResponseData from "@/types/ResponseData";
 import router from "@/router";
@@ -107,7 +108,7 @@ export default defineComponent({
   name: "CompanyRegistration",
 
   components: {
-    ErrorDialog: ErrorDialog,
+    NotificationDialog: NotificationDialog,
     CustomSelect: CustomSelect,
     BalanceBar: BalanceBar,
     LineBreak: LineBreak,

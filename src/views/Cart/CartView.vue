@@ -170,9 +170,10 @@ const activeTab = ref(0);
       sheet
       class="balance-warning-dialog"
   >
-    <ErrorDialog
-        :error_detail_message="errMessage"
-        :hide_error_dialog="hideErrorDialog"
+    <NotificationDialog
+      :type_message="'УВЕДОМЛЕНИЕ!'"
+      :error_detail_message="errMessage"
+      :hide_error_dialog="hideErrorDialog"
     />
   </ui-dialog>
 
@@ -193,7 +194,7 @@ import {defineComponent} from "vue";
 import type ResponseData from "@/types/ResponseData";
 import type CartItem from "@/types/CartItem";
 import OrderService from "@/services/OrderService";
-import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import AddCommentToOrder from "@/components/Dialogs/AddCommentToOrder.vue";
 import router from "@/router";
 import type ConfirmOrderObject from "@/types/ConfirmOrderObject";
@@ -216,7 +217,7 @@ export default defineComponent({
   },
 
   components: {
-    ErrorDialog: ErrorDialog,
+    NotificationDialog: NotificationDialog,
     AddCommentToOrder: AddCommentToOrder
   },
 
