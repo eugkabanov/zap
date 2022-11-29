@@ -7,55 +7,57 @@ import IconTime from "@/components/icons/IconTime.vue";
 import IconTimeWhite from "@/components/icons/IconTimeWhite.vue";
 
 const ordersDataBody = [
-  { field: "date" },
-  { field: "info" },
-  { field: "comments" },
-  { field: "catalog" },
-  {
-    slot: "articul",
+  { field: "dateTime",
+    width: 15,
   },
+  // { field: "info" },
+  { field: "comment" },
+  { field: "catalogName" },
   {
-    slot: "cart",
+    slot: "vendorCode",
   },
+  // {
+  //   slot: "cart",
+  // },
   {
     slot: "time",
   },
-  { field: "title" },
+  { field: "itemName" },
   {
-    field: "ordered",
+    field: "quantity",
     align: "center",
   },
-  {
-    field: "work",
-    align: "center",
-  },
-  {
-    field: "rejected",
-    align: "center",
-  },
-  {
-    field: "completed",
-    align: "center",
-  },
-  {
-    field: "returned",
-    align: "center",
-  },
-  {
-    field: "progress",
-    align: "center",
-  },
-  {
-    field: "arrived",
-    align: "center",
-  },
-  {
-    field: "sold",
-    align: "center",
-  },
-  { slot: "status" },
-  { field: "dealer" },
-  { field: "price" },
+  // {
+  //   field: "work",
+  //   align: "center",
+  // },
+  // {
+  //   field: "rejected",
+  //   align: "center",
+  // },
+  // {
+  //   field: "completed",
+  //   align: "center",
+  // },
+  // {
+  //   field: "returned",
+  //   align: "center",
+  // },
+  // {
+  //   field: "progress",
+  //   align: "center",
+  // },
+  // {
+  //   field: "arrived",
+  //   align: "center",
+  // },
+  // {
+  //   field: "sold",
+  //   align: "center",
+  // },
+  { slot: "status", width: 30 },
+  { field: "supplierName" },
+  { field: "priceValue" },
   { field: "total" },
   {
     slot: "select",
@@ -63,14 +65,14 @@ const ordersDataBody = [
 ];
 const ordersDataHead = [
   { value: "Дата" },
-  { value: "Прим. к заказу" },
+  // { value: "Прим. к заказу" },
   { value: "Комментарий" },
-  { value: "Каталог" },
-  { value: "Артикул" },
-  {
-    slot: "th-cart",
-    columnId: "cart",
-  },
+  { value: "Производитель" },
+  { value: "Артикул"},
+  // {
+  //   slot: "th-cart",
+  //   columnId: "cart",
+  // },
   {
     slot: "th-time",
     columnId: "time",
@@ -80,34 +82,34 @@ const ordersDataHead = [
     slot: "th-ordered",
     columnId: "ordered",
   },
-  {
-    slot: "th-work",
-    columnId: "work",
-  },
-  {
-    slot: "th-rejected",
-    columnId: "rejected",
-  },
-  {
-    slot: "th-completed",
-    columnId: "completed",
-  },
-  {
-    slot: "th-returned",
-    columnId: "returned",
-  },
-  {
-    slot: "th-progress",
-    columnId: "progress",
-  },
-  {
-    slot: "th-arrived",
-    columnId: "arrived",
-  },
-  {
-    slot: "th-sold",
-    columnId: "sold",
-  },
+  // {
+  //   slot: "th-work",
+  //   columnId: "work",
+  // },
+  // {
+  //   slot: "th-rejected",
+  //   columnId: "rejected",
+  // },
+  // {
+  //   slot: "th-completed",
+  //   columnId: "completed",
+  // },
+  // {
+  //   slot: "th-returned",
+  //   columnId: "returned",
+  // },
+  // {
+  //   slot: "th-progress",
+  //   columnId: "progress",
+  // },
+  // {
+  //   slot: "th-arrived",
+  //   columnId: "arrived",
+  // },
+  // {
+  //   slot: "th-sold",
+  //   columnId: "sold",
+  // },
   { value: "Статус" },
   { value: "Поставщик" },
   { value: "Цена" },
@@ -120,128 +122,264 @@ const ordersDataHead = [
 const isStatsOpen = ref(false);
 const onStatsClick = () => (isStatsOpen.value = true);
 
-const ordersData = [
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+// const ordersData = [
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "123",
+//     completed: "4",
+//     returned: "85",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "Заказано",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "Пришло",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+//   {
+//     date: "25 июля 10:22",
+//     info: "101001914507",
+//     comments: "101001914507",
+//     catalog: "Filtron",
+//     articul: "OE6486",
+//     title: "Фильтр масл. OPEL ASTR...",
+//     ordered: "48",
+//     work: "12",
+//     rejected: "1",
+//     completed: "4",
+//     returned: "148",
+//     progress: "29",
+//     arrived: "75",
+//     sold: "22",
+//     status: "В обработке",
+//     dealer: "AUM\n0 дней",
+//     price: "355 ₽",
+//     total: "16 080 ₽",
+//   },
+// ];
+</script>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import type ResponseData from "@/types/ResponseData";
+import type OrderItem from "@/types/OrderItem";
+import OrderService from "@/services/OrderService";
+import type Option from "@/types/Option";
+
+export default defineComponent({
+  name: "orders",
+  data() {
+    return {
+      items: [] as OrderItem[],
+      itemsTech: [] as OrderItem[],
+      vendorCodes: new Set<number>(),
+      statusOrders: new Set<string>(),
+      vendorCodesOptions: [] as Option[],
+      statusOrdersOptions: [] as Option[],
+      selectedValueVendorCode: '',
+      selectedValueStatus: ''
+    };
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "123",
-    completed: "4",
-    returned: "85",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "Заказано",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+
+  mounted: function () {
+    this.listOrders()
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  created: function () {
+    
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  watch: {
+
+    selectedValueStatus(status: string) {
+      if (this.selectedValueStatus != "Non") {
+        this.items = this.items.filter(item => item.status == status)
+
+        if (this.items.length == 0) {
+          this.items.length = 0
+          this.items = this.itemsTech
+          this.items = this.items.filter(item => item.status == status)
+        }
+      } else {
+        this.listOrders()
+      }
+    },
+
+    selectedValueVendorCode(vendorCode: string) {
+      if (this.selectedValueVendorCode != "Non") {
+        this.items = this.items.filter(item => item.vendorCode == vendorCode)
+
+        if (this.items.length == 0) {
+          this.items.length = 0
+          this.items = this.itemsTech
+          this.items = this.items.filter(item => item.vendorCode == vendorCode)
+        }
+      } else {
+        this.listOrders()
+      }
+    }
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "Пришло",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
+
+  methods: {
+
+    getStatusConfirmOrder(orderId: number) {
+      OrderService.getStatusOrder(orderId)
+          .then((response: ResponseData) => {
+            for (let item of this.items) {
+              if (item.id == orderId) {
+                item.status = response.data
+              }
+            }
+          })
+          .catch((e: Error) => {
+            console.log(e);
+          })
+    },
+
+    listOrders() {
+      this.items.length = 0
+      this.itemsTech.length = 0
+
+      this.vendorCodes.clear()
+      this.statusOrders.clear()
+
+      OrderService.getOrders()
+        .then((response: ResponseData) => {
+          for (let item of response.data.orders) {
+
+            this.vendorCodes.add(item.vendorCode)
+            this.statusOrders.add(item.status)
+
+
+            item.total = (item.priceValue * item.quantity).toFixed(2);
+            this.items.push(item);
+            this.itemsTech.push(item);
+          }
+
+
+          this.vendorCodesOptions.length = 0
+          for (let vendorCode of this.vendorCodes) {
+            const optionVendorCode: Option = {
+              key: vendorCode,
+              value: vendorCode
+            }
+            this.vendorCodesOptions.push(optionVendorCode)
+          }
+
+          this.statusOrdersOptions.length = 0
+          for (let status of this.statusOrders) {
+            const optionStatus: Option = {
+              key: status,
+              value: status
+            }
+            this.statusOrdersOptions.push(optionStatus)
+          }
+
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+
+    onSelectedVendorCode(selected) {
+      this.selectedValueVendorCode = selected.value
+    },
+
+    onSelectedStatus(selected) {
+      this.selectedValueStatus = selected.value
+    },
+
   },
-  {
-    date: "25 июля 10:22",
-    info: "101001914507",
-    comments: "101001914507",
-    catalog: "Filtron",
-    articul: "OE6486",
-    title: "Фильтр масл. OPEL ASTR...",
-    ordered: "48",
-    work: "12",
-    rejected: "1",
-    completed: "4",
-    returned: "148",
-    progress: "29",
-    arrived: "75",
-    sold: "22",
-    status: "В обработке",
-    dealer: "AUM\n0 дней",
-    price: "355 ₽",
-    total: "16 080 ₽",
-  },
-];
+});
 </script>
 
 <template>
@@ -253,7 +391,7 @@ const ordersData = [
       </div>
     </div>
 
-    <div class="row align-items-center gy-4 mb-4">
+    <!-- <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
         <ui-tab-bar>
           <ui-tab min-width content-indicator> Актуальные </ui-tab>
@@ -281,10 +419,10 @@ const ordersData = [
           :options="[{ value: 1, label: '30' }]"
         />
       </div>
-    </div>
+    </div> -->
 
     <div class="row gy-3 mb-3">
-      <div class="col-6 col-xl-auto">
+      <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Дата заказа</CustomSelect>
       </div>
       <div class="col-6 col-xl-auto">
@@ -295,42 +433,56 @@ const ordersData = [
       </div>
       <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Каталог</CustomSelect>
-      </div>
+      </div> -->
       <div class="col-6 col-xl-auto">
-        <CustomSelect class="small-select">Артикул</CustomSelect>
+        <CustomSelect
+            :options="vendorCodesOptions"
+            :optionFormat="{ label: 'value', value: 'key' }"
+            :defaultValue="'Non'"
+            defaultLabel="All"
+            class="small-select"
+            @selected="onSelectedVendorCode($event)"
+        >Артикул</CustomSelect>
       </div>
-      <div class="col-6 col-xl-auto">
+      <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Номер счета</CustomSelect>
-      </div>
+      </div> -->
       <div class="col-6 col-xl-auto">
-        <CustomSelect class="small-select">Статус</CustomSelect>
+        <CustomSelect
+            :options="statusOrdersOptions"
+            :optionFormat="{ label: 'value', value: 'key' }"
+            :defaultValue="'Non'"
+            defaultLabel="All"
+            class="small-select"
+            @selected="onSelectedStatus($event)"
+        >Статус</CustomSelect>
       </div>
-      <div class="col-6 col-xl-auto">
+      <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Поставщик</CustomSelect>
-      </div>
+      </div> -->
     </div>
 
     <ui-table
       class="dark orders-table"
       fullwidth
-      :data="ordersData"
+      :data="items"
       :thead="ordersDataHead"
       :tbody="ordersDataBody"
     >
       <template #th-time>
         <IconTimeWhite />
       </template>
-      <template #articul="{ data }">
+      <template #vendorCode="{ data }">
         <span style="text-decoration: underline" class="link">{{
-          data.articul
-        }}</span
-        ><ui-icon style="vertical-align: middle" class="hint ms-2">
-          lock
-        </ui-icon>
+          data.vendorCode
+        }}</span>
+<!--        <ui-icon style="vertical-align: middle" class="hint ms-2">-->
+<!--          lock-->
+<!--        </ui-icon>-->
       </template>
-      <template #cart>
-        <ui-icon class="hint" filled> shopping_cart </ui-icon>
-      </template>
+<!--      <template #cart>-->
+<!--        <ui-icon class="hint" filled> shopping_cart </ui-icon>-->
+<!--      </template>-->
       <template #time>
         <IconTime />
       </template>
@@ -342,56 +494,60 @@ const ordersData = [
           assignment_turned_in
         </ui-icon>
       </template>
-      <template #th-work>
-        <ui-icon v-tooltip="'В работе'" aria-describedby="th-cell-3">
-          all_inbox
-        </ui-icon>
-      </template>
-      <template #th-rejected>
-        <ui-icon v-tooltip="'Отказ'" aria-describedby="th-cell-4">
-          dangerous
-        </ui-icon>
-      </template>
-      <template #th-completed>
-        <ui-icon v-tooltip="'Выдано'" aria-describedby="th-cell-5">
-          assignment_returned
-        </ui-icon>
-      </template>
-      <template #th-returned>
-        <ui-icon v-tooltip="'Возврат'" aria-describedby="th-cell-6">
-          assignment_return
-        </ui-icon>
-      </template>
-      <template #th-progress>
-        <ui-icon v-tooltip="'В пути'" aria-describedby="th-cell-7">
-          local_shipping
-        </ui-icon>
-      </template>
-      <template #th-arrived>
-        <ui-icon v-tooltip="'Пришло'" aria-describedby="th-cell-8">
-          store
-        </ui-icon>
-      </template>
-      <template #th-sold>
-        <ui-icon v-tooltip="'Выкуплено'" aria-describedby="th-cell-9">
-          account_balance_wallet
-        </ui-icon>
-      </template>
+<!--      <template #th-work>-->
+<!--        <ui-icon v-tooltip="'В работе'" aria-describedby="th-cell-3">-->
+<!--          all_inbox-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-rejected>-->
+<!--        <ui-icon v-tooltip="'Отказ'" aria-describedby="th-cell-4">-->
+<!--          dangerous-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-completed>-->
+<!--        <ui-icon v-tooltip="'Выдано'" aria-describedby="th-cell-5">-->
+<!--          assignment_returned-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-returned>-->
+<!--        <ui-icon v-tooltip="'Возврат'" aria-describedby="th-cell-6">-->
+<!--          assignment_return-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-progress>-->
+<!--        <ui-icon v-tooltip="'В пути'" aria-describedby="th-cell-7">-->
+<!--          local_shipping-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-arrived>-->
+<!--        <ui-icon v-tooltip="'Пришло'" aria-describedby="th-cell-8">-->
+<!--          store-->
+<!--        </ui-icon>-->
+<!--      </template>-->
+<!--      <template #th-sold>-->
+<!--        <ui-icon v-tooltip="'Выкуплено'" aria-describedby="th-cell-9">-->
+<!--          account_balance_wallet-->
+<!--        </ui-icon>-->
+<!--      </template>-->
 
-      <template #th-select> <ui-checkbox /> </template>
-      <template #select>
-        <ui-icon-button>more_vert</ui-icon-button>
+      <template #th-select>
+
+      </template>
+      <template #select="{ data }">
+        <ui-icon-button
+        v-on:click="getStatusConfirmOrder(data.id)"
+        >restart_alt</ui-icon-button>
       </template>
     </ui-table>
 
-    <div class="mt-4 row justify-content-end">
+    <!-- <div class="mt-4 row justify-content-end">
       <div class="col-6 col-md-auto">
         <ui-button outlined disabled>Архивировать (0)</ui-button>
       </div>
       <div class="col-6 col-md-auto">
         <ui-button raised>Экспорт (0)</ui-button>
       </div>
-    </div>
+    </div> -->
   </main>
 
   <ui-dialog type="modal" sheet v-model="isStatsOpen">

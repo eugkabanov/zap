@@ -42,10 +42,10 @@
 </template>
 
 <style scoped lang="scss">
-.node-filter-item {
-  padding: 15px 0;
-  &:not(:last-child) {
-    border-bottom: 1px solid #d9d9de;
-  }
-}
+// .node-filter-item {
+//   padding: 15px 0;
+//   &:not(:last-child) {
+//     border-bottom: 1px solid #d9d9de;
+//   }
+// }
 </style>

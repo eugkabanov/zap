@@ -4,20 +4,46 @@ const props = defineProps<{
   placeholder: string;
 }>();
 
-const onSubmit = () => {
-  props.submitHandler();
-};
 </script>
 
 <template>
-  <form @submit.stop.prevent="onSubmit">
+  <form v-on:submit.prevent>
     <div class="row">
       <div class="col">
-        <ui-textfield outlined fullwidth :placeholder="placeholder" />
+        <ui-textfield v-on:keyup.enter="searchArticleDetail()" v-model="article" outlined fullwidth :placeholder="placeholder" />
       </div>
       <div class="col-auto text-right">
-        <ui-fab icon="search" type="submit" style="background-color: #bfbfc3" />
+        <ui-fab v-on:click="searchArticleDetail()" icon="search" type="submit" style="background-color: #bfbfc3" />
       </div>
     </div>
   </form>
 </template>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+import router from "@/router";
+
+export default defineComponent({
+  name: "SearchWithIcon",
+  components: {},
+
+  props: {
+
+  },
+
+  data() {
+    return {
+      article: "",
+    };
+  },
+
+  methods: {
+    searchArticleDetail() {
+      if (this.article != "") {
+        router.push({name: 'productSearch', params: { productId : this.article } })
+        this.$emit("updateSearchPage", this.article)
+      }
+    },
+  }
+});
+</script>
