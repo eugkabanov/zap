@@ -24,7 +24,7 @@
       <div class="mb-3">
         <label for="addressId" class="d-block mb-2">Юридический адрес</label>
         <ui-textfield
-          v-model="orgAccountInfo.addressId"
+          v-model="orgAccountInfo.legalAddress"
           name="addressId"
           id="reg-name"
           outlined
@@ -34,7 +34,7 @@
       <div class="mb-3">
         <label for="address" class="d-block mb-2">Фактический адрес</label>
         <ui-textfield
-          v-model="orgAccountInfo.address"
+          v-model="orgAccountInfo.actualAddress"
           name="address"
           id="reg-name"
           outlined
@@ -179,7 +179,7 @@ export default {
         .then((response: any) => {
           console.log(response.data);
           this.showErrMessage = false;
-          router.push({ path: "/settings" });
+          router.go(0);
         })
         .catch((e: Error) => {
           this.showErrMessage = true;
