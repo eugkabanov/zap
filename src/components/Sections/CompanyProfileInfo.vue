@@ -148,6 +148,14 @@
     </div>
   </div>
 
+  <div>
+    <div class="mb-3" v-if="errMessage != ''">
+      <label class="hint mini-heading-color-red">{{ errMessage }}</label>
+    </div>
+    <div class="mb-3" v-else-if="okMessage != ''">
+      <label class="hint mini-heading-color-green">{{ okMessage }}</label>
+    </div>
+  </div>
   <div class="row gy-4">
     <ui-button class="mt-3" raised v-on:click="update()">Обновить</ui-button>
   </div>
@@ -155,7 +163,6 @@
 
 <script lang="ts">
 import AccountService from "@/services/AccountService";
-import router from "@/router";
 
 export default {
   name: "CompanyProfileInfo",
@@ -169,7 +176,7 @@ export default {
   data() {
     return {
       errMessage: "",
-      showErrMessage: false,
+      okMessage: "",
     };
   },
 
@@ -178,14 +185,24 @@ export default {
       AccountService.updateOrganizationInfo(this.orgAccountInfo)
         .then((response: any) => {
           console.log(response.data);
-          this.showErrMessage = false;
-          router.go(0);
+          this.okMessage = "Данные успешно обновлены";
+          this.errMessage = "";
         })
         .catch((e: Error) => {
-          this.showErrMessage = true;
+          this.errMessage = "Ошибка при попытке обновить данные!";
           console.log(e);
         });
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.mini-heading-color-red {
+  background-color: rgb(170, 48, 48);
+}
+
+.mini-heading-color-green {
+  background-color: rgb(98, 212, 98);
+}
+</style>
