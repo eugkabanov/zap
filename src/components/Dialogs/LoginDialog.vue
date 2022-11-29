@@ -139,7 +139,6 @@ export default defineComponent({
                 })
             store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                 .then((data: ResponseData) => {
-                  console.log("GET_NUMBER_CONFIRM_ORDERS")
                 })
                 .catch((e: Error) => {
                   console.log(e);
