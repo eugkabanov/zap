@@ -187,6 +187,15 @@ const activeTab = ref(0);
         @saveCommentDialog="saveCommentDialog"
     />
   </ui-dialog>
+
+  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+    <LoginDialog
+        @closeDialog="closeLoginDialog"
+        @isAuthorisedUser="authorisedUser"
+        @isLoginOpen="loginOpen"
+    />
+  </ui-dialog>
+
 </template>
 
 <script lang="ts">
@@ -199,6 +208,7 @@ import AddCommentToOrder from "@/components/Dialogs/AddCommentToOrder.vue";
 import router from "@/router";
 import {store} from "@/store";
 import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 
 export default defineComponent({
   name: "CartView",
@@ -210,13 +220,16 @@ export default defineComponent({
       showErrMessage: false,
       errMessage: "",
       showDialogAddComment: false,
-      priceIdEditComment: 0
+      priceIdEditComment: 0,
+      isLoginOpen: false,
+      isAuthorisedUser: false
     };
   },
 
   components: {
     NotificationDialog: NotificationDialog,
-    AddCommentToOrder: AddCommentToOrder
+    AddCommentToOrder: AddCommentToOrder,
+    LoginDialog: LoginDialog
   },
 
   watch: {
@@ -228,7 +241,11 @@ export default defineComponent({
   },
 
   mounted: function () {
-    this.listCart()
+    if (!store.getters.isAuthenticated) {
+      this.isLoginOpen = true
+    } else {
+      this.listCart()
+    }
   },
 
   created: function () {
@@ -236,6 +253,18 @@ export default defineComponent({
   },
 
   methods: {
+
+    closeLoginDialog() {
+      this.isLoginOpen = false;
+    },
+
+    authorisedUser() {
+      this.isAuthorisedUser = true;
+    },
+
+    loginOpen() {
+      this.isLoginOpen = false;
+    },
 
     calculatingTotalPrice() {
       this.totalOrderPrice = 0.00
