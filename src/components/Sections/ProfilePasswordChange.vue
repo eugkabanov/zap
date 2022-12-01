@@ -15,10 +15,13 @@
       </div>
     </div>
   </div>
-  <div class="mb-3">
-    <label class="hint mini-heading-color-red" v-if="showErrMessage">{{
-      errMessage
-    }}</label>
+  <div>
+    <div class="mb-3" v-if="errMessage != ''">
+      <label class="hint mini-heading-color-red">{{ errMessage }}</label>
+    </div>
+    <div class="mb-3" v-else-if="okMessage != ''">
+      <label class="hint mini-heading-color-green">{{ okMessage }}</label>
+    </div>
   </div>
   <div class="mt-5">
     <ui-button raised v-on:click="change_password()">Сохранить</ui-button>
@@ -28,7 +31,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AccountService from "@/services/AccountService";
-import router from "@/router";
 
 export default defineComponent({
   name: "ProfilePasswordChange",
@@ -40,7 +42,7 @@ export default defineComponent({
       pwd1: "",
       pwd2: "",
       errMessage: "",
-      showErrMessage: false,
+      okMessage: "",
     };
   },
 
@@ -48,17 +50,14 @@ export default defineComponent({
     change_password() {
       if (this.pwd1 == "") {
         this.errMessage = 'Поле "Новый пароль" не должно быть пустым';
-        this.showErrMessage = true;
         return;
       }
       if (this.pwd2 == "") {
         this.errMessage = 'Поле "Повторите пароль" не должно быть пустым';
-        this.showErrMessage = true;
         return;
       }
       if (this.pwd1 != this.pwd2) {
         this.errMessage = "Пароли не совпадают";
-        this.showErrMessage = true;
         return;
       } else {
         let request: any = {
@@ -67,11 +66,11 @@ export default defineComponent({
         AccountService.changePassword(request)
           .then((response: any) => {
             console.log(response.data);
-            this.showErrMessage = false;
-            router.push({ path: "/settings" });
+            this.okMessage = "Пароль успешно обновлен";
+            this.errMessage = "";
           })
           .catch((e: Error) => {
-            this.showErrMessage = true;
+            this.errMessage = "Произошла ошибка при попытке изменить данные!";
             console.log(e);
           });
       }
@@ -79,3 +78,13 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.mini-heading-color-red {
+  background-color: rgb(170, 48, 48);
+}
+
+.mini-heading-color-green {
+  background-color: rgb(98, 212, 98);
+}
+</style>

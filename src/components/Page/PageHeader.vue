@@ -89,7 +89,7 @@
             </RouterLink>
           </div> -->
           <div v-if="isAuthorisedUser" class="header-item">
-            <RouterLink to="/orders">
+            <RouterLink to="/confirm/orders">
               <IconUnarchive />
               <span class="header-item__label">Заказы</span>
             </RouterLink>

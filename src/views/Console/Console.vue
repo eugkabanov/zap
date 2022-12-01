@@ -27,7 +27,7 @@ import AccountService from "@/services/AccountService";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SettingsView",
+  name: "ConsoleView",
 
   components: {
     CustomSelect: CustomSelect,
