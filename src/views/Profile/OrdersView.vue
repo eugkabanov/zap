@@ -530,9 +530,9 @@ export default defineComponent({
 <!--        </ui-icon>-->
 <!--      </template>-->
 
-      <template #th-select>
+<!--      <template #th-select>-->
 
-      </template>
+<!--      </template>-->
       <template #select="{ data }">
         <ui-icon-button
         v-on:click="getStatusConfirmOrder(data.id)"

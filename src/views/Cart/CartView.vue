@@ -4,20 +4,26 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
+  'id',
   { field: "itemName", width: 100},
   { field: "supplierName", width: 100 },
   { field: "supplierMaxPeriod", width: 80, },
   { field: "priceValue", width: 80},
   { slot: "quantity", width: 40, align: "center"},
   { field: "total", width: 80},
-  {
-    slot: "select", align:"center", width: 80
-  },
+  // {
+  //   slot: "select", align:"center", width: 80
+  // },
   { slot: "comment", align: "left"},
-  { slot: "edit", width: 20 },
-  { slot: "delete", width: 20},
+  { slot: "edit", align: "right", width: 10 },
+  { slot: "delete",align: "right", width: 10},
 ];
 const productsDataHead = [
+  {
+    value: 'ID',
+    sort: 'asc',
+    columnId: 'id'
+  },
   { value: "Наименование" },
   { value: "Поставщик" },
   {
@@ -27,10 +33,13 @@ const productsDataHead = [
   { value: "Цена", align: "center" },
   { value: "Количество", align: "center" },
   { value: "Сумма", align: "center" },
-  { value: "Выбрать" },
+  // { value: "Выбрать" },
+  {
+    slot: "th-select",
+    columnId: "select",
+  },
   { value: "Комментарий", align: "left" },
-  { value: ""},
-  { value: "Удалить" }
+  { value: "Удалить"}
 ];
 const activeTab = ref(0);
 </script>
@@ -60,10 +69,13 @@ const activeTab = ref(0);
 
     <div class="mt-3 dark">
       <ui-table
+        v-model="selectedRows"
         fullwidth
         :data="items"
         :thead="productsDataHead"
         :tbody="productsDataBody"
+        row-checkbox
+        selected-key="priceId"
       >
         <template #th-time>
           <ui-icon
@@ -91,14 +103,19 @@ const activeTab = ref(0);
           </div>
         </template>
 
-        <template #select="{ data }">
-            <ui-checkbox
-              style="padding-bottom: 12px"
-              v-model="cartsToConfirm"
-              :inputId="data.priceId"
-              :value="data.priceId"
-            />
-        </template>
+<!--        <template #th-select>-->
+<!--          <ui-checkbox-->
+<!--            v-model="commonSelect"-->
+<!--          />-->
+<!--        </template>-->
+<!--        <template #select="{ data }">-->
+<!--            <ui-checkbox-->
+<!--              style="padding-bottom: 12px"-->
+<!--              v-model="cartsToConfirm"-->
+<!--              :inputId="data.priceId"-->
+<!--              :value="data.priceId"-->
+<!--            />-->
+<!--        </template>-->
         <template #comment="{ data }">
           <label>{{ data.comment }}</label>
         </template>
@@ -154,7 +171,7 @@ const activeTab = ref(0);
 
         <div class="mt-4">
           <RouterLink to="/order">
-            <ui-button v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
+            <ui-button v-on:click="doConfirm()" raised>Оформить заказ ({{ items.length }})</ui-button>
           </RouterLink>
         </div>
 
@@ -214,6 +231,7 @@ export default defineComponent({
   name: "CartView",
   data() {
     return {
+      selectedRows: [],
       items: [] as CartItem[],
       cartsToConfirm: [] as number [],
       totalOrderPrice: 0.00,
@@ -222,7 +240,8 @@ export default defineComponent({
       showDialogAddComment: false,
       priceIdEditComment: 0,
       isLoginOpen: false,
-      isAuthorisedUser: false
+      isAuthorisedUser: false,
+      commonSelect: true
     };
   },
 
@@ -254,6 +273,10 @@ export default defineComponent({
 
   methods: {
 
+    // selectAll() {
+    //   this.cartsToConfirm.length = 0
+    // },
+
     closeLoginDialog() {
       this.isLoginOpen = false;
     },
@@ -268,6 +291,7 @@ export default defineComponent({
 
     calculatingTotalPrice() {
       this.totalOrderPrice = 0.00
+
       if (this.cartsToConfirm.length > 0) {
         for (let cart of this.cartsToConfirm) {
           for (let index = 0, len = this.items.length; index < len; index++) {
@@ -337,20 +361,6 @@ export default defineComponent({
           })
     },
 
-    cartsToConfirmDel() {
-      this.totalOrderPrice = 0.00
-
-      if (this.cartsToConfirm.length > 0) {
-        for (let cart of this.cartsToConfirm) {
-          for (let index = 0, len = this.items.length; index < len; index++) {
-            if (this.items[index].priceId == cart) {
-              this.totalOrderPrice += this.items[index].total
-            }
-          }
-        }
-      }
-    },
-
     hideErrorDialog() {
       this.errMessage = ""
       this.showErrMessage = false
@@ -361,17 +371,14 @@ export default defineComponent({
       OrderService.deleteOrderForCart(priceId)
           .then((response: ResponseData) => {
 
-            let indexDelete: number;
-
             for (let index = 0, len = this.items.length; index < len; index++) {
-              if (this.items[index].priceId == priceId) {
-                indexDelete = index
+              if (this.items[index].priceId == response.data) {
+                this.items.splice(this.items.indexOf(this.items[index]), 1)
+                break
               }
             }
-            this.items.splice(indexDelete, 1)
-            this.cartsToConfirm.splice(this.cartsToConfirm.indexOf(priceId), 1)
-            this.cartsToConfirmDel()
 
+            this.calculatingTotalPrice()
             store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
 
             this.errMessage = "Заказ удалён из корзины"
@@ -379,6 +386,7 @@ export default defineComponent({
           })
 
           .catch((e: Error) => {
+            console.log(e)
             this.errMessage = "Не удалось удалить."
             this.showErrMessage = true
           })
@@ -391,7 +399,8 @@ export default defineComponent({
       OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
-              this.cartsToConfirm.push(item.priceId)
+              this.selectedRows.push(item.priceId)
+              // this.cartsToConfirm.push(item.priceId)
 
               item.total = Number((item.priceValue * item.quantity).toFixed(2));
               item.supplierMaxPeriod += " дней";
