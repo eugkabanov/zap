@@ -106,12 +106,13 @@ const activeTab = ref(0);
         </template>
 
         <template #select="{ data }">
-            <ui-checkbox
-              style="padding-bottom: 12px"
-              v-model="cartsToConfirm"
-              :inputId="data.vendorCode"
-              :value="data.priceId"
-            />
+          <input
+            type="checkbox"
+            :id="data.vendorCode"
+            :value="data.priceId"
+            style="padding-bottom: 12px"
+            v-model="cartsToConfirm"
+          />
         </template>
         <template #comment="{ data }">
           <label>{{ data.comment }}</label>
@@ -274,14 +275,12 @@ export default defineComponent({
         this.cartsToConfirm.push(priceId)
       }
       this.selectedAllShow = false
-      this.listCart()
       this.calculatingTotalPrice()
     },
 
     cancelAllCarts() {
       this.cartsToConfirm.splice(0)
       this.selectedAllShow = true
-      this.listCart()
       this.calculatingTotalPrice()
     },
 
@@ -382,22 +381,21 @@ export default defineComponent({
 
       OrderService.deleteOrderForCart(priceId)
           .then((response: ResponseData) => {
-            // for (let index = 0, len = this.items.length; index < len; index++) {
-            //   if (this.items[index].priceId == response.data) {
-            //     this.items.splice(this.items.indexOf(this.items[index]), 1)
-            //     this.cartsToConfirmTech.splice(this.cartsToConfirmTech.indexOf(priceId), 1)
-            //     break
-            //   }
-            // }
-            // this.cartsToConfirm.splice(0)
-            // for (let priceId of this.cartsToConfirmTech) {
-            //   this.cartsToConfirm.push(priceId)
-            // }
-            //
-            // this.calculatingTotalPrice()
-            // store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+            for (let index = 0, len = this.items.length; index < len; index++) {
+              if (this.items[index].priceId == response.data) {
+                this.items.splice(this.items.indexOf(this.items[index]), 1)
+                this.cartsToConfirmTech.splice(this.cartsToConfirmTech.indexOf(priceId), 1)
+                break
+              }
+            }
+            this.cartsToConfirm.splice(0)
+            for (let priceId of this.cartsToConfirmTech) {
+              this.cartsToConfirm.push(priceId)
+            }
 
-            this.listCart()
+            this.calculatingTotalPrice()
+            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+
 
             this.errMessage = "Заказ удалён из корзины"
             this.showErrMessage = true
@@ -418,10 +416,8 @@ export default defineComponent({
       OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
-              if (!this.selectedAllShow) {
-                this.cartsToConfirm.push(item.priceId)
-                this.cartsToConfirmTech.push(item.priceId)
-              }
+              this.cartsToConfirm.push(item.priceId)
+              this.cartsToConfirmTech.push(item.priceId)
 
               item.total = Number((item.priceValue * item.quantity).toFixed(2));
               item.supplierMaxPeriod += " дней";
