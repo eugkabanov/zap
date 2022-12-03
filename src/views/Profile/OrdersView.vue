@@ -264,6 +264,7 @@ export default defineComponent({
       vendorCodesOptions: [] as Option[],
       statusOrdersOptions: [] as Option[],
       selectedValueVendorCode: '',
+      selectedValueVendorCodeDisable: false,
       selectedValueStatus: '',
       textSearchBar: ''
     };
@@ -281,43 +282,34 @@ export default defineComponent({
   watch: {
 
     textSearchBar() {
+      this.selectedValueVendorCodeDisable = false
       if (this.textSearchBar != "") {
-
+        this.items = this.itemsTech
         for (let item of this.items) {
           if (item.vendorCode == this.textSearchBar) {
             this.items = this.items.filter(item => item.vendorCode == this.textSearchBar)
+            this.selectedValueVendorCodeDisable = true
             return
           }
         }
-        if (this.items.length != this.itemsTech.length) {
-          this.items = this.itemsTech
-        }
-      } else {
-        this.selectedValueVendorCode = "Non"
       }
     },
 
     selectedValueVendorCode(vendorCode: string) {
+      this.items = this.itemsTech
+      this.textSearchBar = ''
       if (this.selectedValueVendorCode != "Non") {
         this.items = this.items.filter(item => item.vendorCode == vendorCode)
-
-        if (this.items.length == 0) {
-          this.items = this.itemsTech
-          this.items = this.items.filter(item => item.vendorCode == vendorCode)
-        }
       } else {
         this.items = this.itemsTech
       }
     },
 
     selectedValueStatus(status: string) {
+      this.items = this.itemsTech
+      this.textSearchBar = ''
       if (this.selectedValueStatus != "Non") {
         this.items = this.items.filter(item => item.status == status)
-
-        if (this.items.length == 0) {
-          this.items = this.itemsTech
-          this.items = this.items.filter(item => item.status == status)
-        }
       } else {
         this.items = this.itemsTech
       }
@@ -466,6 +458,7 @@ export default defineComponent({
             defaultLabel="Все артикулы"
             class="small-select"
             @selected="onSelectedVendorCode($event)"
+            :disabled="selectedValueVendorCodeDisable"
         >Артикул</CustomSelect>
       </div>
       <!-- <div class="col-6 col-xl-auto">
