@@ -4,26 +4,21 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 
 const productsDataBody = [
-  'id',
+  {
+    slot: "select", align:"center", width: 80
+  },
   { field: "itemName", width: 100},
   { field: "supplierName", width: 100 },
   { field: "supplierMaxPeriod", width: 80, },
   { field: "priceValue", width: 80},
   { slot: "quantity", width: 40, align: "center"},
   { field: "total", width: 80},
-  // {
-  //   slot: "select", align:"center", width: 80
-  // },
   { slot: "comment", align: "left"},
   { slot: "edit", align: "right", width: 10 },
   { slot: "delete",align: "right", width: 10},
 ];
 const productsDataHead = [
-  {
-    value: 'ID',
-    sort: 'asc',
-    columnId: 'id'
-  },
+  { value: ""},
   { value: "Наименование" },
   { value: "Поставщик" },
   {
@@ -33,12 +28,8 @@ const productsDataHead = [
   { value: "Цена", align: "center" },
   { value: "Количество", align: "center" },
   { value: "Сумма", align: "center" },
-  // { value: "Выбрать" },
-  {
-    slot: "th-select",
-    columnId: "select",
-  },
-  { value: "Комментарий", align: "left" },
+  { value: "Комментарий к заказу", align: "left" },
+  { value: ""},
   { value: "Удалить"}
 ];
 const activeTab = ref(0);
@@ -68,14 +59,25 @@ const activeTab = ref(0);
     </div> -->
 
     <div class="mt-3 dark">
+      <ui-button
+        outlined
+        style="margin-bottom: 10px; text-align: left"
+        icon="check_box"
+        v-if="selectedAllShow"
+        v-on:click="selectedAllCarts"
+      >Выбрать все заказы</ui-button>
+      <ui-button
+          outlined
+          style="margin-bottom: 10px"
+          icon="check_box_outline_blank"
+          v-if="!selectedAllShow"
+          v-on:click="cancelAllCarts"
+      >Убрать все заказы</ui-button>
       <ui-table
-        v-model="selectedRows"
         fullwidth
         :data="items"
         :thead="productsDataHead"
         :tbody="productsDataBody"
-        row-checkbox
-        selected-key="priceId"
       >
         <template #th-time>
           <ui-icon
@@ -103,19 +105,14 @@ const activeTab = ref(0);
           </div>
         </template>
 
-<!--        <template #th-select>-->
-<!--          <ui-checkbox-->
-<!--            v-model="commonSelect"-->
-<!--          />-->
-<!--        </template>-->
-<!--        <template #select="{ data }">-->
-<!--            <ui-checkbox-->
-<!--              style="padding-bottom: 12px"-->
-<!--              v-model="cartsToConfirm"-->
-<!--              :inputId="data.priceId"-->
-<!--              :value="data.priceId"-->
-<!--            />-->
-<!--        </template>-->
+        <template #select="{ data }">
+            <ui-checkbox
+              style="padding-bottom: 12px"
+              v-model="cartsToConfirm"
+              :inputId="data.vendorCode"
+              :value="data.priceId"
+            />
+        </template>
         <template #comment="{ data }">
           <label>{{ data.comment }}</label>
         </template>
@@ -170,9 +167,7 @@ const activeTab = ref(0);
         </div>
 
         <div class="mt-4">
-          <RouterLink to="/order">
-            <ui-button v-on:click="doConfirm()" raised>Оформить заказ ({{ items.length }})</ui-button>
-          </RouterLink>
+            <ui-button :disabled="selectedAllShow" v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
@@ -231,9 +226,9 @@ export default defineComponent({
   name: "CartView",
   data() {
     return {
-      selectedRows: [],
       items: [] as CartItem[],
       cartsToConfirm: [] as number [],
+      cartsToConfirmTech: [] as number [],
       totalOrderPrice: 0.00,
       showErrMessage: false,
       errMessage: "",
@@ -241,7 +236,7 @@ export default defineComponent({
       priceIdEditComment: 0,
       isLoginOpen: false,
       isAuthorisedUser: false,
-      commonSelect: true
+      selectedAllShow: false,
     };
   },
 
@@ -256,7 +251,8 @@ export default defineComponent({
     cartsToConfirm() {
       this.totalOrderPrice = 0.00
       this.calculatingTotalPrice()
-    }
+      this.selectedAllShow = this.cartsToConfirm.length == 0;
+    },
   },
 
   mounted: function () {
@@ -273,9 +269,21 @@ export default defineComponent({
 
   methods: {
 
-    // selectAll() {
-    //   this.cartsToConfirm.length = 0
-    // },
+    selectedAllCarts() {
+      for (let priceId of this.cartsToConfirmTech) {
+        this.cartsToConfirm.push(priceId)
+      }
+      this.selectedAllShow = false
+      this.listCart()
+      this.calculatingTotalPrice()
+    },
+
+    cancelAllCarts() {
+      this.cartsToConfirm.splice(0)
+      this.selectedAllShow = true
+      this.listCart()
+      this.calculatingTotalPrice()
+    },
 
     closeLoginDialog() {
       this.isLoginOpen = false;
@@ -345,20 +353,24 @@ export default defineComponent({
     },
 
     doConfirm() {
-      OrderService.confirmOrder(this.cartsToConfirm)
-          .then((response: ResponseData) => {
-            router.push({path: "/confirm/orders"})
-            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-                .then((data: ResponseData) => {
-                })
-                .catch((e: Error) => {
-                  console.log(e);
-                });
-          })
+      if (this.cartsToConfirm.length != 0) {
+        OrderService.confirmOrder(this.cartsToConfirm)
+            .then((response: ResponseData) => {
+              router.push({path: "/confirm/orders"})
+              store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                  .then((data: ResponseData) => {
+                  })
+                  .catch((e: Error) => {
+                    console.log(e);
+                  });
+            })
 
-          .catch((e: Error) => {
-            console.log(e);
-          })
+            .catch((e: Error) => {
+              this.errMessage = 'Произошла ошибка оформления заказа. Попробуйте позже.'
+              this.showErrMessage = true
+              console.log(e);
+            })
+      }
     },
 
     hideErrorDialog() {
@@ -370,16 +382,22 @@ export default defineComponent({
 
       OrderService.deleteOrderForCart(priceId)
           .then((response: ResponseData) => {
+            // for (let index = 0, len = this.items.length; index < len; index++) {
+            //   if (this.items[index].priceId == response.data) {
+            //     this.items.splice(this.items.indexOf(this.items[index]), 1)
+            //     this.cartsToConfirmTech.splice(this.cartsToConfirmTech.indexOf(priceId), 1)
+            //     break
+            //   }
+            // }
+            // this.cartsToConfirm.splice(0)
+            // for (let priceId of this.cartsToConfirmTech) {
+            //   this.cartsToConfirm.push(priceId)
+            // }
+            //
+            // this.calculatingTotalPrice()
+            // store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
 
-            for (let index = 0, len = this.items.length; index < len; index++) {
-              if (this.items[index].priceId == response.data) {
-                this.items.splice(this.items.indexOf(this.items[index]), 1)
-                break
-              }
-            }
-
-            this.calculatingTotalPrice()
-            store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+            this.listCart()
 
             this.errMessage = "Заказ удалён из корзины"
             this.showErrMessage = true
@@ -395,19 +413,22 @@ export default defineComponent({
     listCart() {
       this.items.length = 0
       this.cartsToConfirm.length = 0
+      this.cartsToConfirmTech.length = 0
 
       OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
-              this.selectedRows.push(item.priceId)
-              // this.cartsToConfirm.push(item.priceId)
+              if (!this.selectedAllShow) {
+                this.cartsToConfirm.push(item.priceId)
+                this.cartsToConfirmTech.push(item.priceId)
+              }
 
               item.total = Number((item.priceValue * item.quantity).toFixed(2));
               item.supplierMaxPeriod += " дней";
-              this.totalOrderPrice += item.total
 
               this.items.push(item);
             }
+            this.calculatingTotalPrice()
           })
           .catch((e: Error) => {
             console.log(e);
