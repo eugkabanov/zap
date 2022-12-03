@@ -264,7 +264,8 @@ export default defineComponent({
       vendorCodesOptions: [] as Option[],
       statusOrdersOptions: [] as Option[],
       selectedValueVendorCode: '',
-      selectedValueStatus: ''
+      selectedValueStatus: '',
+      textSearchBar: ''
     };
   },
 
@@ -279,17 +280,20 @@ export default defineComponent({
 
   watch: {
 
-    selectedValueStatus(status: string) {
-      if (this.selectedValueStatus != "Non") {
-        this.items = this.items.filter(item => item.status == status)
+    textSearchBar() {
+      if (this.textSearchBar != "") {
 
-        if (this.items.length == 0) {
-          this.items.length = 0
+        for (let item of this.items) {
+          if (item.vendorCode == this.textSearchBar) {
+            this.items = this.items.filter(item => item.vendorCode == this.textSearchBar)
+            return
+          }
+        }
+        if (this.items.length != this.itemsTech.length) {
           this.items = this.itemsTech
-          this.items = this.items.filter(item => item.status == status)
         }
       } else {
-        this.listOrders()
+        this.selectedValueVendorCode = "Non"
       }
     },
 
@@ -298,12 +302,24 @@ export default defineComponent({
         this.items = this.items.filter(item => item.vendorCode == vendorCode)
 
         if (this.items.length == 0) {
-          this.items.length = 0
           this.items = this.itemsTech
           this.items = this.items.filter(item => item.vendorCode == vendorCode)
         }
       } else {
-        this.listOrders()
+        this.items = this.itemsTech
+      }
+    },
+
+    selectedValueStatus(status: string) {
+      if (this.selectedValueStatus != "Non") {
+        this.items = this.items.filter(item => item.status == status)
+
+        if (this.items.length == 0) {
+          this.items = this.itemsTech
+          this.items = this.items.filter(item => item.status == status)
+        }
+      } else {
+        this.items = this.itemsTech
       }
     }
   },
@@ -325,6 +341,7 @@ export default defineComponent({
     },
 
     listOrders() {
+
       this.items.length = 0
       this.itemsTech.length = 0
 
@@ -390,6 +407,13 @@ export default defineComponent({
         <BalanceBar class="mt-2 mb-3" />
       </div>
     </div>
+    <div class="col-4" style="margin-bottom: 20px">
+      <ui-textfield
+          fullwidth
+          outlined
+          v-model="textSearchBar"
+          :placeholder="'Поиск заказа по артикулу'" />
+    </div>
 
     <!-- <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
@@ -439,7 +463,7 @@ export default defineComponent({
             :options="vendorCodesOptions"
             :optionFormat="{ label: 'value', value: 'key' }"
             :defaultValue="'Non'"
-            defaultLabel="All"
+            defaultLabel="Все артикулы"
             class="small-select"
             @selected="onSelectedVendorCode($event)"
         >Артикул</CustomSelect>
@@ -452,7 +476,7 @@ export default defineComponent({
             :options="statusOrdersOptions"
             :optionFormat="{ label: 'value', value: 'key' }"
             :defaultValue="'Non'"
-            defaultLabel="All"
+            defaultLabel="Все статусы"
             class="small-select"
             @selected="onSelectedStatus($event)"
         >Статус</CustomSelect>
@@ -616,6 +640,10 @@ export default defineComponent({
   }
   .status {
     border-bottom: 1px dashed vars.$grayed;
+  }
+
+  .search-bar {
+    margin-bottom: 30px!important;
   }
 
   .mdc-data-table__row {
