@@ -62,20 +62,6 @@ const activeTab = ref(0);
     </div> -->
 
     <div class="mt-3 dark">
-<!--      <ui-button-->
-<!--        outlined-->
-<!--        style="margin-bottom: 10px; text-align: left"-->
-<!--        icon="check_box"-->
-<!--        v-if="selectedAllShow"-->
-<!--        v-on:click="selectedAllCarts"-->
-<!--      >Выбрать все заказы</ui-button>-->
-<!--      <ui-button-->
-<!--          outlined-->
-<!--          style="margin-bottom: 10px"-->
-<!--          icon="check_box_outline_blank"-->
-<!--          v-if="!selectedAllShow"-->
-<!--          v-on:click="cancelAllCarts"-->
-<!--      >Убрать все заказы</ui-button>-->
       <ui-table
         fullwidth
         :data="items"
@@ -88,6 +74,7 @@ const activeTab = ref(0);
                    v-model="selectedAllShow"
                    v-on:click="selectedAllCarts"
                    :id="1"
+                   :disabled="!this.cartsToConfirmTech.length > 0"
                    style="padding-bottom: 12px; color: #0069c8!important;"
                    class="mdc-checkbox__native-control"
             />
@@ -322,12 +309,6 @@ export default defineComponent({
       }
     },
 
-    cancelAllCarts() {
-      this.cartsToConfirm.splice(0)
-      this.selectedAllShow = true
-      this.calculatingTotalPrice()
-    },
-
     closeLoginDialog() {
       this.isLoginOpen = false;
     },
@@ -422,7 +403,6 @@ export default defineComponent({
     },
 
     deleteCart(priceId: number) {
-
       OrderService.deleteOrderForCart(priceId)
           .then((response: ResponseData) => {
             for (let index = 0, len = this.items.length; index < len; index++) {
@@ -473,6 +453,7 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           })
+
     },
 
   },
