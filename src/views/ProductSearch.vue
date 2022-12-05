@@ -16,7 +16,14 @@ const similarSearchDataBody = [
 const searchDataBody = [
   { field: "make_name"},
   { field: "supplier_name" },
-  { field: "count"},
+  { field: "count",
+    fn: (data: { count: number; }) => {
+    if (data.count == 10000){
+      return "Под заказ "
+    }
+      return data.count;
+    }
+  },
   { field: "time_delivery" },
   { field: "price"},
   // { field: "time_delivery_direction" },
@@ -105,7 +112,7 @@ const similarSearchData = [
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, data.make_name)"
+                @click="addDetailToCart(data.price_id, data.make_name, data.count)"
               >
                 <ui-icon
                   class="hint"
@@ -289,7 +296,7 @@ export default defineComponent({
 
               for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
                 if (response.data[index].prices[index_price].count == 0) {
-                  response.data[index].prices[index_price].count = 0 + " (под заказ)"
+                  response.data[index].prices[index_price].count = 10000
                 }
                 this.priceInfo.push(response.data[index].prices[index_price])
                 this.productCount++
@@ -325,29 +332,35 @@ export default defineComponent({
       router.go(0)
     },
 
-    addDetailToCart(priceId : number, make_name : string) {
+    addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
 
       if (store.getters.isAuthenticated) {
         let quantityItem: number
         quantityItem = this.map_carts.get(priceId)
 
         if (quantityItem > 0) {
+          if (!(quantityItem > quantityMax)) {
 
-        OrderService.addDetailToCart(priceId, quantityItem)
-            .then((response: ResponseData) => {
+            OrderService.addDetailToCart(priceId, quantityItem)
+                .then((response: ResponseData) => {
 
-              this.quantity_cart = response.data.quantity
-              this.make_name_cart = make_name
-              this.itm_no_cart = this.productId
-              this.price_cart = response.data.priceValue
+                  this.quantity_cart = response.data.quantity
+                  this.make_name_cart = make_name
+                  this.itm_no_cart = this.productId
+                  this.price_cart = response.data.priceValue
 
-              this.isShowAddedProduct = true
+                  this.isShowAddedProduct = true
 
-              store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-            })
-            .catch((e: Error) => {
-              console.log(e);
-            })
+                  store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                })
+
+          } else {
+            this.showNotification = true
+            this.notificationDesc = "Количество товара больше, чем есть в наличии у поставщика"
+          }
 
         } else {
           this.showNotification = true
