@@ -18,7 +18,10 @@ const productsDataBody = [
   { slot: "delete",align: "right", width: 10},
 ];
 const productsDataHead = [
-  { value: ""},
+  {
+    slot: "th-select",
+    columnId: "th-select",
+  },
   { value: "Наименование" },
   { value: "Поставщик" },
   {
@@ -59,26 +62,48 @@ const activeTab = ref(0);
     </div> -->
 
     <div class="mt-3 dark">
-      <ui-button
-        outlined
-        style="margin-bottom: 10px; text-align: left"
-        icon="check_box"
-        v-if="selectedAllShow"
-        v-on:click="selectedAllCarts"
-      >Выбрать все заказы</ui-button>
-      <ui-button
-          outlined
-          style="margin-bottom: 10px"
-          icon="check_box_outline_blank"
-          v-if="!selectedAllShow"
-          v-on:click="cancelAllCarts"
-      >Убрать все заказы</ui-button>
+<!--      <ui-button-->
+<!--        outlined-->
+<!--        style="margin-bottom: 10px; text-align: left"-->
+<!--        icon="check_box"-->
+<!--        v-if="selectedAllShow"-->
+<!--        v-on:click="selectedAllCarts"-->
+<!--      >Выбрать все заказы</ui-button>-->
+<!--      <ui-button-->
+<!--          outlined-->
+<!--          style="margin-bottom: 10px"-->
+<!--          icon="check_box_outline_blank"-->
+<!--          v-if="!selectedAllShow"-->
+<!--          v-on:click="cancelAllCarts"-->
+<!--      >Убрать все заказы</ui-button>-->
       <ui-table
         fullwidth
         :data="items"
         :thead="productsDataHead"
         :tbody="productsDataBody"
       >
+        <template #th-select="{ data }">
+          <div class="mdc-checkbox">
+            <input type="checkbox"
+                   v-model="selectedAllShow"
+                   v-on:click="selectedAllCarts"
+                   :id="1"
+                   style="padding-bottom: 12px; color: #0069c8!important;"
+                   class="mdc-checkbox__native-control"
+            />
+            <div class="mdc-checkbox__background">
+              <svg class="mdc-checkbox__checkmark"
+                   viewBox="0 0 24 24">
+                <path class="mdc-checkbox__checkmark-path"
+                      fill="none"
+                      d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+              </svg>
+              <div class="mdc-checkbox__mixedmark"></div>
+            </div>
+            <div class="mdc-checkbox__ripple"></div>
+          </div>
+        </template>
+
         <template #th-time>
           <ui-icon
             style="text-align: center"
@@ -106,14 +131,27 @@ const activeTab = ref(0);
         </template>
 
         <template #select="{ data }">
-          <input
-            type="checkbox"
-            :id="data.vendorCode"
-            :value="data.priceId"
-            style="padding-bottom: 12px"
-            v-model="cartsToConfirm"
-          />
+          <div class="mdc-checkbox">
+            <input type="checkbox"
+                   :id="data.vendorCode"
+                   :value="data.priceId"
+                   style="padding-bottom: 12px; color: #0069c8!important;"
+                   v-model="cartsToConfirm"
+                   class="mdc-checkbox__native-control"
+            />
+            <div class="mdc-checkbox__background">
+              <svg class="mdc-checkbox__checkmark"
+                   viewBox="0 0 24 24">
+                <path class="mdc-checkbox__checkmark-path"
+                      fill="none"
+                      d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+              </svg>
+              <div class="mdc-checkbox__mixedmark"></div>
+            </div>
+            <div class="mdc-checkbox__ripple"></div>
+          </div>
         </template>
+
         <template #comment="{ data }">
           <label>{{ data.comment }}</label>
         </template>
@@ -168,7 +206,7 @@ const activeTab = ref(0);
         </div>
 
         <div class="mt-4">
-            <ui-button :disabled="selectedAllShow" v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
+            <ui-button :disabled="!selectedAllShow" v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
@@ -212,7 +250,7 @@ const activeTab = ref(0);
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {computed, defineComponent} from "vue";
 import type ResponseData from "@/types/ResponseData";
 import type CartItem from "@/types/CartItem";
 import OrderService from "@/services/OrderService";
@@ -237,7 +275,7 @@ export default defineComponent({
       priceIdEditComment: 0,
       isLoginOpen: false,
       isAuthorisedUser: false,
-      selectedAllShow: false,
+      selectedAllShow: true,
     };
   },
 
@@ -252,7 +290,7 @@ export default defineComponent({
     cartsToConfirm() {
       this.totalOrderPrice = 0.00
       this.calculatingTotalPrice()
-      this.selectedAllShow = this.cartsToConfirm.length == 0;
+      this.selectedAllShow = this.cartsToConfirm.length != 0;
     },
   },
 
@@ -271,11 +309,17 @@ export default defineComponent({
   methods: {
 
     selectedAllCarts() {
-      for (let priceId of this.cartsToConfirmTech) {
-        this.cartsToConfirm.push(priceId)
+      if (this.selectedAllShow) {
+        this.cartsToConfirm.splice(0)
+        this.selectedAllShow = true
+        this.calculatingTotalPrice()
+      } else {
+        for (let priceId of this.cartsToConfirmTech) {
+          this.cartsToConfirm.push(priceId)
+        }
+        this.selectedAllShow = false
+        this.calculatingTotalPrice()
       }
-      this.selectedAllShow = false
-      this.calculatingTotalPrice()
     },
 
     cancelAllCarts() {
