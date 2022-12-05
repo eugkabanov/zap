@@ -88,7 +88,8 @@
       sheet
       class="balance-warning-dialog"
   >
-    <ErrorDialog
+    <NotificationDialog
+        :type_message="'ВНИМАНИЕ!'"
         :error_detail_message="errMessage"
         :hide_error_dialog="hideErrorDialog"
     />
@@ -104,7 +105,7 @@ import {store} from "@/store";
 import {AUTH, GET_NUMBER_CONFIRM_ORDERS, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
-import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 
 
 export default defineComponent({
@@ -139,7 +140,6 @@ export default defineComponent({
                 })
             store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                 .then((data: ResponseData) => {
-                  console.log("GET_NUMBER_CONFIRM_ORDERS")
                 })
                 .catch((e: Error) => {
                   console.log(e);
@@ -159,7 +159,7 @@ export default defineComponent({
     }
   },
   components: {
-    ErrorDialog: ErrorDialog,
+    NotificationDialog: NotificationDialog,
     LineBreak: LineBreak
   },
 

@@ -10,6 +10,16 @@ import router from "./router";
 import "./styles/_grid.css";
 import "./styles/index.scss";
 import { store } from "@/store";
+import {CHECK_AUTH} from "@/store/actions_type";
+
+
+router.beforeEach((to, from, next) => {
+    next()
+    store.dispatch(CHECK_AUTH).then(() => {
+        next()
+        })
+    }
+);
 
 const app = createApp(App);
 

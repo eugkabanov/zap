@@ -264,7 +264,9 @@ export default defineComponent({
       vendorCodesOptions: [] as Option[],
       statusOrdersOptions: [] as Option[],
       selectedValueVendorCode: '',
-      selectedValueStatus: ''
+      selectedValueVendorCodeDisable: false,
+      selectedValueStatus: '',
+      textSearchBar: ''
     };
   },
 
@@ -279,31 +281,37 @@ export default defineComponent({
 
   watch: {
 
-    selectedValueStatus(status: string) {
-      if (this.selectedValueStatus != "Non") {
-        this.items = this.items.filter(item => item.status == status)
-
-        if (this.items.length == 0) {
-          this.items.length = 0
-          this.items = this.itemsTech
-          this.items = this.items.filter(item => item.status == status)
+    textSearchBar() {
+      this.selectedValueVendorCodeDisable = false
+      if (this.textSearchBar != "") {
+        this.items = this.itemsTech
+        for (let item of this.items) {
+          if (item.vendorCode == this.textSearchBar) {
+            this.items = this.items.filter(item => item.vendorCode == this.textSearchBar)
+            this.selectedValueVendorCodeDisable = true
+            return
+          }
         }
-      } else {
-        this.listOrders()
       }
     },
 
     selectedValueVendorCode(vendorCode: string) {
+      this.items = this.itemsTech
+      this.textSearchBar = ''
       if (this.selectedValueVendorCode != "Non") {
         this.items = this.items.filter(item => item.vendorCode == vendorCode)
-
-        if (this.items.length == 0) {
-          this.items.length = 0
-          this.items = this.itemsTech
-          this.items = this.items.filter(item => item.vendorCode == vendorCode)
-        }
       } else {
-        this.listOrders()
+        this.items = this.itemsTech
+      }
+    },
+
+    selectedValueStatus(status: string) {
+      this.items = this.itemsTech
+      this.textSearchBar = ''
+      if (this.selectedValueStatus != "Non") {
+        this.items = this.items.filter(item => item.status == status)
+      } else {
+        this.items = this.itemsTech
       }
     }
   },
@@ -325,6 +333,7 @@ export default defineComponent({
     },
 
     listOrders() {
+
       this.items.length = 0
       this.itemsTech.length = 0
 
@@ -390,6 +399,13 @@ export default defineComponent({
         <BalanceBar class="mt-2 mb-3" />
       </div>
     </div>
+    <div class="col-4" style="margin-bottom: 20px">
+      <ui-textfield
+          fullwidth
+          outlined
+          v-model="textSearchBar"
+          :placeholder="'Поиск заказа по артикулу'" />
+    </div>
 
     <!-- <div class="row align-items-center gy-4 mb-4">
       <div class="col-auto">
@@ -439,9 +455,10 @@ export default defineComponent({
             :options="vendorCodesOptions"
             :optionFormat="{ label: 'value', value: 'key' }"
             :defaultValue="'Non'"
-            defaultLabel="All"
+            defaultLabel="Все артикулы"
             class="small-select"
             @selected="onSelectedVendorCode($event)"
+            :disabled="selectedValueVendorCodeDisable"
         >Артикул</CustomSelect>
       </div>
       <!-- <div class="col-6 col-xl-auto">
@@ -452,7 +469,7 @@ export default defineComponent({
             :options="statusOrdersOptions"
             :optionFormat="{ label: 'value', value: 'key' }"
             :defaultValue="'Non'"
-            defaultLabel="All"
+            defaultLabel="Все статусы"
             class="small-select"
             @selected="onSelectedStatus($event)"
         >Статус</CustomSelect>
@@ -530,9 +547,9 @@ export default defineComponent({
 <!--        </ui-icon>-->
 <!--      </template>-->
 
-      <template #th-select>
+<!--      <template #th-select>-->
 
-      </template>
+<!--      </template>-->
       <template #select="{ data }">
         <ui-icon-button
         v-on:click="getStatusConfirmOrder(data.id)"
@@ -616,6 +633,10 @@ export default defineComponent({
   }
   .status {
     border-bottom: 1px dashed vars.$grayed;
+  }
+
+  .search-bar {
+    margin-bottom: 30px!important;
   }
 
   .mdc-data-table__row {

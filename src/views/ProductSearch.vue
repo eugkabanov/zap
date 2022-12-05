@@ -86,7 +86,7 @@ const similarSearchData = [
     >
       <SearchFormWithIcon
           placeholder="Поиск по артикулу"
-          @updateSearchPage="getProductByItemNo1"
+          @updateSearchPage="searchDetailInfoByItemNo"
       />
     </div>
     <div class="row">
@@ -105,7 +105,7 @@ const similarSearchData = [
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, quantity, data.make_name)"
+                @click="addDetailToCart(data.price_id, data.make_name)"
               >
                 <ui-icon
                   class="hint"
@@ -119,10 +119,11 @@ const similarSearchData = [
 <!--            </template>-->
             <template #quantity="{ data }">
               <ui-textfield
-                @input="event => quantity = event.target.value"
+                @input="event => storeCartsQuantity(event.target.value, data.price_id)"
                 :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
                 :min="0"
+                :max="data.count"
                 inputType="number"
                 :id="data.price_id"
                 class="small"
@@ -190,6 +191,19 @@ const similarSearchData = [
       @updatePage="updatePage"
     />
   </ui-dialog>
+
+  <ui-dialog
+      v-model="showNotification"
+      maskClosable
+      sheet
+      class="balance-warning-dialog"
+  >
+    <NotificationDialog
+        :type_message="'ВНИМАНИЕ!'"
+        :error_detail_message="notificationDesc"
+        :hide_error_dialog="hideErrorDialog"
+    />
+  </ui-dialog>
 </template>
 
 <script lang="ts">
@@ -201,9 +215,10 @@ import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {GET_NUMBER_CONFIRM_ORDERS, INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import router from "@/router";
 import SearchFormWithIcon from "@/components/Search/SearchFormWithIcon.vue";
@@ -215,7 +230,8 @@ export default defineComponent({
     LoginDialog: LoginDialog,
     ProfileDialog: ProfileDialog,
     CartAddDialog: CartAddDialog,
-    SearchFormWithIcon: SearchFormWithIcon
+    SearchFormWithIcon: SearchFormWithIcon,
+    NotificationDialog: NotificationDialog,
   },
 
   computed: {
@@ -224,20 +240,19 @@ export default defineComponent({
 
   data() {
     return {
-      map_carts: new Map<number, string>(),
-      detailsPriceInfo: [] as ArticleDetailData[],
+      map_carts: new Map<number, number>(),
       priceInfo: [] as ArticlePriceData[],
       productId: '',
       productCount: 0,
       isShowAddedProduct: false,
-      maxQuantity: 3,
-      quantity: 0,
       quantity_cart: 0,
       detail_name_cart: "",
       make_name_cart: "",
       itm_no_cart: "",
       price_cart: 0,
       isLoginOpen: false,
+      showNotification: false,
+      notificationDesc: ""
     };
 
 
@@ -245,10 +260,19 @@ export default defineComponent({
 
   created: function () {
     this.listCart();
-    this.getProductByItemNo();
+    this.getDetailInfoByItemNo();
   },
 
   methods: {
+
+    storeCartsQuantity(value : number, priceId : number) {
+      this.map_carts.set(priceId, value)
+    },
+
+    hideErrorDialog() {
+      this.showNotification = false
+      this.notificationDesc = ""
+    },
 
     serviceGetProductInfo(productId : string) {
       this.priceInfo.length = 0
@@ -278,14 +302,17 @@ export default defineComponent({
           });
     },
 
-    getProductByItemNo1(article: string) {
+    searchDetailInfoByItemNo(article: string) {
+
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = article
       this.serviceGetProductInfo(article)
+      this.listCart()
+
     },
 
-    getProductByItemNo() {
+    getDetailInfoByItemNo() {
 
       this.priceInfo.length = 0
       this.productCount = 0
@@ -298,14 +325,17 @@ export default defineComponent({
       router.go(0)
     },
 
-    addDetailToCart(priceId : number, quantity: number, make_name : string) {
+    addDetailToCart(priceId : number, make_name : string) {
 
       if (store.getters.isAuthenticated) {
+        let quantityItem: number
+        quantityItem = this.map_carts.get(priceId)
 
-        OrderService.addDetailToCart(priceId, quantity)
+        if (quantityItem > 0) {
+
+        OrderService.addDetailToCart(priceId, quantityItem)
             .then((response: ResponseData) => {
-              this.quantity == 0 ?
-                  this.detail_name_cart = response.data.itemName + " (под заказ)" : this.detail_name_cart = response.data.itemName
+
               this.quantity_cart = response.data.quantity
               this.make_name_cart = make_name
               this.itm_no_cart = this.productId
@@ -314,25 +344,29 @@ export default defineComponent({
               this.isShowAddedProduct = true
 
               store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-              this.quantity = 0
             })
             .catch((e: Error) => {
               console.log(e);
             })
 
+        } else {
+          this.showNotification = true
+          this.notificationDesc = "Введите как минимум 1 единицу товара"
+        }
       } else {
         this.isLoginOpen = true
       }
     },
 
     listCart() {
+      this.map_carts.clear()
+
       OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
               this.map_carts.set(item.priceId, item.quantity);
             }
           })
-
           .catch((e: Error) => {
             console.log(e);
           })

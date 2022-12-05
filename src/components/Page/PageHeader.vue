@@ -171,16 +171,6 @@ export default defineComponent({
   },
 
   created: function () {
-    store.dispatch(CHECK_AUTH)
-      .then((data: ResponseData) => {
-
-        // this.isAuthorisedUser = true
-        console.log("CHECK_AUTH")
-
-      })
-      .catch((e: Error) => {
-        console.log(e);
-      })
   },
 
   computed: {

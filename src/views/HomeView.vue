@@ -24,7 +24,7 @@ const submitSearch = () => {
     <section id="banner" class="py-5">
       <div class="container light">
         <div
-          style="height: 62vh"
+          style="height: 77vh"
           class="row g-0 justify-content-center align-items-center"
         >
           <div class="row g-0">
@@ -168,6 +168,12 @@ const submitSearch = () => {
       </div>
     </section> -->
   </main>
+  <NotificationDialog
+      :type_message="'УВЕДОМЛЕНИЕ!'"
+      :error_detail_message="message"
+      :hide_error_dialog="hideErrorDialog"
+      @registrationSuccess="showNotification"
+  />
 </template>
 
 <script lang="ts">
@@ -178,8 +184,21 @@ export default defineComponent({
   data() {
 
     return {
-      
+      message: "",
+      showMessage: false
     };
+  },
+
+  methods: {
+    showNotification(login: string) {
+      this.message = "Для вас создан пользователь с логином " + login
+      this.showMessage = true
+    },
+
+    hideErrorDialog() {
+      this.message = ""
+      this.showMessage = false
+    },
   },
 });
 
