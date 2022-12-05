@@ -9,9 +9,7 @@
   <!-- Временно уберем отображение для физика -->
   <section v-else class="mt-5">
     <!-- <PersonProfileInfo :personAccountInfo="accountInfo" /> -->
-    <div>
-      Загружаем данные
-    </div>
+    <div>Загружаем данные</div>
   </section>
 </template>
 
@@ -32,9 +30,6 @@ export default defineComponent({
   data() {
     return {
       accountInfo: {},
-      isPerson: true,
-      errMessage: "",
-      showErrMessage: false,
     };
   },
 
@@ -47,11 +42,9 @@ export default defineComponent({
       AccountService.accountInfo()
         .then((response: any) => {
           console.log(response.data);
-          this.showErrMessage = false;
           this.accountInfo = response.data;
         })
         .catch((e: Error) => {
-          this.showErrMessage = true;
           console.log(e);
         });
     },
