@@ -24,7 +24,7 @@ const submitSearch = () => {
     <section id="banner" class="py-5">
       <div class="container light">
         <div
-          style="height: 62vh"
+          style="height: 77vh"
           class="row g-0 justify-content-center align-items-center"
         >
           <div class="row g-0">
