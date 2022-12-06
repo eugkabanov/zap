@@ -210,14 +210,14 @@ const activeTab = ref(0);
     </div>
   </main>
   <ui-dialog
-      v-model="showErrMessage"
+      v-model="showNotification"
       maskClosable
       sheet
       class="balance-warning-dialog"
   >
     <NotificationDialog
-      :type_message="'УВЕДОМЛЕНИЕ!'"
-      :error_detail_message="errMessage"
+      :type_message="typeNotification"
+      :error_detail_message="notificationMessage"
       :hide_error_dialog="hideErrorDialog"
     />
   </ui-dialog>
@@ -268,8 +268,9 @@ export default defineComponent({
       cartsToConfirm: [] as number [],
       cartsToConfirmTech: [] as number [],
       totalOrderPrice: 0.00,
-      showErrMessage: false,
-      errMessage: "",
+      showNotification: false,
+      notificationMessage: "",
+      typeNotification: '',
       showDialogAddComment: false,
       priceIdEditComment: 0,
       isLoginOpen: false,
@@ -397,7 +398,14 @@ export default defineComponent({
         this.progress = true
         OrderService.confirmOrder(this.cartsToConfirm)
             .then((response: ResponseData) => {
-              router.push({path: "/confirm/orders"})
+
+              if (response.data.status == -1) {
+                this.typeNotification = "ОШИБКА!"
+                this.showNotification = true;
+                this.notificationMessage = "Произошла ошибка оформления заказа. Попробуйте позже."
+              } else {
+                router.push({path: "/confirm/orders"})
+              }
               store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                   .then((data: ResponseData) => {
                   })
@@ -409,16 +417,17 @@ export default defineComponent({
 
             .catch((e: Error) => {
               this.progress = false
-              this.errMessage = 'Произошла ошибка оформления заказа. Попробуйте позже.'
-              this.showErrMessage = true
+              this.typeNotification = 'ОШИБКА!'
+              this.notificationMessage = 'Произошла ошибка оформления заказа. Попробуйте позже.'
+              this.showNotification = true
               console.log(e);
             })
       }
     },
 
     hideErrorDialog() {
-      this.errMessage = ""
-      this.showErrMessage = false
+      this.notificationMessage = ""
+      this.showNotification = false
     },
 
     deleteCart(priceId: number) {
@@ -439,15 +448,16 @@ export default defineComponent({
             this.calculatingTotalPrice()
             store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
 
-
-            this.errMessage = "Заказ удалён из корзины"
-            this.showErrMessage = true
+            this.typeNotification = 'УВЕДОМЛЕНИЕ!'
+            this.notificationMessage = "Заказ удалён из корзины"
+            this.showNotification = true
           })
 
           .catch((e: Error) => {
             console.log(e)
-            this.errMessage = "Не удалось удалить."
-            this.showErrMessage = true
+            this.typeNotification = 'ОШИБКА!'
+            this.notificationMessage = "Не удалось удалить. Попробуйте позже"
+            this.showNotification = true
           })
     },
 

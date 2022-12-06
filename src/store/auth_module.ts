@@ -64,8 +64,8 @@ const actions = {
 
     [LOGOUT](context: any) {
         return new Promise((resolve, reject) => {
-            context.commit(PURGE_AUTH);
             resolve()
+            context.commit(PURGE_AUTH);
         });
     },
 

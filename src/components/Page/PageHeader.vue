@@ -201,6 +201,7 @@ export default defineComponent({
       store.dispatch(LOGOUT);
       this.isAuthorisedUser = false;
       this.isProfileDialogOpen = false;
+      this.updatePage()
     },
     openProfileDialog() {
       this.profile_user_data_info = store.getters.currentUser;
