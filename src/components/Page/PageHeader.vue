@@ -122,6 +122,7 @@
       :on-notification-click="onNotificationClick"
       :on-logout="logout"
       v-bind:login="profile_user_data_info.login"
+      @updatePage="updatePage"
     />
   </ui-dialog>
   <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
@@ -129,6 +130,7 @@
       @closeDialog="closeLoginDialog"
       @isAuthorisedUser="authorisedUser"
       @isLoginOpen="loginOpen"
+      @updatePage="updatePage"
     />
   </ui-dialog>
   <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
@@ -147,6 +149,7 @@ import {CHECK_AUTH, GET_NUMBER_CONFIRM_ORDERS, LOGOUT, USER_ME} from "@/store/ac
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
 import type ResponseData from "@/types/ResponseData";
+import router from "@/router";
 
 
 export default defineComponent({
@@ -205,6 +208,9 @@ export default defineComponent({
     },
     closeProfileDialog() {
       this.isProfileDialogOpen = false;
+    },
+    updatePage() {
+      router.go(0)
     },
   },
 });

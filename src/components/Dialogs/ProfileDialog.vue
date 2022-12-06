@@ -165,6 +165,7 @@ export default defineComponent({
     logout() {
       store.dispatch(LOGOUT)
         .then((data: ResponseData) => {
+          this.$emit('updatePage')
           console.log("LOGOUT")
         })
         .catch((e: Error) => {

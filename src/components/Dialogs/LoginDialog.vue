@@ -42,7 +42,8 @@
       </div>
     </div>
 
-    <ui-button v-on:click="authUser()" raised class="col-12 mt-3"
+    <ui-button
+        v-on:click="authUser" raised class="col-12 mt-3"
       >Войти</ui-button
     >
 
@@ -120,13 +121,13 @@ export default defineComponent({
     closeLoginDialog() {
       this.$emit('closeDialog')
     },
-    authUser() {
+     authUser() {
       this.user_data_auth = {
         login: this.user_data_auth.login,
         password: this.user_data_auth.password
       }
 
-      store.dispatch(AUTH, this.user_data_auth)
+       store.dispatch(AUTH, this.user_data_auth)
           .then((data: ResponseData) => {
             this.$emit("isAuthorisedUser")
             this.$emit('isLoginOpen')

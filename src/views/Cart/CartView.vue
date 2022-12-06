@@ -198,7 +198,6 @@ const activeTab = ref(0);
           </div>
           <div class="col-md-1">
             <ui-spinner
-                style=""
                 :active="progress"
             ></ui-spinner>
           </div>
@@ -234,11 +233,16 @@ const activeTab = ref(0);
     />
   </ui-dialog>
 
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      v-model="isLoginOpen"
+      sheet maskClosable
+      class="login-dialog"
+  >
     <LoginDialog
         @closeDialog="closeLoginDialog"
         @isAuthorisedUser="authorisedUser"
         @isLoginOpen="loginOpen"
+        @updatePage="updatePage"
     />
   </ui-dialog>
 
@@ -255,7 +259,6 @@ import router from "@/router";
 import {store} from "@/store";
 import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
-import * as process from "process";
 
 export default defineComponent({
   name: "CartView",
@@ -328,6 +331,10 @@ export default defineComponent({
 
     loginOpen() {
       this.isLoginOpen = false;
+    },
+
+    updatePage() {
+      router.go(0)
     },
 
     calculatingTotalPrice() {
