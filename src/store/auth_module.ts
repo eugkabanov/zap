@@ -101,7 +101,7 @@ const mutations = {
   },
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false
-    state.user = {};
+    state.userData = {};
     state.errors = "";
     jwt_service.destroyToken();
   },

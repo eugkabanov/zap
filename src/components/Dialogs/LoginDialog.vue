@@ -111,6 +111,17 @@ import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 
 export default defineComponent({
   name: "LoginDialog",
+
+  data() {
+
+    return {
+      user_data_auth: {} as UserDataAuth,
+      user_data_info: {} as UserDataInfo,
+      showErrMessage: false,
+      errMessage: ''
+    };
+  },
+
   methods: {
 
     hideErrorDialog() {
@@ -121,7 +132,8 @@ export default defineComponent({
     closeLoginDialog() {
       this.$emit('closeDialog')
     },
-     authUser() {
+
+   authUser() {
       this.user_data_auth = {
         login: this.user_data_auth.login,
         password: this.user_data_auth.password
@@ -162,16 +174,6 @@ export default defineComponent({
   components: {
     NotificationDialog: NotificationDialog,
     LineBreak: LineBreak
-  },
-
-  data() {
-
-    return {
-      user_data_auth: {} as UserDataAuth,
-      user_data_info: {} as UserDataInfo,
-      showErrMessage: false,
-      errMessage: ''
-    };
   },
 
   created: function () {},
