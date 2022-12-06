@@ -91,10 +91,19 @@ const similarSearchData = [
         class="col-12 col-lg-5"
         style="margin-bottom: 10px"
     >
-      <SearchFormWithIcon
-          placeholder="Поиск по артикулу"
-          @updateSearchPage="searchDetailInfoByItemNo"
-      />
+      <div class="row">
+        <div class="col-md-10">
+          <SearchFormWithIcon
+              placeholder="Поиск по артикулу"
+              @updateSearchPage="searchDetailInfoByItemNo"
+          />
+        </div>
+        <div class="col-md-2">
+          <ui-spinner
+              :active="progress"
+          ></ui-spinner>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div>
@@ -259,7 +268,8 @@ export default defineComponent({
       price_cart: 0,
       isLoginOpen: false,
       showNotification: false,
-      notificationDesc: ""
+      notificationDesc: "",
+      progress: false
     };
 
 
@@ -371,18 +381,20 @@ export default defineComponent({
       }
     },
 
-    listCart() {
+    async listCart() {
       this.map_carts.clear()
-
-      OrderService.getCart()
+      this.progress = true
+      await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
               this.map_carts.set(item.priceId, item.quantity);
             }
           })
           .catch((e: Error) => {
+            this.progress = false
             console.log(e);
           })
+      this.progress = false
     },
 
     hideAddedProduct() {
