@@ -192,8 +192,16 @@ const activeTab = ref(0);
           </ui-form-field>
         </div>
 
-        <div class="mt-4">
-            <ui-button :disabled="!selectedAllShow" v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
+        <div class="row">
+          <div class="col-md-5">
+              <ui-button :disabled="!selectedAllShow" v-on:click="doConfirm()" raised>Оформить заказ ({{ cartsToConfirm.length }})</ui-button>
+          </div>
+          <div class="col-md-1">
+            <ui-spinner
+                style=""
+                :active="progress"
+            ></ui-spinner>
+          </div>
         </div>
 
         <div class="mt-3 large" :class="$tt('body1')">
@@ -247,6 +255,7 @@ import router from "@/router";
 import {store} from "@/store";
 import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import * as process from "process";
 
 export default defineComponent({
   name: "CartView",
@@ -262,7 +271,8 @@ export default defineComponent({
       priceIdEditComment: 0,
       isLoginOpen: false,
       isAuthorisedUser: false,
-      selectedAllShow: true,
+      selectedAllShow: false,
+      progress: false
     };
   },
 
@@ -290,7 +300,6 @@ export default defineComponent({
   },
 
   created: function () {
-
   },
 
   methods: {
@@ -378,6 +387,7 @@ export default defineComponent({
 
     doConfirm() {
       if (this.cartsToConfirm.length != 0) {
+        this.progress = true
         OrderService.confirmOrder(this.cartsToConfirm)
             .then((response: ResponseData) => {
               router.push({path: "/confirm/orders"})
@@ -387,9 +397,11 @@ export default defineComponent({
                   .catch((e: Error) => {
                     console.log(e);
                   });
+              this.progress = false
             })
 
             .catch((e: Error) => {
+              this.progress = false
               this.errMessage = 'Произошла ошибка оформления заказа. Попробуйте позже.'
               this.showErrMessage = true
               console.log(e);
@@ -432,12 +444,13 @@ export default defineComponent({
           })
     },
 
-    listCart() {
+    async listCart() {
+      this.progress = true
       this.items.length = 0
       this.cartsToConfirm.length = 0
       this.cartsToConfirmTech.length = 0
 
-      OrderService.getCart()
+      await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
               this.cartsToConfirm.push(item.priceId)
@@ -453,7 +466,10 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           })
-
+      if (this.cartsToConfirm.length > 0) {
+        this.selectedAllShow = true
+      }
+      this.progress = false
     },
 
   },
