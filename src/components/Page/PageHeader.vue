@@ -125,8 +125,15 @@
       @updatePage="updatePage"
     />
   </ui-dialog>
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
     <LoginDialog
+      v-model:authKeyEnter=authKeyEnterShow
       @closeDialog="closeLoginDialog"
       @isAuthorisedUser="authorisedUser"
       @isLoginOpen="loginOpen"
@@ -154,12 +161,14 @@ import router from "@/router";
 
 export default defineComponent({
   name: "page-header",
+
   components: {
     LineBreak: LineBreak,
     LoginDialog: LoginDialog,
     NotificationsDialog: NotificationsDialog,
     ProfileDialog: ProfileDialog,
   },
+
   data() {
 
     return {
@@ -170,6 +179,7 @@ export default defineComponent({
       isNotificationOpen: false,
       isNavMenuOpen: false,
       user_data_info: {} as UserDataInfo,
+      authKeyEnterShow: false,
     };
   },
 
@@ -181,12 +191,22 @@ export default defineComponent({
   },
 
   methods: {
+
     loginOpen() {
       this.isLoginOpen = false;
     },
     authorisedUser() {
       this.isAuthorisedUser = true;
     },
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
     openLogin() {
       this.isLoginOpen = true;
     },

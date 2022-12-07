@@ -272,7 +272,8 @@ export default defineComponent({
       textSearchBar: '',
       isLoginOpen: false,
       isAuthorisedUser: false,
-      progress: false
+      progress: false,
+      authKeyEnterShow: false,
     };
   },
 
@@ -330,6 +331,14 @@ export default defineComponent({
   },
 
   methods: {
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
 
     closeLoginDialog() {
       this.isLoginOpen = false;
@@ -606,11 +615,14 @@ export default defineComponent({
   </ui-dialog>
 
   <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
       v-model="isLoginOpen"
-      sheet maskClosable
+      :sheet="false"
+      :maskClosable="true"
       class="login-dialog"
   >
     <LoginDialog
+        v-model:authKeyEnter=authKeyEnterShow
         @closeDialog="closeLoginDialog"
         @isAuthorisedUser="authorisedUser"
         @isLoginOpen="loginOpen"

@@ -234,11 +234,14 @@ const activeTab = ref(0);
   </ui-dialog>
 
   <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
       v-model="isLoginOpen"
-      sheet maskClosable
+      :sheet="false"
+      maskClosable
       class="login-dialog"
   >
     <LoginDialog
+        v-model:authKeyEnter=authKeyEnterShow
         @closeDialog="closeLoginDialog"
         @isAuthorisedUser="authorisedUser"
         @isLoginOpen="loginOpen"
@@ -276,7 +279,8 @@ export default defineComponent({
       isLoginOpen: false,
       isAuthorisedUser: false,
       selectedAllShow: false,
-      progress: false
+      progress: false,
+      authKeyEnterShow: false,
     };
   },
 
@@ -307,6 +311,14 @@ export default defineComponent({
   },
 
   methods: {
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
 
     selectedAllCarts() {
       if (this.selectedAllShow) {

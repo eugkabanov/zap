@@ -201,8 +201,15 @@ const similarSearchData = [
     />
   </ui-dialog>
 
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
     <LoginDialog
+      v-model:authKeyEnter=authKeyEnterShow
       @isLoginOpen="loginOpen"
       @updatePage="updatePage"
     />
@@ -269,7 +276,8 @@ export default defineComponent({
       isLoginOpen: false,
       showNotification: false,
       notificationDesc: "",
-      progress: false
+      progress: true,
+      authKeyEnterShow: false
     };
 
 
@@ -281,6 +289,16 @@ export default defineComponent({
   },
 
   methods: {
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
+
 
     storeCartsQuantity(value : number, priceId : number) {
       this.map_carts.set(priceId, value)
