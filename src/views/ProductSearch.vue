@@ -276,16 +276,18 @@ export default defineComponent({
       isLoginOpen: false,
       showNotification: false,
       notificationDesc: "",
-      progress: true,
+      progress: false,
       authKeyEnterShow: false
     };
 
 
   },
 
-  created: function () {
-    this.listCart();
-    this.getDetailInfoByItemNo();
+  created: async function () {
+    if (store.getters.isAuthenticated) {
+      await this.listCart();
+    }
+    await this.getDetailInfoByItemNo();
   },
 
   methods: {
@@ -309,9 +311,10 @@ export default defineComponent({
       this.notificationDesc = ""
     },
 
-    serviceGetProductInfo(productId : string) {
+    async serviceGetProductInfo(productId : string) {
+      this.progress = true
       this.priceInfo.length = 0
-      SearchService.prices(productId)
+      await SearchService.prices(productId)
           .then((response: ResponseData) => {
 
             for (let index = 0, len = response.data.length; index < len; index++) {
@@ -335,32 +338,31 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           });
+      this.progress = false
     },
 
     searchDetailInfoByItemNo(article: string) {
-
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = article
       this.serviceGetProductInfo(article)
-      this.listCart()
-
+      if (store.getters.isAuthenticated) {
+        this.listCart();
+      }
     },
 
     getDetailInfoByItemNo() {
-
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = this.$route.params.productId
       this.serviceGetProductInfo(this.productId)
-
     },
 
     updatePage() {
       router.go(0)
     },
 
-    addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
+    async addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
 
       if (store.getters.isAuthenticated) {
         let quantityItem: number
@@ -368,8 +370,8 @@ export default defineComponent({
 
         if (quantityItem > 0) {
           if (!(quantityItem > quantityMax)) {
-
-            OrderService.addDetailToCart(priceId, quantityItem)
+            this.progress = true
+            await OrderService.addDetailToCart(priceId, quantityItem)
                 .then((response: ResponseData) => {
 
                   this.quantity_cart = response.data.quantity
@@ -384,7 +386,7 @@ export default defineComponent({
                 .catch((e: Error) => {
                   console.log(e);
                 })
-
+            this.progress = false
           } else {
             this.showNotification = true
             this.notificationDesc = "Количество товара больше, чем есть в наличии у поставщика"
@@ -400,8 +402,8 @@ export default defineComponent({
     },
 
     async listCart() {
-      this.map_carts.clear()
       this.progress = true
+      this.map_carts.clear()
       await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
