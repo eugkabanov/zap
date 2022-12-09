@@ -64,6 +64,7 @@ const actions = {
 
     [LOGOUT](context: any) {
         return new Promise((resolve, reject) => {
+            resolve()
             context.commit(PURGE_AUTH);
         });
     },
@@ -100,7 +101,7 @@ const mutations = {
   },
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false
-    state.user = {};
+    state.userData = {};
     state.errors = "";
     jwt_service.destroyToken();
   },

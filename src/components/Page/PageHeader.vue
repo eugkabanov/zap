@@ -122,13 +122,22 @@
       :on-notification-click="onNotificationClick"
       :on-logout="logout"
       v-bind:login="profile_user_data_info.login"
+      @updatePage="updatePage"
     />
   </ui-dialog>
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
     <LoginDialog
+      v-model:authKeyEnter=authKeyEnterShow
       @closeDialog="closeLoginDialog"
       @isAuthorisedUser="authorisedUser"
       @isLoginOpen="loginOpen"
+      @updatePage="updatePage"
     />
   </ui-dialog>
   <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
@@ -147,16 +156,19 @@ import {CHECK_AUTH, GET_NUMBER_CONFIRM_ORDERS, LOGOUT, USER_ME} from "@/store/ac
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
 import type ResponseData from "@/types/ResponseData";
+import router from "@/router";
 
 
 export default defineComponent({
   name: "page-header",
+
   components: {
     LineBreak: LineBreak,
     LoginDialog: LoginDialog,
     NotificationsDialog: NotificationsDialog,
     ProfileDialog: ProfileDialog,
   },
+
   data() {
 
     return {
@@ -167,6 +179,7 @@ export default defineComponent({
       isNotificationOpen: false,
       isNavMenuOpen: false,
       user_data_info: {} as UserDataInfo,
+      authKeyEnterShow: false,
     };
   },
 
@@ -178,12 +191,22 @@ export default defineComponent({
   },
 
   methods: {
+
     loginOpen() {
       this.isLoginOpen = false;
     },
     authorisedUser() {
       this.isAuthorisedUser = true;
     },
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
     openLogin() {
       this.isLoginOpen = true;
     },
@@ -198,6 +221,7 @@ export default defineComponent({
       store.dispatch(LOGOUT);
       this.isAuthorisedUser = false;
       this.isProfileDialogOpen = false;
+      this.updatePage()
     },
     openProfileDialog() {
       this.profile_user_data_info = store.getters.currentUser;
@@ -205,6 +229,9 @@ export default defineComponent({
     },
     closeProfileDialog() {
       this.isProfileDialogOpen = false;
+    },
+    updatePage() {
+      router.go(0)
     },
   },
 });

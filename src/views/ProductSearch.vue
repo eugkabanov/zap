@@ -91,10 +91,19 @@ const similarSearchData = [
         class="col-12 col-lg-5"
         style="margin-bottom: 10px"
     >
-      <SearchFormWithIcon
-          placeholder="Поиск по артикулу"
-          @updateSearchPage="searchDetailInfoByItemNo"
-      />
+      <div class="row">
+        <div class="col-md-10">
+          <SearchFormWithIcon
+              placeholder="Поиск по артикулу"
+              @updateSearchPage="searchDetailInfoByItemNo"
+          />
+        </div>
+        <div class="col-md-2">
+          <ui-spinner
+              :active="progress"
+          ></ui-spinner>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div>
@@ -192,8 +201,15 @@ const similarSearchData = [
     />
   </ui-dialog>
 
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
     <LoginDialog
+      v-model:authKeyEnter=authKeyEnterShow
       @isLoginOpen="loginOpen"
       @updatePage="updatePage"
     />
@@ -259,18 +275,32 @@ export default defineComponent({
       price_cart: 0,
       isLoginOpen: false,
       showNotification: false,
-      notificationDesc: ""
+      notificationDesc: "",
+      progress: false,
+      authKeyEnterShow: false
     };
 
 
   },
 
-  created: function () {
-    this.listCart();
-    this.getDetailInfoByItemNo();
+  created: async function () {
+    if (store.getters.isAuthenticated) {
+      await this.listCart();
+    }
+    await this.getDetailInfoByItemNo();
   },
 
   methods: {
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
+
 
     storeCartsQuantity(value : number, priceId : number) {
       this.map_carts.set(priceId, value)
@@ -281,9 +311,10 @@ export default defineComponent({
       this.notificationDesc = ""
     },
 
-    serviceGetProductInfo(productId : string) {
+    async serviceGetProductInfo(productId : string) {
+      this.progress = true
       this.priceInfo.length = 0
-      SearchService.prices(productId)
+      await SearchService.prices(productId)
           .then((response: ResponseData) => {
 
             for (let index = 0, len = response.data.length; index < len; index++) {
@@ -307,32 +338,31 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           });
+      this.progress = false
     },
 
     searchDetailInfoByItemNo(article: string) {
-
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = article
       this.serviceGetProductInfo(article)
-      this.listCart()
-
+      if (store.getters.isAuthenticated) {
+        this.listCart();
+      }
     },
 
     getDetailInfoByItemNo() {
-
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = this.$route.params.productId
       this.serviceGetProductInfo(this.productId)
-
     },
 
     updatePage() {
       router.go(0)
     },
 
-    addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
+    async addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
 
       if (store.getters.isAuthenticated) {
         let quantityItem: number
@@ -340,8 +370,8 @@ export default defineComponent({
 
         if (quantityItem > 0) {
           if (!(quantityItem > quantityMax)) {
-
-            OrderService.addDetailToCart(priceId, quantityItem)
+            this.progress = true
+            await OrderService.addDetailToCart(priceId, quantityItem)
                 .then((response: ResponseData) => {
 
                   this.quantity_cart = response.data.quantity
@@ -356,7 +386,7 @@ export default defineComponent({
                 .catch((e: Error) => {
                   console.log(e);
                 })
-
+            this.progress = false
           } else {
             this.showNotification = true
             this.notificationDesc = "Количество товара больше, чем есть в наличии у поставщика"
@@ -371,18 +401,20 @@ export default defineComponent({
       }
     },
 
-    listCart() {
+    async listCart() {
+      this.progress = true
       this.map_carts.clear()
-
-      OrderService.getCart()
+      await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
               this.map_carts.set(item.priceId, item.quantity);
             }
           })
           .catch((e: Error) => {
+            this.progress = false
             console.log(e);
           })
+      this.progress = false
     },
 
     hideAddedProduct() {

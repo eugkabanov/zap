@@ -252,6 +252,9 @@ import type ResponseData from "@/types/ResponseData";
 import type OrderItem from "@/types/OrderItem";
 import OrderService from "@/services/OrderService";
 import type Option from "@/types/Option";
+import {store} from "@/store";
+import router from "@/router";
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 
 export default defineComponent({
   name: "orders",
@@ -266,13 +269,24 @@ export default defineComponent({
       selectedValueVendorCode: '',
       selectedValueVendorCodeDisable: false,
       selectedValueStatus: '',
-      textSearchBar: ''
+      textSearchBar: '',
+      isLoginOpen: false,
+      isAuthorisedUser: false,
+      progress: false,
+      authKeyEnterShow: false,
     };
   },
 
+  components: {
+    LoginDialog: LoginDialog
+  },
 
   mounted: function () {
-    this.listOrders()
+    if (!store.getters.isAuthenticated) {
+      this.isLoginOpen = true
+    } else {
+      this.listOrders()
+    }
   },
 
   created: function () {
@@ -318,6 +332,30 @@ export default defineComponent({
 
   methods: {
 
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
+    closeLoginDialog() {
+      this.isLoginOpen = false;
+    },
+
+    authorisedUser() {
+      this.isAuthorisedUser = true;
+    },
+
+    loginOpen() {
+      this.isLoginOpen = false;
+    },
+
+    updatePage() {
+      router.go(0)
+    },
+
     getStatusConfirmOrder(orderId: number) {
       OrderService.getStatusOrder(orderId)
           .then((response: ResponseData) => {
@@ -332,15 +370,15 @@ export default defineComponent({
           })
     },
 
-    listOrders() {
-
+    async listOrders() {
+      this.progress = true
       this.items.length = 0
       this.itemsTech.length = 0
 
       this.vendorCodes.clear()
       this.statusOrders.clear()
 
-      OrderService.getOrders()
+      await OrderService.getOrders()
         .then((response: ResponseData) => {
           for (let item of response.data.orders) {
 
@@ -375,8 +413,10 @@ export default defineComponent({
         })
 
         .catch((e: Error) => {
+          this.progress = false
           console.log(e);
         })
+      this.progress = false
     },
 
     onSelectedVendorCode(selected) {
@@ -474,6 +514,9 @@ export default defineComponent({
             @selected="onSelectedStatus($event)"
         >Статус</CustomSelect>
       </div>
+      <ui-spinner
+          :active="progress"
+      ></ui-spinner>
       <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Поставщик</CustomSelect>
       </div> -->
@@ -569,6 +612,22 @@ export default defineComponent({
 
   <ui-dialog type="modal" sheet v-model="isStatsOpen">
     <OrdersStatsDialog />
+  </ui-dialog>
+
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
+    <LoginDialog
+        v-model:authKeyEnter=authKeyEnterShow
+        @closeDialog="closeLoginDialog"
+        @isAuthorisedUser="authorisedUser"
+        @isLoginOpen="loginOpen"
+        @updatePage="updatePage"
+    />
   </ui-dialog>
 </template>
 
