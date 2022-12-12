@@ -74,7 +74,7 @@ const activeTab = ref(0);
                    v-model="selectedAllShow"
                    v-on:click="selectedAllCarts"
                    :id="1"
-                   :disabled="!this.cartsToConfirmTech.length > 0"
+                   :disabled="!cartsToConfirmTech.length > 0"
                    style="padding-bottom: 12px; color: #0069c8!important;"
                    class="mdc-checkbox__native-control"
             />
