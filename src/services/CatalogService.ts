@@ -31,6 +31,13 @@ class CatalogService {
     return HTTPClient.get("/catalog/findVehicleByWizard2",  { params : params });
   }
 
+  findVehicleByVin(vin : string): Promise<any> {
+    let params = {
+      'vin': vin
+    };
+    return HTTPClient.get("/catalog/findVehicleByVin",  { params : params });
+  }
+
   listUnits(catalog : string, ssd : string, vehicleId: string, categoryId: string): Promise<any> {
     let params = {
       'catalog': catalog,
