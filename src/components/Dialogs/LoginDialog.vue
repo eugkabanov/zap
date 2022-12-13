@@ -1,6 +1,15 @@
 <template>
   <!-- leave title for close action -->
   <ui-dialog-title>
+    <mdc-icon-button
+        style="float: right"
+        class="mdc-dialog__close"
+        data-mdc-dialog-action="close"
+    >
+      <ui-icon
+          style="cursor: pointer;"
+      >close</ui-icon>
+    </mdc-icon-button>
     <div :class="$tt('body1')" class="large login-dialog__title">
       Личный кабинет
     </div>
@@ -12,7 +21,8 @@
       <ui-textfield
         v-model="user_data_auth.login"
         input-id="login-name"
-        outlined fullwidth
+        outlined
+        fullwidth
       />
     </div>
     <div class="mt-3">
@@ -42,11 +52,16 @@
       </div>
     </div>
 
-    <ui-button v-on:click="authUser()" raised class="col-12 mt-3"
+    <ui-button
+        v-on:click="authUser" raised class="col-12 mt-3"
       >Войти</ui-button
     >
+    <div v-if="showErrMessage" class="mb-2; text-center" style="margin-top: 12px">
+      <label class="hint" for="error-label" style="color: #F08080">{{ errMessage }}</label>
+    </div>
 
-    <div class="row" style="margin-top: 32px">
+    <div class="row" v-bind:style="style">
+
       <!-- <div :class="$tt('body1')">Войти через сайт или соцсеть</div>
 
       <div class="mt-2 row g-2 justify-content-xl-between">
@@ -82,17 +97,6 @@
       </div>
     </div>
   </ui-dialog-content>
-  <ui-dialog
-      v-model="showErrMessage"
-      maskClosable
-      sheet
-      class="balance-warning-dialog"
-  >
-    <ErrorDialog
-        :error_detail_message="errMessage"
-        :hide_error_dialog="hideErrorDialog"
-    />
-  </ui-dialog>
 </template>
 
 <script lang="ts">
@@ -104,11 +108,44 @@ import {store} from "@/store";
 import {AUTH, GET_NUMBER_CONFIRM_ORDERS, USER_ME} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import type UserDataInfo from "@/types/UserDataInfo";
-import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 
 
 export default defineComponent({
   name: "LoginDialog",
+
+  props: {
+    authKeyEnter: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  watch: {
+      authKeyEnter() {
+        this.authUser()
+      }
+  },
+
+  mounted() {
+  },
+
+  created: function () {
+
+  },
+
+
+  data() {
+
+    return {
+      user_data_auth: {} as UserDataAuth,
+      user_data_info: {} as UserDataInfo,
+      showErrMessage: false,
+      errMessage: '',
+      style: 'margin-top: 32px'
+    };
+  },
+
   methods: {
 
     hideErrorDialog() {
@@ -119,13 +156,19 @@ export default defineComponent({
     closeLoginDialog() {
       this.$emit('closeDialog')
     },
-    authUser() {
+
+   authUser() {
+
+     this.showErrMessage = false
+     this.errMessage = ""
+     this.style='margin-top: 32px'
+
       this.user_data_auth = {
         login: this.user_data_auth.login,
         password: this.user_data_auth.password
       }
 
-      store.dispatch(AUTH, this.user_data_auth)
+       store.dispatch(AUTH, this.user_data_auth)
           .then((data: ResponseData) => {
             this.$emit("isAuthorisedUser")
             this.$emit('isLoginOpen')
@@ -139,7 +182,6 @@ export default defineComponent({
                 })
             store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                 .then((data: ResponseData) => {
-                  console.log("GET_NUMBER_CONFIRM_ORDERS")
                 })
                 .catch((e: Error) => {
                   console.log(e);
@@ -150,27 +192,19 @@ export default defineComponent({
             if (e.data.code == 401) {
               this.showErrMessage = true
               this.errMessage = "Неверный логин или пароль"
+              this.style=''
             } else {
               this.showErrMessage = true
               this.errMessage = "Попробуйте позже"
+              this.style=''
             }
             console.log(e);
           });
     }
   },
   components: {
-    ErrorDialog: ErrorDialog,
+    NotificationDialog: NotificationDialog,
     LineBreak: LineBreak
-  },
-
-  data() {
-
-    return {
-      user_data_auth: {} as UserDataAuth,
-      user_data_info: {} as UserDataInfo,
-      showErrMessage: false,
-      errMessage: ''
-    };
   },
 
   created: function () {},

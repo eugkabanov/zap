@@ -39,7 +39,7 @@ defineProps<{
           {{ itm_no }}
         </div>
         <div class="row align-items-end mt-3">
-          <div class="col-auto" :class="$tt('body1')">{{ quantity }} шт</div>
+          <div class="col-auto" :class="$tt('body1')">В корзине {{ quantity }} шт</div>
           <div class="col-auto ms-auto" :class="$tt('headline3')">{{ price }} ₽</div>
         </div>
       </div>

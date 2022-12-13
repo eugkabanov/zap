@@ -85,9 +85,10 @@ import IconQuestionBlue from "@/components/icons/iconQuestionBlue.vue";
       sheet
       class="balance-warning-dialog"
   >
-    <ErrorDialog
-    :error_detail_message="errMessage"
-    :hide_error_dialog="hideErrorDialog"
+    <NotificationDialog
+      :type_message="typeMessage"
+      :error_detail_message="errMessage"
+      :hide_error_dialog="hideErrorDialog"
     />
   </ui-dialog>
 </template>
@@ -98,7 +99,7 @@ import type CompanyRegistrationData from "@/types/CompanyRegistrationData";
 import CustomSelect from "../../components/CustomSelect.vue";
 import BalanceBar from "../../components/Profile/BalanceBar.vue";
 import LineBreak from "@/components/LineBreak.vue";
-import ErrorDialog from "@/components/Dialogs/ErrorDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import UserDataService from "@/services/UserDataService";
 import type ResponseData from "@/types/ResponseData";
 import router from "@/router";
@@ -107,7 +108,7 @@ export default defineComponent({
   name: "CompanyRegistration",
 
   components: {
-    ErrorDialog: ErrorDialog,
+    NotificationDialog: NotificationDialog,
     CustomSelect: CustomSelect,
     BalanceBar: BalanceBar,
     LineBreak: LineBreak,
@@ -133,6 +134,7 @@ export default defineComponent({
         } as CompanyRegistrationData,
       errMessage: "",
       showErrMessage: false,
+      typeMessage: ''
     };
   },
 
@@ -145,26 +147,36 @@ export default defineComponent({
     hideErrorDialog() {
       this.errMessage = ""
       this.showErrMessage = false
+      if (this.typeMessage == "УВЕДОМЛЕНИЕ!"){
+        this.typeMessage = ""
+        router.push({path: "/"});
+      }
     },
 
     registrationCompany() {
+      this.showErrMessage = false;
+      this.typeMessage =''
 
       if (this.company_data.inn == '') {
+        this.typeMessage = "ВНИМАНИЕ!"
         this.errMessage = ('Поле "ИНН" обязательно к заполнению');
         this.showErrMessage = true;
         return;
       }
       if (this.company_data.companyName == '') {
+        this.typeMessage = "ВНИМАНИЕ!"
         this.errMessage = ('Поле "Наименовании" обязательно к заполнению');
         this.showErrMessage = true;
         return;
       }
       if (this.company_data.contactEmail == '') {
+        this.typeMessage = "ВНИМАНИЕ!"
         this.errMessage = ('Поле "E-mail" обязательно к заполнению');
         this.showErrMessage = true;
         return;
       }
       if (this.company_data.contactPhone == '') {
+        this.typeMessage = "ВНИМАНИЕ!"
         this.errMessage = ('Поле "Телефон" обязательно к заполнению');
         this.showErrMessage = true;
         return;
@@ -194,16 +206,20 @@ export default defineComponent({
           this.company_data.contactPhone!= '') {
 
         UserDataService.registrationCompany(company_data_reg)
+
           .then((response: ResponseData) => {
             if (response.data.code != 409) {
-              this.showErrMessage = false;
-              router.push({path: "/"});
+              this.typeMessage = "УВЕДОМЛЕНИЕ!"
+              this.showErrMessage = true;
+              this.errMessage = "Для вас создан пользователь с логином " + response.data.login
             } else {
+              this.typeMessage = "ВНИМАНИЕ!"
               this.showErrMessage = true;
               this.errMessage = ('Пользователь с таким ИНН уже сущесвует');
             }
           })
           .catch((e: Error) => {
+            this.typeMessage = "ВНИМАНИЕ!"
             this.showErrMessage = true;
             this.errMessage = ('Попробуйте пройти регистрацию позже');
           });

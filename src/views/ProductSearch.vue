@@ -16,7 +16,14 @@ const similarSearchDataBody = [
 const searchDataBody = [
   { field: "make_name"},
   { field: "supplier_name" },
-  { field: "count"},
+  { field: "count",
+    fn: (data: { count: number; }) => {
+    if (data.count == 10000){
+      return "Под заказ "
+    }
+      return data.count;
+    }
+  },
   { field: "time_delivery" },
   { field: "price"},
   // { field: "time_delivery_direction" },
@@ -84,10 +91,19 @@ const similarSearchData = [
         class="col-12 col-lg-5"
         style="margin-bottom: 10px"
     >
-      <SearchFormWithIcon
-          placeholder="Поиск по артикулу"
-          @updateSearchPage="getProductByItemNo1"
-      />
+      <div class="row">
+        <div class="col-md-10">
+          <SearchFormWithIcon
+              placeholder="Поиск по артикулу"
+              @updateSearchPage="searchDetailInfoByItemNo"
+          />
+        </div>
+        <div class="col-md-2">
+          <ui-spinner
+              :active="progress"
+          ></ui-spinner>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div>
@@ -105,7 +121,7 @@ const similarSearchData = [
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, quantity, data.make_name)"
+                @click="addDetailToCart(data.price_id, data.make_name, data.count)"
               >
                 <ui-icon
                   class="hint"
@@ -119,10 +135,11 @@ const similarSearchData = [
 <!--            </template>-->
             <template #quantity="{ data }">
               <ui-textfield
-                @input="event => quantity = event.target.value"
+                @input="event => storeCartsQuantity(event.target.value, data.price_id)"
                 :modelValue="map_carts.get(data.price_id)"
                 :placeholder="0"
                 :min="0"
+                :max="data.count"
                 inputType="number"
                 :id="data.price_id"
                 class="small"
@@ -184,10 +201,30 @@ const similarSearchData = [
     />
   </ui-dialog>
 
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
     <LoginDialog
+      v-model:authKeyEnter=authKeyEnterShow
       @isLoginOpen="loginOpen"
       @updatePage="updatePage"
+    />
+  </ui-dialog>
+
+  <ui-dialog
+      v-model="showNotification"
+      maskClosable
+      sheet
+      class="balance-warning-dialog"
+  >
+    <NotificationDialog
+        :type_message="'ВНИМАНИЕ!'"
+        :error_detail_message="notificationDesc"
+        :hide_error_dialog="hideErrorDialog"
     />
   </ui-dialog>
 </template>
@@ -201,9 +238,10 @@ import type ArticlePriceData from "@/types/ArticlePriceData";
 import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {GET_NUMBER_CONFIRM_ORDERS, INCREMENT_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
+import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
+import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import router from "@/router";
 import SearchFormWithIcon from "@/components/Search/SearchFormWithIcon.vue";
@@ -215,7 +253,8 @@ export default defineComponent({
     LoginDialog: LoginDialog,
     ProfileDialog: ProfileDialog,
     CartAddDialog: CartAddDialog,
-    SearchFormWithIcon: SearchFormWithIcon
+    SearchFormWithIcon: SearchFormWithIcon,
+    NotificationDialog: NotificationDialog,
   },
 
   computed: {
@@ -224,35 +263,58 @@ export default defineComponent({
 
   data() {
     return {
-      map_carts: new Map<number, string>(),
-      detailsPriceInfo: [] as ArticleDetailData[],
+      map_carts: new Map<number, number>(),
       priceInfo: [] as ArticlePriceData[],
       productId: '',
       productCount: 0,
       isShowAddedProduct: false,
-      maxQuantity: 3,
-      quantity: 0,
       quantity_cart: 0,
       detail_name_cart: "",
       make_name_cart: "",
       itm_no_cart: "",
       price_cart: 0,
       isLoginOpen: false,
+      showNotification: false,
+      notificationDesc: "",
+      progress: false,
+      authKeyEnterShow: false
     };
 
 
   },
 
-  created: function () {
-    this.listCart();
-    this.getProductByItemNo();
+  created: async function () {
+    if (store.getters.isAuthenticated) {
+      await this.listCart();
+    }
+    await this.getDetailInfoByItemNo();
   },
 
   methods: {
 
-    serviceGetProductInfo(productId : string) {
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
+
+
+    storeCartsQuantity(value : number, priceId : number) {
+      this.map_carts.set(priceId, value)
+    },
+
+    hideErrorDialog() {
+      this.showNotification = false
+      this.notificationDesc = ""
+    },
+
+    async serviceGetProductInfo(productId : string) {
+      this.progress = true
       this.priceInfo.length = 0
-      SearchService.prices(productId)
+      await SearchService.prices(productId)
           .then((response: ResponseData) => {
 
             for (let index = 0, len = response.data.length; index < len; index++) {
@@ -265,7 +327,7 @@ export default defineComponent({
 
               for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
                 if (response.data[index].prices[index_price].count == 0) {
-                  response.data[index].prices[index_price].count = 0 + " (под заказ)"
+                  response.data[index].prices[index_price].count = 10000
                 }
                 this.priceInfo.push(response.data[index].prices[index_price])
                 this.productCount++
@@ -276,66 +338,83 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           });
+      this.progress = false
     },
 
-    getProductByItemNo1(article: string) {
+    searchDetailInfoByItemNo(article: string) {
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = article
       this.serviceGetProductInfo(article)
+      if (store.getters.isAuthenticated) {
+        this.listCart();
+      }
     },
 
-    getProductByItemNo() {
-
+    getDetailInfoByItemNo() {
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = this.$route.params.productId
       this.serviceGetProductInfo(this.productId)
-
     },
 
     updatePage() {
       router.go(0)
     },
 
-    addDetailToCart(priceId : number, quantity: number, make_name : string) {
+    async addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
 
       if (store.getters.isAuthenticated) {
+        let quantityItem: number
+        quantityItem = this.map_carts.get(priceId)
 
-        OrderService.addDetailToCart(priceId, quantity)
-            .then((response: ResponseData) => {
-              this.quantity == 0 ?
-                  this.detail_name_cart = response.data.itemName + " (под заказ)" : this.detail_name_cart = response.data.itemName
-              this.quantity_cart = response.data.quantity
-              this.make_name_cart = make_name
-              this.itm_no_cart = this.productId
-              this.price_cart = response.data.priceValue
+        if (quantityItem > 0) {
+          if (!(quantityItem > quantityMax)) {
+            this.progress = true
+            await OrderService.addDetailToCart(priceId, quantityItem)
+                .then((response: ResponseData) => {
 
-              this.isShowAddedProduct = true
+                  this.quantity_cart = response.data.quantity
+                  this.make_name_cart = make_name
+                  this.itm_no_cart = this.productId
+                  this.price_cart = response.data.priceValue
 
-              store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-              this.quantity = 0
-            })
-            .catch((e: Error) => {
-              console.log(e);
-            })
+                  this.isShowAddedProduct = true
 
+                  store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                })
+                .catch((e: Error) => {
+                  console.log(e);
+                })
+            this.progress = false
+          } else {
+            this.showNotification = true
+            this.notificationDesc = "Количество товара больше, чем есть в наличии у поставщика"
+          }
+
+        } else {
+          this.showNotification = true
+          this.notificationDesc = "Введите как минимум 1 единицу товара"
+        }
       } else {
         this.isLoginOpen = true
       }
     },
 
-    listCart() {
-      OrderService.getCart()
+    async listCart() {
+      this.progress = true
+      this.map_carts.clear()
+      await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
               this.map_carts.set(item.priceId, item.quantity);
             }
           })
-
           .catch((e: Error) => {
+            this.progress = false
             console.log(e);
           })
+      this.progress = false
     },
 
     hideAddedProduct() {

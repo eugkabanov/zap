@@ -71,12 +71,15 @@ const actions = {
                 })
                 .catch((e: Error) => {
                     console.log(e);
+                    resolve(e)
+                    context.commit(PURGE_AUTH);
                 })
         });
     },
 
     [LOGOUT](context: any) {
         return new Promise((resolve, reject) => {
+            resolve()
             context.commit(PURGE_AUTH);
         });
     },
@@ -88,18 +91,17 @@ const actions = {
                 store.dispatch(USER_ME)
                     .then((data: ResponseData) => {
                         resolve(data)
-                        console.log("USER_ME")
+                        store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
+                            .then((data: ResponseData) => {
+                            })
+                            .catch((e: Error) => {
+                                console.log(e);
+                            });
                     })
                     .catch((e: Error) => {
+                        context.commit(PURGE_AUTH);
                         console.log(e);
                     })
-                store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-                    .then((data: ResponseData) => {
-                        console.log("GET_NUMBER_CONFIRM_ORDERS")
-                    })
-                    .catch((e: Error) => {
-                        console.log(e);
-                    });
             } else {
                 context.commit(PURGE_AUTH);
             }
@@ -114,7 +116,7 @@ const mutations = {
   },
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false
-    state.user = {};
+    state.userData = {};
     state.errors = "";
     jwt_service.destroyToken();
   },

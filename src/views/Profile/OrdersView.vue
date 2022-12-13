@@ -252,6 +252,9 @@ import type ResponseData from "@/types/ResponseData";
 import type OrderItem from "@/types/OrderItem";
 import OrderService from "@/services/OrderService";
 import type Option from "@/types/Option";
+import {store} from "@/store";
+import router from "@/router";
+import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 
 export default defineComponent({
   name: "orders",
@@ -264,13 +267,26 @@ export default defineComponent({
       vendorCodesOptions: [] as Option[],
       statusOrdersOptions: [] as Option[],
       selectedValueVendorCode: '',
-      selectedValueStatus: ''
+      selectedValueVendorCodeDisable: false,
+      selectedValueStatus: '',
+      textSearchBar: '',
+      isLoginOpen: false,
+      isAuthorisedUser: false,
+      progress: false,
+      authKeyEnterShow: false,
     };
   },
 
+  components: {
+    LoginDialog: LoginDialog
+  },
 
   mounted: function () {
-    this.listOrders()
+    if (!store.getters.isAuthenticated) {
+      this.isLoginOpen = true
+    } else {
+      this.listOrders()
+    }
   },
 
   created: function () {
@@ -279,36 +295,66 @@ export default defineComponent({
 
   watch: {
 
-    selectedValueStatus(status: string) {
-      if (this.selectedValueStatus != "Non") {
-        this.items = this.items.filter(item => item.status == status)
-
-        if (this.items.length == 0) {
-          this.items.length = 0
-          this.items = this.itemsTech
-          this.items = this.items.filter(item => item.status == status)
+    textSearchBar() {
+      this.selectedValueVendorCodeDisable = false
+      if (this.textSearchBar != "") {
+        this.items = this.itemsTech
+        for (let item of this.items) {
+          if (item.vendorCode == this.textSearchBar) {
+            this.items = this.items.filter(item => item.vendorCode == this.textSearchBar)
+            this.selectedValueVendorCodeDisable = true
+            return
+          }
         }
-      } else {
-        this.listOrders()
       }
     },
 
     selectedValueVendorCode(vendorCode: string) {
+      this.items = this.itemsTech
+      this.textSearchBar = ''
       if (this.selectedValueVendorCode != "Non") {
         this.items = this.items.filter(item => item.vendorCode == vendorCode)
-
-        if (this.items.length == 0) {
-          this.items.length = 0
-          this.items = this.itemsTech
-          this.items = this.items.filter(item => item.vendorCode == vendorCode)
-        }
       } else {
-        this.listOrders()
+        this.items = this.itemsTech
+      }
+    },
+
+    selectedValueStatus(status: string) {
+      this.items = this.itemsTech
+      this.textSearchBar = ''
+      if (this.selectedValueStatus != "Non") {
+        this.items = this.items.filter(item => item.status == status)
+      } else {
+        this.items = this.itemsTech
       }
     }
   },
 
   methods: {
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
+    closeLoginDialog() {
+      this.isLoginOpen = false;
+    },
+
+    authorisedUser() {
+      this.isAuthorisedUser = true;
+    },
+
+    loginOpen() {
+      this.isLoginOpen = false;
+    },
+
+    updatePage() {
+      router.go(0)
+    },
 
     getStatusConfirmOrder(orderId: number) {
       OrderService.getStatusOrder(orderId)
@@ -324,14 +370,15 @@ export default defineComponent({
           })
     },
 
-    listOrders() {
+    async listOrders() {
+      this.progress = true
       this.items.length = 0
       this.itemsTech.length = 0
 
       this.vendorCodes.clear()
       this.statusOrders.clear()
 
-      OrderService.getOrders()
+      await OrderService.getOrders()
         .then((response: ResponseData) => {
           for (let item of response.data.orders) {
 
@@ -366,8 +413,10 @@ export default defineComponent({
         })
 
         .catch((e: Error) => {
+          this.progress = false
           console.log(e);
         })
+      this.progress = false
     },
 
     onSelectedVendorCode(selected) {
@@ -389,6 +438,13 @@ export default defineComponent({
       <div class="col-auto ms-auto">
         <BalanceBar class="mt-2 mb-3" />
       </div>
+    </div>
+    <div class="col-4" style="margin-bottom: 20px">
+      <ui-textfield
+          fullwidth
+          outlined
+          v-model="textSearchBar"
+          :placeholder="'Поиск заказа по артикулу'" />
     </div>
 
     <!-- <div class="row align-items-center gy-4 mb-4">
@@ -439,9 +495,10 @@ export default defineComponent({
             :options="vendorCodesOptions"
             :optionFormat="{ label: 'value', value: 'key' }"
             :defaultValue="'Non'"
-            defaultLabel="All"
+            defaultLabel="Все артикулы"
             class="small-select"
             @selected="onSelectedVendorCode($event)"
+            :disabled="selectedValueVendorCodeDisable"
         >Артикул</CustomSelect>
       </div>
       <!-- <div class="col-6 col-xl-auto">
@@ -452,11 +509,14 @@ export default defineComponent({
             :options="statusOrdersOptions"
             :optionFormat="{ label: 'value', value: 'key' }"
             :defaultValue="'Non'"
-            defaultLabel="All"
+            defaultLabel="Все статусы"
             class="small-select"
             @selected="onSelectedStatus($event)"
         >Статус</CustomSelect>
       </div>
+      <ui-spinner
+          :active="progress"
+      ></ui-spinner>
       <!-- <div class="col-6 col-xl-auto">
         <CustomSelect class="small-select">Поставщик</CustomSelect>
       </div> -->
@@ -530,9 +590,9 @@ export default defineComponent({
 <!--        </ui-icon>-->
 <!--      </template>-->
 
-      <template #th-select>
+<!--      <template #th-select>-->
 
-      </template>
+<!--      </template>-->
       <template #select="{ data }">
         <ui-icon-button
         v-on:click="getStatusConfirmOrder(data.id)"
@@ -552,6 +612,22 @@ export default defineComponent({
 
   <ui-dialog type="modal" sheet v-model="isStatsOpen">
     <OrdersStatsDialog />
+  </ui-dialog>
+
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
+    <LoginDialog
+        v-model:authKeyEnter=authKeyEnterShow
+        @closeDialog="closeLoginDialog"
+        @isAuthorisedUser="authorisedUser"
+        @isLoginOpen="loginOpen"
+        @updatePage="updatePage"
+    />
   </ui-dialog>
 </template>
 
@@ -616,6 +692,10 @@ export default defineComponent({
   }
   .status {
     border-bottom: 1px dashed vars.$grayed;
+  }
+
+  .search-bar {
+    margin-bottom: 30px!important;
   }
 
   .mdc-data-table__row {
