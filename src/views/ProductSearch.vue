@@ -25,7 +25,11 @@ const searchDataBody = [
     }
   },
   { field: "time_delivery" },
-  { field: "price"},
+  { field: "price",
+    fn: (data: { price: number; }) => {
+      return data.price.toFixed(2);
+    }
+  },
   // { field: "time_delivery_direction" },
   { slot: "quantity" },
   { slot: "cart" },
