@@ -6,7 +6,7 @@ class CatalogService {
     let params = {
       'itemNo': itemNo,
     };
-    return HTTPClient.get("price/getProductByItemNo/", { params: params } );
+    return HTTPClient.get("price/getUserPricesByItemNo/", { params: params } );
   }
 
 }

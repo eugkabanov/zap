@@ -333,10 +333,10 @@ export default defineComponent({
                 this.productCount++
               }
             }
-
           })
           .catch((e: Error) => {
             console.log(e);
+            this.progress = false
           });
       this.progress = false
     },
