@@ -1,3 +1,3 @@
 export default interface ConfirmOrderObject {
-    pricesList: Array <number> []
+    pricesList: Array <string> []
 }
