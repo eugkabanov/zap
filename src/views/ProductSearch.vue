@@ -125,7 +125,7 @@ const similarSearchData = [
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, data.make_name, data.count)"
+                @click="addDetailToCart(data.price_id, data.make_name, data.count, data.price_list_id, data.price.toFixed(2))"
               >
                 <ui-icon
                   class="hint"
@@ -139,8 +139,8 @@ const similarSearchData = [
 <!--            </template>-->
             <template #quantity="{ data }">
               <ui-textfield
-                @input="event => storeCartsQuantity(event.target.value, data.price_id)"
-                :modelValue="map_carts.get(data.price_id)"
+                @input="event => storeCartsQuantity(event.target.value, data.price_id, data.price_list_id)"
+                :modelValue="map_carts.get(data.price_id + data.price_list_id)"
                 :placeholder="0"
                 :min="0"
                 :max="data.count"
@@ -267,7 +267,7 @@ export default defineComponent({
 
   data() {
     return {
-      map_carts: new Map<number, number>(),
+      map_carts: new Map<string, number>(),
       priceInfo: [] as ArticlePriceData[],
       productId: '',
       productCount: 0,
@@ -288,10 +288,12 @@ export default defineComponent({
   },
 
   created: async function () {
+    this.progress = true
     if (store.getters.isAuthenticated) {
       await this.listCart();
     }
     await this.getDetailInfoByItemNo();
+    this.progress = false
   },
 
   methods: {
@@ -306,8 +308,8 @@ export default defineComponent({
 
 
 
-    storeCartsQuantity(value : number, priceId : number) {
-      this.map_carts.set(priceId, value)
+    storeCartsQuantity(value : number, priceId : number, priceListId: string) {
+      this.map_carts.set(priceId + priceListId, value)
     },
 
     hideErrorDialog() {
@@ -316,7 +318,6 @@ export default defineComponent({
     },
 
     async serviceGetProductInfo(productId : string) {
-      this.progress = true
       this.priceInfo.length = 0
       await SearchService.prices(productId)
           .then((response: ResponseData) => {
@@ -342,40 +343,40 @@ export default defineComponent({
             console.log(e);
             this.progress = false
           });
-      this.progress = false
     },
 
-    searchDetailInfoByItemNo(article: string) {
+    async searchDetailInfoByItemNo(article: string) {
+      this.progress = true
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = article
-      this.serviceGetProductInfo(article)
+      await this.serviceGetProductInfo(article)
       if (store.getters.isAuthenticated) {
-        this.listCart();
+        await this.listCart();
       }
+      this.progress = false
     },
 
-    getDetailInfoByItemNo() {
+    async getDetailInfoByItemNo() {
       this.priceInfo.length = 0
       this.productCount = 0
       this.productId = this.$route.params.productId
-      this.serviceGetProductInfo(this.productId)
+      await this.serviceGetProductInfo(this.productId)
     },
 
     updatePage() {
       router.go(0)
     },
 
-    async addDetailToCart(priceId : number, make_name : string, quantityMax: number) {
+    async addDetailToCart(priceId : number, make_name : string, quantityMax: number, priceListId: string, prc: number) {
 
       if (store.getters.isAuthenticated) {
         let quantityItem: number
-        quantityItem = this.map_carts.get(priceId)
-
+        quantityItem = this.map_carts.get(priceId + priceListId)
         if (quantityItem > 0) {
           if (!(quantityItem > quantityMax)) {
             this.progress = true
-            await OrderService.addDetailToCart(priceId, quantityItem)
+            await OrderService.addDetailToCart(priceId, quantityItem, priceListId, prc)
                 .then((response: ResponseData) => {
 
                   this.quantity_cart = response.data.quantity
@@ -388,6 +389,8 @@ export default defineComponent({
                   store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                 })
                 .catch((e: Error) => {
+                  this.showNotification = true
+                  this.notificationDesc = "Произошла ошибка. Попробуйте сделать заказ позже."
                   console.log(e);
                 })
             this.progress = false
@@ -406,19 +409,17 @@ export default defineComponent({
     },
 
     async listCart() {
-      this.progress = true
       this.map_carts.clear()
       await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
-              this.map_carts.set(item.priceId, item.quantity);
+              this.map_carts.set(item.priceId + item.priceListId, item.quantity);
             }
           })
           .catch((e: Error) => {
             this.progress = false
             console.log(e);
           })
-      this.progress = false
     },
 
     hideAddedProduct() {

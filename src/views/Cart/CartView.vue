@@ -389,8 +389,8 @@ export default defineComponent({
       this.priceIdEditComment = priceId
     },
 
-    saveCommentDialog(comment: string) {
-      OrderService.editCommentToOrderCart(comment, this.priceIdEditComment)
+    saveCommentDialog(comment: string, priceListId: string) {
+      OrderService.editCommentToOrderCart(comment, this.priceIdEditComment, priceListId)
           .then((response: ResponseData) => {
             for (let item of this.items) {
               if (item.priceId == response.data) {
