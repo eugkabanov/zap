@@ -29,9 +29,10 @@ class OrderService {
     return HTTPClient.get("/order/currentNumberConfirmed");
   }
 
-  deleteOrderForCart(priceId: number): Promise<any> {
+  deleteOrderForCart(priceId: number, priceListId: string): Promise<any> {
     let params = {
       'priceId': priceId,
+      'priceListId': priceListId
     };
     return HTTPClient.get("/order/cart/delete/", { params : params });
   }
@@ -40,7 +41,7 @@ class OrderService {
     let params = {
       'comment': comment,
       'priceId': priceId,
-      'priceListId': priceListId,
+      'priceListId': priceListId
     };
     return HTTPClient.get("/order/cart/edit/comment/", { params : params });
   }

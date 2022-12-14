@@ -105,13 +105,13 @@ const activeTab = ref(0);
           <div class="cell" style="display: flex;">
             <ui-icon
                 style="cursor: pointer; margin-right: 16px"
-                v-on:click="updateOrderToCart(data.priceId, data.quantity - 1)">
+                v-on:click="updateOrderToCart(data.priceId, data.quantity - 1, data.priceListId, data.priceValue)">
               remove
             </ui-icon>
             <label style="margin-bottom: 10px">{{ data.quantity }}</label>
             <ui-icon
                 style="cursor: pointer; margin-left: 16px"
-                v-on:click="updateOrderToCart(data.priceId, data.quantity + 1)">
+                v-on:click="updateOrderToCart(data.priceId, data.quantity + 1, data.priceListId, data.priceValue)">
               add
             </ui-icon>
           </div>
@@ -121,7 +121,7 @@ const activeTab = ref(0);
           <div class="mdc-checkbox">
             <input type="checkbox"
                    :id="data.vendorCode"
-                   :value="data.priceId"
+                   :value="data.priceId + data.priceListId"
                    style="padding-bottom: 12px; color: #0069c8!important;"
                    v-model="cartsToConfirm"
                    class="mdc-checkbox__native-control"
@@ -144,13 +144,13 @@ const activeTab = ref(0);
         </template>
         <template #edit="{ data }">
           <ui-icon-button
-              v-on:click="showDialogAddCommentFunc(data.priceId)">
+              v-on:click="showDialogAddCommentFunc(data.priceId, data.priceListId)">
             edit
           </ui-icon-button>
         </template>
         <template #delete="{ data }">
           <ui-icon-button
-              v-on:click="deleteCart(data.priceId)"
+              v-on:click="deleteCart(data.priceId, data.priceListId)"
           >
             delete
           </ui-icon-button>
@@ -276,6 +276,7 @@ export default defineComponent({
       typeNotification: '',
       showDialogAddComment: false,
       priceIdEditComment: 0,
+      priceListIdEditComment: "",
       isLoginOpen: false,
       isAuthorisedUser: false,
       selectedAllShow: false,
@@ -356,7 +357,7 @@ export default defineComponent({
       if (this.cartsToConfirm.length > 0) {
         for (let cart of this.cartsToConfirm) {
           for (let index = 0, len = this.items.length; index < len; index++) {
-            if (this.items[index].priceId == cart) {
+            if (this.items[index].priceId + this.items[index].priceListId == cart) {
               this.totalOrderPrice += this.items[index].total
             }
           }
@@ -364,13 +365,13 @@ export default defineComponent({
       }
     },
 
-    updateOrderToCart(priceId: number, quantity: number) {
+    updateOrderToCart(priceId: number, quantity: number, priceListId: string, prc: number) {
 
       if (quantity >= 0) {
-        OrderService.addDetailToCart(priceId, quantity)
+        OrderService.addDetailToCart(priceId, quantity, priceListId, prc)
             .then((response: ResponseData) => {
               for (let item of this.items) {
-                if (item.priceId == priceId) {
+                if (item.priceId + item.priceListId == priceId + priceListId) {
                   item.quantity = quantity
                   item.total = Number((item.priceValue * item.quantity).toFixed(2));
                 }
@@ -384,24 +385,29 @@ export default defineComponent({
       }
     },
 
-    showDialogAddCommentFunc(priceId: number) {
+    showDialogAddCommentFunc(priceId: number, priceListId: string) {
       this.showDialogAddComment = true
       this.priceIdEditComment = priceId
+      this.priceListIdEditComment = priceListId
     },
 
-    saveCommentDialog(comment: string, priceListId: string) {
-      OrderService.editCommentToOrderCart(comment, this.priceIdEditComment, priceListId)
+    saveCommentDialog(comment: string) {
+      OrderService.editCommentToOrderCart(comment, this.priceIdEditComment, this.priceListIdEditComment)
           .then((response: ResponseData) => {
             for (let item of this.items) {
-              if (item.priceId == response.data) {
+              if (item.priceId + item.priceListId == response.data) {
                 item.comment = comment
               }
             }
           })
           .catch((e: Error) => {
+            this.typeNotification = "ОШИБКА!"
+            this.showNotification = true;
+            this.notificationMessage = "Произошла ошибка добавления комментария. Попробуйте позже."
             console.log(e);
           })
-
+      this.priceIdEditComment = 0
+      this.priceListIdEditComment = ''
       this.showDialogAddComment = false
     },
 
@@ -442,19 +448,19 @@ export default defineComponent({
       this.showNotification = false
     },
 
-    deleteCart(priceId: number) {
-      OrderService.deleteOrderForCart(priceId)
+    deleteCart(priceId: number, priceListId: string) {
+      OrderService.deleteOrderForCart(priceId, priceListId)
           .then((response: ResponseData) => {
             for (let index = 0, len = this.items.length; index < len; index++) {
-              if (this.items[index].priceId == response.data) {
+              if (this.items[index].priceId + this.items[index].priceListId == response.data) {
                 this.items.splice(this.items.indexOf(this.items[index]), 1)
-                this.cartsToConfirmTech.splice(this.cartsToConfirmTech.indexOf(priceId), 1)
+                this.cartsToConfirmTech.splice(this.cartsToConfirmTech.indexOf(priceId + priceListId), 1)
                 break
               }
             }
             this.cartsToConfirm.splice(0)
-            for (let priceId of this.cartsToConfirmTech) {
-              this.cartsToConfirm.push(priceId)
+            for (let id of this.cartsToConfirmTech) {
+              this.cartsToConfirm.push(id)
             }
 
             this.calculatingTotalPrice()
@@ -482,8 +488,8 @@ export default defineComponent({
       await OrderService.getCart()
           .then((response: ResponseData) => {
             for (let item of response.data.cart) {
-              this.cartsToConfirm.push(item.priceId)
-              this.cartsToConfirmTech.push(item.priceId)
+              this.cartsToConfirm.push(item.priceId + item.priceListId)
+              this.cartsToConfirmTech.push(item.priceId + item.priceListId)
 
               item.total = Number((item.priceValue * item.quantity).toFixed(2));
               item.supplierMaxPeriod += " дней";
