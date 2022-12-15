@@ -15,10 +15,12 @@ class OrderService {
     return HTTPClient.get("/order/orders");
   }
 
-  addDetailToCart(priceId: number, quantity : number): Promise<any> {
+  addDetailToCart(priceId: number, quantity : number, priceListId : string, prc: number): Promise<any> {
     let params = {
       'priceId': priceId,
-      'quantity': quantity
+      'quantity': quantity,
+      'priceListId': priceListId,
+      'prc': prc
     };
     return HTTPClient.get("/order/addToCart", { params : params });
   }
@@ -27,17 +29,19 @@ class OrderService {
     return HTTPClient.get("/order/currentNumberConfirmed");
   }
 
-  deleteOrderForCart(priceId: number): Promise<any> {
+  deleteOrderForCart(priceId: number, priceListId: string): Promise<any> {
     let params = {
       'priceId': priceId,
+      'priceListId': priceListId
     };
     return HTTPClient.get("/order/cart/delete/", { params : params });
   }
 
-  editCommentToOrderCart(comment: string, priceId: number): Promise<any> {
+  editCommentToOrderCart(comment: string, priceId: number, priceListId: string): Promise<any> {
     let params = {
       'comment': comment,
       'priceId': priceId,
+      'priceListId': priceListId
     };
     return HTTPClient.get("/order/cart/edit/comment/", { params : params });
   }

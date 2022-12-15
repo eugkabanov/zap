@@ -100,7 +100,7 @@
               class="header-item"
           >
             <ui-icon>perm_identity</ui-icon
-            ><span class="header-item__label">{{ profile_user_data_info.login }}</span>
+            ><span class="header-item__label">{{ $store.getters.currentUser.login }}</span>
           </div>
           <div v-else v-on:click="openLogin" class="header-item">
             <ui-icon>perm_identity</ui-icon
