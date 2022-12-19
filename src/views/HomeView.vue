@@ -30,7 +30,7 @@ const submitSearch = () => {
           <div class="row g-0">
             <div class="col-12 col-lg-8 mx-auto">
               <SearchFormWithIcon
-                placeholder="Поиск по артикулу"
+                placeholder="Поиск по артикулу/VIN"
               />
             </div>
             <div class="col-12 col-lg-6 mx-auto mt-4">

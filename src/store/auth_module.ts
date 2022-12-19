@@ -32,6 +32,21 @@ const getters = {
 
 const actions = {
 
+  [AUTH](context: any, userDataAuth: UserDataAuth) {
+    return new Promise((resolve, reject) => {
+      UserDataService.auth(userDataAuth)
+        .then(({ data }) => {
+            jwt_service.saveToken(data.access_token)
+            context.commit(SET_AUTH)
+            resolve(data);
+          })
+          .catch(({ response }) => {
+            // context.commit(SET_ERROR, response.data.errors);
+            alert(response.statusText)
+            reject(response);
+          });
+    });
+  },
     [AUTH](context: any, userDataAuth: UserDataAuth) {
         return new Promise((resolve, reject) => {
             UserDataService.auth(userDataAuth)
