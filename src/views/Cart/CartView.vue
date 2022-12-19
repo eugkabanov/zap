@@ -300,12 +300,14 @@ export default defineComponent({
     },
   },
 
-  mounted: function () {
+  mounted: async function () {
+    this.progress = true
     if (!store.getters.isAuthenticated) {
       this.isLoginOpen = true
     } else {
-      this.listCart()
+      await this.listCart()
     }
+    this.progress = false
   },
 
   created: function () {
@@ -411,10 +413,10 @@ export default defineComponent({
       this.showDialogAddComment = false
     },
 
-    doConfirm() {
+    async doConfirm() {
       if (this.cartsToConfirm.length != 0) {
         this.progress = true
-        OrderService.confirmOrder(this.cartsToConfirm)
+        await OrderService.confirmOrder(this.cartsToConfirm)
             .then((response: ResponseData) => {
 
               if (response.data.status == -1) {
@@ -430,7 +432,6 @@ export default defineComponent({
                   .catch((e: Error) => {
                     console.log(e);
                   });
-              this.progress = false
             })
 
             .catch((e: Error) => {
@@ -440,6 +441,7 @@ export default defineComponent({
               this.showNotification = true
               console.log(e);
             })
+        this.progress = false
       }
     },
 
@@ -480,7 +482,6 @@ export default defineComponent({
     },
 
     async listCart() {
-      this.progress = true
       this.items.length = 0
       this.cartsToConfirm.length = 0
       this.cartsToConfirmTech.length = 0
@@ -504,7 +505,6 @@ export default defineComponent({
       if (this.cartsToConfirm.length > 0) {
         this.selectedAllShow = true
       }
-      this.progress = false
     },
 
   },

@@ -281,12 +281,14 @@ export default defineComponent({
     LoginDialog: LoginDialog
   },
 
-  mounted: function () {
+  mounted: async function () {
+    this.progress = true
     if (!store.getters.isAuthenticated) {
       this.isLoginOpen = true
     } else {
-      this.listOrders()
+      await this.listOrders()
     }
+    this.progress = false
   },
 
   created: function () {
@@ -371,7 +373,6 @@ export default defineComponent({
     },
 
     async listOrders() {
-      this.progress = true
       this.items.length = 0
       this.itemsTech.length = 0
 
@@ -416,7 +417,6 @@ export default defineComponent({
           this.progress = false
           console.log(e);
         })
-      this.progress = false
     },
 
     onSelectedVendorCode(selected) {
