@@ -382,7 +382,7 @@ export default defineComponent({
                   this.quantity_cart = response.data.quantity
                   this.make_name_cart = make_name
                   this.itm_no_cart = this.productId
-                  this.price_cart = response.data.priceValue * response.data.quantity
+                  this.price_cart = (response.data.priceValue * response.data.quantity).toFixed(2)
 
                   this.isShowAddedProduct = true
 
