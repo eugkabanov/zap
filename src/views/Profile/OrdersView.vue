@@ -281,12 +281,14 @@ export default defineComponent({
     LoginDialog: LoginDialog
   },
 
-  mounted: function () {
+  mounted: async function () {
+    this.progress = true
     if (!store.getters.isAuthenticated) {
       this.isLoginOpen = true
     } else {
-      this.listOrders()
+      await this.listOrders()
     }
+    this.progress = false
   },
 
   created: function () {
@@ -313,9 +315,18 @@ export default defineComponent({
       this.items = this.itemsTech
       this.textSearchBar = ''
       if (this.selectedValueVendorCode != "Non") {
-        this.items = this.items.filter(item => item.vendorCode == vendorCode)
+        if (this.selectedValueStatus != "Non" && this.selectedValueStatus != "") {
+          this.items = this.items.filter(item => item.status == this.selectedValueStatus)
+          this.items = this.items.filter(item => item.vendorCode == vendorCode)
+        } else {
+          this.items = this.items.filter(item => item.vendorCode == vendorCode)
+        }
       } else {
-        this.items = this.itemsTech
+        if (this.selectedValueStatus != "Non" && this.selectedValueStatus != "") {
+          this.items = this.items.filter(item => item.status == this.selectedValueStatus  )
+        } else {
+          this.items = this.itemsTech
+        }
       }
     },
 
@@ -323,9 +334,18 @@ export default defineComponent({
       this.items = this.itemsTech
       this.textSearchBar = ''
       if (this.selectedValueStatus != "Non") {
-        this.items = this.items.filter(item => item.status == status)
+        if (this.selectedValueVendorCode != "Non" && this.selectedValueVendorCode != "") {
+          this.items = this.items.filter(item => item.vendorCode == this.selectedValueVendorCode)
+          this.items = this.items.filter(item => item.status == status)
+        } else {
+          this.items = this.items.filter(item => item.status == status)
+        }
       } else {
-        this.items = this.itemsTech
+        if (this.selectedValueVendorCode != "Non" && this.selectedValueVendorCode != "") {
+          this.items = this.items.filter(item => item.vendorCode == this.selectedValueVendorCode)
+        } else {
+          this.items = this.itemsTech
+        }
       }
     }
   },
@@ -371,7 +391,6 @@ export default defineComponent({
     },
 
     async listOrders() {
-      this.progress = true
       this.items.length = 0
       this.itemsTech.length = 0
 
@@ -416,7 +435,6 @@ export default defineComponent({
           this.progress = false
           console.log(e);
         })
-      this.progress = false
     },
 
     onSelectedVendorCode(selected) {
