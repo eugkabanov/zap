@@ -75,7 +75,7 @@
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <div v-if="$store.getters.isAuthenticated" class="header-item">
+          <div v-if="$store.getters.isAuthenticated" class="header-item" id="open-cart">
             <RouterLink to="/cart">
               <ui-badge overlap :count="$store.getters.currentStateCart"
               ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
@@ -98,11 +98,17 @@
               v-if="$store.getters.isAuthenticated"
               v-on:click="openProfileDialog"
               class="header-item"
+              id="open-profile-dialog"
           >
             <ui-icon>perm_identity</ui-icon
             ><span class="header-item__label">{{ $store.getters.currentUser.login }}</span>
           </div>
-          <div v-else v-on:click="openLogin" class="header-item">
+          <div 
+            v-else
+            v-on:click="openLogin" 
+            class="header-item" 
+            id="open-login"
+          >
             <ui-icon>perm_identity</ui-icon
             ><span class="header-item__label">Вход</span>
           </div>

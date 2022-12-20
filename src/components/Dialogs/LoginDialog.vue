@@ -53,7 +53,10 @@
     </div>
 
     <ui-button
-        v-on:click="authUser" raised class="col-12 mt-3"
+        id="auth-button"
+        v-on:click="authUser" 
+        raised
+        class="col-12 mt-3"
       >Войти</ui-button
     >
     <div v-if="showErrMessage" class="mb-2; text-center" style="margin-top: 12px">

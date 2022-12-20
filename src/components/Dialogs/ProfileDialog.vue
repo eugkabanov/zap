@@ -118,7 +118,7 @@
           <ui-icon outlined>logout</ui-icon>
         </div>
         <div class="col">
-          <div v-on:click="logout()" :class="$tt('body1')">Выйти</div>
+          <div v-on:click="logout()" :class="$tt('body1')" id="logout-button">Выйти</div>
         </div>
       </div>
     </div>

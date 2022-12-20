@@ -48,6 +48,7 @@ defineProps<{
     <div class="row g-3 mt-4">
       <div class="col-12 col-md-6">
         <ui-button
+          id="continue-shopping"
           style="color: #0069c8"
           class="w-100"
           outlined
@@ -57,7 +58,10 @@ defineProps<{
       </div>
       <div class="col-12 col-md-6">
         <RouterLink to="/cart">
-          <ui-button class="w-100" raised
+          <ui-button 
+            id="go-to-cart"
+            class="w-100"
+            raised
             >Перейти&nbsp;в&nbsp;корзину</ui-button
           >
         </RouterLink>

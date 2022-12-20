@@ -10,10 +10,10 @@ const props = defineProps<{
   <form v-on:submit.prevent>
     <div class="row">
       <div class="col">
-        <ui-textfield v-on:keyup.enter="searchArticleDetail()" v-model="article" outlined fullwidth :placeholder="placeholder" />
+        <ui-textfield id="search-input" v-on:keyup.enter="searchArticleDetail()" v-model="article" outlined fullwidth :placeholder="placeholder" />
       </div>
       <div class="col-auto text-right">
-        <ui-fab v-on:click="searchArticleDetail()" icon="search" type="submit" style="background-color: #bfbfc3" />
+        <ui-fab id="search-button" v-on:click="searchArticleDetail()" icon="search" type="submit" style="background-color: #bfbfc3" />
       </div>
     </div>
   </form>
