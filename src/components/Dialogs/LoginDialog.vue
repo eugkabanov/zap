@@ -38,19 +38,19 @@
       />
     </div>
 
-    <div class="row mt-2 align-items-center">
-      <div class="col-auto">
-        <ui-form-field>
-          <ui-checkbox input-id="login-remember" />
-          <label for="login-remember">Запомнить меня</label>
-        </ui-form-field>
-      </div>
-      <div class="col-auto ms-auto">
-        <RouterLink to="/recover">
+<!--    <div class="row mt-2 align-items-center">-->
+<!--      <div class="col-auto">-->
+<!--        <ui-form-field>-->
+<!--          <ui-checkbox input-id="login-remember" />-->
+<!--          <label for="login-remember">Запомнить меня</label>-->
+<!--        </ui-form-field>-->
+<!--      </div>-->
+      <div class="col-auto mt-3 row">
+        <RouterLink to="/recover" v-on:click="closeLoginDialog()">
           <div :class="$tt('body1')" class="hint thin">Забыли пароль?</div>
         </RouterLink>
       </div>
-    </div>
+<!--    </div>-->
 
     <ui-button
         v-on:click="authUser" raised class="col-12 mt-3"
@@ -206,8 +206,6 @@ export default defineComponent({
     NotificationDialog: NotificationDialog,
     LineBreak: LineBreak
   },
-
-  created: function () {},
 
   computed: {
     ...mapGetters(["isAuthenticated"])

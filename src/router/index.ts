@@ -96,7 +96,12 @@ const router = createRouter({
     {
       path: "/recover",
       name: "recover",
-      component: () => import("../views/PassView.vue"),
+      component: () => import("../views/RecoveryPass.vue"),
+    },
+    {
+      path: "/check/:checkUuid",
+      name: "recoveryCheck",
+      component: () => import("../views/RecoveryCheck.vue"),
     },
 
     // profile

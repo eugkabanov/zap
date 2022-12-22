@@ -12,6 +12,7 @@
         <ui-button
             raised
             @click="hide_error_dialog"
+            v-on:click="notificationContinue"
         >Продолжить</ui-button>
       </div>
     </div>
@@ -24,4 +25,27 @@ defineProps<{
   error_detail_message: string;
   hide_error_dialog: Function;
 }>();
+</script>
+
+<script lang="ts">
+import {defineComponent} from "vue";
+
+export default defineComponent({
+  name: "NotificationDialog",
+
+  data() {
+
+    return {
+    };
+  },
+
+  watch: {
+  },
+
+  methods: {
+    notificationContinue() {
+      this.$emit("notificationContinue")
+    }
+  },
+});
 </script>
