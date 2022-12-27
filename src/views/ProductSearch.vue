@@ -2,16 +2,16 @@
 import { ref } from "vue";
 import ProductSearchFilters from "../components/Search/ProductSearchFilters.vue";
 
-const similarSearchDataBody = [
-  { field: "brand" },
-  { field: "dealer" },
-  { field: "count" },
-  { field: "deadline" },
-  { field: "price" },
-  { field: "date" },
-  { slot: "cart" },
-  { slot: "delivery" },
-];
+// const similarSearchDataBody = [
+//   { field: "brand" },
+//   { field: "dealer" },
+//   { field: "count" },
+//   { field: "deadline" },
+//   { field: "price" },
+//   { field: "date" },
+//   { slot: "cart" },
+//   { slot: "delivery" },
+// ];
 
 const searchDataBody = [
   { field: "make_name"},
@@ -31,7 +31,7 @@ const searchDataBody = [
     }
   },
   // { field: "time_delivery_direction" },
-  { slot: "quantity" },
+  { slot: "quantity",},
   { slot: "cart" },
   // { slot: "delivery" },
 ];
@@ -47,39 +47,39 @@ const searchDataHead = [
   { value: "" },
   // { value: "" }
 ];
-const similarSearchDataHead = [
-  { value: "Бренд" },
-  { value: "Поставщик" },
-  { value: "Количество" },
-  { value: "Срок" },
-  { value: "Цена" },
-  { value: "Отправка поставщику" },
-  { value: "" },
-  { value: "" },
-];
+// const similarSearchDataHead = [
+//   { value: "Бренд" },
+//   { value: "Поставщик" },
+//   { value: "Количество" },
+//   { value: "Срок" },
+//   { value: "Цена" },
+//   { value: "Отправка поставщику" },
+//   { value: "" },
+//   { value: "" },
+// ];
 const isSearchFiltersOpen = ref(false);
-const isSimilarShow = ref(false);
+// const isSimilarShow = ref(false);
 
-const onFilterClick = () => (isSimilarShow.value = true);
+// const onFilterClick = () => (isSimilarShow.value = true);
 
-const similarSearchData = [
-  {
-    brand: "NOKIAN",
-    dealer: "Название поставщика ",
-    count: "4 шт.",
-    deadline: "3 дня",
-    price: "5841 ₽",
-    date: "Сегодня в 14:30",
-  },
-  {
-    brand: "NOKIAN",
-    dealer: "Название поставщика ",
-    count: "4 шт.",
-    deadline: "3 дня",
-    price: "5841 ₽",
-    date: "Сегодня в 14:30",
-  },
-];
+// const similarSearchData = [
+//   {
+//     brand: "NOKIAN",
+//     dealer: "Название поставщика ",
+//     count: "4 шт.",
+//     deadline: "3 дня",
+//     price: "5841 ₽",
+//     date: "Сегодня в 14:30",
+//   },
+//   {
+//     brand: "NOKIAN",
+//     dealer: "Название поставщика ",
+//     count: "4 шт.",
+//     deadline: "3 дня",
+//     price: "5841 ₽",
+//     date: "Сегодня в 14:30",
+//   },
+// ];
 
 </script>
 
@@ -139,7 +139,8 @@ const similarSearchData = [
 <!--            </template>-->
             <template #quantity="{ data }">
               <ui-textfield
-                @input="event => storeCartsQuantity(event.target.value, data.price_id, data.price_list_id)"
+                @change="event => changeQuantityPrice(event.target.value, data.price_id, data.price_list_id, data.min_part, data.count)"
+                @click="setCursorStart(data.price_id, data.price_list_id)"
                 :modelValue="map_carts.get(data.price_id + data.price_list_id)"
                 :placeholder="0"
                 :min="0"
@@ -249,6 +250,7 @@ import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import router from "@/router";
 import SearchFormWithIcon from "@/components/Search/SearchFormWithIcon.vue";
+import e from "cors";
 
 export default defineComponent({
   name: "ProductSearch",
@@ -306,10 +308,46 @@ export default defineComponent({
       }
     },
 
+    setCursorStart(priceId: number, priceListId: string) {
+      if (this.map_carts.get(priceId + priceListId) == 0 ){
+        this.map_carts.set(priceId + priceListId, null)
+      }
+    },
 
+    multiple(quantity: number, minPart: number): number {
+      if ((quantity % minPart) != 0){
+        let quotient = Math.floor(quantity/minPart) + 1
+        return Number(quantity) + (quotient * minPart - quantity)
+      }
+      return quantity
+    },
 
-    storeCartsQuantity(value : number, priceId : number, priceListId: string) {
-      this.map_carts.set(priceId + priceListId, value)
+    async changeQuantityPrice(quantity : number, priceId : number, priceListId: string, minPart: number, availableCount: number) {
+      if (quantity <= availableCount) {
+        let quantityCurrent = Number(this.map_carts.get(priceId + priceListId))
+        if (quantity > quantityCurrent) {
+          if ((quantity - quantityCurrent) > minPart) {
+            this.map_carts.set(priceId + priceListId, this.multiple(quantity, minPart))
+          } else {
+            let newQuantity = quantityCurrent + minPart;
+            this.map_carts.set(priceId + priceListId, newQuantity)
+          }
+        } else {
+          if (quantity < 0){
+            await this.map_carts.set(priceId + priceListId, 1)
+            this.map_carts.set(priceId + priceListId, 0)
+          } else {
+            if (quantity != 0 && (quantityCurrent - quantity) < minPart ) {
+              this.map_carts.set(priceId + priceListId, quantityCurrent - minPart)
+            } else {
+              this.map_carts.set(priceId + priceListId, this.multiple(quantity, minPart))
+            }
+          }
+        }
+      } else {
+        await this.map_carts.set(priceId + priceListId, 0)
+        this.map_carts.set(priceId + priceListId, availableCount)
+      }
     },
 
     hideErrorDialog() {
@@ -331,10 +369,15 @@ export default defineComponent({
               article_details.prices = response.data[index].prices
 
               for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
-                if (response.data[index].prices[index_price].count == 0) {
-                  response.data[index].prices[index_price].count = 10000
+                let price = response.data[index].prices[index_price]
+                if (price.count == 0) {
+                  price.count = 10000
                 }
-                this.priceInfo.push(response.data[index].prices[index_price])
+                this.priceInfo.push(price)
+
+               if (this.map_carts.get(price.price_id + price.price_list_id) == undefined) {
+                 this.map_carts.set(price.price_id + price.price_list_id, 0)
+               }
                 this.productCount++
               }
             }
