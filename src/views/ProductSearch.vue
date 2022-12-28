@@ -125,7 +125,7 @@ const isSearchFiltersOpen = ref(false);
 <!--            </template>-->
             <template #cart="{ data }">
               <ui-icon-button
-                @click="addDetailToCart(data.price_id, data.make_name, data.count, data.price_list_id, data.price.toFixed(2))"
+                @click="addDetailToCart(data)"
               >
                 <ui-icon
                   class="hint"
@@ -197,12 +197,14 @@ const isSearchFiltersOpen = ref(false);
       class="cart-dialog"
   >
     <CartAddDialog
+      @hideCartAddDialog="addOrderNotification"
+      @errorHideCartAddDialog="errorAddOrderNotification"
       :hide-added-product="hideAddedProduct"
-      :detail_name="detail_name_cart"
-      :make_name="make_name_cart"
-      :itm_no="itm_no_cart"
-      :price="price_cart"
-      :quantity="quantity_cart"
+      :data="dataPriceForOrder"
+      :quantity="quantityCart"
+      :itm_no_cart="itmNoCart"
+      :price_cart="priceCart"
+      :max_quantity="maxQuantity"
     />
   </ui-dialog>
 
@@ -240,17 +242,16 @@ import SearchService from "@/services/SearchService";
 import type ResponseData from "@/types/ResponseData";
 import type ArticleDetailData from "@/types/ArticleDetailData";
 import type ArticlePriceData from "@/types/ArticlePriceData";
-import OrderService from "@/services/OrderService";
 import CartAddDialog from "@/components/Dialogs/CartAddDialog.vue";
 import {store} from "@/store";
-import {GET_NUMBER_CONFIRM_ORDERS} from "@/store/actions_type";
 import {mapGetters} from "vuex";
 import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
 import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import router from "@/router";
 import SearchFormWithIcon from "@/components/Search/SearchFormWithIcon.vue";
-import e from "cors";
+import {CLEAR_DATA_ORDER_FOR_CART, GET_NUMBER_CONFIRM_ORDERS, SET_DATA_ORDER_FOR_CART} from "@/store/actions_type";
+import {CLEAR_DATA, SET_DATA} from "@/store/mutations_type";
 
 export default defineComponent({
   name: "ProductSearch",
@@ -264,7 +265,20 @@ export default defineComponent({
   },
 
   computed: {
-    ...mapGetters(["currentStateCart", "isAuthenticated", "currentUser"])
+    ...mapGetters(["currentStateCart", "isAuthenticated", "currentUser", "currentStateOrderData"])
+  },
+
+  watch: {
+    isShowAddedProduct() {
+      if (!this.isShowAddedProduct) {
+        this.dataPriceForOrder = {}
+        this.quantityCart = 0
+        this.itmNoCart = ""
+        this.priceCart = 0
+        this.maxQuantity = ""
+        store.dispatch(CLEAR_DATA_ORDER_FOR_CART)
+      }
+    }
   },
 
   data() {
@@ -274,11 +288,11 @@ export default defineComponent({
       productId: '',
       productCount: 0,
       isShowAddedProduct: false,
-      quantity_cart: 0,
-      detail_name_cart: "",
-      make_name_cart: "",
-      itm_no_cart: "",
-      price_cart: 0,
+      dataPriceForOrder: {},
+      quantityCart: 0,
+      itmNoCart: "",
+      priceCart: 0,
+      maxQuantity: "",
       isLoginOpen: false,
       showNotification: false,
       notificationDesc: "",
@@ -291,9 +305,6 @@ export default defineComponent({
 
   created: async function () {
     this.progress = true
-    if (store.getters.isAuthenticated) {
-      await this.listCart();
-    }
     await this.getDetailInfoByItemNo();
     this.progress = false
   },
@@ -359,13 +370,10 @@ export default defineComponent({
       this.priceInfo.length = 0
       await SearchService.prices(productId)
           .then((response: ResponseData) => {
-
             for (let index = 0, len = response.data.length; index < len; index++) {
               const article_details: ArticleDetailData = {};
-
               article_details.id = response.data[index].id
               article_details.detail_name = response.data[index].detail_name
-
               article_details.prices = response.data[index].prices
 
               for (let index_price = 0, len_price = response.data[index].prices.length; index_price < len_price; index_price++) {
@@ -374,10 +382,7 @@ export default defineComponent({
                   price.count = 10000
                 }
                 this.priceInfo.push(price)
-
-               if (this.map_carts.get(price.price_id + price.price_list_id) == undefined) {
-                 this.map_carts.set(price.price_id + price.price_list_id, 0)
-               }
+                this.map_carts.set(price.price_id + price.price_list_id, 0)
                 this.productCount++
               }
             }
@@ -394,9 +399,6 @@ export default defineComponent({
       this.productCount = 0
       this.productId = article
       await this.serviceGetProductInfo(article)
-      if (store.getters.isAuthenticated) {
-        await this.listCart();
-      }
       this.progress = false
     },
 
@@ -411,62 +413,38 @@ export default defineComponent({
       router.go(0)
     },
 
-    async addDetailToCart(priceId : number, make_name : string, quantityMax: number, priceListId: string, prc: number) {
-
+    async addDetailToCart(data : any) {
       if (store.getters.isAuthenticated) {
-        let quantityItem: number
-        quantityItem = this.map_carts.get(priceId + priceListId)
-        if (quantityItem > 0) {
-          if (!(quantityItem > quantityMax)) {
-            this.progress = true
-            await OrderService.addDetailToCart(priceId, quantityItem, priceListId, prc)
-                .then((response: ResponseData) => {
-
-                  this.quantity_cart = response.data.quantity
-                  this.make_name_cart = make_name
-                  this.itm_no_cart = this.productId
-                  this.price_cart = (response.data.priceValue * response.data.quantity).toFixed(2)
-
-                  this.isShowAddedProduct = true
-
-                  store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
-                })
-                .catch((e: Error) => {
-                  this.showNotification = true
-                  this.notificationDesc = "Произошла ошибка. Попробуйте сделать заказ позже."
-                  console.log(e);
-                })
-            this.progress = false
-          } else {
-            this.showNotification = true
-            this.notificationDesc = "Количество товара больше, чем есть в наличии у поставщика"
-          }
-
-        } else {
-          this.showNotification = true
-          this.notificationDesc = "Введите как минимум 1 единицу товара"
-        }
+        this.isShowAddedProduct = true
+        this.dataPriceForOrder = data
+        this.quantityCart = Number(this.map_carts.get(data.price_id + data.price_list_id))
+        this.itmNoCart = this.productId
+        this.priceCart = data.price.toFixed(2)
+        this.maxQuantity = data.count == 10000 ? "Под заказ" : String(data.count)
+        await store.dispatch(SET_DATA_ORDER_FOR_CART)
       } else {
         this.isLoginOpen = true
       }
-    },
-
-    async listCart() {
-      this.map_carts.clear()
-      await OrderService.getCart()
-          .then((response: ResponseData) => {
-            for (let item of response.data.cart) {
-              this.map_carts.set(item.priceId + item.priceListId, item.quantity);
-            }
-          })
-          .catch((e: Error) => {
-            this.progress = false
-            console.log(e);
-          })
+      this.notificationDesc = ""
     },
 
     hideAddedProduct() {
       this.isShowAddedProduct = false
+    },
+
+    addOrderNotification() {
+      this.notificationDesc = ''
+      this.isShowAddedProduct = false
+      this.showNotification = true
+      this.notificationDesc = "Товар успешно добавлен в корзину"
+    },
+
+    errorAddOrderNotification() {
+      this.notificationDesc = ''
+      this.isShowAddedProduct = false
+      alert()
+      this.showNotification = true
+      this.notificationDesc = "Произошла ошибка, попробуйте добавить товар в корзну позже."
     },
 
     loginOpen() {
