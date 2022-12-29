@@ -26,23 +26,29 @@ class OrderService {
     return HTTPClient.get("/order/addOrderToCart", { params : params });
   }
 
+  updateOrderForCart(uuidOrder: String, quantity : number): Promise<any> {
+    let params = {
+      'uuidOrder': uuidOrder,
+      'quantity': quantity,
+    };
+    return HTTPClient.get("/order/updateOrderForCart", { params : params });
+  }
+
   currentNumberConfirmed(): Promise<any> {
     return HTTPClient.get("/order/currentNumberConfirmed");
   }
 
-  deleteOrderForCart(priceId: number, priceListId: string): Promise<any> {
+  deleteOrderForCart(uuidOrder: string): Promise<any> {
     let params = {
-      'priceId': priceId,
-      'priceListId': priceListId
+      'uuidOrder': uuidOrder,
     };
     return HTTPClient.get("/order/cart/delete/", { params : params });
   }
 
-  editCommentToOrderCart(comment: string, priceId: number, priceListId: string): Promise<any> {
+  editCommentToOrderCart(comment: string, uuidOrder: string): Promise<any> {
     let params = {
       'comment': comment,
-      'priceId': priceId,
-      'priceListId': priceListId
+      'uuidOrder': uuidOrder,
     };
     return HTTPClient.get("/order/cart/edit/comment/", { params : params });
   }
