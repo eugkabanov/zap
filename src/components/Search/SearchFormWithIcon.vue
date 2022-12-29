@@ -2,6 +2,7 @@
 const props = defineProps<{
   submitHandler: () => unknown;
   placeholder: string;
+  articleProp: string;
 }>();
 
 </script>
@@ -29,14 +30,15 @@ import type VehicleObject from "@/types/VehicleObject"
 export default defineComponent({
   name: "SearchWithIcon",
   components: {},
-
-  props: {
-
+  watch: {
+    'articleProp': function(value) {
+      this.article = value;
+    },
   },
 
   data() {
     return {
-      article: "",
+      article:  this.$props.articleProp,
     };
   },
 

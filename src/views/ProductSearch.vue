@@ -85,12 +85,12 @@ const isSearchFiltersOpen = ref(false);
 
 <template>
   <main class="pb-5 container-fluid">
-    <h1 class="large mb-5">
-      <ui-icon-button class="d-xl-none" v-model="isSearchFiltersOpen"
-        >menu_open</ui-icon-button
-      >Артикул {{ productId }}
-      <span :class="$tt('body1')" class="ms-3 hint">найдено {{ productCount }} товаров</span>
-    </h1>
+    <h3 class="large mb-5" style="margin-bottom: 20px!important;">
+<!--      <ui-icon-button class="d-xl-none" v-model="isSearchFiltersOpen"-->
+<!--        >menu_open</ui-icon-button-->
+<!--      >Артикул {{ productId }}-->
+      <span :class="$tt('body1')" class="ms-3 hint" style="margin-left: 0px!important;">Найдено предложений: {{ productCount }}</span>
+    </h3>
     <div
         class="col-12 col-lg-5"
         style="margin-bottom: 10px"
@@ -98,6 +98,7 @@ const isSearchFiltersOpen = ref(false);
       <div class="row">
         <div class="col-md-10">
           <SearchFormWithIcon
+              :articleProp="productId"
               placeholder="Поиск по артикулу"
               @updateSearchPage="searchDetailInfoByItemNo"
           />
