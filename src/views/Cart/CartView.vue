@@ -9,7 +9,7 @@ const productsDataBody = [
   },
   { field: "itemName", width: 100},
   { field: "supplierName", width: 100 },
-  { field: "supplierMaxPeriod", width: 80, },
+  { field: "deliveryDay", width: 80, },
   { field: "priceValue", width: 80},
   { slot: "quantity", width: 40, align: "center"},
   { field: "total", width: 80},
@@ -488,7 +488,7 @@ export default defineComponent({
               this.cartsToConfirmTech.push(item.uuid)
 
               item.total = Number((item.priceValue * item.quantity).toFixed(2));
-              item.supplierMaxPeriod += " дней";
+              item.deliveryDay += " дней";
 
               this.items.push(item);
             }
