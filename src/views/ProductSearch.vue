@@ -304,10 +304,14 @@ export default defineComponent({
 
   },
 
-  created: async function () {
-    this.progress = true
-    await this.getDetailInfoByItemNo();
-    this.progress = false
+  mounted: async function () {
+    if (store.getters.isAuthenticated) {
+      this.progress = true
+      await this.getDetailInfoByItemNo();
+      this.progress = false
+    } else {
+      this.isLoginOpen = true
+    }
   },
 
   methods: {
@@ -395,12 +399,16 @@ export default defineComponent({
     },
 
     async searchDetailInfoByItemNo(article: string) {
-      this.progress = true
-      this.priceInfo.length = 0
-      this.productCount = 0
-      this.productId = article
-      await this.serviceGetProductInfo(article)
-      this.progress = false
+      if (store.getters.isAuthenticated) {
+        this.progress = true
+        this.priceInfo.length = 0
+        this.productCount = 0
+        this.productId = article
+        await this.serviceGetProductInfo(article)
+        this.progress = false
+      } else {
+        this.isLoginOpen = true
+      }
     },
 
     async getDetailInfoByItemNo() {
@@ -443,7 +451,6 @@ export default defineComponent({
     errorAddOrderNotification() {
       this.notificationDesc = ''
       this.isShowAddedProduct = false
-      alert()
       this.showNotification = true
       this.notificationDesc = "Произошла ошибка, попробуйте добавить товар в корзну позже."
     },
