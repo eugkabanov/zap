@@ -376,11 +376,11 @@ export default defineComponent({
       router.go(0)
     },
 
-    getStatusConfirmOrder(orderId: number) {
-      OrderService.getStatusOrder(orderId)
+    async getStatusConfirmOrder(uuidOrder: number) {
+      await OrderService.getStatusOrder(uuidOrder)
           .then((response: ResponseData) => {
             for (let item of this.items) {
-              if (item.id == orderId) {
+              if (item.uuid == uuidOrder) {
                 item.status = response.data
               }
             }
@@ -388,6 +388,33 @@ export default defineComponent({
           .catch((e: Error) => {
             console.log(e);
           })
+      this.actualVendorCodesAndStatusOrder(this.items)
+    },
+
+    actualVendorCodesAndStatusOrder(items: any) {
+      this.vendorCodes.clear()
+      this.statusOrders.clear()
+      for (let item of items) {
+        this.vendorCodes.add(item.vendorCode)
+        this.statusOrders.add(item.status)
+      }
+      this.vendorCodesOptions.length = 0
+      for (let vendorCode of this.vendorCodes) {
+        const optionVendorCode: Option = {
+          key: vendorCode,
+          value: vendorCode
+        }
+        this.vendorCodesOptions.push(optionVendorCode)
+      }
+
+      this.statusOrdersOptions.length = 0
+      for (let status of this.statusOrders) {
+        const optionStatus: Option = {
+          key: status,
+          value: status
+        }
+        this.statusOrdersOptions.push(optionStatus)
+      }
     },
 
     async listOrders() {
@@ -399,38 +426,14 @@ export default defineComponent({
 
       await OrderService.getOrders()
         .then((response: ResponseData) => {
+
           for (let item of response.data.orders) {
-
-            this.vendorCodes.add(item.vendorCode)
-            this.statusOrders.add(item.status)
-
-
             item.total = (item.priceValue * item.quantity).toFixed(2);
             this.items.push(item);
             this.itemsTech.push(item);
           }
-
-
-          this.vendorCodesOptions.length = 0
-          for (let vendorCode of this.vendorCodes) {
-            const optionVendorCode: Option = {
-              key: vendorCode,
-              value: vendorCode
-            }
-            this.vendorCodesOptions.push(optionVendorCode)
-          }
-
-          this.statusOrdersOptions.length = 0
-          for (let status of this.statusOrders) {
-            const optionStatus: Option = {
-              key: status,
-              value: status
-            }
-            this.statusOrdersOptions.push(optionStatus)
-          }
-
+          this.actualVendorCodesAndStatusOrder(response.data.orders)
         })
-
         .catch((e: Error) => {
           this.progress = false
           console.log(e);
@@ -613,7 +616,7 @@ export default defineComponent({
 <!--      </template>-->
       <template #select="{ data }">
         <ui-icon-button
-        v-on:click="getStatusConfirmOrder(data.id)"
+        v-on:click="getStatusConfirmOrder(data.uuid)"
         >restart_alt</ui-icon-button>
       </template>
     </ui-table>
