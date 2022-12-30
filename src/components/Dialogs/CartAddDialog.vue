@@ -193,7 +193,14 @@ export default defineComponent({
 
         if (quantityItem > 0) {
             this.progress = true
-            await OrderService.addDetailToCart(this.$props.data.price_id, this.quantityCart, this.$props.data.price_list_id, this.$props.price_cart, this.comment)
+            await OrderService.addDetailToCart(
+                this.$props.data.price_id,
+                this.quantityCart,
+                this.$props.data.price_list_id,
+                this.$props.price_cart,
+                this.comment,
+                this.$props.data.time_delivery,
+            )
                 .then((response: ResponseData) => {
                   store.dispatch(GET_NUMBER_CONFIRM_ORDERS)
                   this.$emit('hideCartAddDialog')

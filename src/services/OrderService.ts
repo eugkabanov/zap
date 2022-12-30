@@ -15,13 +15,21 @@ class OrderService {
     return HTTPClient.get("/order/orders");
   }
 
-  addDetailToCart(priceId: number, quantity : number, priceListId : string, prc: number, comment: string): Promise<any> {
+  addDetailToCart(
+      priceId: number,
+      quantity : number,
+      priceListId : string,
+      prc: number,
+      comment: string,
+      time_delivery: number,
+      ): Promise<any> {
     let params = {
       'priceId': priceId,
       'quantity': quantity,
       'priceListId': priceListId,
       'prc': prc,
-      'comment': comment
+      'comment': comment,
+      'timeDelivery': time_delivery
     };
     return HTTPClient.get("/order/addOrderToCart", { params : params });
   }
