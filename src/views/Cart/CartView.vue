@@ -105,13 +105,13 @@ const activeTab = ref(0);
           <div class="cell" style="display: flex;">
             <ui-icon
                 style="cursor: pointer; margin-right: 16px"
-                v-on:click="updateOrderToCart(data.uuid, data.quantity - 1)">
+                v-on:click="updateOrderToCart(data.uuid, data.quantity - data.minPart, data.maxQuantityItem)">
               remove
             </ui-icon>
-            <label style="margin-bottom: 10px">{{ data.quantity }}</label>
+            <label style="margin-bottom: 5px; margin-top: 2px">{{ data.quantity }}</label>
             <ui-icon
                 style="cursor: pointer; margin-left: 16px"
-                v-on:click="updateOrderToCart(data.uuid,data.quantity + 1)">
+                v-on:click="updateOrderToCart(data.uuid,data.quantity + data.minPart, data.maxQuantityItem)">
               add
             </ui-icon>
           </div>
@@ -368,8 +368,8 @@ export default defineComponent({
       }
     },
 
-    updateOrderToCart(uuidOrder: string, quantity: number) {
-      if (quantity >= 0) {
+    updateOrderToCart(uuidOrder: string, quantity: number, maxQuantityItem: number) {
+      if (quantity >= 0 && quantity <= maxQuantityItem) {
         OrderService.updateOrderForCart(uuidOrder, quantity)
             .then((response: ResponseData) => {
               for (let item of this.items) {
