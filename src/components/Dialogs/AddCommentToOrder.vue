@@ -1,7 +1,7 @@
 <template>
   <ui-dialog-content class="pt-5">
     <div style="color: black" class="mb-2 large bold text-center">
-      Редактирование комментария к заказу
+      Редактировать комментарий к заказу
     </div>
     <div style="color: black" class="bold large text-center">
       <ui-textfield

@@ -28,9 +28,9 @@ const productsDataHead = [
     slot: "th-time",
     columnId: "time",
   },
-  { value: "Цена", align: "center" },
+  { value: "Цена ₽", align: "center" },
   { value: "Количество", align: "center" },
-  { value: "Сумма", align: "center" },
+  { value: "Сумма ₽", align: "center" },
   { value: "Комментарий к заказу", align: "left" },
   { value: ""},
   { value: "Удалить"}

@@ -40,8 +40,8 @@ const searchDataHead = [
   { value: "Бренд"},
   { value: "Наличие"},
   { value: "Количество"},
-  { value: "Срок" },
-  { value: "Цена" },
+  { value: "Срок доставки (дн.)" },
+  { value: "Цена ₽" },
   // { value: "Отправка поставщику" },
   { value: "Количество" },
   { value: "" },
@@ -251,8 +251,7 @@ import NotificationDialog from "@/components/Dialogs/NotificationDialog.vue";
 import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
 import router from "@/router";
 import SearchFormWithIcon from "@/components/Search/SearchFormWithIcon.vue";
-import {CLEAR_DATA_ORDER_FOR_CART, GET_NUMBER_CONFIRM_ORDERS, SET_DATA_ORDER_FOR_CART} from "@/store/actions_type";
-import {CLEAR_DATA, SET_DATA} from "@/store/mutations_type";
+import {CLEAR_DATA_ORDER_FOR_CART, SET_DATA_ORDER_FOR_CART} from "@/store/actions_type";
 
 export default defineComponent({
   name: "ProductSearch",
