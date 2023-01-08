@@ -14,9 +14,12 @@ import {CHECK_AUTH} from "@/store/actions_type";
 
 
 router.beforeEach((to, from, next) => {
-    next()
     store.dispatch(CHECK_AUTH).then(() => {
-        next()
+            if (to.matched.some(record => record.meta.requiresAuth) && store.getters.isAuthenticated === false) {
+                next({path: "/"});
+            } else {
+                next();
+            }
         })
     }
 );

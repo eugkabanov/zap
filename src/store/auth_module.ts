@@ -90,6 +90,7 @@ const actions = {
             } else {
                 context.commit(PURGE_AUTH);
             }
+            resolve()
         })
 
     }

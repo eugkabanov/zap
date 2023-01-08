@@ -80,12 +80,15 @@ const router = createRouter({
       path: "/cart",
       name: "cart",
       component: () => import("../views/Cart/CartView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
-    {
-      path: "/order",
-      name: "order",
-      component: () => import("../views/Cart/OrderView.vue"),
-    },
+    // {
+    //   path: "/order",
+    //   name: "order",
+    //   component: () => import("../views/Cart/OrderView.vue"),
+    // },
 
     // authorisation
     {
@@ -109,46 +112,73 @@ const router = createRouter({
       path: "/balance",
       name: "balance",
       component: () => import("../views/Profile/BalanceView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/park",
       name: "park",
       component: () => import("../views/Profile/GarageView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/favourites",
       name: "favourites",
       component: () => import("../views/Profile/FavouritesView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/dealers",
       name: "dealers",
       component: () => import("../views/Profile/DealersView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/confirm/orders",
       name: "orders",
       component: () => import("../views/Profile/OrdersView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/appeals",
       name: "appeals",
       component: () => import("../views/Profile/AppealsView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/appeals/:appealId",
       name: "appealsDetails",
       component: () => import("../views/Profile/AppealsChat.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/sessions",
       name: "sessions",
       component: () => import("../views/Profile/WebServicesView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/settings",
       name: "settings",
       component: () => import("../views/Profile/SettingsView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
 
     // misc
@@ -176,6 +206,9 @@ const router = createRouter({
       path: "/payment",
       name: "payment",
       component: () => import("../views/PassView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/sources",
@@ -196,6 +229,9 @@ const router = createRouter({
       path: "/console",
       name: "console",
       component: () => import("../views/Console/Console.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
   ],
 });
