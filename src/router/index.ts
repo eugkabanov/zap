@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -229,6 +230,14 @@ const router = createRouter({
       path: "/console",
       name: "console",
       component: () => import("../views/Console/Console.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: () => import("../views/PageNotFound.vue"),
       meta: {
         requiresAuth: true
       }
