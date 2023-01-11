@@ -15,40 +15,55 @@ class OrderService {
     return HTTPClient.get("/order/orders");
   }
 
-  addDetailToCart(priceId: number, quantity : number, priceListId : string, prc: number): Promise<any> {
+  addDetailToCart(
+      priceId: number,
+      quantity : number,
+      priceListId : string,
+      prc: number,
+      comment: string,
+      time_delivery: number,
+      ): Promise<any> {
     let params = {
       'priceId': priceId,
       'quantity': quantity,
       'priceListId': priceListId,
-      'prc': prc
+      'prc': prc,
+      'comment': comment,
+      'timeDelivery': time_delivery
     };
-    return HTTPClient.get("/order/addToCart", { params : params });
+    return HTTPClient.get("/order/addOrderToCart", { params : params });
+  }
+
+  updateOrderForCart(uuidOrder: String, quantity : number): Promise<any> {
+    let params = {
+      'uuidOrder': uuidOrder,
+      'quantity': quantity,
+    };
+    return HTTPClient.get("/order/updateOrderForCart", { params : params });
   }
 
   currentNumberConfirmed(): Promise<any> {
     return HTTPClient.get("/order/currentNumberConfirmed");
   }
 
-  deleteOrderForCart(priceId: number, priceListId: string): Promise<any> {
+  deleteOrderForCart(uuidOrder: string): Promise<any> {
     let params = {
-      'priceId': priceId,
-      'priceListId': priceListId
+      'uuidOrder': uuidOrder,
     };
     return HTTPClient.get("/order/cart/delete/", { params : params });
   }
 
-  editCommentToOrderCart(comment: string, priceId: number, priceListId: string): Promise<any> {
+  editCommentToOrderCart(comment: string, uuidOrder: string): Promise<any> {
     let params = {
       'comment': comment,
-      'priceId': priceId,
-      'priceListId': priceListId
+      'uuidOrder': uuidOrder,
     };
     return HTTPClient.get("/order/cart/edit/comment/", { params : params });
   }
 
-  getStatusOrder(orderId: number): Promise<any> {
+  getStatusOrder(uuidOrder: number): Promise<any> {
     let params = {
-      'order_id': orderId,
+      'uuidOrder': uuidOrder,
     };
     return HTTPClient.get("/order/status/", { params : params });
   }

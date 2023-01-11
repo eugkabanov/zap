@@ -18,6 +18,7 @@ import { defineComponent } from "vue";
 import AccountService from "@/services/AccountService";
 import PersonProfileInfo from "@/components/Sections/PersonProfileInfo.vue";
 import CompanyProfileInfo from "@/components/Sections/CompanyProfileInfo.vue";
+import type CompanyRegistrationData from "@/types/CompanyRegistrationData";
 
 export default defineComponent({
   name: "ProfileInfo",
@@ -29,7 +30,7 @@ export default defineComponent({
 
   data() {
     return {
-      accountInfo: {},
+      accountInfo: {} as CompanyRegistrationData,
     };
   },
 

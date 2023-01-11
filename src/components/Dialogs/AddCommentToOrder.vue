@@ -1,11 +1,16 @@
 <template>
   <ui-dialog-content class="pt-5">
     <div style="color: black" class="mb-2 large bold text-center">
-      ВВЕДИТЕ КОММЕНТАРИЙ К ЗАКАЗУ
+      Редактировать комментарий к заказу
     </div>
     <div style="color: black" class="bold large text-center">
-      <ui-textfield outlined fullwidth v-model="comment">
-
+      <ui-textfield
+          outlined
+          fullwidth
+          v-model="comment"
+          input-type="textarea"
+          rows="8" cols="40"
+      >Комментарий
       </ui-textfield>
     </div>
 
@@ -27,6 +32,8 @@ import {mapGetters} from "vuex";
 
 export default defineComponent({
   name: "AddCommentToOrder",
+  components: {},
+
   methods: {
 
     hideSaveCommentDialog() {
@@ -38,12 +45,24 @@ export default defineComponent({
   data() {
 
     return {
-      comment: ''
+      comment: this.$props.commentCurrent,
     };
+  },
+
+  watch: {
+    'commentCurrent': function(value) {
+      this.comment = value;
+    },
   },
 
   computed: {
     ...mapGetters(["isAuthenticated"])
+  },
+
+  props: {
+    commentCurrent: {
+      type: String
+    },
   },
 });
 </script>

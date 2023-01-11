@@ -1,7 +1,7 @@
 <template>
   <main class="container-fluid pb-5">
     <BalanceBar class="ms-auto mt-2 mb-3" />
-    <h1 class="mb-5 mt-0 large">Настройки профиля</h1>
+    <h1 class="mb-4 mt-5 col-auto large">Настройки профиля</h1>
 
     <div class="col-12 col-xl-8">
       <ui-tab-bar v-model="selectedTab">
@@ -13,9 +13,9 @@
       </ui-tab-bar>
     </div>
 
-    <div class="mt-5">
+    <div class="mt-1">
       <!-- Personal data -->
-      <section v-if="selectedTab === 0" class="col-12 col-sm-6 col-md-4">
+      <section v-if="selectedTab === 0">
         <ProfileInfo />
       </section>
       <!-- Payment details -->
