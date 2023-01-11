@@ -86,7 +86,7 @@
       </ui-textfield>
     </div>
     <div class="col-12 col-md-12" style="margin-top: 10px">
-      <ui-button
+      <ui-button id="continue-shopping"
           :disabled="!buttonAddCartEnable"
           style="color: #0069c8"
           class="w-100"
@@ -107,7 +107,7 @@
       </div>
       <div class="col-12 col-md-6">
         <RouterLink to="/cart">
-          <ui-button class="w-100" raised
+          <ui-button id="go-to-cart" class="w-100" raised
           >Перейти&nbsp;в&nbsp;корзину</ui-button
           >
         </RouterLink>

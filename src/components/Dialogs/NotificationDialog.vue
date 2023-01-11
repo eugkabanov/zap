@@ -10,6 +10,7 @@
     <div class="mt-4 row">
       <div class="col-auto mx-auto">
         <ui-button
+            id="deletion-confirmed"
             raised
             @click="hide_error_dialog"
             v-on:click="notificationContinue"

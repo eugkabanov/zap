@@ -38,6 +38,7 @@ const submitSearch = () => {
                 <div class="col-10 col-lg-auto">
                   <RouterLink to="/search-brand">
                     <ui-button
+                      id="search-by-make"
                       raised
                       style="
                         margin-left: 160px;
