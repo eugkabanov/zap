@@ -12,13 +12,13 @@ import CustomSelect from "../CustomSelect.vue";
       />
     </div>
 
-    <div>
+    <!-- <div>
       <CustomSelect
         class="thin"
         outlined
         fullwidth
         :options="[{ label: 'Гараж' }]"
       ></CustomSelect>
-    </div>
+    </div> -->
   </div>
 </template>

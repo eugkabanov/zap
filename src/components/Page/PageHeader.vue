@@ -1,42 +1,8 @@
-<script setup lang="ts">
-import LoginDialog from "@/components/Dialogs/LoginDialog.vue";
-import NotificationsDialog from "@/components/Dialogs/NotificationsDialog.vue";
-import ProfileDialog from "@/components/Dialogs/ProfileDialog.vue";
-import IconUnarchive from "@/components/icons/IconUnarchive.vue";
-import { ref } from "vue";
-
-const isNavMenuOpen = ref(false);
-const isLoginOpen = ref(false);
-const isProfileDialogOpen = ref(false);
-const isNotificationOpen = ref(false);
-
-const isAuthorisedUser = ref(false);
-
-const openLogin = () => (isLoginOpen.value = true);
-const openProfileDialog = () => (isProfileDialogOpen.value = true);
-const closeProfileDialog = () => (isProfileDialogOpen.value = false);
-
-const closeLoginDialog = () => (isLoginOpen.value = false);
-const onLoginSubmit = () => {
-  isAuthorisedUser.value = true;
-  isLoginOpen.value = false;
-};
-const onLogout = () => {
-  isAuthorisedUser.value = false;
-  isProfileDialogOpen.value = false;
-};
-
-const onNotificationClick = () => {
-  isNotificationOpen.value = true;
-  closeProfileDialog();
-};
-</script>
-
 <template>
-  <ui-drawer type="modal" v-model="isNavMenuOpen">
+  <!-- <ui-drawer type="modal" v-model="isNavMenuOpen">
     <ui-drawer-header>
       <ui-drawer-title
-        ><img
+      ><img
           style="vertical-align: middle"
           alt="Logo"
           src="@/assets/logo-blue.svg"
@@ -54,12 +20,12 @@ const onNotificationClick = () => {
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/about">
           <ui-nav-item :href="href" :active="isActive"
-            >О&nbsp;компании</ui-nav-item
+          >О&nbsp;компании</ui-nav-item
           >
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/work">
           <ui-nav-item :href="href" :active="isActive"
-            >Сотрудничество</ui-nav-item
+          >Сотрудничество</ui-nav-item
           >
         </router-link>
         <router-link v-slot="{ href, isActive }" to="/help">
@@ -73,7 +39,7 @@ const onNotificationClick = () => {
         </router-link>
       </ui-nav>
     </ui-drawer-content>
-  </ui-drawer>
+  </ui-drawer> -->
   <header id="app-header" class="container-fluid">
     <div class="row align-items-center">
       <div class="d-xl-none col-auto">
@@ -88,15 +54,15 @@ const onNotificationClick = () => {
             <RouterLink to="/">Главная</RouterLink>
           </div>
           <div class="col-auto">
-            <RouterLink to="/catalog">Каталог</RouterLink>
+            <RouterLink to="/search-brand">Каталог</RouterLink>
           </div>
           <div class="col-auto">
             <RouterLink to="/about">О&nbsp;компании</RouterLink>
           </div>
-          <div class="col-auto">
+          <!-- <div class="col-auto">
             <RouterLink to="/work">Сотрудничество</RouterLink>
-          </div>
-          <div class="col-auto">
+          </div> -->
+          <!-- <div class="col-auto">
             <RouterLink to="/help">Помощь</RouterLink>
           </div>
           <div class="col-auto">
@@ -104,39 +70,45 @@ const onNotificationClick = () => {
           </div>
           <div class="col-auto">
             <RouterLink to="/contacts">Контакты</RouterLink>
-          </div>
+          </div> -->
         </div>
       </nav>
       <div class="ms-auto col-auto">
         <div class="row row-cols-auto g-0">
-          <div class="header-item">
+          <div v-if="$store.getters.isAuthenticated" class="header-item" id="open-cart">
             <RouterLink to="/cart">
-              <ui-badge overlap :count="12"
-                ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
+              <ui-badge overlap :count="$store.getters.currentStateCart"
+              ><ui-icon outlined>shopping_cart</ui-icon></ui-badge
               ><span class="header-item__label">Корзина</span>
             </RouterLink>
           </div>
-          <div class="header-item">
+          <!-- <div class="header-item">
             <RouterLink to="/favourites">
               <ui-icon>star_outline</ui-icon
               ><span class="header-item__label">Избранное</span>
             </RouterLink>
-          </div>
-          <div class="header-item">
-            <RouterLink to="/orders">
+          </div> -->
+          <div v-if="isAuthorisedUser" class="header-item">
+            <RouterLink to="/confirm/orders">
               <IconUnarchive />
               <span class="header-item__label">Заказы</span>
             </RouterLink>
           </div>
           <div
-            v-if="isAuthorisedUser"
-            v-on:click="openProfileDialog"
-            class="header-item"
+              v-if="$store.getters.isAuthenticated"
+              v-on:click="openProfileDialog"
+              class="header-item"
+              id="open-profile-dialog"
           >
             <ui-icon>perm_identity</ui-icon
-            ><span class="header-item__label">Сергей</span>
+            ><span class="header-item__label">{{ $store.getters.currentUser.login }}</span>
           </div>
-          <div v-else v-on:click="openLogin" class="header-item">
+          <div 
+            v-else
+            v-on:click="openLogin" 
+            class="header-item" 
+            id="open-login"
+          >
             <ui-icon>perm_identity</ui-icon
             ><span class="header-item__label">Вход</span>
           </div>
@@ -146,29 +118,130 @@ const onNotificationClick = () => {
   </header>
 
   <ui-dialog
-    v-model="isProfileDialogOpen"
-    sheet
-    maskClosable
-    class="profile-dialog"
+      v-model="isProfileDialogOpen"
+      sheet
+      maskClosable
+      class="profile-dialog"
   >
     <ProfileDialog
       :close-profile-dialog="closeProfileDialog"
       :on-notification-click="onNotificationClick"
-      :on-logout="onLogout"
+      :on-logout="logout"
+      v-bind:login="profile_user_data_info.login"
+      @updatePage="updatePage"
     />
   </ui-dialog>
-
-  <ui-dialog v-model="isLoginOpen" sheet maskClosable class="login-dialog">
+  <ui-dialog
+      @keyup.enter.native="authorisedUserKeyEnter"
+      v-model="isLoginOpen"
+      :sheet="false"
+      :maskClosable="true"
+      class="login-dialog"
+  >
     <LoginDialog
-      :onLoginSubmit="onLoginSubmit"
-      :closeDialog="closeLoginDialog"
+      v-model:authKeyEnter=authKeyEnterShow
+      @closeDialog="closeLoginDialog"
+      @isAuthorisedUser="authorisedUser"
+      @isLoginOpen="loginOpen"
+      @updatePage="updatePage"
     />
   </ui-dialog>
-
   <ui-dialog v-model="isNotificationOpen" sheet scrollable maskClosable>
-    <NotificationsDialog />
+    <NotificationsDialog v-if="isNotificationOpen" />
   </ui-dialog>
 </template>
+
+<script lang="ts">
+import LineBreak from "../LineBreak.vue";
+import LoginDialog from "../Dialogs/LoginDialog.vue";
+import NotificationsDialog from "../Dialogs/NotificationsDialog.vue";
+import ProfileDialog from "../Dialogs/ProfileDialog.vue";
+import {defineComponent} from "vue";
+import {store} from "@/store";
+import {CHECK_AUTH, GET_NUMBER_CONFIRM_ORDERS, LOGOUT, USER_ME} from "@/store/actions_type";
+import {mapGetters} from "vuex";
+import type UserDataInfo from "@/types/UserDataInfo";
+import type ResponseData from "@/types/ResponseData";
+import router from "@/router";
+
+
+export default defineComponent({
+  name: "page-header",
+
+  components: {
+    LineBreak: LineBreak,
+    LoginDialog: LoginDialog,
+    NotificationsDialog: NotificationsDialog,
+    ProfileDialog: ProfileDialog,
+  },
+
+  data() {
+
+    return {
+      profile_user_data_info: {} as UserDataInfo,
+      isLoginOpen: false,
+      isAuthorisedUser: false,
+      isProfileDialogOpen: false,
+      isNotificationOpen: false,
+      isNavMenuOpen: false,
+      user_data_info: {} as UserDataInfo,
+      authKeyEnterShow: false,
+    };
+  },
+
+  created: function () {
+  },
+
+  computed: {
+    ...mapGetters(["isAuthenticated", "currentUser", "currentStateCart"])
+  },
+
+  methods: {
+
+    loginOpen() {
+      this.isLoginOpen = false;
+    },
+    authorisedUser() {
+      this.isAuthorisedUser = true;
+    },
+
+    authorisedUserKeyEnter() {
+      if (this.authKeyEnterShow){
+        this.authKeyEnterShow = false
+      } else {
+        this.authKeyEnterShow = true
+      }
+    },
+
+    openLogin() {
+      this.isLoginOpen = true;
+    },
+    onNotificationClick() {
+      this.isNotificationOpen = true;
+      this.closeProfileDialog();
+    },
+    closeLoginDialog() {
+      this.isLoginOpen = false;
+    },
+    logout() {
+      store.dispatch(LOGOUT);
+      this.isAuthorisedUser = false;
+      this.isProfileDialogOpen = false;
+      this.updatePage()
+    },
+    openProfileDialog() {
+      this.profile_user_data_info = store.getters.currentUser;
+      this.isProfileDialogOpen = true;
+    },
+    closeProfileDialog() {
+      this.isProfileDialogOpen = false;
+    },
+    updatePage() {
+      router.go(0)
+    },
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 @use "@/styles/vars";

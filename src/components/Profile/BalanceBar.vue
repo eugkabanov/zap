@@ -2,7 +2,7 @@
 import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
 </script>
 <template>
-  <div class="d-none d-xl-block balance-bar small">
+  <!-- <div class="d-none d-xl-block balance-bar small">
     <div class="row">
       <div class="col-auto balance-bar__item">
         <ui-icon class="vertical-align-middle">account_balance_wallet</ui-icon>
@@ -22,7 +22,7 @@ import IconQuestionBlack from "@/components/icons/iconQuestionBlack.vue";
         >
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped lang="scss">

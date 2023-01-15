@@ -12,6 +12,11 @@ function resolve(dir: string) {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "/zap/",
+  server: {
+      proxy: {
+        '/api': 'http://localhost:8080'
+      }
+  },
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {

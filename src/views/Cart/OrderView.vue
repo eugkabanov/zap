@@ -4,6 +4,69 @@ import LineBreak from "../../components/LineBreak.vue";
 import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
 </script>
 
+<script lang="ts">
+import {defineComponent} from "vue";
+import type ResponseData from "@/types/ResponseData";
+import type CartItem from "@/types/CartItem";
+import type ConfirmOrderObject from "@/types/ConfirmOrderObject";
+import OrderService from "@/services/OrderService";
+import router from "@/router";
+
+export default defineComponent({
+  name: "cart",
+  data() {
+    return {
+      items: [] as CartItem[],
+      sum: "" as String,
+      confirm_order_object: {} as ConfirmOrderObject,
+    };
+  },
+
+  mounted: function () {
+    this.listCart()
+  },
+
+  created: function () {
+    
+  },
+
+  methods: {
+    listCart() {
+      this.items.length = 0
+      OrderService.getCart()
+        .then((response: ResponseData) => {
+          let summator = 0;
+          for (let item of response.data.cart) {
+            let currentTotal = (item.priceValue * item.quantity);
+            item.total = currentTotal.toFixed(2);
+            item.supplierMaxPeriod += " дней";
+            this.items.push(item);
+            summator = summator + currentTotal;
+          }
+          this.sum = summator.toFixed(2);
+        })
+
+        .catch((e: Error) => {
+          console.log(e);
+        })
+    },
+
+    doConfirm() {
+
+      // OrderService.confirmOrder()
+      // .then((response: ResponseData) => {
+      //     router.push({path: "/orders"})
+      //   })
+      //
+      //   .catch((e: Error) => {
+      //     console.log(e);
+      //   })
+    }
+
+  },
+});
+</script>
+
 <template>
   <main class="container-fluid pt-4 pb-5">
     <BreadCrumbs
@@ -69,7 +132,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
                   <div class="bold">Адрес выдачи:</div>
 
                   <div class="hint mt-2">
-                    г. Москва. ул. Лениа, д. 24Б
+                    г. Москва. ул. Ленина, д. 24Б
                     <br />
                     тел. +7 (495) 550-55-55 <br />
                     будни с 09:00–19:00
@@ -95,9 +158,9 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
       </div>
 
       <div class="col-12 col-xl-8 mt-5">
-        <div class="large bold">1 товар на сумму 23 364 ₽</div>
+        <div class="large bold">{{items.length}} товар(ов) на сумму {{sum}} ₽</div>
 
-        <div class="mt-4 product">
+        <div class="mt-4 product" v-for="item in items">
           <div class="row">
             <div class="col-12 col-md-4 col-xl-2">
               <img
@@ -109,28 +172,27 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
             </div>
 
             <div class="col-12 col-md-8 col-xl-10">
-              <div class="row">
+              <div class="row" >
                 <div class="col">
                   <div
                     :class="$tt('body1')"
                     style="font-size: 18px"
                     class="x-bold"
                   >
-                    Шина зимняя 245/60R18 109T XL Hakkapeliitta 10p SUV TL
-                    (шип.)
+                    {{item.itemName}}
                   </div>
 
                   <div class="mt-3 fw-400">
-                    <span class="hint">Бренд:</span> NOKIAN
+                    <span class="hint">Бренд:</span> {{item.supplierName}}
                   </div>
                   <div class="mt-1 fw-400">
-                    <span class="hint">Артикул:</span> TS32701
+                    <span class="hint">Артикул:</span> {{item.vendorCode}}
                   </div>
                 </div>
 
                 <div class="col-auto">
-                  <div class="large bold">23 364 ₽</div>
-                  <div class="mt-3">4 шт.</div>
+                  <div class="large bold">{{item.priceValue}} ₽</div>
+                  <div class="mt-3">{{item.quantity}} шт.</div>
                 </div>
               </div>
             </div>
@@ -144,7 +206,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
         <div class="mt-4">
           <ui-chips
             type="choice"
-            :model-value="0"
+            v-model="confirm_order_object.paymentType"
             :options="[
               { label: 'Банковской картой', value: 0 },
               { label: 'По счету', value: 1 },
@@ -163,6 +225,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
             input-type="textarea"
             rows="4"
             cols="40"
+            v-model="confirm_order_object.comment"
           />
         </div>
       </div>
@@ -170,7 +233,7 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
       <div class="mt-5 col-12 col-md-7 col-xl-4">
         <div class="row hint large mb-2">
           <div class="col-auto" :class="$tt('body1')">Стоимость товаров:</div>
-          <div class="col-auto ms-auto" :class="$tt('body1')">23 364 ₽</div>
+          <div class="col-auto ms-auto" :class="$tt('body1')">{{sum}}  ₽</div>
         </div>
         <div class="row hint large mb-3">
           <div class="col-auto" :class="$tt('body1')">Стоимость доставки:</div>
@@ -184,12 +247,14 @@ import BreadCrumbs from "../../components/Page/BreadCrumbs.vue";
             Итого к оплате
           </div>
           <div class="col-auto ms-auto bold" :class="$tt('headline3')">
-            93 456 ₽
+            {{sum}} ₽
           </div>
         </div>
 
         <div class="my-4">
-          <ui-button raised>Подтвердить заказ</ui-button>
+          <!-- <RouterLink to="/orders"> -->
+            <ui-button v-on:click="doConfirm()" raised>Подтвердить заказ</ui-button>
+          <!-- </RouterLink> -->
         </div>
 
         <div :class="$tt('body1')" class="hint">
